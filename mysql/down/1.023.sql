@@ -1,0 +1,1 @@
+ALTER TABLE `account` change `url` `openid` varchar(255) DEFAULT '';
