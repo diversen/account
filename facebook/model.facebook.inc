@@ -1,5 +1,6 @@
 <?php
 
+include_once _COS_PATH . '/modules/account/facebook/src/facebook.php';
 include_module('account/login');
 
 /**
@@ -66,18 +67,13 @@ class accountFacebook {
      */
     public static function auth ($facebook_url){
         $db = new db();
-        try {
-            //$password = md5($password);
-            $search = array ('url' => $facebook_url);
-            $row = $db->selectOne('account', null, $search);
-            if (empty($row)){
-                return 0;
-            } else {
-                return $row;
-            }
-        } catch (PDOException $e) {
 
-            $db>fatalError($e->getMessage());
+        $search = array ('url' => $facebook_url);
+        $row = $db->selectOne('account', null, $search);
+        if (empty($row)){
+            return 0;
+        } else {
+            return $row;
         }
     }
 
@@ -104,20 +100,20 @@ class accountFacebook {
      */
     public static function getUser(){
         $db = new db();
-        try {
-            $row = $db->selectOne('account', 'id', self::$id);           
+        $row = $db->selectOne('account', 'id', self::$id);
+        if (!empty($row)){
             return $row;
-        } catch (PDOException $e) {
-            $db->fatalError($e->getMessage());
         }
         return 0;
     }
-/**
+    
+    /**
     * method for creating a logout link
     */
-    public static function logout($logoutUrl){
+    public static function logout($logoutUrl = null){
 
         $row = accountLogin::getUser();
+
         $str = '';
         if (!empty($row['email'])){
             $str .= lang::translate('logged_in_with_email') . ": <br />" . $row['email'];

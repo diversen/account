@@ -63,14 +63,20 @@ class accountLoginView {
 
         $row = accountLogin::getUser();
         $str = '';
+        $logout_url = "/account/login/index/1";
+
+        // only default account use email as a verification
         if (!empty($row['email'])){
             $str .= lang::translate('logged_in_with_email') . ": <br />" . $row['email'];
         } else {
             $str .= lang::translate('logged_in_with_alternative') . ": <br />" . $row['url'];
-            
+            // facebook special. We need to create speciel link when logging out with facebook
+            if (strstr($row['url'], 'facebook')){
+                // facebook login
+                header("Location: /account/facebook/index");
+            }
         }
-        $str .= "<hr />" . create_link("/account/login/index/1", lang::translate('Logout'));
-        //$str .= "<br />" . create_link("/account/login/index/1", lang::translate('Logout'));
+        $str .= "<hr />" . create_link($logout_url, lang::translate('Logout'));
         view_confirm($str);
     }
 

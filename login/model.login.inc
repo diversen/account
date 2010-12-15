@@ -46,6 +46,7 @@ class accountLogin {
                 $_SESSION['id'] = $account['id'];
                 $_SESSION['admin'] = $account['admin'];
                 $_SESSION['super'] = $account['super'];
+                $_SESSION['account_type'] = 'email';
 
                 if (isset($keep_session)){
                     session::setSystemCookie($account['id']);
@@ -130,12 +131,10 @@ class accountLogin {
      */
     public static function getUser(){
         $db = new db();
-        try {
-            $row = $db->selectOne('account', 'id', self::$id);
+        $row = $db->selectOne('account', 'id', self::$id);
+        if (!empty($row)){
             return $row;
-        } catch (PDOException $e) {
-            $db->fatalError($e->getMessage());
-        }
+        } 
         return 0;
     }
 }

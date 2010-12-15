@@ -1,6 +1,6 @@
 <?php
 
-require _COS_PATH . '/modules/account/facebook/src/facebook.php';
+
 
 
 //$account = new accountOpenid();
@@ -57,11 +57,13 @@ if ($me) {
       // we have a facebook session but no user
       $id = $account->createUser($me['link']);
       $_SESSION['id'] = $id;
+      $_SESSION['account_type'] = 'facebook';
   } else {
       // we have a row - user exists - we set creds
       $_SESSION['id'] = $row['id'];
       $_SESSION['admin'] = $row['admin'];
       $_SESSION['super'] = $row['super'];
+      $_SESSION['account_type'] = 'openid';
   }
   $logoutUrl = $facebook->getLogoutUrl();
   $uri = uri::getInstance();

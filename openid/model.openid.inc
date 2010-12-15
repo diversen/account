@@ -107,6 +107,7 @@ class accountOpenid {
                             // use new id as user id for session
                             $status.=lang::translate('openid_account_created');
                             $_SESSION['id'] = $new;
+                            $_SESSION['account_type'] = 'openid';
 
                             session::setActionMessage(
                                 $status . "<br />" .
@@ -122,6 +123,7 @@ class accountOpenid {
                         $_SESSION['id'] = $account['id'];
                         $_SESSION['admin'] = $account['admin'];
                         $_SESSION['super'] = $account['super'];
+                        $_SESSION['account_type'] = 'openid';
                             
                         // set keep session
                         if (isset($_SESSION['keep_session'])){
