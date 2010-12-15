@@ -21,7 +21,7 @@ if (!accountFacebook::$loggedIn){
 // Create our Application instance.
 $facebook = new Facebook(array(
   'appId'  => get_module_ini('facebook_api_appid'),
-  'secret' => get_module_ini('facebook_api_secrect'),
+  'secret' => get_module_ini('facebook_api_secret'),
   'cookie' => true,
 ));
 
@@ -68,11 +68,11 @@ if ($me) {
   $no_redirect = $uri->fragment(3);
   if ($no_redirect != 2){
     accountLogin::redirectOnLogin('/account/facebook/index/2');
-  } else {
+  } /*else {
     accountLogin::redirectOnLogin();
-  }
+  } */
   accountLogin::setId();
-  accountLoginView::logout();
+  accountFacebook::logout($logoutUrl);
 
 } else {
   session::killSession();

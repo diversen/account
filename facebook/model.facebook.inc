@@ -112,4 +112,21 @@ class accountFacebook {
         }
         return 0;
     }
+/**
+    * method for creating a logout link
+    */
+    public static function logout($logoutUrl){
+
+        $row = accountLogin::getUser();
+        $str = '';
+        if (!empty($row['email'])){
+            $str .= lang::translate('logged_in_with_email') . ": <br />" . $row['email'];
+        } else {
+            $str .= lang::translate('logged_in_with_facebook') . ": <br />" . $row['url'];
+
+        }
+        $str .= "<hr />" . create_link($logoutUrl, lang::translate('Logout'));
+        //$str .= "<br />" . create_link("/account/login/index/1", lang::translate('Logout'));
+        view_confirm($str);
+    }
 }
