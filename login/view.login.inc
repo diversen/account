@@ -61,6 +61,7 @@ class accountLoginView {
     */
     public static function logout(){
 
+        accountLogin::setId();
         $row = accountLogin::getUser();
         $str = '';
         $logout_url = "/account/login/index/1";
@@ -73,7 +74,9 @@ class accountLoginView {
             // facebook special. We need to create speciel link when logging out with facebook
             if (strstr($row['url'], 'facebook')){
                 // facebook login
-                header("Location: /account/facebook/index");
+                header("Location: /account/facebook/index/1");
+
+                
             }
         }
         $str .= "<hr />" . create_link($logout_url, lang::translate('Logout'));

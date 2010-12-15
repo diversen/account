@@ -5,17 +5,13 @@
 
 //$account = new accountOpenid();
 accountFacebook::init();
-/*
-if (!accountFacebook::$loggedIn){
-    //accountOpenid::login();
-    //accountOpenid::viewLoginForm();
+if (accountFacebook::$loggedIn){
+    if ($_SESSION['account_type'] != 'facebook'){
+        accountLoginView::logout();
+        return;
+    }
 
-} else {
-    accountLogin::setId();
-    accountLoginView::logout();
-    return;
-}
-*/
+} 
 
 // Create our Application instance (replace this with your appId and secret).
 // Create our Application instance.
@@ -63,7 +59,7 @@ if ($me) {
       $_SESSION['id'] = $row['id'];
       $_SESSION['admin'] = $row['admin'];
       $_SESSION['super'] = $row['super'];
-      $_SESSION['account_type'] = 'openid';
+      $_SESSION['account_type'] = 'facebook';
   }
   $logoutUrl = $facebook->getLogoutUrl();
   $uri = uri::getInstance();
@@ -74,7 +70,8 @@ if ($me) {
     accountLogin::redirectOnLogin();
   } */
   accountLogin::setId();
-  accountFacebook::logout($logoutUrl);
+  //accountLoginView::logout();
+  //accountFacebook::logout($logoutUrl);
 
 } else {
   session::killSession();
@@ -88,30 +85,17 @@ if ($me) {
 
 
     <?php if ($me): ?>
-    <a href="<?php echo $logoutUrl; ?>">LogOut
-      <!--<img src="http://static.ak.fbcdn.net/rsrc.php/z2Y31/hash/cxrz4k7j.gif">-->
+    <a href="<?php echo $logoutUrl; ?>">
+      <img src="http://static.ak.fbcdn.net/rsrc.php/z2Y31/hash/cxrz4k7j.gif">
     </a>
     <?php else: ?>
 
     <div>
 
-      <a href="<?php echo $loginUrl; ?>">login
-        <!--<img src="http://static.ak.fbcdn.net/rsrc.php/zB6N8/hash/4li2k73z.gif">-->
+      <a href="<?php echo $loginUrl; ?>">
+        <img src="http://static.ak.fbcdn.net/rsrc.php/zB6N8/hash/4li2k73z.gif">
       </a>
     </div>
     <?php endif ?>
 
-    <h3>Session</h3>
-    <?php if ($me): ?>
-    <pre><?php print_r($session); ?></pre>
-
-    <h3>You</h3>
-    <img src="https://graph.facebook.com/<?php echo $uid; ?>/picture">
-    <?php echo $me['name']; ?>
-
-    <h3>Your User Object</h3>
-    <pre><?php print_r($me); ?></pre>
-    <?php else: ?>
-    <strong><em>You are not Connected.</em></strong>
-    <?php endif ?>
-
+    

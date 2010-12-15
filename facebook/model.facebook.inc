@@ -32,9 +32,10 @@ class accountFacebook {
         $uri = uri::getInstance();
         if ($uri->fragment(3) == '1'){
             session::killSession();
-            $redirect = get_module_ini('account_default_url');
-            header( "Location: $redirect");
-            die;
+            //$redirect = get_module_ini('account_default_url');
+            //header( "Location: $redirect");
+            //echo "die";
+            //die;
         }
 
         if (isset($_SESSION['id'])) {
@@ -112,6 +113,7 @@ class accountFacebook {
     */
     public static function logout($logoutUrl = null){
 
+        
         $row = accountLogin::getUser();
 
         $str = '';

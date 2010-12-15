@@ -30,15 +30,17 @@ class accountLogin {
             //echo "we keep session";
             $keep_session = 1;
         }
+
         // logout is the same for all login methods so far.
+        // if l3 fragment is set it means we are logging out
         $uri = uri::getInstance();
         if ($uri->fragment(3) == '1'){
             session::killSession();
             $redirect = get_module_ini('account_default_url');
             header( "Location: $redirect");
-            die;
         }
 
+        // login
         if (isset($_POST['email']) && isset($_POST['password'])){
             $account = self::auth($_POST['email'], $_POST['password']);
             if ($account){
@@ -90,8 +92,7 @@ class accountLogin {
         }
     }
 
-    public static function controlLogin (){
-        
+    public static function controlLogin (){   
         accountLogin::login();
         if (session::isUser()){
             accountLoginView::logout();
@@ -112,17 +113,13 @@ class accountLogin {
      */
     public static function auth ($email, $password){
         $db = new db();
-        try {
-            $password = md5($password);
-            $search = array ('email' => $email, 'password' => $password);
-            $row = $db->selectOne('account', null, $search);
-            if (empty($row)){
-                return 0;
-            } else {
-                return $row;
-            }
-        } catch (PDOException $e) {
-            $this->fatalError($e->getMessage());
+        $password = md5($password);
+        $search = array ('email' => $email, 'password' => $password);
+        $row = $db->selectOne('account', null, $search);
+        if (empty($row)){
+            return 0;
+        } else {
+            return $row;
         }
     }
     /**
