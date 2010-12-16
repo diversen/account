@@ -148,3 +148,7 @@ $_COS_LANG_MODULE['openid_login_cancelled'] = 'OpenID login cancelled';
 
 $_COS_LANG_MODULE['Submit'] = 'Submit';
 
+
+$_COS_LANG_MODULE['logged_in_with_facebook'] = 'Logged in with facebook account';
+$_COS_LANG_MODULE['account_urlid'] = 'URL ID';
+$_COS_LANG_MODULE['logged_in_with_alternative'] = 'Logged in with alternative';

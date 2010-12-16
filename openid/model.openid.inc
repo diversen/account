@@ -69,8 +69,10 @@ class accountOpenid {
      */
     public static function login (){
 
-        include "Zend/OpenId.php";
-        include "Zend/OpenId/Consumer.php";
+        
+        include_once "Zend/OpenId/Consumer.php";
+        include_once "Zend/OpenId.php";
+        include_once "Ak33m/OpenId/Consumer.php";
 
                 //self::checkSystemCookie();
                 
@@ -88,14 +90,14 @@ class accountOpenid {
                 $error = lang::translate('no_valid_open_id_url');
                 
             } else {
-                $consumer = new Zend_OpenId_Consumer();
+                $consumer = new Ak33m_OpenId_Consumer();
                 if (!$consumer->login($_POST['openid_identifier'])) {
                     $status = lang::translate("openid_login_failed");
                 }
             }
         } else if (isset($_GET['openid_mode'])) {
             if ($_GET['openid_mode'] == "id_res") {
-                $consumer = new Zend_OpenId_Consumer();
+                $consumer = new Ak33m_OpenId_Consumer();
                 if ($consumer->verify($_GET, $id)) {
                     $status = lang::translate('openid_valid_login') . ' ' . htmlspecialchars($id). "<br />\n";
                     $account = self::auth($id);
