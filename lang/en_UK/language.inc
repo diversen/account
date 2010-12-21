@@ -77,7 +77,7 @@ $_COS_LANG_MODULE['Account has been verified. You may log in'] = 'Account has be
 $_COS_LANG_MODULE['Is Super'] = 'Is Super';
 
 $_COS_LANG_MODULE['use_open_id'] = 'Login with OpenID';
-$_COS_LANG_MODULE['login_open_id'] = 'Login with OpenID';
+$_COS_LANG_MODULE['login_open_id'] = 'Or Enter your full OpenID';
 $_COS_LANG_MODULE['your_open_id'] = 'Your open ID';
 
 $_COS_LANG_MODULE['openid_loggedin_message'] = 'You are succelfull logged in!';
@@ -151,4 +151,4 @@ $_COS_LANG_MODULE['Submit'] = 'Submit';
 
 $_COS_LANG_MODULE['logged_in_with_facebook'] = 'Logged in with facebook account';
 $_COS_LANG_MODULE['account_urlid'] = 'URL ID';
-$_COS_LANG_MODULE['logged_in_with_alternative'] = 'Logged in with alternative';
+$_COS_LANG_MODULE['logged_in_with_alternative'] = 'Logged in with';

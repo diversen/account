@@ -22,7 +22,29 @@ if (isset($_POST['openid_action'])){
 
 ?>
 <div id="form_main">
-<form method="post">
+<table>
+<tr>
+    <td colspan="2">
+Press your openid provider:
+    </td>
+</tr><td>
+<form method="post" action="">
+<input type="hidden" name="openid_identifier" size="30" value="https://www.google.com/accounts/o8/id"><br />
+<input type="image" src="/images/google_login.jpg"name="openid_action" value="login"><br />
+</form>
+
+</td><td>
+
+<form method="post" action="">
+<input type="hidden" name="openid_identifier" size="30" value="http://me.yahoo.com/"><br />
+<input type="image" src="/images/yahoo_login.jpg"name="openid_action" value="login"><br />
+</form>
+</td></tr>
+</table>
+
+
+
+<form method="post" action="">
 <fieldset>
 <legend><?=lang::translate('login_open_id')?></legend>
 <label for="openid"><?php echo lang::translate('your_open_id')?>:</label><br />
@@ -35,4 +57,9 @@ if (isset($_POST['openid_action'])){
 <input type="submit" name="openid_action" value="login"><br />
 </fieldset>
 </form>
-</div><!--<?php echo lang::translate('Submit')?>-->
+
+
+
+
+
+</div>

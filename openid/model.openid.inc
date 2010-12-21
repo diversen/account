@@ -152,6 +152,10 @@ class accountOpenid {
         }
     }
 
+    public function loginGoogle (){
+        
+    }
+
     /**
      * method for authorizing a user
      *
