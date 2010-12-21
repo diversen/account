@@ -66,19 +66,19 @@ if ($me) {
   }
   $logoutUrl = $facebook->getLogoutUrl();
   $uri = uri::getInstance();
-  $no_redirect = $uri->fragment(3);
-  if ($no_redirect != 2){
-    accountLogin::redirectOnLogin('/account/facebook/index/2');
-  } //else {
+  //$no_redirect = $uri->fragment(3);
+  //if ($no_redirect != 2){
+  //  accountLogin::redirectOnLogin('/account/facebook/index/2');
+  //} //else {
     //accountLogin::redirectOnLogin();
   //}
-
+  // redirect
   if (isset($_SESSION['redirect_on_login'])){
       $redirect = $_SESSION['redirect_on_login'];
       unset($_SESSION['redirect_on_login']);
       header ("Location: $redirect");
   }
-  accountLogin::setId();
+  //accountLogin::setId();
   //accountLoginView::logout();
   //accountFacebook::logout($logoutUrl);
 
