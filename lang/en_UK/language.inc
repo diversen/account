@@ -80,7 +80,7 @@ $_COS_LANG_MODULE['use_open_id'] = 'Login with OpenID';
 $_COS_LANG_MODULE['login_open_id'] = 'Or Enter your full OpenID';
 $_COS_LANG_MODULE['your_open_id'] = 'Your open ID';
 
-$_COS_LANG_MODULE['openid_loggedin_message'] = 'You are succelfull logged in!';
+$_COS_LANG_MODULE['openid_loggedin_message'] = 'You are successful logged in!';
 $_COS_LANG_MODULE['openid_user_logged_in'] = 'You are logged in with openID';
 
 
