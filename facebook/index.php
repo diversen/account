@@ -9,7 +9,7 @@ if (!get_module_ini('use_facebook_login')){
 //$account = new accountOpenid();
 accountFacebook::init();
 if (accountFacebook::$loggedIn){
-    if ($_SESSION['account_type'] != 'facebook'){
+    if (@$_SESSION['account_type'] != 'facebook'){
         accountLoginView::logout();
         return;
     }
