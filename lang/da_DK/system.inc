@@ -15,3 +15,4 @@ $_COS_LANG_MODULE['account_list_users'] = 'Vis brugere';
 $_COS_LANG_MODULE['account_list_openids'] = 'Vis openIDs';
 $_COS_LANG_MODULE['account_create_email_account'] = 'Opret konto med email';
 $_COS_LANG_MODULE['account_request_password'] = 'Glemt password?';
+

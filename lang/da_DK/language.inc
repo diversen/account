@@ -128,3 +128,7 @@ $_COS_LANG_MODULE['openid_account_created'] = 'OpenID konto skabt';
 $_COS_LANG_MODULE['openid_invalid_login'] = 'Ikke korrekt OpenID login';
 $_COS_LANG_MODULE['openid_login_cancelled'] = 'OpenID login afbrudt';
 $_COS_LANG_MODULE['Submit'] = 'Send';
+
+$_COS_LANG_MODULE['logged_in_with_facebook'] = 'Logget ind med facebook';
+$_COS_LANG_MODULE['account_urlid'] = 'URL Id';
+$_COS_LANG_MODULE['logged_in_with_alternative'] = 'Logget ind som';
