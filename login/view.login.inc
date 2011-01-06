@@ -70,13 +70,11 @@ class accountLoginView {
         if (!empty($row['email'])){
             $str .= lang::translate('logged_in_with_email') . ": <br />" . $row['email'];
         } else {
-            $str .= lang::translate('logged_in_with_alternative') . ": <br />" . $row['url'];
+            $str .= lang::translate('logged_in_with_alternative') . ": <br />" . $row['username'];
             // facebook special. We need to create speciel link when logging out with facebook
             if (strstr($row['url'], 'facebook')){
                 // facebook login
-                header("Location: /account/facebook/index/1");
-
-                
+                header("Location: /account/facebook/index/1");           
             }
         }
         $str .= "<hr />" . create_link($logout_url, lang::translate('Logout'));

@@ -26,18 +26,12 @@ if (isset($_POST['openid_action'])){
 <?php
 
 $rows = array (
+    0 => array (
+        'id' => 'select', 'title' => lang::translate('Select Provider')),
     1 => array (
         'id' => 'https://www.google.com/accounts/o8/id', 'title' => 'Google'),
     2 => array (
         'id' => 'https://me.yahoo.com', 'title' => 'yahoo!'),
-    /*
-    3 => array (
-        'id' => 'http://www.flickr.com/username', 'title' => 'Flickr'),
-    4 => array (
-        'id' => 'http://openid.aol.com/username', 'title' => 'AOL'),
-    5 => array ('id' => 'https://username.wordpress.com/', 'title' => 'Wordpress')
-     * 
-     */
 );
 
 $str = '';
@@ -79,9 +73,4 @@ echo $str;
 <input type="submit" name="openid_action" value="login"><br />
 </fieldset>
 </form>
-
-
-
-
-
 </div>
