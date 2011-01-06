@@ -152,3 +152,7 @@ $_COS_LANG_MODULE['Submit'] = 'Submit';
 $_COS_LANG_MODULE['logged_in_with_facebook'] = 'Logged in with facebook account';
 $_COS_LANG_MODULE['account_urlid'] = 'URL ID';
 $_COS_LANG_MODULE['logged_in_with_alternative'] = 'Logged in with';
+
+$_COS_LANG_MODULE['account_openid_select_provider'] = 'Select provider';
+$_COS_LANG_MODULE['account_openid_select_openid_provider'] = 'account_openid_select_openid_provider';
+$_COS_LANG_MODULE['Search'] = 'Search';

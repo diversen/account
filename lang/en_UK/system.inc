@@ -20,3 +20,4 @@ $_COS_LANG_MODULE['account_login_with_email'] = 'Login with Email';
 
 $_COS_LANG_MODULE['account_login_facebook'] = 'Facebook login';
 
+
