@@ -22,27 +22,49 @@ if (isset($_POST['openid_action'])){
 
 ?>
 <div id="form_main">
-<table>
-<tr>
-    <td colspan="2">
-Press your openid provider:
-    </td>
-</tr><td>
-<form method="post" action="">
-<input type="hidden" name="openid_identifier" size="30" value="https://www.google.com/accounts/o8/id"><br />
-<input type="image" src="/images/google_login.jpg"name="openid_action" value="login"><br />
-</form>
 
-</td><td>
+<?php
 
-<form method="post" action="">
-<input type="hidden" name="openid_identifier" size="30" value="http://me.yahoo.com/"><br />
-<input type="image" src="/images/yahoo_login.jpg"name="openid_action" value="login"><br />
-</form>
-</td></tr>
-</table>
+$rows = array (
+    1 => array (
+        'id' => 'https://www.google.com/accounts/o8/id', 'title' => 'Google'),
+    2 => array (
+        'id' => 'https://me.yahoo.com', 'title' => 'yahoo!'),
+    /*
+    3 => array (
+        'id' => 'http://www.flickr.com/username', 'title' => 'Flickr'),
+    4 => array (
+        'id' => 'http://openid.aol.com/username', 'title' => 'AOL'),
+    5 => array ('id' => 'https://username.wordpress.com/', 'title' => 'Wordpress')
+     * 
+     */
+);
 
+$str = '';
+//$str.= lang::translate('account_openid_select_provider');
+$str.= '<form method="post" action="">';
+$str.= "<fieldset>\n";
+$str.= "<legend>" . lang::translate('account_openid_select_provider') . "</legend>";
 
+$extras = array();
+$extras[0] = array('id' => '0', 'title' => lang::translate('account_openid_select_openid_provider'));
+
+$str.= view_drop_down(
+    'openid_identifier',
+    $rows,
+    'title',
+    'id',
+    $extras,
+    'onChange="this.form.submit()"');
+
+$str.= '<input type="hidden" name="openid_action" value="login">';
+//$str.= '<input type="submit" name="submit_form" value="' . lang::translate('Search') . '" />';
+$str.= '</fieldset>';
+$str.= '</form>';
+
+echo $str;
+
+?>
 
 <form method="post" action="">
 <fieldset>
