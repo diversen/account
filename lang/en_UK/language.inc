@@ -156,3 +156,5 @@ $_COS_LANG_MODULE['logged_in_with_alternative'] = 'Logged in with';
 $_COS_LANG_MODULE['account_openid_select_provider'] = 'Select provider';
 $_COS_LANG_MODULE['account_openid_select_openid_provider'] = 'account_openid_select_openid_provider';
 $_COS_LANG_MODULE['Search'] = 'Search';
+
+$_COS_LANG_MODULE['Select Provider'] = 'Select Provider';
