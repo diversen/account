@@ -1,5 +1,7 @@
 <?php
 
+template::setTitle(lang::translate('facebook_login'));
+
 // check to see if user is allowed to use faccebook login
 if (!get_module_ini('use_facebook_login')){
     moduleLoader::$status[403] = 1;

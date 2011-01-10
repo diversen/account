@@ -158,3 +158,6 @@ $_COS_LANG_MODULE['account_openid_select_openid_provider'] = 'account_openid_sel
 $_COS_LANG_MODULE['Search'] = 'Search';
 
 $_COS_LANG_MODULE['Select Provider'] = 'Select Provider';
+
+$_COS_LANG_MODULE['facebook_login'] = 'Facebook Login';
+$_COS_LANG_MODULE['openid_login'] = 'Open Id Login';
