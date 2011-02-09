@@ -130,5 +130,13 @@ $_COS_LANG_MODULE['openid_login_cancelled'] = 'OpenID login afbrudt';
 $_COS_LANG_MODULE['Submit'] = 'Send';
 
 $_COS_LANG_MODULE['logged_in_with_facebook'] = 'Logget ind med facebook';
-$_COS_LANG_MODULE['account_urlid'] = 'URL Id';
+$_COS_LANG_MODULE['account_urlid'] = 'URL ID';
 $_COS_LANG_MODULE['logged_in_with_alternative'] = 'Logget ind som';
+
+$_COS_LANG_MODULE['facebook_login'] = 'Log ind med facebook';
+$_COS_LANG_MODULE['Select Provider'] = 'Vælg udbyder';
+$_COS_LANG_MODULE['account_openid_select_provider'] = 'Vælg open ID udbyder';
+
+$_COS_LANG_MODULE['account_openid_select_openid_provider'] = 'Open ID udbyder';
+
+$_COS_LANG_MODULE['openid_login'] = 'Open ID Login';
