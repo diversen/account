@@ -90,7 +90,7 @@ class accountAdmin extends accountCreate {
     /**
      * method for getting a user. Uses $this->id
      *
-     * @return array|void   array a user row from db or void
+     * @return mixed   array a user row from db or 0
      */
     public function getUser(){
         try {

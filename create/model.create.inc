@@ -136,7 +136,7 @@ class accountCreate extends db {
      * method for checking if user exists
      *
      * @param   string      username
-     * @return  array|false row with username or false
+     * @return  mixed       row with username or false
      */
     public function usernameExist($username){
         try {
