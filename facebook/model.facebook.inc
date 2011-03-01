@@ -1,6 +1,6 @@
 <?php
 
-include_once _COS_PATH . '/modules/account/facebook/src/facebook.php';
+include_once 'facebook.php';
 include_module('account/login');
 
 /**
