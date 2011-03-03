@@ -22,7 +22,7 @@ $_INSTALL['MAIN_MENU_ITEM'] = array (
     'auth' => $show_menu
 );
 
-$_INSTALL['VERSION'] = 1.023;
+$_INSTALL['VERSION'] = 1.03;
 
 $_INSTALL['PUBLIC_CLONE_URL'] = 'git://github.com/diversen/account.git';
 $_INSTALL['PRIVATE_CLONE_URL'] = 'git@github.com:diversen/account.git';
