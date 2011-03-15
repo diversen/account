@@ -15,8 +15,9 @@ $account = new accountAdmin();
 $user = $account->getUser();
 
 if (isset($_POST['submit'])){
-
+    
     if (empty($user['url'])){
+    
         // only validate if user is a email user
         // on url user we can only set if he is admin and super
         $account->validate();
@@ -24,6 +25,7 @@ if (isset($_POST['submit'])){
     if (empty($account->errors)){
 
         if (!empty($user['url'])){
+
             $res = $account->updateUrlUser();
         } else {
             $res = $account->updateEmailUser();
@@ -40,9 +42,15 @@ if (isset($_POST['submit'])){
     }
 }
 
+
+
 if (!empty($user['url'])){
     viewAccountAdmin::updateUrlUser($user);
+    
 } else {
+    
     viewAccountAdmin::updateEmailUser($user);
 }
+
+
 

@@ -1,7 +1,5 @@
 <?php
 
-
-
 /**
  * view file for account/admin
  * @package    account
@@ -10,7 +8,8 @@
 /**
  * include captcha lib.
  */
-include_once "lib/captcha.php";
+include_once "html.php";
+include_once "captcha.php";
 
 class viewAccountAdmin {
 
@@ -20,89 +19,51 @@ class viewAccountAdmin {
     * @param array row to use when updating a user
     */
     function updateEmailUser ($values){
-        if (isset($_POST['submit'])){
-            $values = $_POST;
 
-        } else {
+        if (!isset($_POST['submit'])){
             $values['password'] = '';
             $values['password2'] = '';
-        }
-        if (isset($values['admin']) && $values['admin'] != 0) {
-            $checked = 'checked';
-        } else {
-            $checked = '';
-        }
+        } 
 
-        if (isset($values['super']) && $values['super'] != 0) {
-            $super_checked = 'checked';
-        } else {
-            $super_checked = '';
-        }
+        html::$autoLoadTrigger = 'submit';
+        html::init($values);
+        html::formStart('account_form');
+        html::legend(lang::translate('Edit User Account'));
+        html::label('username', lang::translate('Username') );
+        html::text('username');
+        html::label('email', lang::translate('Email') );
+        html::text('email');
+        html::label('password', lang::translate('Password') );
+        html::password('password');
+        html::label('password2', lang::translate('Retype Password') );
+        html::password('password2');
+        html::label('verified', lang::translate('Is Verified') );
+        html::checkbox ('verified');
+        html::label('admin', lang::translate('Is Admin') );
+        html::checkbox ('admin');
+        html::label('super', lang::translate('Is Super') );
+        html::checkbox ('super');
+        html::submit('submit', 'Update');
+        html::formEnd();
+        echo html::$formStr;
 
-
-        ?>
-    <div id="form_main">
-    <form method="post" action="">
-    <fieldset>
-    <legend><?php echo lang::translate('Edit User Account') ?></legend>
-    <label for="username"><?php echo lang::translate('Username')?>:</label><br />
-    <input type="text" name="username" value="<?php echo htmlspecialchars($values['username'])?>"><br />
-    <label for="email"><?php echo lang::translate('Email')?>:</label><br />
-    <input type="text" name="email" value="<?php echo htmlspecialchars($values['email'])?>"><br />
-    <label for="password"><?php echo lang::translate('Password')?>:</label><br />
-    <input type="password" name="password" value="<?php echo htmlspecialchars($values['password'])?>"><br />
-    <label for="password2"><?php echo lang::translate('Retype Password')?>:</label><br />
-    <input type="password" name="password2" value="<?php echo htmlspecialchars($values['password2'])?>"><br />
-    <label for="admin"><?php echo lang::translate('Is Admin')?>:</label><br />
-    <input type="checkbox" name="admin" value="1" <?php echo $checked; ?>><br />
-    <label for="super"><?php echo lang::translate('Is Super')?>:</label><br />
-    <input type="checkbox" name="super" value="1" <?php echo $super_checked; ?>><br />
-    <input type="submit" name="submit" value="<?php echo lang::translate('Submit')?>">
-    </fieldset>
-    </form>
-    </div>
-    <?php
-
-    }
+   }
 
     function updateUrlUser ($values){
-        if (isset($_POST['submit'])){
-            $values = $_POST;
 
-        } else {
-            $values['password'] = '';
-            $values['password2'] = '';
-        }
-        if (isset($values['admin']) && $values['admin'] != 0) {
-            $checked = 'checked';
-        } else {
-            $checked = '';
-        }
-
-        if (isset($values['super']) && $values['super'] != 0) {
-            $super_checked = 'checked';
-        } else {
-            $super_checked = '';
-        }
-
-
-        ?>
-    <div id="form_main">
-    <form method="post" action="">
-    <fieldset>
-    <legend><?php echo lang::translate('Edit User Account') ?></legend>
-    <label for="url"><?php echo lang::translate('account_urlid')?></label> ::
-    <?php echo htmlspecialchars($values['url'])?><br />
-    <label for="admin"><?php echo lang::translate('Is Admin')?>:</label><br />
-    <input type="checkbox" name="admin" value="1" <?php echo $checked; ?>><br />
-    <label for="super"><?php echo lang::translate('Is Super')?>:</label><br />
-    <input type="checkbox" name="super" value="1" <?php echo $super_checked; ?>><br />
-    <input type="submit" name="submit" value="<?php echo lang::translate('Submit')?>">
-    </fieldset>
-    </form>
-    </div>
-    <?php
-
+        html::$autoLoadTrigger = 'submit';
+        html::init($values);
+        html::formStart('account_form');
+        html::legend(lang::translate('Edit User Account'));
+        html::label('verified', lang::translate('Is Verified') );
+        html::checkbox ('verified');
+        html::label('admin', lang::translate('Is Admin') );
+        html::checkbox ('admin');
+        html::label('super', lang::translate('Is Super') );
+        html::checkbox ('super');
+        html::submit('submit', 'Update');
+        html::formEnd();
+        echo html::$formStr;
     }
 
 
@@ -112,89 +73,90 @@ class viewAccountAdmin {
      *
      * @param array array of users
      */
-    function users($users){ ?>
-    <!-- view_users -->
-    <div id="account_list">
-    <table><?php
+    function users($users){
+        echo "<div id=\"account_list\">\n";
+        echo "<table border=\"1\">\n";
         foreach ($users as $k => $v) {
-
             if (!empty($v['url'])){
                 self::viewUrlUser($v);
             } else {
                 self::viewEmailUser($v);
             }
-
-     } ?>
-    </table>
-    </div>
-    <!-- / view_users -->
-    <?php
-
+        }
+        echo "</table>\n";
+        echo "</div>\n";
     }
 
 
-    public static function viewEmailUser ($v) { ?>
-<!-- email user -->
-<tr>
-    <td><?=$v['username']?></td>
-    <td><?=$v['email']?></td><?
+    public static function viewEmailUser ($v) {
+        echo "<tr>\n";
+        echo "<td>$v[username]</td>\n";
+        echo "</tr>\n";
+        echo "<tr>\n";
+        echo "<td>$v[email]</td>\n";
 
-    if ($v['admin']) { ?>
-    <td><?=lang::translate('Admin')?></td><? } else { ?>
-    <td><?=lang::translate('Not Admin')?></td><? }
+        if ($v['admin']) {
+            echo "<td>" . lang::translate('Admin') . "</td>\n";
+        } else {
+            echo "<td>" . lang::translate('Not Admin') . "</td>\n";
+        }
 
-    if ($v['super']) { ?>
-    <td><?=lang::translate('Super')?></td><? } else { ?>
-    <td><?=lang::translate('Not Super')?></td><? }
+        if ($v['super']) {
+            echo "<td>" . lang::translate('Super') . "</td>\n";
+        } else {
+            echo "<td>" . lang::translate('Not Super'). "</td>\n";
+        }
 
-    if ($v['verified']) { ?>
-    <td><?=lang::translate('Verified')?></td><? } else { ?>
-    <td><?=lang::translate('Not Verified')?></td><? } ?>
-    <td><?=$v['created']?></td>
-    <td><?=create_link("/account/admin/edit/$v[id]", lang::translate('Edit'))?></td>
-    <td><?=create_link("/account/admin/delete/$v[id]", lang::translate('Delete'))?></td>
-</tr><?php
-    }
-
-    public static function viewUrlUser ($v) { ?>
-<!-- email user -->
-<tr>
-    <td><?=$v['username']?></td>
-    <td>&nbsp;</td><?
-
-    if ($v['admin']) { ?>
-    <td><?=lang::translate('Admin')?></td><? } else { ?>
-    <td><?=lang::translate('Not Admin')?></td><? }
-
-    if ($v['super']) { ?>
-    <td><?=lang::translate('Super')?></td><? } else { ?>
-    <td><?=lang::translate('Not Super')?></td><? }
-
-    if ($v['verified']) { ?>
-    <td>&nbsp;</td><? } else { ?>
-    <td>&nbsp;</td><? } ?>
-    <td><?=$v['created']?></td>
-    <td><?=create_link("/account/admin/edit/$v[id]", lang::translate('Edit'))?></td>
-    <td><?=create_link("/account/admin/delete/$v[id]", lang::translate('Delete'))?></td>
-</tr><?php
-    }
+        if ($v['verified']) {
+            echo "<td>" . lang::translate('Verified') . "</td>\n";
+        } else {
+            echo "<td>" . lang::translate('Not Verified') . "</td>";
+        }
+        echo "<td>$v[created]</td>\n";
+        echo "<td>" . create_link("/account/admin/edit/$v[id]", lang::translate('Edit')) . "</td>";
     
+        echo "</tr>\n";
+    }
+
+    public static function viewUrlUser ($v) {
+
+        echo "<tr>\n";
+        echo "<td colspan=\"6\">" . get_profile_link($v, array('uniqid' => true)) . "</td>";
+        echo "</tr>\n";
+        echo "<tr>\n";
     
+        if ($v['admin']) {
+            echo "<td>" . lang::translate('Admin') . "</td>\n";
+        } else {
+            echo "<td>" . lang::translate('Not Admin') . "</td>\n";
+        }
+        if ($v['super']) {
+            echo "<td>" . lang::translate('Super') . "</td>\n";
+        } else {
+            echo "<td>" . lang::translate('Not Super') . "</td>\n";
+        }
+        if ($v['verified']) {
+            echo "<td>&nbsp;</td>\n";
+        } else {
+            echo "<td>Verified</td>\n";
+        }        
+        echo "<td>" . $v['created'] . "</td>";
+        echo "<td>" . create_link("/account/admin/edit/$v[id]", lang::translate('Edit')) . "</td>\n";
+        echo "<td>" . create_link("/account/admin/delete/$v[id]", lang::translate('Edit')) . "</td>\n";
+        echo "</tr>\n";
+    }
+      
     /**
      * function for view a delete user form
      *
      * @param array row with user
      */
-    function delete ($values){ ?>
-    <div id="form_main">
-    <form method="post" action="">
-    <fieldset>
-    <legend><?php echo lang::translate('Delete User')?>:<?php echo $values['username']?></legend>
-    <p><input type="submit" name="submit" value="<?php echo lang::translate('Delete')?>" /></p>
-    </fieldset>
-    </form>
-    </div>
-    <?php
-
+    function delete ($values){
+        html::formStart('account_form');
+        html::legend(lang::translate('Delete User Account'));
+        html::label('verified', lang::translate('Delete') );
+        html::submit('submit', 'Delete');
+        html::formEnd();
+        echo html::$formStr;
     }
 }

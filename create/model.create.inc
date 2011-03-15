@@ -188,6 +188,4 @@ class accountCreate extends db {
         $res = $this->update('account', $values, $row['id']);
         return $res;
     }
-
-
 }

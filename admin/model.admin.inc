@@ -44,6 +44,13 @@ class accountAdmin extends accountCreate {
         // the category id
         $this->id = (int)$this->uri->fragment(3);
     }
+
+    public static function getUserId (){
+        $uri = uri::getInstance();
+        // the category id
+        return (int)$uri->fragment(3);
+    }
+
     /**
      * Validate and sets this->errors
      */
@@ -81,7 +88,6 @@ class accountAdmin extends accountCreate {
      * Validate and sets this->errors
      */
     function validateUrlUser(){
-
         if (empty($_POST['submit'])){
             return;
         }
@@ -93,12 +99,9 @@ class accountAdmin extends accountCreate {
      * @return mixed   array a user row from db or 0
      */
     public function getUser(){
-        try {
-            $row = $this->selectOne('account', 'id', $this->id);
-            return $row;
-        } catch (PDOException $e) {
-            $this->fatalError($e->getMessage());
-        }
+        $id = self::getUserId();
+        $row = $this->selectOne('account', 'id', $id);
+        return $row;
     }
 
     /**
@@ -107,27 +110,8 @@ class accountAdmin extends accountCreate {
      * @return  array   rows containing all users
      */
     public function getUsers(){
-        try {
-            $query = "SELECT * FROM `account` WHERE `username` != ''";
-            $rows = $this->selectQuery($query);
-        } catch (PDOException $e) {
-            $this->fatalError($e->getMessage());
-        }
-        return $rows;
-    }
-
-/**
-     * method for getting all users
-     *
-     * @return  array   rows containing all users
-     */
-    public function getOpenidUsers(){
-        try {
-            $query = "SELECT * FROM `account` WHERE `openid` != 'NULL'";
-            $rows = $this->selectQuery($query);
-        } catch (PDOException $e) {
-            $this->fatalError($e->getMessage());
-        }
+        $query = "SELECT * FROM `account`";
+        $rows = $this->selectQuery($query);     
         return $rows;
     }
 
@@ -138,15 +122,11 @@ class accountAdmin extends accountCreate {
      * @return  array|false assoc row with user or false
      */
     public function usernameExist($username){
-        try {
-            $query = "SELECT * FROM  `account` WHERE `username` = :username AND `id` <> :id";
-            $sth = self::$dbh->prepare($query);
-            $sth->execute(array(':username' => $username, ':id' => $this->id ));
-            $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
-            return count($rows);
-        } catch (PDOException $e) {
-            $this->fatalError($e->getMessage());
-        }
+        $query = "SELECT * FROM  `account` WHERE `username` = :username AND `id` <> :id";
+        $sth = self::$dbh->prepare($query);
+        $sth->execute(array(':username' => $username, ':id' => $this->id ));
+        $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
+        return count($rows);    
     }
 
     /**
@@ -155,38 +135,22 @@ class accountAdmin extends accountCreate {
      * @return int affected rows
      */
     public function updateEmailUser (){
-        if (isset($_POST['admin']) && $_POST['admin'] == 1){
-            $is_admin = 1;
-        } else {
-            $is_admin = 0;
+    
+        $values = array(
+            'email' => $_POST['email'],
+            'username'=> $_POST['username'],
+        );
+
+        isset($_POST['admin']) ? $values['admin'] = 1 : $values['admin'] = 0;
+        isset($_POST['super']) ? $values['super'] = 1 : $values['super'] = 0;
+        isset($_POST['verified']) ? $values['verified'] = 1 : $values['verified'] = 0;
+    
+        if ( strlen($_POST['password']) != 0){
+            $values['password'] = md5($_POST['password']);
         }
 
-        if (isset($_POST['super']) && $_POST['super'] == 1){
-            $is_super = 1;
-        } else {
-            $is_super = 0;
-        }
-        try {
-            $values =
-                array('email' => $_POST['email'], 'username'=> $_POST['username'], 'admin' => $is_admin, 'super' => $is_super
-                );
-
-
-            if ( strlen($_POST['password']) != 0){
-            $values =
-                array(  'email' => $_POST['email'],
-                        'username'=> $_POST['username'],
-                        'password' => md5($_POST['password']),
-                        'admin' => $is_admin,
-                        'super' => $is_super
-
-                );
-            }
-            $res = $this->update('account', $values, $this->id);
-            return $res;
-        } catch (PDOException $e) {
-            $this->fatalError($e->getMessage());
-        }
+        $res = $this->update('account', $values, $this->id);
+        return $res;
     }
 
     /**
@@ -194,37 +158,12 @@ class accountAdmin extends accountCreate {
      *
      * @return int affected rows
      */
-    public function updateUrlUser (){
-        if (isset($_POST['admin']) && $_POST['admin'] == 1){
-            $is_admin = 1;
-        } else {
-            $is_admin = 0;
-        }
-
-        if (isset($_POST['super']) && $_POST['super'] == 1){
-            $is_super = 1;
-        } else {
-            $is_super = 0;
-        }
-        try {
-            $values =
-                array(  'admin' => $is_admin, 'super' => $is_super
-                );
-
-
-
-            $values =
-                array(  
-                        'admin' => $is_admin,
-                        'super' => $is_super
-
-                );
-
-            $res = $this->update('account', $values, $this->id);
-            return $res;
-        } catch (PDOException $e) {
-            $this->fatalError($e->getMessage());
-        }
+    public function updateUrlUser (){      
+        isset($_POST['admin']) ? $values['admin'] = 1 : $values['admin'] = 0;
+        isset($_POST['super']) ? $values['super'] = 1 : $values['super'] = 0;
+        isset($_POST['verified']) ? $values['verified'] = 1 : $values['verified'] = 0;
+        $res = $this->update('account', $values, $this->id);
+        return $res;
     }
 
     /**
