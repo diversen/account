@@ -37,7 +37,6 @@ class accountCreate extends db {
     function validate(){
 
         if (!isset($_POST['submit'])){
-            $_POST['username'] = '';
             $_POST['password'] = '';
             $_POST['password2'] = '';
             $_POST['email'] = '';
@@ -45,19 +44,6 @@ class accountCreate extends db {
             return null;
         }
 
-        $pattern = "/^([a-zA-Z0-9._])+$/";
-        if (!preg_match($pattern, $_POST['username'])){
-            $this->errors['username'] = 
-            lang::translate('Username can only contain alphabetic chars and number and . and _');
-        }
-
-        if (strlen($_POST['username']) < 5){
-            $this->errors['username'] = 
-            lang::translate('Username should be at least 5 chars long');
-        }
-        if ($this->usernameExist($_POST['username'])){
-            $this->errors['username'] = lang::translate('Username exists. Pick another');
-        }
         if ($this->emailExist($_POST['email'])){
             $this->errors['email'] = lang::translate('Email already exists.');
         }
@@ -78,33 +64,29 @@ class accountCreate extends db {
     /**
      * method for creating a user
      *
-     * @global array    register::$vars['coscms_main'] containing globals mail settings
      * @return int      1 success or 0 on failure
      */
     public function createUser (){
         //global register::$vars['coscms_main'];
         self::$dbh->beginTransaction();
         $md5_key = md5(uniqid(rand(), true));
-        try {
-            $values = 
-                array('username'=> $_POST['username'],
-                      'password' => md5($_POST['password']),
-                      'email' => $_POST['email'],
-                      'md5_key' => $md5_key
-                  
-                );
-             $res = $this->insert('account', $values);
-        } catch (PDOException $e) {
-            $this->fatalError($e->getMessage());
-        }
+
+        $values = 
+            array('username'=> $_POST['email'],
+                'password' => md5($_POST['password']),
+                'email' => $_POST['email'],
+                'md5_key' => $md5_key);
+
+        $res = $this->insert('account', $values);
+        $last_insert_id = db::$dbh->lastInsertId();
 
         $message = lang::translate('signup');
         $subject = lang::translate('signup_subject');
-        $message = str_replace ('!username!', $_POST['username'], $message);
+        $message = str_replace ('!username!', $_POST['email'], $message);
         $site_name = 'http://' . $_SERVER['HTTP_HOST'];
         $subject = str_replace ('!site_name!', $site_name, $subject);
         $message = str_replace ('!site_name!', $site_name, $message);
-        $verify_key = $site_name . '/account/create/verify/1/' . $_POST['username'] . '/' . $md5_key;
+        $verify_key = "$site_name/account/create/verify/$last_insert_id/$md5_key";
         $message = str_replace ('!verify_key!', $verify_key, $message);
         $from = register::$vars['coscms_main']['site_email'];
         if (mail_utf8($_POST['email'], $subject, $message, $from)){
@@ -116,19 +98,13 @@ class accountCreate extends db {
         }
     }
 
-/**
+    /**
      * method for creating a user
      *
-     * @global array    register::$vars['coscms_main'] containing globals mail settings
      * @return int      1 success or 0 on failure
      */
-    public function createSystemUser ($values){
-       // global register::$vars['coscms_main'];
-        try {           
-             $res = $this->insert('account', $values);
-        } catch (PDOException $e) {
-            $this->fatalError($e->getMessage());
-        }
+    public function createSystemUser ($values){       
+        $res = $this->insert('account', $values);
         return $res;
     }
 
@@ -139,13 +115,8 @@ class accountCreate extends db {
      * @return  mixed       row with username or false
      */
     public function usernameExist($username){
-        try {
-            $row = $this->selectOne('account', 'username', $username);
-            return $row;
-        } catch (PDOException $e) {
-            $this->fatalError($e->getMessage());
-        }
-        return false;
+        $row = $this->selectOne('account', 'username', $username);
+        return $row;
     }
     /**
      * method for checking if a email exists in `account` table
@@ -154,13 +125,8 @@ class accountCreate extends db {
      * @return  array|0 user row or false
      */
     public function emailExist($email){
-        try {
-            $row = $this->selectOne('account', 'email', $email);
-            return $row;
-        } catch (PDOException $e) {
-            $this->fatalError($e->getMessage());
-        }
-        return false;
+        $row = $this->selectOne('account', 'email', $email);
+        return $row;
     }
 
     /**
@@ -170,19 +136,25 @@ class accountCreate extends db {
      */
     public function verifyAccount(){
         $uri = uri::getInstance();
-        $username = $uri->fragment(4);
-        $md5_key = $uri->fragment(5);
-        $search = array ('username' => $username, 'md5_key' => $md5_key);
+        $account_id = $uri->fragment(3);
+        $md5_key = $uri->fragment(4);
+        
+        $search = array ('id' => $account_id,);
         $row = $this->selectOne('account', null, $search);
+
+        if ($row['verified'] == 1){
+            return 2;
+        }
+
+        $search = array ('id' => $account_id, 'md5_key' => $md5_key);
+        $row = $this->selectOne('account', null, $search);
+        
         if (empty($row)){
             $this->errors[] = lang::translate
                 ('No such combination between user and validation key');
             return 0;
         }
-
-        if ($row['verified'] == 1){
-            return 2;
-        }
+     
         $md5_key = md5(uniqid(rand(), true));
         $values = array('verified' => 1, 'md5_key' => $md5_key);
         $res = $this->update('account', $values, $row['id']);

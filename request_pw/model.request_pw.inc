@@ -63,7 +63,7 @@ class request extends db {
         $site_name = 'http://' . $_SERVER['HTTP_HOST'];
         $subject = str_replace ('!site_name!', $site_name, $subject);
         $message = str_replace ('!site_name!', $site_name, $message);
-        $verify_key = $site_name . '/account/request_pw/verify/1/' . $row['username'] . '/' . $md5_key;
+        $verify_key = "$site_name/account/request_pw/verify/$row[id]/$md5_key";
         $message = str_replace ('!verify_key!', $verify_key, $message);
         $from = register::$vars['coscms_main']['site_email'];
 
@@ -81,9 +81,9 @@ class request extends db {
      */
     public function setNewPassword(){
         $uri = uri::getInstance();
-        $username = $uri->fragment(4);
-        $md5_key = $uri->fragment(5);
-        $search = array ('username' => $username, 'md5_key' => $md5_key);
+        $id = $uri->fragment(3);
+        $md5_key = $uri->fragment(4);
+        $search = array ('id' => $id, 'md5_key' => $md5_key);
         $row = $this->selectOne('account', null, $search);
         $md5_key = md5(uniqid(rand(), true));
         $values = array('password' => md5($_POST[password]), 'md5_key' => $md5_key);
@@ -111,9 +111,9 @@ class request extends db {
      */
     public function verifyAccount(){
         $uri = uri::getInstance();
-        $username = $uri->fragment(4);
-        $md5_key = $uri->fragment(5);
-        $search = array ('username' => $username, 'md5_key' => $md5_key);
+        $id = $uri->fragment(3);
+        $md5_key = $uri->fragment(4);
+        $search = array ('id' => $id, 'md5_key' => $md5_key);
         $row = $this->selectOne('account', null, $search);
         if (empty($row)){
             $this->errors[] = lang::translate(
