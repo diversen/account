@@ -116,6 +116,7 @@ class accountCreate extends db {
      */
     public function usernameExist($username){
         $row = $this->selectOne('account', 'username', $username);
+        if (empty($row)) return 0;
         return $row;
     }
     /**
@@ -126,6 +127,7 @@ class accountCreate extends db {
      */
     public function emailExist($email){
         $row = $this->selectOne('account', 'email', $email);
+        if (empty($row)) return 0;
         return $row;
     }
 
