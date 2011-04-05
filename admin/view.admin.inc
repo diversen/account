@@ -11,6 +11,8 @@
 include_once "html.php";
 include_once "captcha.php";
 
+template::setInlineCss(_COS_PATH . "/modules/account/assets/admin.css");
+
 class viewAccountAdmin {
 
    /**
@@ -74,26 +76,22 @@ class viewAccountAdmin {
      * @param array array of users
      */
     function users($users){
-        echo "<div id=\"account_list\">\n";
-        echo "<table border=\"1\">\n";
+        echo "<div >\n";
+        echo "<table class=\"account_list\">\n";
         foreach ($users as $k => $v) {
-            if (!empty($v['url'])){
-                self::viewUrlUser($v);
-            } else {
-                self::viewEmailUser($v);
-            }
+            self::viewUser($v);
         }
         echo "</table>\n";
         echo "</div>\n";
     }
 
 
-    public static function viewEmailUser ($v) {
+    public static function viewUser ($v) {
         echo "<tr>\n";
-        echo "<td>$v[username]</td>\n";
+        echo "<td colspan=\"6\">" . get_profile_link($v, array('uniqid' => true)) . "</td>";
         echo "</tr>\n";
         echo "<tr>\n";
-        echo "<td>$v[email]</td>\n";
+        //echo "<td>$v[email]</td>\n";
 
         if ($v['admin']) {
             echo "<td>" . lang::translate('Admin') . "</td>\n";
@@ -112,39 +110,13 @@ class viewAccountAdmin {
         } else {
             echo "<td>" . lang::translate('Not Verified') . "</td>";
         }
-        echo "<td>$v[created]</td>\n";
-        echo "<td>" . create_link("/account/admin/edit/$v[id]", lang::translate('Edit')) . "</td>";
-    
-        echo "</tr>\n";
-    }
-
-    public static function viewUrlUser ($v) {
-
-        echo "<tr>\n";
-        echo "<td colspan=\"6\">" . get_profile_link($v, array('uniqid' => true)) . "</td>";
-        echo "</tr>\n";
-        echo "<tr>\n";
-    
-        if ($v['admin']) {
-            echo "<td>" . lang::translate('Admin') . "</td>\n";
-        } else {
-            echo "<td>" . lang::translate('Not Admin') . "</td>\n";
-        }
-        if ($v['super']) {
-            echo "<td>" . lang::translate('Super') . "</td>\n";
-        } else {
-            echo "<td>" . lang::translate('Not Super') . "</td>\n";
-        }
-        if ($v['verified']) {
-            echo "<td>&nbsp;</td>\n";
-        } else {
-            echo "<td>Verified</td>\n";
-        }        
         echo "<td>" . $v['created'] . "</td>";
         echo "<td>" . create_link("/account/admin/edit/$v[id]", lang::translate('Edit')) . "</td>\n";
-        echo "<td>" . create_link("/account/admin/delete/$v[id]", lang::translate('Edit')) . "</td>\n";
+        echo "<td>" . create_link("/account/admin/delete/$v[id]", lang::translate('Delete')) . "</td>\n";
         echo "</tr>\n";
     }
+
+    
       
     /**
      * function for view a delete user form

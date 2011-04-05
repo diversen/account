@@ -111,7 +111,7 @@ class accountAdmin extends accountCreate {
      */
     public function getUsers(){
         $query = "SELECT * FROM `account`";
-        $rows = $this->selectQuery($query);     
+        $rows = $this->selectQuery($query);
         return $rows;
     }
 
