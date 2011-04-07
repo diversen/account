@@ -1,8 +1,5 @@
 <?php
 
-/**
- * @package    account
- */
 if (!session::checkAccessControl('account_allow_create')){
     return;
 }
