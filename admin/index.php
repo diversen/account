@@ -5,7 +5,7 @@
  * 
  * @package    account
  */
-if (!session::checkAccessControl('allow_edit')){
+if (!session::checkAccessControl('account_allow_edit')){
     return;
 }
 

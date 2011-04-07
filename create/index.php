@@ -3,7 +3,7 @@
 /**
  * @package    account
  */
-if (!session::checkAccessControl('allow_create')){
+if (!session::checkAccessControl('account_allow_create')){
     return;
 }
 
