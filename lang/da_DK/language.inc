@@ -1,142 +1,130 @@
 <?php
 
-/**
- * translation file
- * 
- * @package    account
- */
-$_COS_LANG_MODULE['Create Account'] = 'Opret konto';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/create/verify.php
 
-# account module
-$_COS_LANG_MODULE['Edit Account'] = 'Rediger konto';
-$_COS_LANG_MODULE['List Users'] = 'Vis konti';
-$_COS_LANG_MODULE['Welcome to the account module'] =  "Velkommen til konto sektionen";
+$_COS_LANG_MODULE['account_title_verify_account'] = 'Verificer Konto';
+$_COS_LANG_MODULE['account_is_already_verified'] = 'Konto er allerede verificeret';
+$_COS_LANG_MODULE['account_has_been_verified'] = 'Konto er blevet verificeret';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/create/index.php
 
+$_COS_LANG_MODULE['account_create_index_title'] = 'Opret konto';
+$_COS_LANG_MODULE['account_create_account_has_been_created'] = 'Konto er blevet oprettet';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/create/model.create.inc
 
-$_COS_LANG_MODULE['Request Password'] = 'Glemt password?';
-$_COS_LANG_MODULE['Enter password'] = 'Indtast password';
-$_COS_LANG_MODULE['Username'] = 'Brugernavn';
-$_COS_LANG_MODULE['Password'] = 'Password';
-$_COS_LANG_MODULE['Retype Password'] = 'Gentag Password';
-$_COS_LANG_MODULE['Get an user account by filling out the following form'] = 'Få en bruger konto ved at udfylde den følgende form';
+$_COS_LANG_MODULE['account_error_email_exists'] = 'Email eksisterer allerede';
+$_COS_LANG_MODULE['account_error_password_length'] = 'Password skal mindst være 7 karaktere langt';
+$_COS_LANG_MODULE['account_error_password_mismatch'] = 'Passwords stemmer ikke overens';
+$_COS_LANG_MODULE['account_error_invalid_email'] = 'Ugyldig email';
+$_COS_LANG_MODULE['account_error_incorrect_captcha'] = 'Ikke et korrekt svar til captcha';
+$_COS_LANG_MODULE['account_signup_subject'] = 'Oprettelse af konto på';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/create/view.create.inc
 
-$_COS_LANG_MODULE['Email'] = 'Email';
-$_COS_LANG_MODULE['Passwords does not match'] = 'De to passwords er ikke ens';
-$_COS_LANG_MODULE['Username exists. Pick another'] = 'Brugernavn eksisterer. Vælg et andet';
-$_COS_LANG_MODULE['Not a valid email'] = 'Det er ikke en gyldig email';
-$_COS_LANG_MODULE['You are logged in'] = 'Du er logget på';
-$_COS_LANG_MODULE['Logout'] = 'Log ud';
-$_COS_LANG_MODULE['Login'] = 'Log ind';
-$_COS_LANG_MODULE['Login or logout'] = 'Log ind eller log ud';
-$_COS_LANG_MODULE['Wrong email or password'] = 'Forkert brugernavn eller password';
+$_COS_LANG_MODULE['account_user_create_legend'] = 'Opret konto';
+$_COS_LANG_MODULE['account_email_label'] = 'Email';
+$_COS_LANG_MODULE['account_password_label'] = 'Password';
+$_COS_LANG_MODULE['account_retype_password_label'] = 'Gentag password';
+$_COS_LANG_MODULE['account_submit'] = 'Send';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/view.account.inc
 
-$_COS_LANG_MODULE['Error'] = 'Fejl';
+$_COS_LANG_MODULE['account_welcome_message'] = 'Velkommen';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/facebook/index.php
 
-$_COS_LANG_MODULE['Username can only contain alphabetic chars and number and . and _'] = 'Breugernavn kan kun indholde bogstaver samt . and _';
-$_COS_LANG_MODULE['Username should be at least 5 chars long'] = 'Brugernavn skal mindst være fem karakterer langt';
-$_COS_LANG_MODULE['Password should be at least 5 chars long'] = 'Password skal mindst være fem karakterer langt';
-$_COS_LANG_MODULE['Login info sent to'] = 'Information om log ind er sendt til';
-$_COS_LANG_MODULE['No such email'] = 'Den indtastede email eksisterer ikke';
-$_COS_LANG_MODULE['Enter email to require lost password'] = 'Indtast email for at få log ind oplysninger';
-$_COS_LANG_MODULE['Email already exists.'] = 'Email eksister allerede i systmet';
-$_COS_LANG_MODULE['New account has been created'] = 'Ny konto er blevet oprettet. Få at logge ind må du besøge din mail box og følge instruktionerne';
-$_COS_LANG_MODULE['Set New Password'] = 'Indtast nyt password';
-$_COS_LANG_MODULE['New passwords has been set'] = 'Nyt password er gemt';
-$_COS_LANG_MODULE['No such combination between user and validation key'] = 'Ingen sådan kombination mellem brugernavn validerings nøgle';
-$_COS_LANG_MODULE['Set your new password'] = 'Set your new password';
+$_COS_LANG_MODULE['account_facebook_login'] = 'Facebook login';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/facebook/model.facebook.inc
 
-$_COS_LANG_MODULE['Not Admin'] = 'Ikke admin';
-$_COS_LANG_MODULE['Verified'] = 'Godkendt';
-$_COS_LANG_MODULE['Not Verified'] = 'Ikke godkendt';
-$_COS_LANG_MODULE['List Users'] = 'Vis brugere';
-$_COS_LANG_MODULE['Edit User'] = 'Rediger bruger';
-$_COS_LANG_MODULE['User Updated'] = 'Bruger opdateret';
-$_COS_LANG_MODULE['Edit User Account'] = 'Rediger bruger konto';
-$_COS_LANG_MODULE['Is Admin'] = 'Er admin';
-$_COS_LANG_MODULE['Delete User'] = 'Slet bruger';
-$_COS_LANG_MODULE['User Deleted'] = 'Bruger slettet';
+$_COS_LANG_MODULE['account_logged_in_with_email'] = 'Logget på med email';
+$_COS_LANG_MODULE['account_logged_in_with_facebook'] = 'Logget ind med facebook';
+$_COS_LANG_MODULE['account_logout'] = 'Log ud';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/login/index.php
 
-#signup messages
-$_COS_LANG_MODULE['signup'] = "Velkommen !username!\n\n";
-$_COS_LANG_MODULE['signup'].= "Du har oprettet en konto på !site_name!\n";
-$_COS_LANG_MODULE['signup'].= "For at fuldføre oprettelse af din konto skal du klikke på\n";
-$_COS_LANG_MODULE['signup'].= "følgende link eller klippe det ind i browserens adresse linie\n\n";
-$_COS_LANG_MODULE['signup'].= "!verify_key!\n\n";
-$_COS_LANG_MODULE['signup_subject'] = "Konto oprettelse på !site_name!";
+$_COS_LANG_MODULE['account_login_or_logout'] = 'Log ind eller ud';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/login/model.login.inc
 
+$_COS_LANG_MODULE['account_login_wrong_username_password'] = 'Enten forkert password eller email';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/login/view.login.inc
 
-$_COS_LANG_MODULE['request_pw'] = "Hej !username!\n\n";
-$_COS_LANG_MODULE['request_pw'].= "Du har fået denne mail fra !site_name! fordi du har mistet\n";
-$_COS_LANG_MODULE['request_pw'].= "dit password. For at få en nyt password må du besøge ";
-$_COS_LANG_MODULE['request_pw'].= "følgende link eller klippe det ind i browserens adresse linie\n\n";
-$_COS_LANG_MODULE['request_pw'].= "!verify_key!\n\n";
-$_COS_LANG_MODULE['request_pw_subject'] = "Opret nyt password på !site_name!";
+$_COS_LANG_MODULE['account_form_email'] = 'Email';
+$_COS_LANG_MODULE['account_form_password'] = 'Password';
+$_COS_LANG_MODULE['account_keep_session'] = 'Forbliv logget ind';
+$_COS_LANG_MODULE['account_num_days'] = 'dage';
+$_COS_LANG_MODULE['account_logged_in_with_alternative'] = 'Logget in med alternativ til email';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/index.php
 
-$_COS_LANG_MODULE['Incorrect answer to captcha test'] = 'Forkert svar til captcha test';
-$_COS_LANG_MODULE['Account has been verified. You may log in'] = 'Din konto er verificeret. Du må logge ind nu';
+$_COS_LANG_MODULE['account_title_index'] = 'Konto';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/request_pw/verify.php
 
-$_COS_LANG_MODULE['Is Super'] = 'Er Super';
+$_COS_LANG_MODULE['account_request_set_new_passwords_title'] = 'Nyt password';
+$_COS_LANG_MODULE['account_request_new_password_has_been_set'] = 'Nyt password er blevet gemt';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/request_pw/view.request_pw.inc
 
-$_COS_LANG_MODULE['use_open_id'] = 'Log ind med OpenID';
-$_COS_LANG_MODULE['login_open_id'] = 'Login med OpenID';
-$_COS_LANG_MODULE['your_open_id'] = 'Dit openID';
+$_COS_LANG_MODULE['account_enter_email_to_recover_lost_password'] = 'Indtast din email for at genskabe password';
+$_COS_LANG_MODULE['account_request_legend_set_new_password'] = 'Indtast nyt password';
+$_COS_LANG_MODULE['account_form_retype_password'] = 'Gentag password';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/request_pw/index.php
 
-$_COS_LANG_MODULE['openid_loggedin_message'] = 'Du er logget ind!';
-$_COS_LANG_MODULE['openid_user_logged_in'] = 'Du er logget ind med openID';
+$_COS_LANG_MODULE['account_request_password_title'] = 'Opret nyt password';
+$_COS_LANG_MODULE['account_request_login_info_sent_to'] = 'Login info sent til';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/request_pw/model.request_pw.inc
 
+$_COS_LANG_MODULE['account_error_no_such_email'] = 'Ingen sådan email i systemet';
+$_COS_LANG_MODULE['account_request_pw_subject_for_site'] = 'Genskabelse af password';
+$_COS_LANG_MODULE['account_password_length_error'] = 'Password skal mindst være syv karakterer langt';
+$_COS_LANG_MODULE['account_password_no_match'] = 'De to password er ikke ens';
+$_COS_LANG_MODULE['account_request_no_combination_md5_user'] = 'Ingen sådan kombination mellem bruger id og validerings kode';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/openid/views/login.inc
 
+$_COS_LANG_MODULE['account_openid_select_provider'] = 'Vælg udbyder';
+$_COS_LANG_MODULE['account_openid_enter_provider'] = 'Log ind med open ID';
+$_COS_LANG_MODULE['account_openid_openid_provider_options'] = 'Options';
+$_COS_LANG_MODULE['account_login_open_id_legend'] = 'Log ind med open ID';
+$_COS_LANG_MODULE['account_open_id_your_open_id_form'] = 'Dit open ID';
+$_COS_LANG_MODULE['account_keep_session'] = 'Forbliv logget ind';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/openid/index.php
 
-$_COS_LANG_MODULE['list_openids'] = 'Vis brugere med openID';
+$_COS_LANG_MODULE['account_openid_login_index'] = 'open ID login';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/openid/model.openid.inc
 
-$_COS_LANG_MODULE['Super'] = 'Super';
-$_COS_LANG_MODULE['Not Super'] = 'Ikke Super';
+$_COS_LANG_MODULE['account_no_valid_open_id_url'] = 'Ikke en gyldig open ID URL';
+$_COS_LANG_MODULE['account_openid_valid_login'] = 'Gyldigt login';
+$_COS_LANG_MODULE['account_openid_account_created'] = 'Open ID konto oprettet';
+$_COS_LANG_MODULE['account_openid_loggedin_message'] = 'Logget ind med open ID';
+$_COS_LANG_MODULE['account_openid_invalid_login'] = 'Ugyldigt login';
+$_COS_LANG_MODULE['account_openid_login_cancelled'] = 'Login afbrudt';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/admin/model.admin.inc
 
-$_COS_LANG_MODULE['openid'] = 'openID';
-$_COS_LANG_MODULE['logged_in_with_email'] =  'Du er logget på med email';
+$_COS_LANG_MODULE['account_password_error_length'] = 'Password ksla mindst være 7 karakterer langt';
+$_COS_LANG_MODULE['account_password_dont_match'] = 'Passwords matcher ikke';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/admin/list.php
 
-$_COS_LANG_MODULE['logged_in_with_openid'] = 'Du er logget på med openID';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/admin/delete.php
 
-$_COS_LANG_MODULE['no_valid_open_id_url'] = 'Ingen gyldig openid url';
-$_COS_LANG_MODULE['openid_login_failed'] = 'openID login fejlede';
+$_COS_LANG_MODULE['account_delete_account_title'] = 'Slet Konto';
+$_COS_LANG_MODULE['account_has_been_deleted'] = 'Konto er blevet slettet';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/admin/index.php
 
-$_COS_LANG_MODULE['keep_session'] = 'Forbliv logget ind de næste';
+$_COS_LANG_MODULE['account_index_title'] = 'Konto';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/admin/view.admin.inc
 
-$_COS_LANG_MODULE['days'] = 'dage';
+$_COS_LANG_MODULE['account_edit_legend'] = 'Ret konto';
+$_COS_LANG_MODULE['account_email'] = 'Email';
+$_COS_LANG_MODULE['account_password'] = 'Password';
+$_COS_LANG_MODULE['account_password_repeat'] = 'Gentag password';
+$_COS_LANG_MODULE['account_is_verfied'] = 'Verificere';
+$_COS_LANG_MODULE['account_is_admin'] = 'Admin';
+$_COS_LANG_MODULE['account_is_super'] = 'Super';
+$_COS_LANG_MODULE['account_form_is_verified'] = 'Er verificeret';
+$_COS_LANG_MODULE['account_form_is_admin'] = 'Admin';
+$_COS_LANG_MODULE['account_form_is_super'] = 'Super';
+$_COS_LANG_MODULE['account_update'] = 'Opdater';
+$_COS_LANG_MODULE['account_is_not_admin'] = 'Ikke admin';
+$_COS_LANG_MODULE['account_is_not_super'] = 'ikke super';
+$_COS_LANG_MODULE['account_is_verified'] = 'Er verificeret';
+$_COS_LANG_MODULE['account_is_not_verified'] = 'Ikke verificeret';
+$_COS_LANG_MODULE['account_edit'] = 'Ret';
+$_COS_LANG_MODULE['account_delete'] = 'Slet';
+$_COS_LANG_MODULE['account_delete_account_legend'] = 'Slet konto';
+$_COS_LANG_MODULE['account_delete_label'] = 'Slet';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/admin/edit.php
 
-
-$_COS_LANG_MODULE['Submit'] = 'Submit';
-$_COS_LANG_MODULE['Submit'] = 'Submit';
-$_COS_LANG_MODULE['Verify Account'] = 'Verify Account';
-$_COS_LANG_MODULE['Submit'] = 'Submit';
-$_COS_LANG_MODULE['Submit'] = 'Submit';
-$_COS_LANG_MODULE['Submit'] = 'Submit';
-$_COS_LANG_MODULE['Admin'] = 'Admin';
-$_COS_LANG_MODULE['Edit'] = 'Edit';
-$_COS_LANG_MODULE['Delete'] = 'Delete';
-$_COS_LANG_MODULE['Admin'] = 'Admin';
-$_COS_LANG_MODULE['Edit'] = 'Edit';
-$_COS_LANG_MODULE['Delete'] = 'Delete';
-$_COS_LANG_MODULE['Account Admin'] = 'Account Admin';
-$_COS_LANG_MODULE['Submit'] = 'Submit';
-$_COS_LANG_MODULE['Submit'] = 'Submit';
-$_COS_LANG_MODULE['Admin'] = 'Admin';
-$_COS_LANG_MODULE['Edit'] = 'Edit';
-$_COS_LANG_MODULE['Delete'] = 'Delete';
-$_COS_LANG_MODULE['Delete'] = 'Delete';
-$_COS_LANG_MODULE['openid_valid_login'] = 'Korrekt OpenID';
-$_COS_LANG_MODULE['openid_account_created'] = 'OpenID konto skabt';
-$_COS_LANG_MODULE['openid_invalid_login'] = 'Ikke korrekt OpenID login';
-$_COS_LANG_MODULE['openid_login_cancelled'] = 'OpenID login afbrudt';
-$_COS_LANG_MODULE['Submit'] = 'Send';
-
-$_COS_LANG_MODULE['logged_in_with_facebook'] = 'Logget ind med facebook';
-$_COS_LANG_MODULE['account_urlid'] = 'URL ID';
-$_COS_LANG_MODULE['logged_in_with_alternative'] = 'Logget ind som';
-
-$_COS_LANG_MODULE['facebook_login'] = 'Log ind med facebook';
-$_COS_LANG_MODULE['Select Provider'] = 'Vælg udbyder';
-$_COS_LANG_MODULE['account_openid_select_provider'] = 'Vælg open ID udbyder';
-
-$_COS_LANG_MODULE['account_openid_select_openid_provider'] = 'Open ID udbyder';
-
-$_COS_LANG_MODULE['openid_login'] = 'Open ID Login';
+$_COS_LANG_MODULE['account_edit_account_title'] = 'Ret konto';
+$_COS_LANG_MODULE['account_action_user_updated'] = 'Konto opdateret';

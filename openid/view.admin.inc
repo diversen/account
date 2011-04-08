@@ -1,22 +1,12 @@
 <?php
 
 
-
-/**
- * view file for account/admin
- * @package    account
- */
-
-/**
- * include captcha lib
- */
 include_once "lib/captcha.php";
-/**
- * function for updating a user
- *
- * @param array row to use when updating a user
- */
 
+/**
+ * view form for editing a user
+ * @param array $values
+ */
 function view_update ($values){
     if (isset($_POST['submit'])){
         $values = $_POST;
@@ -42,20 +32,20 @@ function view_update ($values){
 <div id="form_main">
 <form method="post" action="">
 <fieldset>
-<legend><?php echo lang::translate('Edit User Account') ?></legend>
+<legend><?php echo lang::translate('account_legend_edit_account') ?></legend>
 <label for="openid"><?php echo lang::translate('openid')?>:</label><br />
 <input type="text" name="openid" size="60" value="<?php echo htmlspecialchars($values['openid'])?>"><br />
-<label for="username"><?php echo lang::translate('Username')?>:</label><br />
+<label for="username"><?php echo lang::translate('account_form_username')?>:</label><br />
 <input type="text" name="username" value="<?php echo htmlspecialchars($values['username'])?>"><br />
-<label for="username"><?php echo lang::translate('Email')?>:</label><br />
+<label for="username"><?php echo lang::translate('account_form_email')?>:</label><br />
 <input type="text" name="email" value="<?php echo htmlspecialchars($values['email'])?>"><br />
-<label for="password"><?php echo lang::translate('Password')?>:</label><br />
+<label for="password"><?php echo lang::translate('account_form_password')?>:</label><br />
 <input type="password" name="password" value="<?php echo htmlspecialchars($values['password'])?>"><br />
-<label for="password2"><?php echo lang::translate('Retype Password')?>:</label><br />
+<label for="password2"><?php echo lang::translate('account_form_password_retype')?>:</label><br />
 <input type="password" name="password2" value="<?php echo htmlspecialchars($values['password2'])?>"><br />
-<label for="admin"><?php echo lang::translate('Is Admin')?>:</label><br />
+<label for="admin"><?php echo lang::translate('account_is_super')?>:</label><br />
 <input type="checkbox" name="admin" value="1" <?php echo $checked; ?>><br />
-<label for="super"><?php echo lang::translate('Is Super')?>:</label><br />
+<label for="super"><?php echo lang::translate('account_is_admin')?>:</label><br />
 <input type="checkbox" name="super" value="1" <?php echo $super_checked; ?>><br />
 <input type="submit" name="submit" value="<?php echo lang::translate('Submit')?>">
 </fieldset>
@@ -79,14 +69,14 @@ function view_users($users){ ?>
 <tr>
 <td><?php echo $v['username']?></td><td><?php echo $v['email']?></td><?php
     if ($v['admin']) { ?>
-    <td><?php echo lang::translate('Admin')?></td><?php } else { ?>
-    <td><?php echo lang::translate('Not Admin')?></td><?php }
+    <td><?php echo lang::translate('account_is_admin')?></td><?php } else { ?>
+    <td><?php echo lang::translate('account_is_not_admin')?></td><?php }
         if ($v['verified']) { ?>
-    <td><?php echo lang::translate('Verified')?></td><?php } else { ?>
-    <td><?php echo lang::translate('Not Verified')?></td><?php } ?>
+    <td><?php echo lang::translate('account_is_verified')?></td><?php } else { ?>
+    <td><?php echo lang::translate('account_is_not_verified')?></td><?php } ?>
     <td><?php echo $v['created']?></td>
-    <td><?php echo create_link("/account/admin/edit/$v[id]", lang::translate('Edit'))?></td>
-    <td><?php echo create_link("/account/admin/delete/$v[id]", lang::translate('Delete'))?></td>
+    <td><?php echo create_link("/account/admin/edit/$v[id]", lang::translate('account_edit'))?></td>
+    <td><?php echo create_link("/account/admin/delete/$v[id]", lang::translate('account_delete'))?></td>
 </tr>
 <?php } ?>
 </table>
@@ -106,7 +96,7 @@ function view_delete ($values){ ?>
 <form method="post" action="">
 <fieldset>
 <legend><?php echo lang::translate('Delete User')?>:<?php echo $values['username']?></legend>
-<p><input type="submit" name="submit" value="<?php echo lang::translate('Delete')?>" /></p>
+<p><input type="submit" name="submit" value="<?php echo lang::translate('account_delete')?>" /></p>
 </fieldset>
 </form>
 </div>

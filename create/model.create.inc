@@ -1,21 +1,10 @@
 <?php
 
-/**
- * model file for account/create
- *
- * @package    account
- */
-
-/**
- * class for creating user accounts
- *
- * @package    account
- */
 class accountCreate extends db {
 
     /**
      *
-     * @var array array for holding errors
+     * @var array $errors for holding errors
      */
     public $errors = array();
 
@@ -45,19 +34,19 @@ class accountCreate extends db {
         }
 
         if ($this->emailExist($_POST['email'])){
-            $this->errors['email'] = lang::translate('Email already exists.');
+            $this->errors['email'] = lang::translate('account_error_email_exists');
         }
-        if (strlen($_POST['password']) < 5){
-            $this->errors['password'] = lang::translate('Password should be at least 5 chars long');
+        if (strlen($_POST['password']) < 7){
+            $this->errors['password'] = lang::translate('account_error_password_length');
         }
         if ($_POST['password'] != $_POST['password2']){
-            $this->errors['password'] = lang::translate('Passwords does not match');
+            $this->errors['password'] = lang::translate('account_error_password_mismatch');
         }
         if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-            $this->errors['email'] = lang::translate('Not a valid email');
+            $this->errors['email'] = lang::translate('account_error_invalid_email');
         }
         if (!captcha::checkCaptcha(trim($_POST['captcha']))){
-            $this->errors['captcha'] = lang::translate("Incorrect answer to captcha test");
+            $this->errors['captcha'] = lang::translate('account_error_incorrect_captcha');
         }
     }
 
@@ -67,7 +56,6 @@ class accountCreate extends db {
      * @return int      1 success or 0 on failure
      */
     public function createUser (){
-        //global register::$vars['coscms_main'];
         self::$dbh->beginTransaction();
         $md5_key = md5(uniqid(rand(), true));
 
@@ -80,14 +68,17 @@ class accountCreate extends db {
         $res = $this->insert('account', $values);
         $last_insert_id = db::$dbh->lastInsertId();
 
-        $message = lang::translate('signup');
-        $subject = lang::translate('signup_subject');
-        $message = str_replace ('!username!', $_POST['email'], $message);
-        $site_name = 'http://' . $_SERVER['HTTP_HOST'];
-        $subject = str_replace ('!site_name!', $site_name, $subject);
-        $message = str_replace ('!site_name!', $site_name, $message);
-        $verify_key = "$site_name/account/create/verify/$last_insert_id/$md5_key";
-        $message = str_replace ('!verify_key!', $verify_key, $message);
+        $subject = lang::translate('account_signup_subject');
+        $vars['site_name'] = 'http://' . $_SERVER['HTTP_HOST'];
+        $subject.= " " . $vars['site_name'];
+
+        $vars['verify_key'] = "$vars[site_name]/account/create/verify/$last_insert_id/$md5_key";
+
+        // compose message
+        $lang = get_main_ini('language');
+        $message_template = _COS_PATH . "/modules/account/lang/$lang/signup_message.inc";
+        $message = get_include_contents($message_template, $vars);
+
         $from = register::$vars['coscms_main']['site_email'];
         if (mail_utf8($_POST['email'], $subject, $message, $from)){
             self::$dbh->commit();

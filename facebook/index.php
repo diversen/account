@@ -1,6 +1,6 @@
 <?php
 
-template::setTitle(lang::translate('facebook_login'));
+template::setTitle(lang::translate('account_facebook_login'));
 
 // check to see if user is allowed to use faccebook login
 if (!get_module_ini('account_use_facebook_login')){
@@ -68,21 +68,12 @@ if ($me) {
   }
   $logoutUrl = $facebook->getLogoutUrl();
   $uri = uri::getInstance();
-  //$no_redirect = $uri->fragment(3);
-  //if ($no_redirect != 2){
-  //  accountLogin::redirectOnLogin('/account/facebook/index/2');
-  //} //else {
-    //accountLogin::redirectOnLogin();
-  //}
-  // redirect
+
   if (isset($_SESSION['redirect_on_login'])){
       $redirect = $_SESSION['redirect_on_login'];
       unset($_SESSION['redirect_on_login']);
       header ("Location: $redirect");
   }
-  //accountLogin::setId();
-  //accountLoginView::logout();
-  //accountFacebook::logout($logoutUrl);
 
 } else {
   session::killSession();

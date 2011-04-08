@@ -1,22 +1,16 @@
 <?php
 
-/**
- * File for holding login class
- * @package    account
- */
-
-/**
- * class for doing logins
- * @package    account
- */
 class accountLogin {
 
     /**
-     * flag to see is a user is logged in or not
-     * @var int     1 is user logged in 0 if not
+     * @var int     $loggedIn (1 yes 0 no)
      */
     public static $loggedIn = 0;
 
+    /**
+     *
+     * @var int $id
+     */
     public static $id;
 
     
@@ -27,12 +21,9 @@ class accountLogin {
         //self::checkSystemCookie();
 
         if (@$_POST['keep_session'] == 'on'){
-            //echo "we keep session";
             $keep_session = 1;
         }
 
-        // logout is the same for all login methods so far.
-        // if l3 fragment is set it means we are logging out
         $uri = uri::getInstance();
         if ($uri->fragment(3) == '1'){
             session::killSession();
@@ -85,6 +76,9 @@ class accountLogin {
          }
     }
 
+    /**
+     * sets self::$id from session
+     */
     public static function setId(){
         // logout is the same for all login methods so far.
         if (session::isUser()){
@@ -97,7 +91,7 @@ class accountLogin {
         if (session::isUser()){
             accountLoginView::logout();
         } elseif ( isset($_POST['submit']) && !accountLogin::$loggedIn ) {
-            view_form_errors(lang::translate('Wrong email or password'));
+            view_form_errors(lang::translate('account_login_wrong_username_password'));
             accountLoginView::login();
         } else {
             accountLoginView::login();

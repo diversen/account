@@ -1,163 +1,130 @@
 <?php
 
-/**
- * translation file
- * 
- * @package    account
- */
-$_COS_LANG_MODULE['Create Account'] = 'Create Account';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/create/verify.php
 
-# account module
-$_COS_LANG_MODULE['Edit Account'] = 'Edit Account';
-$_COS_LANG_MODULE['List Users'] = 'List Users';
-$_COS_LANG_MODULE['Welcome to the account module'] =  "Welcome to the account module";
+$_COS_LANG_MODULE['account_title_verify_account'] = 'Verify Account';
+$_COS_LANG_MODULE['account_is_already_verified'] = 'Account already verified';
+$_COS_LANG_MODULE['account_has_been_verified'] = 'Account has been verified';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/create/index.php
 
+$_COS_LANG_MODULE['account_create_index_title'] = 'Create Account';
+$_COS_LANG_MODULE['account_create_account_has_been_created'] = 'Account has been created';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/create/model.create.inc
 
-$_COS_LANG_MODULE['Request Password'] = 'Request Password';
-$_COS_LANG_MODULE['Enter password'] = 'Enter password';
-$_COS_LANG_MODULE['Username'] = 'Username';
-$_COS_LANG_MODULE['Password'] = 'Password';
-$_COS_LANG_MODULE['Retype Password'] = 'Retype Password';
-$_COS_LANG_MODULE['Get an user account by filling out the following form'] = 'Get an user account by filling out the following form';
+$_COS_LANG_MODULE['account_error_email_exists'] = 'Email already exists';
+$_COS_LANG_MODULE['account_error_password_length'] = 'Password has to be at least 7 chars';
+$_COS_LANG_MODULE['account_error_password_mismatch'] = 'Passwords does not match';
+$_COS_LANG_MODULE['account_error_invalid_email'] = 'Invalid email';
+$_COS_LANG_MODULE['account_error_incorrect_captcha'] = 'Wrong answer to captcha';
+$_COS_LANG_MODULE['account_signup_subject'] = 'Create Account confirmation for';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/create/view.create.inc
 
-$_COS_LANG_MODULE['Email'] = 'Email';
-$_COS_LANG_MODULE['Passwords does not match'] = 'Passwords does not match';
-$_COS_LANG_MODULE['Username exists. Pick another'] = 'Username exists. Pick another';
-$_COS_LANG_MODULE['Not a valid email'] = 'Not a valid email';
-$_COS_LANG_MODULE['You are logged in'] = 'You are logged in';
-$_COS_LANG_MODULE['Logout'] = 'Logout';
-$_COS_LANG_MODULE['Login'] = 'Login';
-$_COS_LANG_MODULE['Login or logout'] = 'Login or logout';
-$_COS_LANG_MODULE['Wrong email or password'] = 'Wrong email or password';
+$_COS_LANG_MODULE['account_user_create_legend'] = 'Create New Account';
+$_COS_LANG_MODULE['account_email_label'] = 'Email';
+$_COS_LANG_MODULE['account_password_label'] = 'Password';
+$_COS_LANG_MODULE['account_retype_password_label'] = 'Repeat password';
+$_COS_LANG_MODULE['account_submit'] = 'Send';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/view.account.inc
 
-$_COS_LANG_MODULE['Error'] = 'Error';
-$_COS_LANG_MODULE['Username can only contain alphabetic chars and number and . and _'] = 'Username can only contain alphabetic chars and number and . and _';
-$_COS_LANG_MODULE['Username should be at least 5 chars long'] = 'Username should be at least 5 chars long';
-$_COS_LANG_MODULE['Password should be at least 5 chars long'] = 'Password should be at least 5 chars long';
-$_COS_LANG_MODULE['Login info sent to'] = 'Login info sent to';
-$_COS_LANG_MODULE['No such email'] = 'No such email';
-$_COS_LANG_MODULE['Enter email to require lost password'] = 'Enter email to require lost password';
-$_COS_LANG_MODULE['Email already exists.'] = 'Email already exists.';
-$_COS_LANG_MODULE['New account has been created'] = 'New account has been created. In order to activate you new account, you need to visit your mailbox and follow the instructions';
-$_COS_LANG_MODULE['Set New Password'] = 'Set New Password';
-$_COS_LANG_MODULE['New passwords has been set'] = 'New passwords has been set';
-$_COS_LANG_MODULE['No such combination between user and validation key'] = 'No such combination between user and validation key';
-$_COS_LANG_MODULE['Set your new password'] = 'Set your new password';
+$_COS_LANG_MODULE['account_welcome_message'] = 'Welcome';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/facebook/index.php
 
-$_COS_LANG_MODULE['Not Admin'] = 'Not Admin';
-$_COS_LANG_MODULE['Verified'] = 'Verified';
-$_COS_LANG_MODULE['Not Verified'] = 'Not Verified';
-$_COS_LANG_MODULE['List Users'] = 'List Users';
-$_COS_LANG_MODULE['Edit User'] = 'Edit User';
-$_COS_LANG_MODULE['User Updated'] = 'User Updated';
-$_COS_LANG_MODULE['Edit User Account'] = 'Edit User Account';
-$_COS_LANG_MODULE['Is Admin'] = 'Is Admin';
-$_COS_LANG_MODULE['Delete User'] = 'Delete User';
-$_COS_LANG_MODULE['User Deleted'] = 'User Deleted';
+$_COS_LANG_MODULE['account_facebook_login'] = 'Facebook Login';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/facebook/model.facebook.inc
 
-#signup messages
-$_COS_LANG_MODULE['signup'] = "Welcome !username!\n\n";
-$_COS_LANG_MODULE['signup'].= "You have signed up for an user account on !site_name!\n";
-$_COS_LANG_MODULE['signup'].= "In order to finish your registration you have to press the\n";
-$_COS_LANG_MODULE['signup'].= "following link or paste it into the adresse line of the browser\n\n";
-$_COS_LANG_MODULE['signup'].= "!verify_key!\n\n";
-$_COS_LANG_MODULE['signup_subject'] = "Account verification for !site_name!";
+$_COS_LANG_MODULE['account_logged_in_with_email'] = 'Logged in with email';
+$_COS_LANG_MODULE['account_logged_in_with_facebook'] = 'Logged in with facebook';
+$_COS_LANG_MODULE['account_logout'] = 'Logout';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/login/index.php
 
+$_COS_LANG_MODULE['account_login_or_logout'] = 'Log in or Log out';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/login/model.login.inc
 
-$_COS_LANG_MODULE['request_pw'] = "Hi !username!\n\n";
-$_COS_LANG_MODULE['request_pw'].= "You have notified us at !site_name! because you have lost\n";
-$_COS_LANG_MODULE['request_pw'].= "Your password. In order to create a new password visit the";
-$_COS_LANG_MODULE['request_pw'].= "following link or paste it into the adresse line of the browser\n\n";
-$_COS_LANG_MODULE['request_pw'].= "!verify_key!\n\n";
-$_COS_LANG_MODULE['request_pw_subject'] = "Recover lost password for !site_name!";
+$_COS_LANG_MODULE['account_login_wrong_username_password'] = 'Not a correct email or password';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/login/view.login.inc
 
-$_COS_LANG_MODULE['Incorrect answer to captcha test'] = 'Incorrect answer to captcha test';
-$_COS_LANG_MODULE['Account has been verified. You may log in'] = 'Account has been verified. You may log in';
+$_COS_LANG_MODULE['account_form_email'] = 'Email';
+$_COS_LANG_MODULE['account_form_password'] = 'Password';
+$_COS_LANG_MODULE['account_keep_session'] = 'Kepp me logged in for';
+$_COS_LANG_MODULE['account_num_days'] = 'days';
+$_COS_LANG_MODULE['account_logged_in_with_alternative'] = 'Logged in with alternative';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/index.php
 
-$_COS_LANG_MODULE['Is Super'] = 'Is Super';
+$_COS_LANG_MODULE['account_title_index'] = 'Account';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/request_pw/verify.php
 
-$_COS_LANG_MODULE['use_open_id'] = 'Login with OpenID';
-$_COS_LANG_MODULE['login_open_id'] = 'Or Enter your full OpenID';
-$_COS_LANG_MODULE['your_open_id'] = 'Your open ID';
+$_COS_LANG_MODULE['account_request_set_new_passwords_title'] = 'Set new password';
+$_COS_LANG_MODULE['account_request_new_password_has_been_set'] = 'New password saved';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/request_pw/view.request_pw.inc
 
-$_COS_LANG_MODULE['openid_loggedin_message'] = 'You are successful logged in!';
-$_COS_LANG_MODULE['openid_user_logged_in'] = 'You are logged in with openID';
+$_COS_LANG_MODULE['account_enter_email_to_recover_lost_password'] = 'Enter email to recreate password';
+$_COS_LANG_MODULE['account_request_legend_set_new_password'] = 'Enter new password';
+$_COS_LANG_MODULE['account_form_retype_password'] = 'Repeat new password';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/request_pw/index.php
 
+$_COS_LANG_MODULE['account_request_password_title'] = 'Request New Password';
+$_COS_LANG_MODULE['account_request_login_info_sent_to'] = 'Login info sent to email. Visit your mailbox';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/request_pw/model.request_pw.inc
 
+$_COS_LANG_MODULE['account_error_no_such_email'] = 'Email does not exists in system';
+$_COS_LANG_MODULE['account_request_pw_subject_for_site'] = 'Create new password for site';
+$_COS_LANG_MODULE['account_password_length_error'] = 'Password should be at least 7 chars long';
+$_COS_LANG_MODULE['account_password_no_match'] = 'Passwords does not match';
+$_COS_LANG_MODULE['account_request_no_combination_md5_user'] = 'No such combination between validation code and email. You can only use validation code once';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/openid/views/login.inc
 
-$_COS_LANG_MODULE['list_openids'] = 'Show users with openID';
+$_COS_LANG_MODULE['account_openid_select_provider'] = 'Select Provider';
+$_COS_LANG_MODULE['account_openid_enter_provider'] = 'Login with open ID';
+$_COS_LANG_MODULE['account_openid_openid_provider_options'] = 'Options';
+$_COS_LANG_MODULE['account_login_open_id_legend'] = 'Log in with open ID';
+$_COS_LANG_MODULE['account_open_id_your_open_id_form'] = 'Your ID';
+$_COS_LANG_MODULE['account_keep_session'] = 'Kepp me logged in for';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/openid/index.php
 
-$_COS_LANG_MODULE['Super'] = 'Super';
-$_COS_LANG_MODULE['Not Super'] = 'Not Super';
+$_COS_LANG_MODULE['account_openid_login_index'] = 'open ID login';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/openid/model.openid.inc
 
-$_COS_LANG_MODULE['openid'] = 'openID';
-$_COS_LANG_MODULE['logged_in_with_email'] =  'Logged in with email';
+$_COS_LANG_MODULE['account_no_valid_open_id_url'] = 'Not a valid open ID URL';
+$_COS_LANG_MODULE['account_openid_valid_login'] = 'Login accepted';
+$_COS_LANG_MODULE['account_openid_account_created'] = 'Open ID account created';
+$_COS_LANG_MODULE['account_openid_loggedin_message'] = 'Logged ind with open ID';
+$_COS_LANG_MODULE['account_openid_invalid_login'] = 'Invalid open ID';
+$_COS_LANG_MODULE['account_openid_login_cancelled'] = 'Login cancelled';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/admin/model.admin.inc
 
-$_COS_LANG_MODULE['logged_in_with_openid'] = 'Your are logged in with openID';
+$_COS_LANG_MODULE['account_password_error_length'] = 'Password should be at least 7 chars long';
+$_COS_LANG_MODULE['account_password_dont_match'] = 'Passwords does not match';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/admin/list.php
 
-$_COS_LANG_MODULE['no_valid_open_id_url'] = 'Enter a valid openID URL';
-$_COS_LANG_MODULE['openid_login_failed'] = 'openID login failed';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/admin/delete.php
 
-$_COS_LANG_MODULE['keep_session'] = 'Stay logged in next';
+$_COS_LANG_MODULE['account_delete_account_title'] = 'Delete account';
+$_COS_LANG_MODULE['account_has_been_deleted'] = 'Account has been deleted';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/admin/index.php
 
-$_COS_LANG_MODULE['days'] = 'days';
+$_COS_LANG_MODULE['account_index_title'] = 'Account';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/admin/view.admin.inc
 
+$_COS_LANG_MODULE['account_edit_legend'] = 'Edit Account';
+$_COS_LANG_MODULE['account_email'] = 'Email';
+$_COS_LANG_MODULE['account_password'] = 'Password';
+$_COS_LANG_MODULE['account_password_repeat'] = 'Repeat password';
+$_COS_LANG_MODULE['account_is_verfied'] = 'Is verified';
+$_COS_LANG_MODULE['account_is_admin'] = 'Is Admin';
+$_COS_LANG_MODULE['account_is_super'] = 'Is Super';
+$_COS_LANG_MODULE['account_form_is_verified'] = 'Is verified';
+$_COS_LANG_MODULE['account_form_is_admin'] = 'Is Admin';
+$_COS_LANG_MODULE['account_form_is_super'] = 'Is Super';
+$_COS_LANG_MODULE['account_update'] = 'Update';
+$_COS_LANG_MODULE['account_is_not_admin'] = 'Not admin';
+$_COS_LANG_MODULE['account_is_not_super'] = 'Not super';
+$_COS_LANG_MODULE['account_is_verified'] = 'Is verified';
+$_COS_LANG_MODULE['account_is_not_verified'] = 'Not verified';
+$_COS_LANG_MODULE['account_edit'] = 'Edit';
+$_COS_LANG_MODULE['account_delete'] = 'Delete';
+$_COS_LANG_MODULE['account_delete_account_legend'] = 'Delete account';
+$_COS_LANG_MODULE['account_delete_label'] = 'Delete';
+// Translation of file /home/dennis/www/oscmsdk/modules/account/admin/edit.php
 
-
-$_COS_LANG_MODULE['Submit'] = 'Submit';
-$_COS_LANG_MODULE['Submit'] = 'Submit';
-
-
-$_COS_LANG_MODULE['Verify Account'] = 'Verify Account';
-
-
-$_COS_LANG_MODULE['Submit'] = 'Submit';
-
-
-
-$_COS_LANG_MODULE['Submit'] = 'Submit';
-$_COS_LANG_MODULE['Submit'] = 'Submit';
-$_COS_LANG_MODULE['Admin'] = 'Admin';
-$_COS_LANG_MODULE['Edit'] = 'Edit';
-$_COS_LANG_MODULE['Delete'] = 'Delete';
-$_COS_LANG_MODULE['Admin'] = 'Admin';
-$_COS_LANG_MODULE['Edit'] = 'Edit';
-$_COS_LANG_MODULE['Delete'] = 'Delete';
-
-
-
-
-
-
-$_COS_LANG_MODULE['Account Admin'] = 'Account Admin';
-
-
-$_COS_LANG_MODULE['Submit'] = 'Submit';
-
-$_COS_LANG_MODULE['Submit'] = 'Submit';
-$_COS_LANG_MODULE['Admin'] = 'Admin';
-$_COS_LANG_MODULE['Edit'] = 'Edit';
-$_COS_LANG_MODULE['Delete'] = 'Delete';
-$_COS_LANG_MODULE['Delete'] = 'Delete';
-
-$_COS_LANG_MODULE['openid_valid_login'] = 'Valid openID login';
-$_COS_LANG_MODULE['openid_account_created'] = 'Account connected to openID created';
-$_COS_LANG_MODULE['openid_invalid_login'] = 'Not a valid openID login';
-$_COS_LANG_MODULE['openid_login_cancelled'] = 'OpenID login cancelled';
-
-
-$_COS_LANG_MODULE['Submit'] = 'Submit';
-
-
-$_COS_LANG_MODULE['logged_in_with_facebook'] = 'Logged in with facebook account';
-$_COS_LANG_MODULE['account_urlid'] = 'URL ID';
-$_COS_LANG_MODULE['logged_in_with_alternative'] = 'Logged in with';
-
-$_COS_LANG_MODULE['account_openid_select_provider'] = 'Select provider';
-$_COS_LANG_MODULE['account_openid_select_openid_provider'] = 'account_openid_select_openid_provider';
-$_COS_LANG_MODULE['Search'] = 'Search';
-
-$_COS_LANG_MODULE['Select Provider'] = 'Select Provider';
-
-$_COS_LANG_MODULE['facebook_login'] = 'Facebook Login';
-$_COS_LANG_MODULE['openid_login'] = 'Open Id Login';
+$_COS_LANG_MODULE['account_edit_account_title'] = 'Edit Account';
+$_COS_LANG_MODULE['account_action_user_updated'] = 'Account updated';

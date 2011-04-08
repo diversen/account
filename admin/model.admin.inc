@@ -1,92 +1,48 @@
 <?php
 
-/**
- * model file for account/admin controller
- * 
- * @package    account
- */
-
-/**
- * include model for creating users
- */
 include_model ('account/create');
 
-/**
- * class for doing admin options on users
- *
- * @package    account
- */
 class accountAdmin extends accountCreate {
 
-    /**
-     *
-     * @var array   errors
-     */
     public $errors = array();
-
-    /**
-     *
-     * @var object  holding URI instance
-     */
     public $uri;
-
-    /**
-     *
-     * @var int id of a user
-     */
     public $id;
 
     /**
-     * constructor. Creates URI instance and sets id
+     *  set uri and if from fragement in uri
      */
     function __construct(){
         $this->uri = uri::getInstance();
-        // the category id
         $this->id = (int)$this->uri->fragment(3);
     }
 
+    /**
+     * get user id from URL
+     * @return  int $user_id
+     */
     public static function getUserId (){
         $uri = uri::getInstance();
-        // the category id
         return (int)$uri->fragment(3);
     }
 
     /**
-     * Validate and sets this->errors
+     * Validate and sets $error
      */
     function validate($options = null){
-
         if (empty($_POST['submit'])){
             return;
         }
-
-        $pattern = "/^([a-zA-Z0-9._])+$/";
-        if (!preg_match($pattern, $_POST['username'])){
-            $this->errors['username'] =
-            lang::translate('Username can only contain alphabetic chars and number and . and _');
-        }
-        if (strlen($_POST['username']) < 5){
-            $this->errors['username'] =
-            lang::translate('Username should be at least 5 chars long');
-        }
-
-        if ($this->usernameExist($_POST['username'])){
-            $this->errors['username'] = lang::translate('Username exists. Pick another');
-        }
-        if (strlen($_POST['password']) < 5){
-            $this->errors['password'] = lang::translate('Password should be at least 5 chars long');
+        if (strlen($_POST['password']) < 7){
+            $this->errors['password'] = lang::translate('account_password_error_length');
         }
         if (strlen($_POST['password']) == 0){
             unset($this->errors['password']);
         }
         if ($_POST['password'] != $_POST['password2']){
-            $this->errors['password'] = lang::translate('Passwords does not match');
+            $this->errors['password'] = lang::translate('account_password_dont_match');
         }
     }
 
-    /**
-     * Validate and sets this->errors
-     */
     function validateUrlUser(){
         if (empty($_POST['submit'])){
             return;
@@ -96,7 +52,7 @@ class accountAdmin extends accountCreate {
     /**
      * method for getting a user. Uses $this->id
      *
-     * @return mixed   array a user row from db or 0
+     * @return array $row
      */
     public function getUser(){
         $id = self::getUserId();
@@ -106,7 +62,6 @@ class accountAdmin extends accountCreate {
 
     /**
      * method for getting all users
-     *
      * @return  array   rows containing all users
      */
     public function getUsers(){
@@ -116,10 +71,10 @@ class accountAdmin extends accountCreate {
     }
 
     /**
-     * method for checking if a username exists
+     * check if username exists
      *
-     * @param   string      fetch the row where username = $username
-     * @return  array|false assoc row with user or false
+     * @param   string      $username
+     * @return  int         $num_rows
      */
     public function usernameExist($username){
         $query = "SELECT * FROM  `account` WHERE `username` = :username AND `id` <> :id";
@@ -131,14 +86,12 @@ class accountAdmin extends accountCreate {
 
     /**
      * method for updaing a user
-     *
-     * @return int affected rows
+     * @return boolean true on success else false
      */
     public function updateEmailUser (){
     
         $values = array(
             'email' => $_POST['email'],
-            'username'=> $_POST['username'],
         );
 
         isset($_POST['admin']) ? $values['admin'] = 1 : $values['admin'] = 0;

@@ -10,5 +10,5 @@ if (!session::checkAccessControl('account_allow_edit')){
 $a = new accountAdmin();
 $users = $a->getUsers();
 
-template::setTitle(lang::translate('List Users'));
+template::setTitle(lang::translate('account_list_users'));
 viewAccountAdmin::users($users);

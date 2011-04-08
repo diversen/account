@@ -16,13 +16,13 @@ function view_request (){ ?>
 <div id="form_main">
 <form method="post" action="">
 <fieldset>
-<legend><?php echo lang::translate('Enter email to require lost password')?>:</legend>
-<label for="email"><?php echo lang::translate('Email')?>:</label><br />
+<legend><?php echo lang::translate('account_enter_email_to_recover_lost_password')?>:</legend>
+<label for="email"><?php echo lang::translate('account_form_email')?>:</label><br />
 <input type="text" name="email" value="<?php echo htmlentities($_POST['email'])?>"><br />
 <label for="captcha"><?php echo captcha::createCaptcha()?></label><br />
 <input type="text" name="captcha" value="<?php echo htmlspecialchars($_POST['captcha'])?>"><br />
 <label for="submit"></label><br />
-<input type="submit" name="submit" value="<?php echo lang::translate('Submit')?>"><br />
+<input type="submit" name="submit" value="<?php echo lang::translate('account_submit')?>"><br />
 </fieldset>
 </form>
 </div>
@@ -43,13 +43,13 @@ function view_verify (){
 <div id="form_main">
 <form method="post" action="">
 <fieldset>
-<legend><?php echo lang::translate('Set your new password') ?></legend>
-<label for="password"><?php echo lang::translate('Password')?>:</label><br />
+<legend><?php echo lang::translate('account_request_legend_set_new_password') ?></legend>
+<label for="password"><?php echo lang::translate('account_form_password')?>:</label><br />
 <input type="password" name="password" value="<?php echo htmlspecialchars($_POST['password'])?>"><br />
-<label for="password2"><?php echo lang::translate('Retype Password')?>:</label><br />
+<label for="password2"><?php echo lang::translate('account_form_retype_password')?>:</label><br />
 <input type="password" name="password2" value="<?php echo htmlspecialchars($_POST['password2'])?>"><br />
 <label for="submit"></label><br />
-<input type="submit" name="submit" value="<?php echo lang::translate('Submit')?>"><br />
+<input type="submit" name="submit" value="<?php echo lang::translate('account_submit')?>"><br />
 </fieldset>
 </form>
 </div>

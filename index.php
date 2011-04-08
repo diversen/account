@@ -5,6 +5,6 @@
  * 
  * @package    account
  */
-template::setTitle(lang::translate('Account'));
+template::setTitle(lang::translate('account_title_index'));
 view_account();
 

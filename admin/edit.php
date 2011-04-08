@@ -4,17 +4,13 @@ if (!session::checkAccessControl('account_allow_edit')){
     return;
 }
 
-template::setTitle(lang::translate('Edit User'));
+template::setTitle(lang::translate('account_edit_account_title'));
 
 $account = new accountAdmin();
 $user = $account->getUser();
 
 if (isset($_POST['submit'])){
-    
     if (empty($user['url'])){
-    
-        // only validate if user is a email user
-        // on url user we can only set if he is admin and super
         $account->validate();
     }
     if (empty($account->errors)){
@@ -25,10 +21,9 @@ if (isset($_POST['submit'])){
         } else {
             $res = $account->updateEmailUser();
         }
-
         if ($res){
             session::setActionMessage(
-                lang::translate('User Updated')
+                lang::translate('account_action_user_updated')
             );
             header("Location: /account/admin/list");
         }
@@ -37,15 +32,8 @@ if (isset($_POST['submit'])){
     }
 }
 
-
-
 if (!empty($user['url'])){
     viewAccountAdmin::updateUrlUser($user);
-    
-} else {
-    
+} else {   
     viewAccountAdmin::updateEmailUser($user);
 }
-
-
-

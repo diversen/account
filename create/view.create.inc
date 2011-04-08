@@ -19,17 +19,17 @@ function view_create (){
     html::$autoLoadTrigger = 'submit';
     html::init($_POST);
     html::formStart('blog_form');
-    html::legend(lang::translate('Get an user account by filling out the following form'));
-    html::label('email', lang::translate('Email'));
+    html::legend(lang::translate('account_user_create_legend'));
+    html::label('email', lang::translate('account_email_label'));
     html::text('email',  '', $field_size);
-    html::label('password', lang::translate('Password'));
+    html::label('password', lang::translate('account_password_label'));
     html::password('password', '', $field_size);
-    html::label('password2', lang::translate('Retype Password'));
+    html::label('password2', lang::translate('account_retype_password_label'));
     html::password('password2', '', $field_size);
     html::label('captcha', captcha::createCaptcha());
     html::text('captcha', '', array ('size' => 1, 'maxlength'=> 2));
     html::label('submit', '');
-    html::submit('submit', lang::translate('Submit'));
+    html::submit('submit', lang::translate('account_submit'));
     html::formEnd();
     echo html::$formStr;
 }

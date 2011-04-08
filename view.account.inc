@@ -10,7 +10,7 @@
  */
 function view_account (){ ?>
 <div id ="module_description">
-    <?php echo lang::translate('Welcome to the account module')?>
+    <?php echo lang::translate('account_welcome_message')?>
 </div>
 <?php
 

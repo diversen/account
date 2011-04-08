@@ -87,19 +87,19 @@ class accountOpenid {
             $_POST['openid_action'] == "login" &&
             !empty($_POST['openid_identifier'])) {
             if(filter_var($_POST['openid_identifier'], FILTER_VALIDATE_URL) === false){
-                $error = lang::translate('no_valid_open_id_url');
+                $error = lang::translate('account_no_valid_open_id_url');
                 
             } else {
                 $consumer = new Ak33m_OpenId_Consumer();
                 if (!$consumer->login($_POST['openid_identifier'])) {
-                    $status = lang::translate("openid_login_failed");
+                    $status = lang::translate("account_openid_login_failed");
                 }
             }
         } else if (isset($_GET['openid_mode'])) {
             if ($_GET['openid_mode'] == "id_res") {
                 $consumer = new Ak33m_OpenId_Consumer();
                 if ($consumer->verify($_GET, $id)) {
-                    $status = lang::translate('openid_valid_login') . ' ' . htmlspecialchars($id). "<br />\n";
+                    $status = lang::translate('account_openid_valid_login') . ' ' . htmlspecialchars($id). "<br />\n";
                     $account = self::auth($id);
 
                     // create openid as user if we don't have one in existenz
@@ -107,13 +107,13 @@ class accountOpenid {
                         $new = self::createUser($id);
                         if ($new){
                             // use new id as user id for session
-                            $status.=lang::translate('openid_account_created');
+                            $status.=lang::translate('account_openid_account_created');
                             $_SESSION['id'] = $new;
                             $_SESSION['account_type'] = 'openid';
 
                             session::setActionMessage(
                                 $status . "<br />" .
-                                lang::translate('openid_loggedin_message')
+                                lang::translate('account_openid_loggedin_message')
                             );
 
                             accountLogin::redirectOnLogin('/account/openid/index');
@@ -132,16 +132,16 @@ class accountOpenid {
                             session::setSystemCookie($account['id']);
                         }
 
-                        session::setActionMessage(lang::translate('openid_loggedin_message'));
+                        session::setActionMessage(lang::translate('account_openid_loggedin_message'));
 
                         accountLogin::redirectOnLogin('/account/openid/index');
                         
                     }
                 } else {
-                    $error = lang::translate('openid_invalid_login') . ' ' .  htmlspecialchars($id);
+                    $error = lang::translate('account_openid_invalid_login') . ' ' .  htmlspecialchars($id);
                 }
             } else if ($_GET['openid_mode'] == "cancel") {
-                $error = lang::translate('openid_login_cancelled');
+                $error = lang::translate('account_openid_login_cancelled');
             }
         }
 

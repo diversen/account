@@ -3,7 +3,7 @@
 /**
  * @package    account
  */
-template::setTitle(lang::translate('Set New Password'));
+template::setTitle(lang::translate('account_request_set_new_passwords_title'));
 
 $request = new request();
 $res = $request->verifyAccount();
@@ -17,11 +17,9 @@ if ($res){
         } else {
             if ($request->setNewPassword()){
                 session::setActionMessage(
-                    lang::translate('New passwords has been set')
+                    lang::translate('account_request_new_password_has_been_set')
                 );
                 header("Location: /account/index");
-                //view_confirm(lang::translate('New passwords has been set'));
-                //$password_set = 1;
             }
         }
     } else {

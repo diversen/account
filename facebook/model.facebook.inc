@@ -3,22 +3,23 @@
 include_once 'facebook.php';
 include_module('account/login');
 
-/**
- * class for doing login with openid
- */
 class accountFacebook {
     /**
      *
-     * @var int telling if a user is logged in
+     * @var 
      */
     public static $loggedIn = null;
 
     /**
      *
-     * @var int userid
+     * @var int $id
      */
     public static $id;
 
+    /**
+     *
+     * @var array $errors
+     */
     public static $errors = null;
 
     /**
@@ -32,10 +33,6 @@ class accountFacebook {
         $uri = uri::getInstance();
         if ($uri->fragment(3) == '1'){
             session::killSession();
-            //$redirect = get_module_ini('account_default_url');
-            //header( "Location: $redirect");
-            //echo "die";
-            //die;
         }
 
         if (isset($_SESSION['id'])) {
@@ -55,8 +52,6 @@ class accountFacebook {
         }
 
         $status = "";
-
-        
     }
 
     /**
@@ -84,8 +79,7 @@ class accountFacebook {
      * @return int      1 success or 0 on failure
      */
     public static function createUser ($facebook_url){
-        $db = new db();
-        
+        $db = new db();       
         $values = array('url'=> $facebook_url, 'username' => $facebook_url);
         $res = $db->insert('account', $values);
 
@@ -111,20 +105,16 @@ class accountFacebook {
     /**
     * method for creating a logout link
     */
-    public static function logout($logoutUrl = null){
-
-        
+    public static function logout($logoutUrl = null){      
         $row = accountLogin::getUser();
-
         $str = '';
         if (!empty($row['email'])){
-            $str .= lang::translate('logged_in_with_email') . ": <br />" . $row['email'];
+            $str .= lang::translate('account_logged_in_with_email') . ": <br />" . $row['email'];
         } else {
-            $str .= lang::translate('logged_in_with_facebook') . ": <br />" . $row['url'];
+            $str .= lang::translate('account_logged_in_with_facebook') . ": <br />" . $row['url'];
 
         }
-        $str .= "<hr />" . create_link($logoutUrl, lang::translate('Logout'));
-        //$str .= "<br />" . create_link("/account/login/index/1", lang::translate('Logout'));
+        $str .= "<hr />" . create_link($logoutUrl, lang::translate('account_logout'));
         view_confirm($str);
     }
 }

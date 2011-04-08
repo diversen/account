@@ -35,17 +35,17 @@ class accountLoginView {
 <form method="post" action="">
 <fieldset>
 <legend>Login</legend>
-<label for="email"><?php echo lang::translate('Email')?>:</label><br />
+<label for="email"><?php echo lang::translate('account_form_email')?>:</label><br />
 <input type="text" name="email" value="<?=@htmlentities($_POST['email'])?>"><br />
-<label for="password"><?php echo lang::translate('Password')?>:</label><br />
+<label for="password"><?php echo lang::translate('account_form_password')?>:</label><br />
 <input type="password" name="password" value="<?=@htmlentities($_POST['password'])?>"><br />
 
 
-<label for="keep_session"><?=lang::translate('keep_session')?> <?=get_main_ini('cookie_time')?> <?=lang::translate('days')?></label><br />
+<label for="keep_session"><?=lang::translate('account_keep_session')?> <?=get_main_ini('cookie_time')?> <?=lang::translate('account_num_days')?></label><br />
 <input name="keep_session" <?=$keep_session?> type="checkbox">
 
 <label for="submit"></label><br />
-<input type="submit" name="submit" value="<?php echo lang::translate('Submit')?>"><br />
+<input type="submit" name="submit" value="<?php echo lang::translate('account_submit')?>"><br />
 </fieldset>
 </form>
 </div>
@@ -68,16 +68,16 @@ class accountLoginView {
 
         // only default account use email as a verification
         if (!empty($row['email'])){
-            $str .= lang::translate('logged_in_with_email') . ": <br />" . $row['email'];
+            $str .= lang::translate('account_logged_in_with_email') . ": <br />" . $row['email'];
         } else {
-            $str .= lang::translate('logged_in_with_alternative') . ": <br />" . $row['username'];
+            $str .= lang::translate('account_logged_in_with_alternative') . ": <br />" . $row['url'];
             // facebook special. We need to create speciel link when logging out with facebook
             if (strstr($row['url'], 'facebook')){
                 // facebook login
                 header("Location: /account/facebook/index/1");           
             }
         }
-        $str .= "<hr />" . create_link($logout_url, lang::translate('Logout'));
+        $str .= "<hr />" . create_link($logout_url, lang::translate('account_logout'));
         view_confirm($str);
     }
 

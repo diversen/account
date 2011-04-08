@@ -1,6 +1,1 @@
 <?php
-
-/**
- * @ignore
- * @package    account
- */
