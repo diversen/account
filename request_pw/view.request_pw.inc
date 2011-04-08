@@ -1,17 +1,11 @@
 <?php
 
-/**
- * @package    account
- */
-
-/**
- * include captcha lib
- */
-include_once "lib/captcha.php";
-
+include_once "captcha.php";
+include_once "html.php";
 /**
  * view function for showing form forgetting lost password
  */
+/*
 function view_request (){ ?>
 <div id="form_main">
 <form method="post" action="">
@@ -28,6 +22,22 @@ function view_request (){ ?>
 </div>
 <?php
 
+}
+*/
+function view_request (){
+    $field_size = array ('size' => '30');
+    html::$autoLoadTrigger = 'submit';
+    html::init($_POST);
+    html::formStart('blog_form');
+    html::legend(lang::translate('account_user_create_legend'));
+    html::label('email', lang::translate('account_email_label'));
+    html::text('email',  '', $field_size);
+    html::label('captcha', captcha::createCaptcha());
+    html::text('captcha', '', array ('size' => 1, 'maxlength'=> 2));
+    html::label('submit', '');
+    html::submit('submit', lang::translate('account_submit'));
+    html::formEnd();
+    echo html::$formStr;
 }
 
 /**

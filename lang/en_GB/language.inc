@@ -26,7 +26,7 @@ $_COS_LANG_MODULE['account_retype_password_label'] = 'Repeat password';
 $_COS_LANG_MODULE['account_submit'] = 'Send';
 // Translation of file /home/dennis/www/oscmsdk/modules/account/view.account.inc
 
-$_COS_LANG_MODULE['account_welcome_message'] = 'Welcome';
+$_COS_LANG_MODULE['account_welcome_message'] = 'You may log in';
 // Translation of file /home/dennis/www/oscmsdk/modules/account/facebook/index.php
 
 $_COS_LANG_MODULE['account_facebook_login'] = 'Facebook Login';
@@ -45,7 +45,7 @@ $_COS_LANG_MODULE['account_login_wrong_username_password'] = 'Not a correct emai
 
 $_COS_LANG_MODULE['account_form_email'] = 'Email';
 $_COS_LANG_MODULE['account_form_password'] = 'Password';
-$_COS_LANG_MODULE['account_keep_session'] = 'Kepp me logged in for';
+$_COS_LANG_MODULE['account_keep_session'] = 'Keep me logged in for';
 $_COS_LANG_MODULE['account_num_days'] = 'days';
 $_COS_LANG_MODULE['account_logged_in_with_alternative'] = 'Logged in with alternative';
 // Translation of file /home/dennis/www/oscmsdk/modules/account/index.php

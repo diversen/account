@@ -12,16 +12,24 @@ class request extends db {
      * constructer will validate user input
      */
     function __construct(){
-        $this->validate();
+    }
+
+    public function sanitize (){
+        $_POST = html::entitiesEncode($_POST);
     }
 
     /**
      * method for validating user input
      */
     function validate(){
-        if (!isset($_POST['submit'])){
-            $_POST['captcha'] = '';
-            $_POST['email'] = '';
+        if (!captcha::checkCaptcha(trim($_POST['captcha']))){
+            $this->errors['captcha'] = lang::translate('account_error_incorrect_captcha');
+        }
+
+        $row = $this->selectOne('account', 'email', $_POST['email']);
+        if (empty($row)){
+            $this->errors['email'] = lang::translate('account_error_no_such_email');
+            return 0;
         }
     }
 
@@ -30,17 +38,11 @@ class request extends db {
      *
      * @return int  1 on succes and 0 on failure
       */
-    public function requestPassword (){
-        if (!captcha::checkCaptcha(trim($_POST['captcha']))){
-            $this->errors['captcha'] = "account_error_incorrect_captcha";
-        }
+    public function requestPassword (){   
+        $md5_key = md5(uniqid(rand(), true));
 
         $row = $this->selectOne('account', 'email', $_POST['email']);
-        if (empty($row)){
-            $this->errors['email'] = lang::translate('account_error_no_such_email');
-            return 0;
-        }
-        $md5_key = md5(uniqid(rand(), true));
+
         $values = array('md5_key' => $md5_key);
         $this->update('account', $values, $row['id']);
         
