@@ -78,7 +78,7 @@ $_COS_LANG_MODULE['account_openid_enter_provider'] = 'Login with open ID';
 $_COS_LANG_MODULE['account_openid_openid_provider_options'] = 'Options';
 $_COS_LANG_MODULE['account_login_open_id_legend'] = 'Log in with open ID';
 $_COS_LANG_MODULE['account_open_id_your_open_id_form'] = 'Your ID';
-$_COS_LANG_MODULE['account_keep_session'] = 'Kepp me logged in for';
+$_COS_LANG_MODULE['account_keep_session'] = 'Keep me logged in for';
 // Translation of file /home/dennis/www/oscmsdk/modules/account/openid/index.php
 
 $_COS_LANG_MODULE['account_openid_login_index'] = 'open ID login';
