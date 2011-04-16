@@ -29,7 +29,7 @@ function view_request (){
     html::$autoLoadTrigger = 'submit';
     html::init($_POST);
     html::formStart('blog_form');
-    html::legend(lang::translate('account_user_create_legend'));
+    html::legend(lang::translate('account_request_password_title'));
     html::label('email', lang::translate('account_email_label'));
     html::text('email',  '', $field_size);
     html::label('captcha', captcha::createCaptcha());
