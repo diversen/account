@@ -4,7 +4,7 @@
  * @ignore
  */
 
-moduleLoader::getModuleIniSettings('account');
+//moduleLoader::getModuleIniSettings('account');
 
 $account_allow_edit = get_module_ini('account_allow_edit');
 $account_allow_create = get_module_ini('account_allow_create');
@@ -34,14 +34,14 @@ if ($account_use_email_login){
 
 }
 
-if (isset($account_use_openid_login)){
+if ($account_use_openid_login){
     $_MODULE_MENU[] = array(
         'title' => lang::translate('account_use_open_id'),
         'url' => '/account/openid/index'
     );
 }
 
-if (isset($account_use_facebook_login)){
+if ($account_use_facebook_login){
     $_MODULE_MENU[] = array(
         'title' => lang::translate('account_login_facebook'),
         'url' => '/account/facebook/index'

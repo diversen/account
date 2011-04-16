@@ -1,14 +1,14 @@
 <?php
 
 $account_show_menu = get_module_ini('account_show_menu');
-$account_login_url = get_module_ini('account_default_url');
-if (!$account_login_url){
-    $account_login_url = "/account/login/index";
+$account_default_url = get_module_ini('account_default_url');
+if (!$account_default_url){
+    $account_default_url = "/account/login/index";
 }
 
 $_INSTALL['MAIN_MENU_ITEM'] = array (
     'title' => 'Account',
-    'url' => $account_login_url,
+    'url' => $account_default_url,
     'module_name' => 'account',
     'parent' => 0,
     'weight' => 1,
