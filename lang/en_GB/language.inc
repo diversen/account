@@ -8,7 +8,10 @@ $_COS_LANG_MODULE['account_has_been_verified'] = 'Account has been verified';
 // Translation of file /home/dennis/www/oscmsdk/modules/account/create/index.php
 
 $_COS_LANG_MODULE['account_create_index_title'] = 'Create Account';
-$_COS_LANG_MODULE['account_create_account_has_been_created'] = 'Account has been created';
+$_COS_LANG_MODULE['account_create_account_has_been_created'] =
+'Account has been created.
+You will recieve an email in a short time.
+Press a link and you have verified your account!';
 // Translation of file /home/dennis/www/oscmsdk/modules/account/create/model.create.inc
 
 $_COS_LANG_MODULE['account_error_email_exists'] = 'Email already exists';
