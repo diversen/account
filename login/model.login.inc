@@ -46,13 +46,14 @@ class accountLogin {
                 }
 
                 self::redirectOnLogin();
+                /*
                 if (isset($_SESSION['redirect_on_login'])){
                     $redirect = $_SESSION['redirect_on_login'];
                     unset($_SESSION['redirect_on_login']);
                     header ("Location: $redirect");
                 } else {
                     header('Location: /account/login/index');
-                }
+                }*/
             } else {
                 self::$loggedIn = 0;
             }
@@ -66,6 +67,7 @@ class accountLogin {
             $redirect = $_SESSION['redirect_on_login'];
             unset($_SESSION['redirect_on_login']);
             header ("Location: $redirect");
+            die;
         } else {
             if ($url){
                 $location = $url;
