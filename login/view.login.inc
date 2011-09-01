@@ -52,7 +52,7 @@ class accountLoginView {
 <?php
 
     if (isset(self::$accountLoginHTML)){
-            print self::$accountLoginHTML;
+            echo self::$accountLoginHTML;
         }
     }
 
@@ -63,21 +63,35 @@ class accountLoginView {
 
         accountLogin::setId();
         $row = accountLogin::getUser();
+
         $str = '';
         $logout_url = "/account/login/index/1";
 
         // only default account use email as a verification
         if (!empty($row['email'])){
-            $str .= lang::translate('account_logged_in_with_email') . ": <br />" . $row['email'];
+            $str.= lang::translate('account_logged_in_with_email');
+            $str.= MENU_SUB_SEPARATOR_SEC . "<br />" . $row['email'] . ' ';
+            $str.= "(" . lang::translate('account_login_will_not_be_displayed') . ")";
         } else {
-            $str .= lang::translate('account_logged_in_with_alternative') . ": <br />" . $row['url'];
-            // facebook special. We need to create speciel link when logging out with facebook
+            $str.= lang::translate('account_logged_in_with_alternative');
+            $str.= MENU_SUB_SEPARATOR_SEC . "<br />" . $row['url'] . ' ';
+            $str.= "(" . lang::translate('account_login_will_not_be_displayed') . ")";
+            // use facebook api
             if (strstr($row['url'], 'facebook')){
-                // facebook login
                 header("Location: /account/facebook/index/1");           
             }
         }
-        $str .= "<hr />" . create_link($logout_url, lang::translate('account_logout'));
+
+        $str.= '<br />';
+        $profile_info = session::getProfileInfo($row);
+
+        if (empty($profile_info['screenname'])) {
+            $str.= lang::translate('account_no_screenname');
+        } else {
+            $str.= lang::translate('account_your_screenname_is') . MENU_SUB_SEPARATOR_SEC . $profile_info['screenname'];
+        }
+
+        $str .= "<hr />" . html::createLink($logout_url, lang::translate('account_logout'));
         view_confirm($str);
     }
 

@@ -133,9 +133,7 @@ class accountOpenid {
                         }
 
                         session::setActionMessage(lang::translate('account_openid_loggedin_message'));
-
-                        accountLogin::redirectOnLogin('/account/openid/index');
-                        
+                        accountLogin::redirectOnLogin('/account/openid/index');                       
                     }
                 } else {
                     $error = lang::translate('account_openid_invalid_login') . ' ' .  htmlspecialchars($id);
