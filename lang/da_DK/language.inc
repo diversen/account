@@ -128,3 +128,13 @@ $_COS_LANG_MODULE['account_delete_label'] = 'Slet';
 
 $_COS_LANG_MODULE['account_edit_account_title'] = 'Ret konto';
 $_COS_LANG_MODULE['account_action_user_updated'] = 'Konto opdateret';
+
+$_COS_LANG_MODULE['account_login_will_not_be_displayed'] = 'Vil ikke blive vist';
+$_COS_LANG_MODULE['account_no_screenname'] = 'Intet skærm navn';
+$_COS_LANG_MODULE['account_your_screenname_is'] = 'Dit skærm navn er';
+$_COS_LANG_MODULE['account_legend_edit_account'] = 'Ret konto';
+$_COS_LANG_MODULE['account_form_openid'] = 'Open ID';
+$_COS_LANG_MODULE['account_form_username'] = 'Brugernavn';
+$_COS_LANG_MODULE['account_form_password_retype'] = 'Gentag password';
+$_COS_LANG_MODULE['account_form_submit'] = 'Send';
+$_COS_LANG_MODULE['account_delete_user_legend'] = 'Slet Bruger';
