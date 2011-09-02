@@ -33,7 +33,7 @@ function view_update ($values){
 <form method="post" action="">
 <fieldset>
 <legend><?php echo lang::translate('account_legend_edit_account') ?></legend>
-<label for="openid"><?php echo lang::translate('openid')?>:</label><br />
+<label for="openid"><?php echo lang::translate('account_form_openid')?>:</label><br />
 <input type="text" name="openid" size="60" value="<?php echo htmlspecialchars($values['openid'])?>"><br />
 <label for="username"><?php echo lang::translate('account_form_username')?>:</label><br />
 <input type="text" name="username" value="<?php echo htmlspecialchars($values['username'])?>"><br />
@@ -47,7 +47,7 @@ function view_update ($values){
 <input type="checkbox" name="admin" value="1" <?php echo $checked; ?>><br />
 <label for="super"><?php echo lang::translate('account_is_admin')?>:</label><br />
 <input type="checkbox" name="super" value="1" <?php echo $super_checked; ?>><br />
-<input type="submit" name="submit" value="<?php echo lang::translate('Submit')?>">
+<input type="submit" name="submit" value="<?php echo lang::translate('account_form_submit')?>">
 </fieldset>
 </form>
 </div>
@@ -95,7 +95,7 @@ function view_delete ($values){ ?>
 <div id="form_main">
 <form method="post" action="">
 <fieldset>
-<legend><?php echo lang::translate('Delete User')?>:<?php echo $values['username']?></legend>
+<legend><?php echo lang::translate('account_delete_user_legend')?>:<?php echo $values['username']?></legend>
 <p><input type="submit" name="submit" value="<?php echo lang::translate('account_delete')?>" /></p>
 </fieldset>
 </form>
