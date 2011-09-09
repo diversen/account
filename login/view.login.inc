@@ -87,10 +87,13 @@ class accountLoginView {
 
         if (empty($profile_info['screenname'])) {
             $str.= lang::translate('account_no_screenname');
+            
         } else {
             $str.= lang::translate('account_your_screenname_is') . MENU_SUB_SEPARATOR_SEC . $profile_info['screenname'];
         }
 
+        $str.='<br />';
+        $str.= get_profile_edit_link($row['id']);
         $str .= "<hr />" . html::createLink($logout_url, lang::translate('account_logout'));
         view_confirm($str);
     }

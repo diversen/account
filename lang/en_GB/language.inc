@@ -136,7 +136,7 @@ $_COS_LANG_MODULE['account_legend_edit_account'] = 'Edit Account';
 $_COS_LANG_MODULE['account_form_username'] = 'Username';
 $_COS_LANG_MODULE['account_form_password_retype'] = 'Retype Password';
 $_COS_LANG_MODULE['account_login_will_not_be_displayed'] = 'This will not be displayed';
-$_COS_LANG_MODULE['account_no_screenname'] = 'No screen name - Please set it!';
+$_COS_LANG_MODULE['account_no_screenname'] = 'No screen name. Set it here: ';
 $_COS_LANG_MODULE['account_your_screenname_is'] = 'Your screen name';
 
 $_COS_LANG_MODULE['account_form_openid'] = 'Openid';
