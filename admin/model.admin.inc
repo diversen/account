@@ -1,5 +1,6 @@
 <?php
 
+include_model ('account');
 include_model ('account/create');
 
 class accountAdmin extends accountCreate {
