@@ -14,7 +14,8 @@ $_INSTALL['MAIN_MENU_ITEM'] = array (
     'module_name' => 'account',
     'parent' => 0,
     'weight' => 1,
-    'auth' => $account_show_menu
+    'auth' => $account_show_menu,
+    'section' => 'account'
 );
 
 if ($account_admin_only){
