@@ -1,6 +1,6 @@
 <?php
 
-template::setInlineCss(get_modulepath('account') .  '/assets/account.css');
+template::setInlineCss(get_module_path('account') .  '/assets/account.css');
 
 class account {
 
