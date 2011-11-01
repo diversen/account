@@ -151,6 +151,10 @@ class accountCreate extends db {
         $md5_key = md5(uniqid(rand(), true));
         $values = array('verified' => 1, 'md5_key' => $md5_key);
         $res = $this->update('account', $values, $row['id']);
+        //if ($res) {
+        //    event::triggerEvent(__CLASS__, __METHOD__, $res);
+        // }
+        
         return $res;
     }
 }
