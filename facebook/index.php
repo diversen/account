@@ -11,6 +11,7 @@ if (!get_module_ini('account_use_facebook_login')){
 //$account = new accountOpenid();
 accountFacebook::init();
 if (accountFacebook::$loggedIn){
+    
     if (@$_SESSION['account_type'] != 'facebook'){
         accountLoginView::logout();
         return;
@@ -33,13 +34,13 @@ $facebook = new Facebook(array(
 // if it is still valid until we make an API call using the session. A session
 // can become invalid if it has already expired (should not be getting the
 // session back in this case) or if the user logged out of Facebook.
-$session = $facebook->getSession();
+$user = $facebook->getUser();
 
 $me = null;
 // Session based API call.
-if ($session) {
+if ($user) {
   try {
-    $uid = $facebook->getUser();
+    //$uid = $facebook->getUser();
     $me = $facebook->api('/me');
 
   } catch (FacebookApiException $e) {
@@ -77,7 +78,26 @@ if ($me) {
 
 } else {
   session::killSession();
-  $loginUrl = $facebook->getLoginUrl();
+  $loginUrl = $facebook->getLoginUrl(
+          
+            array(
+                'scope'         => 'email,
+                    
+                    user_birthday,user_location,user_work_history,user_about_me,user_hometown,user_website',
+
+            )
+    
+          /*offline_access,publish_stream,sms*/
+          
+          );
+  
+  /*
+   * array(
+        'canvas' => 1,
+        'fbconnect' => 0,
+        'req_perms' => 'publish_stream,offline_access,user_location'
+    )
+   */
 }
 
 // This call will always work since we are fetching public data.
