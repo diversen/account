@@ -1,6 +1,15 @@
 <?php
 
-class accountCreate extends db {
+/**
+ * File containg method for creating an account using an email
+ * @package account
+ */
+
+/**
+ * class for creating an account using an email. 
+ * @package account
+ */
+class accountCreate {
 
     /**
      *
@@ -20,8 +29,7 @@ class accountCreate extends db {
 
     /**
      * method for validating creation of account
-     *
-     * @return void
+     * sets $errors if any error
      */
     function validate(){
 
@@ -53,71 +61,65 @@ class accountCreate extends db {
     /**
      * method for creating a user
      *
-     * @return int      1 success or 0 on failure
+     * @return int $res 1 on success or 0 on failure
      */
     public function createUser (){
-        self::$dbh->beginTransaction();
+       
         $md5_key = md5(uniqid(rand(), true));
 
         $values = 
             array('username'=> $_POST['email'],
-                'password' => md5($_POST['password']),
-                'email' => $_POST['email'],
-                'md5_key' => $md5_key);
+                  'password' => md5($_POST['password']),
+                  'email' => $_POST['email'],
+                  'md5_key' => $md5_key);
 
-        $res = $this->insert('account', $values);
+        // transaction begin. Insert new user
+        db::$dbh->beginTransaction();
+        $db = new db();
+        $res = $db->insert('account', $values);
         $last_insert_id = db::$dbh->lastInsertId();
 
+        // generate email
         $subject = lang::translate('account_signup_subject');
         $vars['site_name'] = 'http://' . $_SERVER['HTTP_HOST'];
         $subject.= " " . $vars['site_name'];
-
         $vars['verify_key'] = "$vars[site_name]/account/create/verify/$last_insert_id/$md5_key";
 
-        // compose message
+        // compose message from language
         $lang = get_main_ini('language');
         $message_template = _COS_PATH . "/modules/account/lang/$lang/signup_message.inc";
         $message = get_include_contents($message_template, $vars);
 
         $from = register::$vars['coscms_main']['site_email'];
         if (mail_utf8($_POST['email'], $subject, $message, $from)){
-            self::$dbh->commit();
+            db::$dbh->commit();
             return 1;
         } else {
-            self::$dbh->rollBack();
+            db::$dbh->rollBack();
             return 0;
         }
     }
 
     /**
      * method for creating a user
-     *
-     * @return int      1 success or 0 on failure
+     * @param array $values the values of the new user. 
+     * @return int  $res   true on success and false on failure
      */
-    public function createSystemUser ($values){       
-        $res = $this->insert('account', $values);
+    public function createSystemUser ($values){
+        $db = new db();
+        $res = $db->insert('account', $values);
         return $res;
     }
 
     /**
-     * method for checking if user exists
-     *
-     * @param   string      username
-     * @return  mixed       row with username or false
-     */
-    public function usernameExist($username){
-        $row = $this->selectOne('account', 'username', $username);
-        if (empty($row)) return 0;
-        return $row;
-    }
-    /**
      * method for checking if a email exists in `account` table
      *
-     * @param   string  the email to be checked for existens
-     * @return  array|0 user row or false
+     * @param   string  $email the email to be checked for existens
+     * @return  array|0  $row user row or 0
      */
     public function emailExist($email){
-        $row = $this->selectOne('account', 'email', $email);
+        $db = new db();
+        $row = $db->selectOne('account', 'email', $email);
         if (empty($row)) return 0;
         return $row;
     }
@@ -125,22 +127,23 @@ class accountCreate extends db {
     /**
      * method for verifing an account
      *
-     * @return int 0 (on failure) 2 (user is verified) (res from update 1)
+     * @return int $res 0 (on failure) 2 (user is verified) (res from update 1)
      */
     public function verifyAccount(){
         $uri = uri::getInstance();
         $account_id = $uri->fragment(3);
         $md5_key = $uri->fragment(4);
         
+        $db = new db();
         $search = array ('id' => $account_id,);
-        $row = $this->selectOne('account', null, $search);
+        $row = $db->selectOne('account', null, $search);
 
         if ($row['verified'] == 1){
             return 2;
         }
 
         $search = array ('id' => $account_id, 'md5_key' => $md5_key);
-        $row = $this->selectOne('account', null, $search);
+        $row = $db->selectOne('account', null, $search);
         
         if (empty($row)){
             $this->errors[] = lang::translate
@@ -150,9 +153,7 @@ class accountCreate extends db {
      
         $md5_key = md5(uniqid(rand(), true));
         $values = array('verified' => 1, 'md5_key' => $md5_key);
-        $res = $this->update('account', $values, $row['id']);
-        
-        //event::triggerEvent(array('accountverify::verify'), $res);
+        $res = $db->update('account', $values, $row['id']);
         return $res;
     }
 }

@@ -1,11 +1,23 @@
 <?php
 
+/**
+ * File contains accountAdmin class which extends account create. 
+ */
 include_model ('account');
 include_model ('account/create');
 
+/**
+ * Class accountAdmin
+ */
 class accountAdmin extends accountCreate {
 
-    public $errors = array();
+    /**
+     * 
+     * @var type $errors 
+     
+     * 
+     */
+    //public $errors = array();
     public $uri;
     public $id;
 
@@ -44,30 +56,33 @@ class accountAdmin extends accountCreate {
         }
     }
 
+    /*
     function validateUrlUser(){
         if (empty($_POST['submit'])){
             return;
         }
-    }
+    }*/
 
     /**
-     * method for getting a user. Uses $this->id
+     * method for getting a user from url fragemtn
      *
      * @return array $row
      */
     public function getUser(){
         $id = self::getUserId();
-        $row = $this->selectOne('account', 'id', $id);
+        $db = new db();
+        $row = $db->selectOne('account', 'id', $id);
         return $row;
     }
 
     /**
      * method for getting all users
-     * @return  array   rows containing all users
+     * @return  array   $rows containing all users
      */
     public function getUsers(){
         $query = "SELECT * FROM `account`";
-        $rows = $this->selectQuery($query);
+        $db = new db();
+        $rows = $db->selectAll('account'); /**$this->selectQuery($query); */
         return $rows;
     }
 
@@ -77,17 +92,18 @@ class accountAdmin extends accountCreate {
      * @param   string      $username
      * @return  int         $num_rows
      */
+    /*
     public function usernameExist($username){
         $query = "SELECT * FROM  `account` WHERE `username` = :username AND `id` <> :id";
         $sth = self::$dbh->prepare($query);
         $sth->execute(array(':username' => $username, ':id' => $this->id ));
         $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
         return count($rows);    
-    }
+    }*/
 
     /**
      * method for updaing a user
-     * @return boolean true on success else false
+     * @return boolean $res true on success else false
      */
     public function updateEmailUser (){
     
@@ -103,7 +119,8 @@ class accountAdmin extends accountCreate {
             $values['password'] = md5($_POST['password']);
         }
 
-        $res = $this->update('account', $values, $this->id);
+        $db = new db();
+        $res = $db->update('account', $values, $this->id);
         return $res;
     }
 
@@ -116,7 +133,8 @@ class accountAdmin extends accountCreate {
         isset($_POST['admin']) ? $values['admin'] = 1 : $values['admin'] = 0;
         isset($_POST['super']) ? $values['super'] = 1 : $values['super'] = 0;
         isset($_POST['verified']) ? $values['verified'] = 1 : $values['verified'] = 0;
-        $res = $this->update('account', $values, $this->id);
+        $db = new db();
+        $res = $db->update('account', $values, $this->id);
         return $res;
     }
 
@@ -126,6 +144,7 @@ class accountAdmin extends accountCreate {
      * @return int  affected rows
      */
     public function deleteUser(){
-        return $this->delete('account', 'id',  $this->id);
+        $db = new db();
+        return $db->delete('account', 'id',  $this->id);
     }
 }

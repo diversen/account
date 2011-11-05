@@ -55,7 +55,7 @@ if ($me) {
   $account = new accountFacebook();
   $row = $account->auth($me['link']);
 
-  if (!$row){
+  if (empty($row)){
       // we have a facebook session but no user
       $id = $account->createUser($me['link']);
       $_SESSION['id'] = $id;

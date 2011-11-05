@@ -2,7 +2,7 @@
 
 template::setTitle(lang::translate('account_request_set_new_passwords_title'));
 
-$request = new request();
+$request = new requestpw();
 $res = $request->verifyAccount();
 if ($res){
     if (isset($_POST['submit'])){
@@ -23,4 +23,4 @@ if ($res){
     } 
 }
 
-view_verify();
+$request->displayNewPassword();

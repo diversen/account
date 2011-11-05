@@ -29,7 +29,7 @@ if ($account_use_email_login){
 
     $_MODULE_MENU[] = array(
         'title' => lang::translate('account_request_password'),
-        'url' => '/account/request_pw/index'
+        'url' => '/account/requestpw/index'
     );
 
 }

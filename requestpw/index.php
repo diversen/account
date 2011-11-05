@@ -5,7 +5,7 @@
  */
 template::setTitle(lang::translate('account_request_password_title'));
 
-$request = new request();
+$request = new requestpw();
 if (isset($_POST['submit'])){
     $request->sanitize();
     $request->validate();
@@ -27,4 +27,5 @@ if (isset($_POST['submit'])){
     }
 }
 
-view_request();
+$request->displayRequest();
+//view_request();

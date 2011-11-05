@@ -14,18 +14,19 @@ include_once "captcha.php";
 /**
  * function for showing a form for creating a user
  */
-function view_create (){
-    $field_size = array ('size' => '30');
+function account_view_create (){
+    $_POST = html::specialEncode($_POST);
+    $options = array ('size' => '30');
     html::$autoLoadTrigger = 'submit';
     html::init($_POST);
     html::formStart('blog_form');
     html::legend(lang::translate('account_user_create_legend'));
     html::label('email', lang::translate('account_email_label'));
-    html::text('email',  '', $field_size);
+    html::text('email',  null, $options);
     html::label('password', lang::translate('account_password_label'));
-    html::password('password', '', $field_size);
+    html::password('password', null, $options);
     html::label('password2', lang::translate('account_retype_password_label'));
-    html::password('password2', '', $field_size);
+    html::password('password2', null, $options);
     html::label('captcha', captcha::createCaptcha());
     html::text('captcha', '', array ('size' => 1, 'maxlength'=> 2));
     html::label('submit', '');

@@ -13,8 +13,8 @@ if (!empty($_POST['submit'])){
         view_confirm(lang::translate('account_create_account_has_been_created'));
     } else {
         view_form_errors($account->errors);
-        view_create();
+        account_view_create();
     }
 } else {
-    view_create();
+    account_view_create();
 }

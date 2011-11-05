@@ -10,6 +10,7 @@ if (!session::checkAccessControl('account_allow_edit')){
 template::setTitle(lang::translate('account_delete_account_title'));
 
 $account = new accountAdmin();
+$account->verifyAccount();
 $user = $account->getUser();
 
 if (!empty($_POST['submit'])){

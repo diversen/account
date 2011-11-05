@@ -6,24 +6,26 @@ include_module('account/login');
 class accountFacebook {
     /**
      *
-     * @var 
+     * @var boolean $loggedIn tells if user is logged in or not
      */
     public static $loggedIn = null;
 
     /**
      *
-     * @var int $id
+     * @var int $id the users id. 
      */
     public static $id;
 
     /**
      *
-     * @var array $errors
+     * @var array $errors array holding errors
      */
     public static $errors = null;
 
     /**
-     * set some basic messages
+     * init facebook
+     * checks if user is logged in 
+     * checks if session needs to be killed (logging out)
      */
     public static function  init() {
         // logout is the same for all login methods so far.
@@ -42,35 +44,18 @@ class accountFacebook {
 
 
     /**
-     * method for login via openid. 
-     */
-    public static function login (){
-                
-        if (@$_POST['keep_session'] == 'on'){
-            //echo "we keep session";
-            $_SESSION['keep_session'] = 1;
-        }
-
-        $status = "";
-    }
-
-    /**
      * method for authorizing a user
      *
-     * @param   string  username
-     * @param   string  password
-     * @return  array|0 row with user creds on success, 0 if not
+     * @param   string  $facebook_url
+     * @return  array|0 $row with user creds on success, 0 if not
      */
-    public static function auth ($facebook_url){
+
+    public function auth ($facebook_url){
         $db = new db();
 
         $search = array ('url' => $facebook_url);
         $row = $db->selectOne('account', null, $search);
-        if (empty($row)){
-            return 0;
-        } else {
-            return $row;
-        }
+        return $row;
     }
 
     /**
@@ -78,7 +63,7 @@ class accountFacebook {
      *
      * @return int      1 success or 0 on failure
      */
-    public static function createUser ($facebook_url){
+    public function createUser ($facebook_url){
         $db = new db();       
         $values = array('url'=> $facebook_url, 'username' => $facebook_url);
         $res = $db->insert('account', $values);
