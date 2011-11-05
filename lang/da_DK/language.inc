@@ -63,7 +63,7 @@ $_COS_LANG_MODULE['account_form_retype_password'] = 'Gentag password';
 // Translation of file /home/dennis/www/oscmsdk/modules/account/request_pw/index.php
 
 $_COS_LANG_MODULE['account_request_password_title'] = 'Opret nyt password';
-$_COS_LANG_MODULE['account_request_login_info_sent_to'] = 'Login info sent til';
+$_COS_LANG_MODULE['account_request_login_info_sent_to'] = 'Check din email';
 // Translation of file /home/dennis/www/oscmsdk/modules/account/request_pw/model.request_pw.inc
 
 $_COS_LANG_MODULE['account_error_no_such_email'] = 'Ingen sådan email i systemet';

@@ -5,6 +5,8 @@
  * 
  */
 
+include_once "captcha.php";
+
 /**
  * class requestpw 
  */
@@ -14,7 +16,7 @@ class requestpw {
      *
      * @var array $errors
      */
-    public $errors;
+    public $errors = array();
 
 
     /**
@@ -101,6 +103,7 @@ class requestpw {
      */
     public function validatePassword(){
         if (strlen($_POST['password1']) < 7){
+            echo "argh";
             $this->errors['password'] = lang::translate('account_password_length_error');
         }
         if ($_POST['password1'] != $_POST['password2']){
@@ -119,8 +122,10 @@ class requestpw {
         $md5_key = $uri->fragment(4);
         $search = array ('id' => $id, 'md5_key' => $md5_key);
         
+        print_r($search);
         $db = new db();
         $row = $db->selectOne('account', null, $search);
+        print_r($row);
         if (empty($row)){
             $this->errors[] = lang::translate('account_request_no_combination_md5_user');
             return false;

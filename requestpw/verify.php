@@ -5,8 +5,8 @@ template::setTitle(lang::translate('account_request_set_new_passwords_title'));
 $request = new requestpw();
 $res = $request->verifyAccount();
 if ($res){
-    if (isset($_POST['submit'])){
-        $request->sanitize();
+    $request->sanitize();
+    if (isset($_POST['submit'])){        
         $request->validatePassword();
         if (empty($request->errors)){
             if ($request->setNewPassword()){
@@ -20,7 +20,10 @@ if ($res){
         } else {
             view_form_errors($request->errors);
         }
-    } 
+    }
+    $request->displayNewPassword();
+} else {
+
+    view_form_errors($request->errors);
 }
 
-$request->displayNewPassword();
