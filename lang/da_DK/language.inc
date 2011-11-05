@@ -8,7 +8,9 @@ $_COS_LANG_MODULE['account_has_been_verified'] = 'Konto er blevet verificeret';
 // Translation of file /home/dennis/www/oscmsdk/modules/account/create/index.php
 
 $_COS_LANG_MODULE['account_create_index_title'] = 'Opret konto';
-$_COS_LANG_MODULE['account_create_account_has_been_created'] = 'Konto er blevet oprettet';
+$_COS_LANG_MODULE['account_create_account_has_been_created'] = 'Konto er blevet oprettet. 
+Du vil modtage en email i løbet af kort tid.     
+Tryk et link i denne mail og du er verificeret.';
 // Translation of file /home/dennis/www/oscmsdk/modules/account/create/model.create.inc
 
 $_COS_LANG_MODULE['account_error_email_exists'] = 'Email eksisterer allerede';
@@ -63,7 +65,8 @@ $_COS_LANG_MODULE['account_form_retype_password'] = 'Gentag password';
 // Translation of file /home/dennis/www/oscmsdk/modules/account/request_pw/index.php
 
 $_COS_LANG_MODULE['account_request_password_title'] = 'Opret nyt password';
-$_COS_LANG_MODULE['account_request_login_info_sent_to'] = 'Check din email';
+$_COS_LANG_MODULE['account_request_login_info_sent_to'] = 'Check din email. Heri er der instruktioner til at 
+    skabe et nyt password.';
 // Translation of file /home/dennis/www/oscmsdk/modules/account/request_pw/model.request_pw.inc
 
 $_COS_LANG_MODULE['account_error_no_such_email'] = 'Ingen sådan email i systemet';

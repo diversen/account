@@ -16,18 +16,21 @@ $account_use_facebook_login = get_module_ini('account_use_facebook_login');
 $_MODULE_MENU = array();
 
 if ($account_use_email_login){
-    $_MODULE_MENU[] = array(
+    $_MODULE_MENU[0] = array(
         'title' => lang::translate('account_login_with_email'),
         'url' => '/account/login/index'
     );
     
-    $_MODULE_MENU[] = array(
+    $_MODULE_MENU[1] = array(
             'title' => lang::translate('account_create_email_account'),
             'url' => '/account/create/index',
-            'auth' => get_module_ini('account_allow_create'),
         );
 
-    $_MODULE_MENU[] = array(
+    if ($account_allow_create) {
+        $_MODULE_MENU[1]['auth'] = $account_allow_create;
+    } 
+    
+    $_MODULE_MENU[2] = array(
         'title' => lang::translate('account_request_password'),
         'url' => '/account/requestpw/index'
     );

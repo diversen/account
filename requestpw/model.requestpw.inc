@@ -121,11 +121,10 @@ class requestpw {
         $id = $uri->fragment(3);
         $md5_key = $uri->fragment(4);
         $search = array ('id' => $id, 'md5_key' => $md5_key);
-        
-        print_r($search);
+
         $db = new db();
         $row = $db->selectOne('account', null, $search);
-        print_r($row);
+
         if (empty($row)){
             $this->errors[] = lang::translate('account_request_no_combination_md5_user');
             return false;

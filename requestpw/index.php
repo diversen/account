@@ -14,9 +14,7 @@ if (isset($_POST['submit'])){
         $mail_sent = $request->requestPassword($_POST['email']);
         if ($mail_sent){
             session::setActionMessage(
-                lang::translate('account_request_login_info_sent_to') .
-                MENU_SUB_SEPARATOR_SEC .
-                $_POST['email']
+                lang::translate('account_request_login_info_sent_to')
             );
             $location = get_module_ini('account_default_url');
             $header = "Location: $location";

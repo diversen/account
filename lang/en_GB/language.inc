@@ -66,7 +66,8 @@ $_COS_LANG_MODULE['account_form_retype_password'] = 'Repeat new password';
 // Translation of file /home/dennis/www/oscmsdk/modules/account/request_pw/index.php
 
 $_COS_LANG_MODULE['account_request_password_title'] = 'Request New Password';
-$_COS_LANG_MODULE['account_request_login_info_sent_to'] = 'Login info sent to email. Visit your mailbox';
+$_COS_LANG_MODULE['account_request_login_info_sent_to'] = 'Login info sent to email. Visit your mailbox
+    and follow instructions in order to get a new password';
 // Translation of file /home/dennis/www/oscmsdk/modules/account/request_pw/model.request_pw.inc
 
 $_COS_LANG_MODULE['account_error_no_such_email'] = 'Email does not exists in system';
