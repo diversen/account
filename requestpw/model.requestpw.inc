@@ -145,7 +145,7 @@ class requestpw {
         html::label('email', lang::translate('account_email_label'));
         html::text('email',  null, $field_size);
         html::label('captcha', captcha::createCaptcha());
-        html::text('captcha', null, array ('size' => 1, 'maxlength'=> 2));
+        html::text('captcha');
         html::label('submit', '');
         html::submit('submit', lang::translate('account_submit'));
         html::formEnd();

@@ -28,7 +28,7 @@ function account_view_create (){
     html::label('password2', lang::translate('account_retype_password_label'));
     html::password('password2', null, $options);
     html::label('captcha', captcha::createCaptcha());
-    html::text('captcha', '', array ('size' => 1, 'maxlength'=> 2));
+    html::text('captcha');
     html::label('submit', '');
     html::submit('submit', lang::translate('account_submit'));
     html::formEnd();
