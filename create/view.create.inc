@@ -16,7 +16,7 @@ include_once "captcha.php";
  */
 function account_view_create (){
     $_POST = html::specialEncode($_POST);
-    $options = array ('size' => '30');
+    
     html::$autoLoadTrigger = 'submit';
     html::init($_POST);
     html::formStart('blog_form');
