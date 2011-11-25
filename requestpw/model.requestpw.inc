@@ -137,13 +137,13 @@ class requestpw {
      * Displays a form for requesting a new password. 
      */
     public function displayRequest () {
-        $field_size = array ('size' => '30');
+
         html::$autoLoadTrigger = 'submit';
         html::init($_POST);
         html::formStart('account_request_new_password');
         html::legend(lang::translate('account_request_password_title'));
         html::label('email', lang::translate('account_email_label'));
-        html::text('email',  null, $field_size);
+        html::text('email');
         html::label('captcha', captcha::createCaptcha());
         html::text('captcha');
         html::label('submit', '');
