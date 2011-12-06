@@ -29,8 +29,29 @@ class accountLoginView {
         } else {
             $keep_session = 'checked="checked"';
         }
+        
+        html::$autoLoadTrigger = 'submit';
+        html::init($_POST);
+        html::formStart('account_request_new_password');
+        html::legend(lang::translate('account_request_password_title'));
+        html::label('email', lang::translate('account_email_label'));
+        html::text('email');
+        //html::label('captcha', captcha::createCaptcha());
+        //html::text('captcha');
+        html::label('password', lang::translate('account_form_password'));
+        html::password('password');
+        
+        $keep_session_label = lang::translate('account_keep_session') . ' ' . get_main_ini('cookie_time') . ' ' . lang::translate('account_num_days');
+        html::label('keep_session', $keep_session_label);
+        html::checkbox('keep_session', 1);
+        
+        html::label('submit', '');
+        html::submit('submit', lang::translate('account_submit'));
+        html::formEnd();
+        echo html::$formStr;
 
 ?>
+<!--
 <div id="form_main">
 <form method="post" action="">
 <fieldset>
@@ -48,7 +69,7 @@ class accountLoginView {
 <input type="submit" name="submit" value="<?php echo lang::translate('account_submit')?>"><br />
 </fieldset>
 </form>
-</div>
+</div>-->
 <?php
 
     if (isset(self::$accountLoginHTML)){

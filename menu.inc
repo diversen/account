@@ -29,11 +29,11 @@ if ($account_use_email_login){
     if ($account_allow_create) {
         $_MODULE_MENU[1]['auth'] = $account_allow_create;
     } 
-    
+    /*
     $_MODULE_MENU[2] = array(
         'title' => lang::translate('account_request_password'),
         'url' => '/account/requestpw/index'
-    );
+    );*/
 
 }
 
