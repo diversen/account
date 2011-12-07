@@ -33,7 +33,9 @@ class accountLoginView {
         html::$autoLoadTrigger = 'submit';
         html::init($_POST);
         html::formStart('account_request_new_password');
+
         html::legend(lang::translate('account_login_legend'));
+
         html::label('email', lang::translate('account_email_label'));
         html::text('email');
         //html::label('captcha', captcha::createCaptcha());
