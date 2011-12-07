@@ -141,3 +141,5 @@ $_COS_LANG_MODULE['account_form_username'] = 'Brugernavn';
 $_COS_LANG_MODULE['account_form_password_retype'] = 'Gentag password';
 $_COS_LANG_MODULE['account_form_submit'] = 'Send';
 $_COS_LANG_MODULE['account_delete_user_legend'] = 'Slet Bruger';
+
+$_COS_LANG_MODULE['account_login_legend'] = 'Log ind';

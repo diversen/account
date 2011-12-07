@@ -143,3 +143,5 @@ $_COS_LANG_MODULE['account_your_screenname_is'] = 'Your screen name';
 $_COS_LANG_MODULE['account_form_openid'] = 'Openid';
 $_COS_LANG_MODULE['account_form_submit'] = 'Submit';
 $_COS_LANG_MODULE['account_delete_user_legend'] = 'Delete User';
+
+$_COS_LANG_MODULE['account_login_legend'] = 'Login';

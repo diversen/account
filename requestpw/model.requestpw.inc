@@ -92,8 +92,8 @@ class requestpw {
         $md5_key = md5(uniqid(rand(), true));
         
         $_POST = html::specialDecode($_POST);
-        $values = array('password' => md5($_POST[password1]), 'md5_key' => $md5_key);
-        $res = $db->update('account', $values, $row[id]);
+        $values = array('password' => md5($_POST['password1']), 'md5_key' => $md5_key);
+        $res = $db->update('account', $values, $row['id']);
         return $res;
     }
 
@@ -171,5 +171,36 @@ class requestpw {
         html::submit('submit', lang::translate('account_submit'));
         html::formEnd();
         echo html::$formStr;
+    }
+    
+    /**
+     * method for displaying the request password form
+     * in a single call. 
+     */
+    public static function disaplyRequestPassword () {
+        template::setTitle(lang::translate('account_request_password_title'));
+
+        simple_prg();
+        $request = new requestpw();
+        if (isset($_POST['submit'])){
+            $request->sanitize();
+            $request->validate();
+
+            if (empty($request->errors)){
+                $mail_sent = $request->requestPassword($_POST['email']);
+                if ($mail_sent){
+                    session::setActionMessage(
+                        lang::translate('account_request_login_info_sent_to')
+                    );
+                    $location = get_module_ini('account_default_url');
+                    $header = "Location: $location";
+                    header($header);
+                }
+            } else {
+                view_form_errors($request->errors);
+            }
+        }
+
+        $request->displayRequest();
     }
 }

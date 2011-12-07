@@ -3,6 +3,10 @@
 /**
  * @package    account
  */
+
+requestpw::disaplyRequestPassword();
+return;
+
 template::setTitle(lang::translate('account_request_password_title'));
 
 $request = new requestpw();
