@@ -11,7 +11,7 @@
 include_once "html.php";
 include_once "captcha.php";
 
-template::setInlineCss(_COS_PATH . "/modules/account/assets/admin.css");
+//template::setInlineCss(_COS_PATH . "/modules/account/assets/admin.css");
 
 class viewAccountAdmin {
 
