@@ -72,10 +72,18 @@ class accountOpenid {
         
         include_once "Zend/OpenId/Consumer.php";
         include_once "Zend/OpenId.php";
+        include_once "Zend/OpenId/Extension/Sreg.php";
         include_once "Ak33m/OpenId/Consumer.php";
 
                 //self::checkSystemCookie();
-                
+        /**
+         * Sreg is used for getting some info from openid. 
+         */       
+        $sreg = new Zend_OpenId_Extension_Sreg(array(
+                    'nickname'=>false,
+                    'email'=>true,
+                    'fullname'=>false), null, 1.1);
+        
         if (@$_POST['keep_session'] == 'on'){
             //echo "we keep session";
             $_SESSION['keep_session'] = 1;
@@ -91,14 +99,20 @@ class accountOpenid {
                 
             } else {
                 $consumer = new Ak33m_OpenId_Consumer();
-                if (!$consumer->login($_POST['openid_identifier'])) {
+                // with sreg
+                //if (!$consumer->login($_POST['openid_identifier'], null, null, $sreg)) {
+                if (!$consumer->login($_POST['openid_identifier'], null, null, null)) {
                     $status = lang::translate("account_openid_login_failed");
                 }
             }
         } else if (isset($_GET['openid_mode'])) {
             if ($_GET['openid_mode'] == "id_res") {
                 $consumer = new Ak33m_OpenId_Consumer();
+                // with sreg
+                //if ($consumer->verify($_GET, $id, $sreg)) {
                 if ($consumer->verify($_GET, $id)) {
+                    $data = $sreg->getProperties();
+                    //print_r($data); die;
                     $status = lang::translate('account_openid_valid_login') . ' ' . htmlspecialchars($id). "<br />\n";
                     $account = self::auth($id);
 
