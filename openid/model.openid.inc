@@ -22,7 +22,7 @@ class accountOpenid {
      *
      * @var array   holding errors
      */
-    public static $errors = null;
+    public static $errors = array();
 
     /**
      * set some basic messages
@@ -102,7 +102,7 @@ class accountOpenid {
                 // with sreg
                 //if (!$consumer->login($_POST['openid_identifier'], null, null, $sreg)) {
                 if (!$consumer->login($_POST['openid_identifier'], null, null, null)) {
-                    $status = lang::translate("account_openid_login_failed");
+                    $error = lang::translate('account_openid_login_failed');
                 }
             }
         } else if (isset($_GET['openid_mode'])) {

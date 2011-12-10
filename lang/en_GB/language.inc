@@ -145,3 +145,5 @@ $_COS_LANG_MODULE['account_form_submit'] = 'Submit';
 $_COS_LANG_MODULE['account_delete_user_legend'] = 'Delete User';
 
 $_COS_LANG_MODULE['account_login_legend'] = 'Login';
+
+$_COS_LANG_MODULE['account_openid_login_failed'] = 'OpenID login failed. Check if URL is correct';
