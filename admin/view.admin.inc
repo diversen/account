@@ -45,7 +45,7 @@ class viewAccountAdmin {
         html::checkbox ('super');
         html::submit('submit', lang::translate('account_update'));
         html::formEnd();
-        echo html::$formStr;
+        echo html::getStr();
 
    }
 
@@ -63,7 +63,7 @@ class viewAccountAdmin {
         html::checkbox ('super');
         html::submit('submit', lang::translate('account_update'));
         html::formEnd();
-        echo html::$formStr;
+        echo html::getStr();
     }
 
 
@@ -108,8 +108,8 @@ class viewAccountAdmin {
             echo "<td>" . lang::translate('account_is_not_verified') . "</td>";
         }
         echo "<td>" . $v['created'] . "</td>";
-        echo "<td>" . create_link("/account/admin/edit/$v[id]", lang::translate('account_edit')) . "</td>\n";
-        echo "<td>" . create_link("/account/admin/delete/$v[id]", lang::translate('account_delete')) . "</td>\n";
+        echo "<td>" . html::createLink("/account/admin/edit/$v[id]", lang::translate('account_edit')) . "</td>\n";
+        echo "<td>" . html::createLink("/account/admin/delete/$v[id]", lang::translate('account_delete')) . "</td>\n";
         echo "</tr>\n";
     }
 
@@ -126,6 +126,6 @@ class viewAccountAdmin {
 
         html::submit('submit', lang::translate('account_delete'));
         html::formEnd();
-        echo html::$formStr;
+        echo html::getStr();
     }
 }

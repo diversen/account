@@ -75,8 +75,8 @@ function view_users($users){ ?>
     <td><?php echo lang::translate('account_is_verified')?></td><?php } else { ?>
     <td><?php echo lang::translate('account_is_not_verified')?></td><?php } ?>
     <td><?php echo $v['created']?></td>
-    <td><?php echo create_link("/account/admin/edit/$v[id]", lang::translate('account_edit'))?></td>
-    <td><?php echo create_link("/account/admin/delete/$v[id]", lang::translate('account_delete'))?></td>
+    <td><?php echo html::createLink("/account/admin/edit/$v[id]", lang::translate('account_edit'))?></td>
+    <td><?php echo html::createLink("/account/admin/delete/$v[id]", lang::translate('account_delete'))?></td>
 </tr>
 <?php } ?>
 </table>
