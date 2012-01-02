@@ -149,7 +149,7 @@ class requestpw {
         html::label('submit', '');
         html::submit('submit', lang::translate('account_submit'));
         html::formEnd();
-        echo html::$formStr;
+        echo html::getStr();
     }
     
     /**
@@ -170,7 +170,7 @@ class requestpw {
         html::label('submit', '');
         html::submit('submit', lang::translate('account_submit'));
         html::formEnd();
-        echo html::$formStr;
+        echo html::getStr();
     }
     
     /**

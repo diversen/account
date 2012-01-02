@@ -99,7 +99,7 @@ class accountFacebook {
             $str .= lang::translate('account_logged_in_with_facebook') . ": <br />" . $row['url'];
 
         }
-        $str .= "<hr />" . create_link($logoutUrl, lang::translate('account_logout'));
+        $str .= "<hr />" . html::createLink($logoutUrl, lang::translate('account_logout'));
         view_confirm($str);
     }
 }
