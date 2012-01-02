@@ -22,11 +22,11 @@ function account_view_create (){
     html::init($_POST);
     html::formStart('blog_form');
     html::legend(lang::translate('account_user_create_legend'));
-    html::label('email', lang::translate('account_email_label'));
+    html::label('email', lang::translate('account_email_label'), array('required' => 1));
     html::text('email',  null, $options);
-    html::label('password', lang::translate('account_password_label'));
+    html::label('password', lang::translate('account_password_label'), array('required' => 1));
     html::password('password', null, $options);
-    html::label('password2', lang::translate('account_retype_password_label'));
+    html::label('password2', lang::translate('account_retype_password_label'), array('required' => 1));
     html::password('password2', null, $options);
     html::label('captcha', captcha::createCaptcha());
     html::text('captcha');

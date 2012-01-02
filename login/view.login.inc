@@ -36,11 +36,11 @@ class accountLoginView {
 
         html::legend(lang::translate('account_login_legend'));
 
-        html::label('email', lang::translate('account_email_label'));
+        html::label('email', lang::translate('account_email_label'), array('required' => true));
         html::text('email');
         //html::label('captcha', captcha::createCaptcha());
         //html::text('captcha');
-        html::label('password', lang::translate('account_form_password'));
+        html::label('password', lang::translate('account_form_password'), array('required' => true));
         html::password('password');
         
         $keep_session_label = lang::translate('account_keep_session') . ' ' . get_main_ini('cookie_time') . ' ' . lang::translate('account_num_days');
