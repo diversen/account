@@ -92,7 +92,7 @@ class requestpw {
         $md5_key = md5(uniqid(rand(), true));
         
         $_POST = html::specialDecode($_POST);
-        $values = array('password' => md5($_POST['password1']), 'md5_key' => $md5_key);
+        $values = array('verified' => 1, 'password' => md5($_POST['password1']), 'md5_key' => $md5_key);
         $res = $db->update('account', $values, $row['id']);
         return $res;
     }
@@ -103,7 +103,6 @@ class requestpw {
      */
     public function validatePassword(){
         if (strlen($_POST['password1']) < 7){
-            echo "argh";
             $this->errors['password'] = lang::translate('account_password_length_error');
         }
         if ($_POST['password1'] != $_POST['password2']){
