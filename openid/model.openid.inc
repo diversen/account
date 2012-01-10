@@ -49,11 +49,7 @@ class accountOpenid {
      * method for showing a openid login form
      */
     public static function viewLoginForm(){
-
-        $file = _COS_PATH . '/modules/account/openid/views/login.inc';
-        $html = simple_template($file);
-        echo $html;
-
+        echo templateView::get('account/openid', 'login');
     }
 
    /**
