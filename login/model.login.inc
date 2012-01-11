@@ -17,10 +17,9 @@ class accountLogin {
     /**
      * static method for doing a login
      */
-    public static function login (){
-        //self::checkSystemCookie();
-
-        if (@$_POST['keep_session'] == 'on'){
+    public static function login (){        
+        if (isset($_POST['keep_session'])){
+            //die('keep_session');
             $keep_session = 1;
         }
 

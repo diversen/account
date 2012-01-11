@@ -85,8 +85,9 @@ class viewAccountAdmin {
 
 
     public static function viewUser ($v) {
+        $date = time::getDateString($v['created']);
         echo "<tr>\n";
-        echo "<td colspan=\"6\">" . get_profile_link($v, array('uniqid' => true)) . "</td>";
+        echo "<td colspan=\"6\">" . user::getProfileSimple($v, $date) . "</td>";
         echo "</tr>\n";
         echo "<tr>\n";
 
@@ -123,7 +124,6 @@ class viewAccountAdmin {
     function delete ($values){
         html::formStart('account_form');
         html::legend(lang::translate('account_delete_account_legend'));
-
         html::submit('submit', lang::translate('account_delete'));
         html::formEnd();
         echo html::getStr();

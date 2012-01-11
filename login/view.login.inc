@@ -19,23 +19,17 @@ class accountLoginView {
      * method for displayng default login box
      */
     public static function login (){
-
-        if (isset($_POST['submit'])){
-            if (isset($_POST['keep_session'])){
-                $keep_session = 'checked="checked"';
-            } else {
-                $keep_session = '';
-            }
+        
+        if (!isset($_POST['submit'])){
+            $init = array ('keep_session' => 'on');
         } else {
-            $keep_session = 'checked="checked"';
+            $init = $_POST;
         }
         
         html::$autoLoadTrigger = 'submit';
-        html::init($_POST);
+        html::init($init);
         html::formStart('account_request_new_password');
-
         html::legend(lang::translate('account_login_legend'));
-
         html::label('email', lang::translate('account_email_label'), array('required' => true));
         html::text('email');
         //html::label('captcha', captcha::createCaptcha());
@@ -45,7 +39,7 @@ class accountLoginView {
         
         $keep_session_label = lang::translate('account_keep_session') . ' ' . get_main_ini('cookie_time') . ' ' . lang::translate('account_num_days');
         html::label('keep_session', $keep_session_label);
-        html::checkbox('keep_session', 1);
+        html::checkbox('keep_session');
         
         html::label('submit', '');
         html::submit('submit', lang::translate('account_submit'));
@@ -53,25 +47,7 @@ class accountLoginView {
         echo html::getStr();
 
 ?>
-<!--
-<div id="form_main">
-<form method="post" action="">
-<fieldset>
-<legend>Login</legend>
-<label for="email"><?php echo lang::translate('account_form_email')?>:</label><br />
-<input type="text" name="email" value="<?=@htmlentities($_POST['email'])?>"><br />
-<label for="password"><?php echo lang::translate('account_form_password')?>:</label><br />
-<input type="password" name="password" value="<?=@htmlentities($_POST['password'])?>"><br />
 
-
-<label for="keep_session"><?=lang::translate('account_keep_session')?> <?=get_main_ini('cookie_time')?> <?=lang::translate('account_num_days')?></label><br />
-<input name="keep_session" <?=$keep_session?> type="checkbox">
-
-<label for="submit"></label><br />
-<input type="submit" name="submit" value="<?php echo lang::translate('account_submit')?>"><br />
-</fieldset>
-</form>
-</div>-->
 <?php
 
     if (isset(self::$accountLoginHTML)){
@@ -106,7 +82,7 @@ class accountLoginView {
         }
 
         $str.= '<br />';
-        $profile_info = session::getProfileInfo($row);
+        $profile_info = user::getProfileInfo($row);
 
         if (empty($profile_info['screenname'])) {
             $str.= lang::translate('account_no_screenname');
