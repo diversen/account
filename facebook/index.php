@@ -3,7 +3,7 @@
 template::setTitle(lang::translate('account_facebook_login'));
 
 // check to see if user is allowed to use faccebook login
-if (!get_module_ini('account_use_facebook_login')){
+if (!config::getModuleIni('account_use_facebook_login')){
     moduleLoader::$status[403] = 1;
     return;
 }
@@ -22,8 +22,8 @@ if (accountFacebook::$loggedIn){
 // Create our Application instance (replace this with your appId and secret).
 // Create our Application instance.
 $facebook = new Facebook(array(
-  'appId'  => get_module_ini('account_facebook_api_appid'),
-  'secret' => get_module_ini('account_facebook_api_secret'),
+  'appId'  => config::getModuleIni('account_facebook_api_appid'),
+  'secret' => config::getModuleIni('account_facebook_api_secret'),
   'cookie' => true,
 ));
 

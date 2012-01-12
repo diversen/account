@@ -35,7 +35,7 @@ class accountOpenid {
         $uri = uri::getInstance();
         if ($uri->fragment(3) == '1'){
             session::killSession();
-            $redirect = get_module_ini('account_default_url');
+            $redirect = config::getModuleIni('account_default_url');
             header( "Location: $redirect");
             die;
         }

@@ -1,8 +1,8 @@
 <?php
 
 //$account_show_menu = get_module_ini('account_show_menu');
-$account_default_url = get_module_ini('account_default_url');
-$account_admin_only = get_module_ini('account_admin_only');
+$account_default_url = config::getModuleIni('account_default_url');
+$account_admin_only = config::getModuleIni('account_admin_only');
 
 if (!$account_default_url){
     $account_default_url = "/account/login/index";

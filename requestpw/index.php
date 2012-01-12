@@ -20,7 +20,7 @@ if (isset($_POST['submit'])){
             session::setActionMessage(
                 lang::translate('account_request_login_info_sent_to')
             );
-            $location = get_module_ini('account_default_url');
+            $location = config::getModuleIni('account_default_url');
             $header = "Location: $location";
             header($header);
         }

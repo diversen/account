@@ -62,11 +62,11 @@ class requestpw {
 
         $vars['verify_key'] = "$vars[site_name]/account/requestpw/verify/$row[id]/$md5_key";
    
-        $lang = get_main_ini('language');        
+        $lang = config::getMainIni('language');        
         $view_file = _COS_PATH . "/modules/account/lang/$lang/request_password.inc";
         $message = get_include_contents($view_file, $vars);
 
-        $from = register::$vars['coscms_main']['site_email'];
+        $from = config::$vars['coscms_main']['site_email'];
 
         if (mail_utf8($row['email'], $subject, $message, $from)){
             return 1;
@@ -191,7 +191,7 @@ class requestpw {
                     session::setActionMessage(
                         lang::translate('account_request_login_info_sent_to')
                     );
-                    $location = get_module_ini('account_default_url');
+                    $location = config::getModuleIni('account_default_url');
                     $header = "Location: $location";
                     header($header);
                 }

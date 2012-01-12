@@ -13,7 +13,7 @@ if ($res){
                 session::setActionMessage(
                     lang::translate('account_request_new_password_has_been_set')
                 );
-                $location = get_module_ini('account_default_url');
+                $location = config::getModuleIni('account_default_url');
                 $header = "Location: $location";
                 header($header);
             }

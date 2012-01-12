@@ -65,7 +65,7 @@ echo $str;
 <label for="openid"><?php echo lang::translate('account_open_id_your_open_id_form')?>:</label><br />
 <input type="text" name="openid_identifier" size="30" value="<?=@$_POST[openid_identifier]?>"><br />
 
-<label for="keep_session"><?=lang::translate('account_keep_session')?> <?=get_main_ini('cookie_time')?> <?=lang::translate('account_num_days')?></label><br />
+<label for="keep_session"><?=lang::translate('account_keep_session')?> <?=config::getMainIni('cookie_time')?> <?=lang::translate('account_num_days')?></label><br />
 <input name="keep_session" <?=$keep_session?> type="checkbox">
 
 <label for="submit"></label><br />

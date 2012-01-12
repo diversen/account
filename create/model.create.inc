@@ -86,11 +86,11 @@ class accountCreate {
         $vars['verify_key'] = "$vars[site_name]/account/create/verify/$last_insert_id/$md5_key";
 
         // compose message from language
-        $lang = get_main_ini('language');
+        $lang = config::getMainIni('language');
         $message_template = _COS_PATH . "/modules/account/lang/$lang/signup_message.inc";
         $message = get_include_contents($message_template, $vars);
 
-        $from = register::$vars['coscms_main']['site_email'];
+        $from = config::$vars['coscms_main']['site_email'];
         if (mail_utf8($_POST['email'], $subject, $message, $from)){
             db::$dbh->commit();
             return 1;

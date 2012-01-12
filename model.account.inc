@@ -4,7 +4,7 @@
  * File containing main account class
  */
 
-template::setInlineCss(get_module_path('account') .  '/assets/account.css');
+template::setInlineCss(config::getModulePath('account') .  '/assets/account.css');
 
 /**
  * class account. Only containing one method. 
@@ -16,7 +16,7 @@ class account {
      * in the ini setting 'account_default_url'
      */
     public static function redirectDefault (){
-        $redirect = get_module_ini('account_default_url');
+        $redirect = config::getModuleIni('account_default_url');
         header ("Location: $redirect");
         die;
     }

@@ -6,12 +6,12 @@
 
 //moduleLoader::getModuleIniSettings('account');
 
-$account_allow_edit = get_module_ini('account_allow_edit');
+$account_allow_edit = config::getModuleIni('account_allow_edit');
 
-$account_show_admin_link = get_module_ini('account_show_admin_link');
-$account_use_openid_login = get_module_ini('account_use_openid_login');
-$account_use_email_login = get_module_ini('account_use_email_login');
-$account_use_facebook_login = get_module_ini('account_use_facebook_login');
+$account_show_admin_link = config::getModuleIni('account_show_admin_link');
+$account_use_openid_login = config::getModuleIni('account_use_openid_login');
+$account_use_email_login = config::getModuleIni('account_use_email_login');
+$account_use_facebook_login = config::getModuleIni('account_use_facebook_login');
 
 $_MODULE_MENU = array();
 
