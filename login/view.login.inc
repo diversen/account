@@ -82,6 +82,7 @@ class accountLoginView {
         }
 
         $str.= '<br />';
+        
         $profile_info = user::getProfileInfo($row);
 
         if (empty($profile_info['screenname'])) {
