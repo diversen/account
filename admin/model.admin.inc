@@ -3,8 +3,8 @@
 /**
  * File contains accountAdmin class which extends account create. 
  */
-include_model ('account');
-include_model ('account/create');
+moduleLoader::includeModel ('account');
+moduleLoader::includeModel ('account/create');
 
 /**
  * Class accountAdmin

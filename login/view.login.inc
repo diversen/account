@@ -92,7 +92,7 @@ class accountLoginView {
         }
 
         $str.='<br />';
-        $str.= get_profile_edit_link($row['id']);
+        $str.= user::getProfileEditLink($row['id']);
         $str .= "<hr />" . html::createLink($logout_url, lang::translate('account_logout'));
         view_confirm($str);
     }

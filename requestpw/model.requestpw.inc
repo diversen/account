@@ -179,7 +179,7 @@ class requestpw {
     public static function disaplyRequestPassword () {
         template::setTitle(lang::translate('account_request_password_title'));
 
-        simple_prg();
+        http::prg();
         $request = new requestpw();
         if (isset($_POST['submit'])){
             $request->sanitize();

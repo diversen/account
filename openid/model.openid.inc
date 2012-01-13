@@ -1,6 +1,6 @@
 <?php
 
-include_module('account/login');
+moduleLoader::includeModule('account/login');
 
 /**
  * class for doing login with openid

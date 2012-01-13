@@ -1,4 +1,4 @@
 <?php
 
-include_module('account/requestpw');
+moduleLoader::includeModule('account/requestpw');
 requestpw::disaplyRequestPassword();
