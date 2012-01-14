@@ -87,7 +87,7 @@ class viewAccountAdmin {
     public static function viewUser ($v) {
         $date = time::getDateString($v['created']);
         echo "<tr>\n";
-        echo "<td colspan=\"6\">" . user::getProfileSimple($v, $date) . "</td>";
+        echo "<td colspan=\"6\">" . user::getProfile($v, $date) . "</td>";
         echo "</tr>\n";
         echo "<tr>\n";
 
