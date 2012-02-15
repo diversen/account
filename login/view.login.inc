@@ -19,11 +19,11 @@ class accountLoginView {
      * method for displayng default login box
      */
     public static function login (){
-        
+           
         if (!isset($_POST['submit'])){
             $init = array ('keep_session' => 'on');
         } else {
-            $init = $_POST;
+            $init = html::specialEncode($_POST);
         }
         
         html::$autoLoadTrigger = 'submit';

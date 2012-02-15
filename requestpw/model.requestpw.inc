@@ -5,7 +5,7 @@
  * 
  */
 
-include_once "captcha.php";
+include_once "coslib/captcha.php";
 
 /**
  * class requestpw 

@@ -100,7 +100,7 @@ class accountLogin {
      */
     public static function auth ($email, $password){
         $db = new db();
-        $password = md5($password);
+        $password = md5(html::specialDecode($password));
         $search = array ('email' => $email, 'password' => $password);
         $row = $db->selectOne('account', null, $search);
         if (empty($row)){
