@@ -76,7 +76,7 @@ class accountCreate {
         // transaction begin. Insert new user
         db::$dbh->beginTransaction();
         $db = new db();
-        $res = $db->insert('account', $values);
+        $db->insert('account', $values);
         $last_insert_id = db::$dbh->lastInsertId();
 
         // generate email
