@@ -117,14 +117,6 @@ class accountLightopenid {
     }
     
     public function dispenseOpenid ($openid) {
-        //print_r($ary);
-        //$status = lang::translate('account_openid_valid_login') . ' ' . htmlspecialchars($id). "<br />\n";
-        $ary = $openid->getAttributes();
-        //cos_error_log(print_r($ary), true);
-        //die;
-        
-        //print_r($ary);
-        //die;
         $account = $this->auth($openid->identity);
 
         if (!$account){
