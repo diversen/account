@@ -3,7 +3,9 @@
 template::setTitle(lang::translate('account_facebook_login'));
 
 // check to see if user is allowed to use faccebook login
-if (!config::getModuleIni('account_use_facebook_login')){
+$account_logins = config::getModuleIni('account_logins');
+//print_r($account_logins);
+if (!in_array('facebook', $account_logins)){
     moduleLoader::$status[403] = 1;
     return;
 }

@@ -23,7 +23,9 @@ class accountCreate {
      */
     function __construct($validate = true){
         if ($validate){
-            $this->validate();
+            if (isset($_POST['submit'])) {
+                $this->validate();
+            }
         }
     }
 
@@ -32,14 +34,6 @@ class accountCreate {
      * sets $errors if any error
      */
     function validate(){
-
-        if (!isset($_POST['submit'])){
-            $_POST['password'] = '';
-            $_POST['password2'] = '';
-            $_POST['email'] = '';
-            $_POST['captcha'] = '';
-            return null;
-        }
 
         if ($this->emailExist($_POST['email'])){
             $this->errors['email'] = lang::translate('account_error_email_exists');
@@ -90,6 +84,16 @@ class accountCreate {
         $message_template = _COS_PATH . "/modules/account/lang/$lang/signup_message.inc";
         $message = get_include_contents($message_template, $vars);
 
+        $args = $values;
+        
+        $args['action'] = 'insert';
+        $args['last_insert_id'] = $last_insert_id;
+
+        event::getTriggerEvent(
+                config::getModuleIni('account_events'), 
+                $args);
+        
+        //die('flaf');
         $from = config::$vars['coscms_main']['site_email'];
         if (mail_utf8($_POST['email'], $subject, $message, $from)){
             db::$dbh->commit();
@@ -135,6 +139,7 @@ class accountCreate {
         $md5_key = $uri->fragment(4);
         
         $db = new db();
+        $db->begin();
         $search = array ('id' => $account_id,);
         $row = $db->selectOne('account', null, $search);
 
@@ -149,11 +154,17 @@ class accountCreate {
             $this->errors[] = lang::translate
                 ('No such combination between user and validation key');
             return 0;
-        }
-     
+        }     
+                
         $md5_key = md5(uniqid(rand(), true));
         $values = array('verified' => 1, 'md5_key' => $md5_key);
         $res = $db->update('account', $values, $row['id']);
+       
+        $args = $row;
+        $args['action'] = 'update';
+        event::triggerEvent(get_module_ini('account_events'), $args);
+        
+        $db->commit();
         return $res;
     }
 }
