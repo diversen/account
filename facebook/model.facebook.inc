@@ -29,18 +29,23 @@ class accountFacebook {
      */
     public static function  init() {
         // logout is the same for all login methods so far.
-        if (session::isUser()){
-            self::$id = session::getUserId();
-        }
         $uri = uri::getInstance();
         if ($uri->fragment(3) == '1'){
-            session::killSession();
-            return;
+            session_destroy();
+            //session::killSession();
+            return false;
         }
-
-        if (isset($_SESSION['id'])) {
+        
+        if (session::isUser()){
             self::$loggedIn = 1;
+            self::$id = session::getUserId();
+            return true;
         }
+    }
+    
+    public static function getLogoutNext () {
+        $server = get_main_ini('server_name');
+        return "http://$server/account/facebook/logout";
     }
 
 
@@ -103,4 +108,42 @@ class accountFacebook {
         $str .= "<hr />" . html::createLink($logoutUrl, lang::translate('account_logout'));
         view_confirm($str);
     }
+}
+
+function getFacebookObj () {
+
+    $facebook = new Facebook(array(
+        'appId'  => config::getModuleIni('account_facebook_api_appid'),
+        'secret' => config::getModuleIni('account_facebook_api_secret'),    
+    ));
+    
+    return $facebook;
+}
+
+
+function getFacebookLoginLink () {
+    $facebook = getFacebookObj();
+    $loginUrl = $facebook->getLoginUrl();
+    return html::createLink($loginUrl, "Login");
+}
+
+function getFacebookUser () {
+    $facebook = getFacebookObj();
+    $user = $facebook->getUser();
+    return $user;
+}
+
+function getFacebookProfile () {
+    $facebook = getFacebookObj();
+    //if ($user) {
+        try {
+            // Proceed knowing you have a logged in user who's authenticated.
+            $user_profile = $facebook->api("/me");
+        } catch (FacebookApiException $e) {
+            echo "exp: no profile";
+            print_r($e);
+            $user_profile = null;
+        }
+  //  }
+    return $user_profile;
 }

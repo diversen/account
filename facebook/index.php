@@ -29,6 +29,12 @@ $facebook = new Facebook(array(
   'cookie' => true, 
 ));
 
+//session_destroy();
+//header ("Location: /");
+
+//$facebook->();
+
+
 
 
 // We may or may not have this data based on a $_GET or $_COOKIE based session.
@@ -45,16 +51,19 @@ if ($user) {
     // Proceed knowing you have a logged in user who's authenticated.
     $user_profile = $facebook->api('/me');
   } catch (FacebookApiException $e) {
-    //print_r($e);
-    $user = null;
-    $user_profile = null;
+    print_r($e);
+    //$user = null;
+    //$user_profile = null;
   }
+} else {
+    $user_profile = null;
 }
 
-//print_r($user_profile);
+
 
 if ($user) {
-  $logoutUrl = $facebook->getLogoutUrl();
+  $logoutUrl = $facebook->getLogoutUrl(
+          array ('next' => accountFacebook::getLogoutNext()));
 } else {
   $loginUrl = $facebook->getLoginUrl();
 }
