@@ -45,7 +45,7 @@ if ($user) {
     // Proceed knowing you have a logged in user who's authenticated.
     $user_profile = $facebook->api('/me');
   } catch (FacebookApiException $e) {
-    error_log($e);
+    print_r($e);
     $user = null;
   }
 }
