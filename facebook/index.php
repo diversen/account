@@ -45,12 +45,13 @@ if ($user) {
     // Proceed knowing you have a logged in user who's authenticated.
     $user_profile = $facebook->api('/me');
   } catch (FacebookApiException $e) {
-    print_r($e);
+    //print_r($e);
     $user = null;
+    $user_profile = null;
   }
 }
 
-print_r($user_profile);
+//print_r($user_profile);
 
 if ($user) {
   $logoutUrl = $facebook->getLogoutUrl();
@@ -60,7 +61,7 @@ if ($user) {
 
 
 // login or logout url will be needed depending on current user state.
-if ($user) {
+if ($user_profile) {
   // create user in if he does not exists.
 
   $account = new accountFacebook();
