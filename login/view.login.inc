@@ -61,41 +61,10 @@ class accountLoginView {
     public static function logout(){
 
         accountLogin::setId();
-        $row = accountLogin::getUser();
-
-        $str = '';
-        $logout_url = "/account/login/index/1";
-
-        // only default account use email as a verification
-        if (!empty($row['email'])){
-            $str.= lang::translate('account_logged_in_with_email');
-            $str.= MENU_SUB_SEPARATOR_SEC . "<br />" . $row['email'] . ' ';
-            $str.= "(" . lang::translate('account_login_will_not_be_displayed') . ")";
-        } else {
-            $str.= lang::translate('account_logged_in_with_alternative');
-            $str.= MENU_SUB_SEPARATOR_SEC . "<br />" . $row['url'] . ' ';
-            $str.= "(" . lang::translate('account_login_will_not_be_displayed') . ")";
-            // use facebook api
-            if (strstr($row['url'], 'facebook')){
-                header("Location: /account/facebook/index/1");           
-            }
-        }
-
-        $str.= '<br />';
+        $row = accountLogin::getUser();  
+        echo user::getLogoutHTML($row);
         
-        $profile_info = user::getProfileInfo($row);
-
-        if (empty($profile_info['screenname'])) {
-            $str.= lang::translate('account_no_screenname');
-            
-        } else {
-            $str.= lang::translate('account_your_screenname_is') . MENU_SUB_SEPARATOR_SEC . $profile_info['screenname'];
-        }
-
-        $str.='<br />';
-        $str.= user::getProfileEditLink($row['id']);
-        $str .= "<hr />" . html::createLink($logout_url, lang::translate('account_logout'));
-        view_confirm($str);
+        
     }
 
     /**

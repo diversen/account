@@ -34,7 +34,7 @@ $_COS_LANG_MODULE['account_welcome_message'] = 'Velkommen';
 $_COS_LANG_MODULE['account_facebook_login'] = 'Facebook login';
 // Translation of file /home/dennis/www/oscmsdk/modules/account/facebook/model.facebook.inc
 
-$_COS_LANG_MODULE['account_logged_in_with_email'] = 'Logget på med email';
+$_COS_LANG_MODULE['account_logged_in_with_email'] = 'Logget ind med email';
 $_COS_LANG_MODULE['account_logged_in_with_facebook'] = 'Logget ind med facebook';
 $_COS_LANG_MODULE['account_logout'] = 'Log ud';
 // Translation of file /home/dennis/www/oscmsdk/modules/account/login/index.php
@@ -145,3 +145,4 @@ $_COS_LANG_MODULE['account_delete_user_legend'] = 'Slet Bruger';
 $_COS_LANG_MODULE['account_login_legend'] = 'Log ind';
 
 $_COS_LANG_MODULE['account_openid_login_failed'] = 'OpenID login mislykkedes. Check openID URL';
+$_COS_LANG_MODULE['account_logged_in_with_open_id'] = 'Logget ind med OpenID';

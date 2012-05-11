@@ -16,3 +16,13 @@ Create settings:
 In settings 'application domain': e.g. example.com
 In settings 'Homepage' set e.g: example.com/account/facebook/index
 Thinks those two has to correspond.  
+
+Array ( 
+    [id] => 1345147873 
+    [name] => Dennis Bæk Iversen 
+    [first_name] => Dennis 
+    [middle_name] => Bæk 
+    [last_name] => Iversen 
+    [link] => http://www.facebook.com/dennis.b.iversen 
+    [username] => dennis.b.iversen 
+    [education] => Array ( [0] => Array ( [school] => Array ( [id] => 108701189160393 [name] => Gymnasium ) [type] => High School ) [1] => Array ( [school] => Array ( [id] => 115201281825322 [name] => Aarhus Katedralskole ) [type] => High School ) [2] => Array ( [school] => Array ( [id] => 102056093170067 [name] => Aalborg Universitet ) [concentration] => Array ( [0] => Array ( [id] => 165887780130942 [name] => Dansk ) [1] => Array ( [id] => 192650460823706 [name] => MEDIE ) ) [type] => College ) ) [gender] => male [timezone] => 2 [locale] => en_US [verified] => 1 [updated_time] => 2012-04-27T21:05:00+0000 )

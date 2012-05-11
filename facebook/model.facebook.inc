@@ -1,6 +1,6 @@
 <?php
 
-include_once 'facebook.php';
+require 'facebook.php';
 moduleLoader::includeModule('account/login');
 
 class accountFacebook {
@@ -35,6 +35,7 @@ class accountFacebook {
         $uri = uri::getInstance();
         if ($uri->fragment(3) == '1'){
             session::killSession();
+            return;
         }
 
         if (isset($_SESSION['id'])) {

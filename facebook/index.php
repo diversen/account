@@ -18,7 +18,7 @@ if (accountFacebook::$loggedIn){
         accountLoginView::logout();
         return;
     }
-
+    
 } 
 
 // Create our Application instance (replace this with your appId and secret).
@@ -26,8 +26,10 @@ if (accountFacebook::$loggedIn){
 $facebook = new Facebook(array(
   'appId'  => config::getModuleIni('account_facebook_api_appid'),
   'secret' => config::getModuleIni('account_facebook_api_secret'),
-  'cookie' => true,
+  'cookie' => true, 
 ));
+
+
 
 // We may or may not have this data based on a $_GET or $_COOKIE based session.
 //
@@ -38,28 +40,35 @@ $facebook = new Facebook(array(
 // session back in this case) or if the user logged out of Facebook.
 $user = $facebook->getUser();
 
-$me = null;
-// Session based API call.
 if ($user) {
   try {
-    //$uid = $facebook->getUser();
-    $me = $facebook->api('/me');
-
+    // Proceed knowing you have a logged in user who's authenticated.
+    $user_profile = $facebook->api('/me');
   } catch (FacebookApiException $e) {
     error_log($e);
+    $user = null;
   }
 }
 
+print_r($user_profile);
+
+if ($user) {
+  $logoutUrl = $facebook->getLogoutUrl();
+} else {
+  $loginUrl = $facebook->getLoginUrl();
+}
+
+
 // login or logout url will be needed depending on current user state.
-if ($me) {
+if ($user) {
   // create user in if he does not exists.
 
   $account = new accountFacebook();
-  $row = $account->auth($me['link']);
+  $row = $account->auth($user_profile['link']);
 
   if (empty($row)){
       // we have a facebook session but no user
-      $id = $account->createUser($me['link']);
+      $id = $account->createUser($user_profile['link']);
       $_SESSION['id'] = $id;
       $_SESSION['account_type'] = 'facebook';
   } else {
@@ -69,8 +78,9 @@ if ($me) {
       $_SESSION['super'] = $row['super'];
       $_SESSION['account_type'] = 'facebook';
   }
-  $logoutUrl = $facebook->getLogoutUrl();
-  $uri = uri::getInstance();
+  //$logoutUrl = $facebook->getLogoutUrl();
+  //$uri = uri::getInstance();
+  
 
   if (isset($_SESSION['redirect_on_login'])){
       $redirect = $_SESSION['redirect_on_login'];
@@ -80,6 +90,7 @@ if ($me) {
 
 } else {
   session::killSession();
+  
   $loginUrl = $facebook->getLoginUrl(
           
             array(
@@ -89,10 +100,11 @@ if ($me) {
 
             )
     
-          /*offline_access,publish_stream,sms*/
+         
           
           );
   
+   /*offline_access,publish_stream,sms*/
   /*
    * array(
         'canvas' => 1,
@@ -108,16 +120,16 @@ if ($me) {
 ?>
 
 
-    <?php if ($me): ?>
-    <a href="<?php echo $logoutUrl; ?>">
-      <img src="http://static.ak.fbcdn.net/rsrc.php/z2Y31/hash/cxrz4k7j.gif">
+    <?php if ($user): ?>
+    <a href="<?php echo $logoutUrl; ?>">Log Out
+      <!--<img src="http://static.ak.fbcdn.net/rsrc.php/z2Y31/hash/cxrz4k7j.gif">-->
     </a>
     <?php else: ?>
 
     <div>
 
-      <a href="<?php echo $loginUrl; ?>">
-        <img src="http://static.ak.fbcdn.net/rsrc.php/zB6N8/hash/4li2k73z.gif">
+      <a href="<?php echo $loginUrl; ?>">Log in
+        <!--<img src="http://static.ak.fbcdn.net/rsrc.php/zB6N8/hash/4li2k73z.gif">-->
       </a>
     </div>
     <?php endif ?>
