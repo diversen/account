@@ -37,9 +37,7 @@ class accountLoginView {
         html::label('password', lang::translate('account_form_password'), array('required' => true));
         html::password('password');
         
-        $keep_session_label = lang::translate('account_keep_session') . ' ' . config::getMainIni('cookie_time') . ' ' . lang::translate('account_num_days');
-        html::label('keep_session', $keep_session_label);
-        html::checkbox('keep_session');
+        view_account_keep_session();
         
         html::label('submit', '');
         html::submit('submit', lang::translate('account_submit'));

@@ -57,6 +57,19 @@ $str.= '</form>';
 
 echo $str;
 
+$keep_session_label = lang::translate('account_keep_session');
+$days = config::getMainIni('cookie_time'); 
+
+$keep_session_label = lang::translate('account_keep_session');
+$days = config::getMainIni('cookie_time'); 
+
+if ($days > 0 ) {
+    $keep_session_label.= ' ' .  $days . ' ' . lang::translate('account_num_days');     
+ }     
+        
+    //html::label('keep_session', $keep_session_label);
+ //   html::checkbox('keep_session');  
+
 ?>
 
 <form method="post" action="">
@@ -65,8 +78,8 @@ echo $str;
 <label for="openid"><?php echo lang::translate('account_open_id_your_open_id_form')?>:</label><br />
 <input type="text" name="openid_identifier" size="30" value="<?=@$_POST[openid_identifier]?>"><br />
 
-<label for="keep_session"><?=lang::translate('account_keep_session')?> <?=config::getMainIni('cookie_time')?> <?=lang::translate('account_num_days')?></label><br />
-<input name="keep_session" <?=$keep_session?> type="checkbox">
+<label for="keep_session"><?=$keep_session_label?></label><br />
+<input name="keep_session" <?=@$keep_session?> type="checkbox" />
 
 <label for="submit"></label><br />
 <input type="submit" name="openid_action" value="login"><br />
