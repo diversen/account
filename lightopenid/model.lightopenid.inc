@@ -158,13 +158,13 @@ class accountLightopenid {
             }
             
             $args = array (
-                'action' => 'account_create',
-                'user_id' => $new,
-            );
+                    'action' => 'account_login',
+                    'user_id' => $account['id'],
+                );
                 
             event::getTriggerEvent(
                 config::getModuleIni('account_events'), 
-            $args);
+                $args);
 
             session::setActionMessage(lang::translate('account_openid_loggedin_message'));
             accountLogin::redirectOnLogin('/account/lightopenid/index');                       
