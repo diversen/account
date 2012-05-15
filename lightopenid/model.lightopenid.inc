@@ -66,9 +66,8 @@ class accountLightopenid {
      */
     public function login (){
 
-        
-        if (@$_POST['keep_session'] == 'on'){
-            //echo "we keep session";
+        if (@$_GET['keep_session'] == 1){
+            cos_debug('Notice: Setting session: keep_session');
             $_SESSION['keep_session'] = 1;
         }
 

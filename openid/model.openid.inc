@@ -80,7 +80,7 @@ class accountOpenid {
                     'email'=>true,
                     'fullname'=>false), null, 1.1);
         
-        if (@$_POST['keep_session'] == 'on'){
+        if (@$_POST['keep_session'] == 1){
             //echo "we keep session";
             $_SESSION['keep_session'] = 1;
         }
