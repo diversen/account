@@ -164,6 +164,4 @@ if ($user_profile) {
         <!--<img src="http://static.ak.fbcdn.net/rsrc.php/zB6N8/hash/4li2k73z.gif">-->
       </a>
     </div>
-    <?php endif ?>
-
-    
+    <?php endif ?>    

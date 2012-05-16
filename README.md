@@ -23,7 +23,7 @@ The following params are sent to the class implementing the event:
 The following params are sent to the class implementing the event:
 
     $args = array (
-        'action' => 'account_create',
+        'action' => 'create',
         'user_id' => $new,
     );
 

@@ -132,7 +132,7 @@ class accountLightopenid {
                 );*/
                 
                 $args = array (
-                    'action' => 'account_create',
+                    'action' => 'create',
                     'user_id' => $new,
                 );
                 
