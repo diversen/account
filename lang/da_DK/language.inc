@@ -4,7 +4,7 @@
 
 $_COS_LANG_MODULE['account_title_verify_account'] = 'Verificer Konto';
 $_COS_LANG_MODULE['account_is_already_verified'] = 'Konto er allerede verificeret';
-$_COS_LANG_MODULE['account_has_been_verified'] = 'Konto er blevet verificeret';
+$_COS_LANG_MODULE['account_has_been_verified'] = 'Konto er blevet verificeret. Du kan nu <a href="/account/login/index">logge ind</a>';
 // Translation of file /home/dennis/www/oscmsdk/modules/account/create/index.php
 
 $_COS_LANG_MODULE['account_create_index_title'] = 'Opret konto';

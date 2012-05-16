@@ -81,12 +81,34 @@ if ($user_profile) {
       $id = $account->createUser($user_profile['link']);
       $_SESSION['id'] = $id;
       $_SESSION['account_type'] = 'facebook';
+      
+      $args = array (
+        'action' => 'account_create',
+        'user_id' => $id,
+      );
+                
+      event::getTriggerEvent(
+        config::getModuleIni('account_events'), 
+        $args
+      );
+      
+      
   } else {
       // we have a row - user exists - we set creds
       $_SESSION['id'] = $row['id'];
       $_SESSION['admin'] = $row['admin'];
       $_SESSION['super'] = $row['super'];
       $_SESSION['account_type'] = 'facebook';
+      
+      $args = array (
+        'action' => 'account_login',
+        'user_id' => $row['id'],
+      );
+                
+      event::getTriggerEvent(
+        config::getModuleIni('account_events'), 
+        $args
+      );
   }
   //$logoutUrl = $facebook->getLogoutUrl();
   //$uri = uri::getInstance();

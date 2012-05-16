@@ -45,6 +45,17 @@ class accountLogin {
                 if (isset($keep_session)){
                     session::setSystemCookie($account['id']);
                 }
+                
+                $args = array (
+                    'action' => 'account_login',
+                    'user_id' => $account['id'],
+                );
+                
+                event::getTriggerEvent(
+                    config::getModuleIni('account_events'), 
+                    $args
+                );
+                
 
                 self::redirectOnLogin();
             } else {

@@ -83,17 +83,7 @@ class accountCreate {
         $lang = config::getMainIni('language');
         $message_template = _COS_PATH . "/modules/account/lang/$lang/signup_message.inc";
         $message = get_include_contents($message_template, $vars);
-
-        $args = $values;
         
-        $args['action'] = 'insert';
-        $args['last_insert_id'] = $last_insert_id;
-
-        event::getTriggerEvent(
-                config::getModuleIni('account_events'), 
-                $args);
-        
-        //die('flaf');
         $from = config::$vars['coscms_main']['site_email'];
         if (mail_utf8($_POST['email'], $subject, $message, $from)){
             db::$dbh->commit();
@@ -160,9 +150,14 @@ class accountCreate {
         $values = array('verified' => 1, 'md5_key' => $md5_key);
         $res = $db->update('account', $values, $row['id']);
        
-        $args = $row;
-        $args['action'] = 'update';
-        event::triggerEvent(get_module_ini('account_events'), $args);
+        $args = array (
+            'action' => 'account_create',
+            'user_id' => $row['id'],
+        );
+                
+        event::getTriggerEvent(
+            config::getModuleIni('account_events'), 
+        $args);
         
         $db->commit();
         return $res;
