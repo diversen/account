@@ -11,7 +11,7 @@ the following actions are possible so far:
 
 #### `account_login`:
 
-The following params are called to the class implementing the event:
+The following params are sent to the class implementing the event:
 
     $args = array (
         'action' => 'account_login',
@@ -20,7 +20,7 @@ The following params are called to the class implementing the event:
 
 #### `account_create`:
 
-The following params are called to the class implementing the event:
+The following params are sent to the class implementing the event:
 
     $args = array (
         'action' => 'account_create',
