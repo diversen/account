@@ -146,3 +146,5 @@ $_COS_LANG_MODULE['account_login_legend'] = 'Log ind';
 
 $_COS_LANG_MODULE['account_openid_login_failed'] = 'OpenID login mislykkedes. Check openID URL';
 $_COS_LANG_MODULE['account_logged_in_with_open_id'] = 'Logget ind med OpenID';
+
+$_COS_LANG_MODULE['account_wrong_validation_combination'] = 'Forkert kombination mellem bruger og validerings nøgle';

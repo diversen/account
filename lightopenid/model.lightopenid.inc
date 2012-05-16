@@ -95,9 +95,10 @@ class accountLightopenid {
                 if ($openid->validate()) {
                     // dispense user
                     $this->dispenseOpenid($openid);
+                    /*
                     session::setActionMessage(
                         lang::translate('account_openid_loggedin_message')
-                    );
+                    ); */
                 } else {
                     $error = lang::translate('account_openid_invalid_login');
                 }
@@ -173,7 +174,7 @@ class accountLightopenid {
                 config::getModuleIni('account_events'), 
                 $args);
 
-            session::setActionMessage(lang::translate('account_openid_loggedin_message'));
+            //session::setActionMessage(lang::translate('account_openid_loggedin_message'));
             accountLogin::redirectOnLogin('/account/lightopenid/index');                       
         }
     }

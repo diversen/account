@@ -13,3 +13,5 @@ $_COS_LANG_MODULE['account_admin'] = 'Admin';
 $_COS_LANG_MODULE['account_list_users'] = 'Vis konti';
 $_COS_LANG_MODULE['Account'] = 'Konto';
 $_COS_LANG_MODULE['account'] = 'Konto';
+
+

@@ -133,7 +133,9 @@ class accountCreate {
         $search = array ('id' => $account_id,);
         $row = $db->selectOne('account', null, $search);
 
-        if ($row['verified'] == 1){
+        //print_r($row);
+        if (!empty($row) && $row['verified'] == 1){
+            //echo "returning";
             return 2;
         }
 
@@ -141,8 +143,7 @@ class accountCreate {
         $row = $db->selectOne('account', null, $search);
         
         if (empty($row)){
-            $this->errors[] = lang::translate
-                ('No such combination between user and validation key');
+            $this->errors[] = lang::translate('account_wrong_validation_combination');
             return 0;
         }     
                 
