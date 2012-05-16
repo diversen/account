@@ -52,6 +52,7 @@ if ($user) {
     $user_profile = $facebook->api('/me');
   } catch (FacebookApiException $e) {
     print_r($e);
+    //cos_debug($e->message);
     //$user = null;
     //$user_profile = null;
   }
@@ -84,6 +85,16 @@ if ($user_profile) {
       
       $args = array (
         'action' => 'account_create',
+        'user_id' => $id,
+      );
+                
+      event::getTriggerEvent(
+        config::getModuleIni('account_events'), 
+        $args
+      );
+      
+      $args = array (
+        'action' => 'account_login',
         'user_id' => $id,
       );
                 

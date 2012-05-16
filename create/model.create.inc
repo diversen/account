@@ -151,7 +151,7 @@ class accountCreate {
         $res = $db->update('account', $values, $row['id']);
        
         $args = array (
-            'action' => 'create',
+            'action' => 'account_create',
             'user_id' => $row['id'],
         );
                 

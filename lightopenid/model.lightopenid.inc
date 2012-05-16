@@ -125,14 +125,21 @@ class accountLightopenid {
                 //$status =lang::translate('account_openid_account_created');
                 $_SESSION['id'] = $new;
                 $_SESSION['account_type'] = 'openid';
-                /*
-                session::setActionMessage(
-                    $status . "<br />" .
-                    lang::translate('account_openid_loggedin_message')
-                );*/
                 
+                
+                // create events
                 $args = array (
                     'action' => 'account_create',
+                    'user_id' => $new,
+                );
+                
+                event::getTriggerEvent(
+                        config::getModuleIni('account_events'), 
+                        $args);
+                
+                // login events
+                $args = array (
+                    'action' => 'account_login',
                     'user_id' => $new,
                 );
                 
@@ -156,6 +163,7 @@ class accountLightopenid {
                 session::setSystemCookie($account['id']);
             }
             
+            // login events
             $args = array (
                     'action' => 'account_login',
                     'user_id' => $account['id'],
