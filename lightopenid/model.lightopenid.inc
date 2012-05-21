@@ -67,7 +67,7 @@ class accountLightopenid {
     public function login (){
 
         if (@$_GET['keep_session'] == 1){
-            cos_debug('Notice: Setting session: keep_session');
+            cos_debug('Notice: Keep Session on login');
             $_SESSION['keep_session'] = 1;
         }
 
@@ -127,6 +127,10 @@ class accountLightopenid {
                 $_SESSION['id'] = $new;
                 $_SESSION['account_type'] = 'openid';
                 
+                /*
+                session::setActionMessage(
+                    lang::translate('account_openid_account_created', false)
+                );*/
                 
                 // create events
                 $args = array (
@@ -148,12 +152,17 @@ class accountLightopenid {
                         config::getModuleIni('account_events'), 
                         $args);
                 
-
+                session_write_close();
                 accountLogin::redirectOnLogin('/account/lightopenid/index');
              }
 
          // we got a row. use that for session
         } else {
+            
+            session::setActionMessage(
+                lang::translate('account_openid_loggedin_message'), false
+            );
+            
             $_SESSION['id'] = $account['id'];
             $_SESSION['admin'] = $account['admin'];
             $_SESSION['super'] = $account['super'];
@@ -173,8 +182,8 @@ class accountLightopenid {
             event::getTriggerEvent(
                 config::getModuleIni('account_events'), 
                 $args);
-
-            //session::setActionMessage(lang::translate('account_openid_loggedin_message'));
+            
+            session_write_close();
             accountLogin::redirectOnLogin('/account/lightopenid/index');                       
         }
     }
