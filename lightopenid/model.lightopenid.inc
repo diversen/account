@@ -216,7 +216,6 @@ class accountLightopenid {
         $db = new db();
         $values = array(
             'url'=> $openid->identity, 
-            //'username' => $openid,
             'email' => $ary['contact/email']);
         
         if (isset($ary['namePerson/friendly'])) {

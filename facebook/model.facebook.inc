@@ -24,15 +24,15 @@ class accountFacebook {
 
     /**
      * init facebook
-     * checks if user is logged in 
+     * checks if user is logged in
      * checks if session needs to be killed (logging out)
+     * @return boolean $res true if user is logged in else false
      */
     public static function  init() {
         // logout is the same for all login methods so far.
         $uri = uri::getInstance();
         if ($uri->fragment(3) == '1'){
             session_destroy();
-            //session::killSession();
             return false;
         }
         
@@ -43,6 +43,11 @@ class accountFacebook {
         }
     }
     
+    /**
+     * method for getting the facebook 'next' param - the url to
+     * redirect to when logging out. 
+     * @return string $str the logout url
+     */
     public static function getLogoutNext () {
         $server = get_main_ini('server_name');
         return "http://$server/account/facebook/logout";
@@ -51,14 +56,12 @@ class accountFacebook {
 
     /**
      * method for authorizing a user
-     *
      * @param   string  $facebook_url
-     * @return  array|0 $row with user creds on success, 0 if not
+     * @return  array $row with user creds on success, empty if no user
      */
 
     public function auth ($facebook_url){
         $db = new db();
-
         $search = array ('url' => $facebook_url);
         $row = $db->selectOne('account', null, $search);
         return $row;
@@ -66,12 +69,15 @@ class accountFacebook {
 
     /**
      * method for creating a user
-     *
-     * @return int      1 success or 0 on failure
+     * @return int $res positive int on success or 0 on failure
      */
-    public function createUser ($facebook_url){
-        $db = new db();       
-        $values = array('url'=> $facebook_url, 'username' => $facebook_url);
+    public function createUser ($user){
+        $db = new db();     
+        $values = array(
+            'url'=> $user['link'], 
+            'username' => $user['name'],
+            'email' => $user['email']
+            );
         $res = $db->insert('account', $values);
 
         if ($res) {
@@ -108,42 +114,4 @@ class accountFacebook {
         $str .= "<hr />" . html::createLink($logoutUrl, lang::translate('account_logout'));
         view_confirm($str);
     }
-}
-
-function getFacebookObj () {
-
-    $facebook = new Facebook(array(
-        'appId'  => config::getModuleIni('account_facebook_api_appid'),
-        'secret' => config::getModuleIni('account_facebook_api_secret'),    
-    ));
-    
-    return $facebook;
-}
-
-
-function getFacebookLoginLink () {
-    $facebook = getFacebookObj();
-    $loginUrl = $facebook->getLoginUrl();
-    return html::createLink($loginUrl, "Login");
-}
-
-function getFacebookUser () {
-    $facebook = getFacebookObj();
-    $user = $facebook->getUser();
-    return $user;
-}
-
-function getFacebookProfile () {
-    $facebook = getFacebookObj();
-    //if ($user) {
-        try {
-            // Proceed knowing you have a logged in user who's authenticated.
-            $user_profile = $facebook->api("/me");
-        } catch (FacebookApiException $e) {
-            echo "exp: no profile";
-            print_r($e);
-            $user_profile = null;
-        }
-  //  }
-    return $user_profile;
 }

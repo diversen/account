@@ -4,9 +4,8 @@ template::setTitle(lang::translate('account_facebook_login'));
 
 // check to see if user is allowed to use faccebook login
 $account_logins = config::getModuleIni('account_logins');
-//print_r($account_logins);
 if (!in_array('facebook', $account_logins)){
-    moduleLoader::$status[403] = 1;
+    moduleLoader::setStatus(403);
     return;
 }
 
@@ -50,11 +49,9 @@ if ($user) {
   try {
     // Proceed knowing you have a logged in user who's authenticated.
     $user_profile = $facebook->api('/me');
+    //print_r($user_profile);
   } catch (FacebookApiException $e) {
-    print_r($e);
-    //cos_debug($e->message);
-    //$user = null;
-    //$user_profile = null;
+    cos_debug($e->message);
   }
 } else {
     $user_profile = null;
@@ -65,9 +62,9 @@ if ($user) {
 if ($user) {
   $logoutUrl = $facebook->getLogoutUrl(
           array ('next' => accountFacebook::getLogoutNext()));
-} else {
+} /*else {
   $loginUrl = $facebook->getLoginUrl();
-}
+}*/
 
 
 // login or logout url will be needed depending on current user state.
@@ -79,7 +76,7 @@ if ($user_profile) {
 
   if (empty($row)){
       // we have a facebook session but no user
-      $id = $account->createUser($user_profile['link']);
+      $id = $account->createUser($user_profile);
       $_SESSION['id'] = $id;
       $_SESSION['account_type'] = 'facebook';
       
@@ -135,30 +132,21 @@ if ($user_profile) {
   session::killSession();
   
   $loginUrl = $facebook->getLoginUrl(
-          
             array(
-                'scope'         => 'email,
-                    
-                    user_birthday,user_location,user_work_history,user_about_me,user_hometown,user_website',
-
+                'scope' => 
+                    'email, 
+                     user_birthday,
+                     user_location,
+                     user_work_history,
+                     user_about_me,
+                     user_hometown,
+                     user_website'
             )
-    
-         
-          
           );
-  
-   /*offline_access,publish_stream,sms*/
-  /*
-   * array(
-        'canvas' => 1,
-        'fbconnect' => 0,
-        'req_perms' => 'publish_stream,offline_access,user_location'
-    )
-   */
+
 }
 
-// This call will always work since we are fetching public data.
-//$naitik = $facebook->api('/dennis.b.iversen');
+
 
 ?>
 
