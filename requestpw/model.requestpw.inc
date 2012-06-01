@@ -64,11 +64,10 @@ class requestpw {
    
         $lang = config::getMainIni('language');        
         $view_file = _COS_PATH . "/modules/account/lang/$lang/request_password.inc";
+        
         $message = get_include_contents($view_file, $vars);
 
-        $from = config::$vars['coscms_main']['site_email'];
-
-        if (mail_utf8($row['email'], $subject, $message, $from)){
+        if (mail_utf8($row['email'], $subject, $message)){
             return 1;
         } else {
             return 0;
