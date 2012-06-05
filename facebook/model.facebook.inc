@@ -1,6 +1,6 @@
 <?php
 
-require 'facebook.php';
+include_once 'facebook.php';
 moduleLoader::includeModule('account/login');
 
 class accountFacebook {
@@ -24,6 +24,7 @@ class accountFacebook {
 
     /**
      * init facebook
+     * sets static vars logginIn and userId
      * checks if user is logged in
      * checks if session needs to be killed (logging out)
      * @return boolean $res true if user is logged in else false
@@ -57,7 +58,7 @@ class accountFacebook {
     /**
      * method for authorizing a user
      * @param   string  $facebook_url
-     * @return  array $row with user creds on success, empty if no user
+     * @return  array   $row with user creds on success, empty if no user
      */
 
     public function auth ($facebook_url){
@@ -69,7 +70,7 @@ class accountFacebook {
 
     /**
      * method for creating a user
-     * @return int $res positive int on success or 0 on failure
+     * @return int $res last insert id or false if failure
      */
     public function createUser ($user){
         $db = new db();     
@@ -79,7 +80,6 @@ class accountFacebook {
             'email' => $user['email']
             );
         $res = $db->insert('account', $values);
-
         if ($res) {
             return db::$dbh->lastInsertId();
         }
@@ -88,29 +88,21 @@ class accountFacebook {
 
     /**
      *
-     * @return mixed    user row or 0
+     * @return array $row
      */
     public static function getUser(){
         $db = new db();
         $row = $db->selectOne('account', 'id', self::$id);
-        if (!empty($row)){
-            return $row;
-        }
-        return 0;
+        return $row;
     }
     
     /**
-    * method for creating a logout link
+    * method for displaying a logout link
     */
     public static function logout($logoutUrl = null){      
         $row = accountLogin::getUser();
         $str = '';
-        if (!empty($row['email'])){
-            $str .= lang::translate('account_logged_in_with_email') . ": <br />" . $row['email'];
-        } else {
-            $str .= lang::translate('account_logged_in_with_facebook') . ": <br />" . $row['url'];
-
-        }
+        $str .= lang::translate('account_logged_in_with_facebook') . ": <br />" . $row['url'];
         $str .= "<hr />" . html::createLink($logoutUrl, lang::translate('account_logout'));
         view_confirm($str);
     }

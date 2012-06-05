@@ -35,7 +35,7 @@ class accountLogin {
         // login
         if (isset($_POST['email']) && isset($_POST['password'])){
             $account = self::auth($_POST['email'], $_POST['password']);
-            if ($account){
+            if (!empty($account)){
 
                 $_SESSION['id'] = $account['id'];
                 $_SESSION['admin'] = $account['admin'];
@@ -96,7 +96,7 @@ class accountLogin {
         accountLogin::login();
         if (session::isUser()){
             accountLoginView::logout();
-        } elseif ( isset($_POST['submit']) && !accountLogin::$loggedIn ) {
+        } elseif ( isset($_POST['submit_account_login']) && !accountLogin::$loggedIn ) {
             view_form_errors(lang::translate('account_login_wrong_username_password'));
             accountLoginView::login();
         } else {
@@ -116,11 +116,7 @@ class accountLogin {
         $password = md5(html::specialDecode($password));
         $search = array ('email' => $email, 'password' => $password);
         $row = $db->selectOne('account', null, $search);
-        if (empty($row)){
-            return 0;
-        } else {
-            return $row;
-        }
+        return $row;
     }
     /**
      *
@@ -129,9 +125,6 @@ class accountLogin {
     public static function getUser(){
         $db = new db();
         $row = $db->selectOne('account', 'id', self::$id);
-        if (!empty($row)){
-            return $row;
-        } 
-        return 0;
+        return $row;
     }
 }

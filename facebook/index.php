@@ -1,6 +1,11 @@
 <?php
 
 template::setTitle(lang::translate('account_facebook_login'));
+include_once config::getModulePath('account') . "/lib/facebook.inc";
+include_module('account/iframe');
+account_facebook_login();
+return;
+
 
 // check to see if user is allowed to use faccebook login
 $account_logins = config::getModuleIni('account_logins');
