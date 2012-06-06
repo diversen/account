@@ -76,9 +76,9 @@ class accountLogin {
             if ($url){
                 $location = $url;
             } else {
-                $url = config::getModuleIni('account_default_url');
+                $location = config::getModuleIni('account_default_url');
             }
-            header("Location: $url");
+            header("Location: $location");
          }
     }
 

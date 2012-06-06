@@ -20,4 +20,12 @@ class account {
         header ("Location: $redirect");
         die;
     }
+    
+    function redirectOnLogin() {
+        if (isset($_SESSION['redirect_on_login'])){
+            $redirect = $_SESSION['redirect_on_login'];
+            unset($_SESSION['redirect_on_login']);
+            header ("Location: $redirect");
+        }
+    }
 }

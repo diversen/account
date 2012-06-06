@@ -6,7 +6,9 @@ get_main_ini('server_name');
 include_module('account/iframe');
 include_module('account/facebook');
 include_module('account/login');
-$ary = array ('redirect_uri' => 'http://www.dev.sweetpoints.dk/account/facebook/index?close=1');
+$ary = array (
+    'redirect_uri' => 'http://www.dev.sweetpoints.dk/account/facebook/index?close=1',
+    'display'   => 'popup');
 $url = facebook_get_login_url($ary);
 
 
