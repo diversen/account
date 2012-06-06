@@ -71,6 +71,8 @@ hack based on:
             
             function login(response, info){
                 if (response.authResponse) {
+                    
+
                     var accessToken                                 =   response.authResponse.accessToken;
                     
                     userInfo.innerHTML                             = '<img src="https://graph.facebook.com/' + info.id + '/picture">' + info.name

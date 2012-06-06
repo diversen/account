@@ -1,5 +1,6 @@
 <?php
 
+include_module('account/facebook');
 $app_id = config::getModuleIni('account_facebook_api_appid');
 $facebook_str = file::getCachedFile(
         config::getModulePath('account') . "/assets/facebook.html");
@@ -35,4 +36,7 @@ template::setStartHTML($facebook_str);
  
  include_once config::getModulePath('account') . "/lib/facebook.inc";
 include_module('account/iframe');
-$f = new accountFacebook();
+
+$profile = facebook_get_user_profile();
+//$f = new accountFacebook();
+print_r($profile);
