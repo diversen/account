@@ -15,7 +15,7 @@ template::setStartHTML($facebook_str);
 template::setJs('/js/jquery.cookie.js', null, array ('head' => true));
 subTemplate::printHeader();
 //die;
-$url = "/account/facebook/index";
+$url = "/account/lightopenid/iframe";
 ?>
 <script type="text/javascript">
     var newwindow;

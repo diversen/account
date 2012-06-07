@@ -7,18 +7,22 @@ get_main_ini('server_name');
 include_module('account/iframe');
 include_module('account/facebook');
 include_module('account/login');
+
+/*
 $ary = array (
     'redirect_uri' => 'http://www.dev.sweetpoints.dk/account/iframe/iframe?close=1',
     'display'   => 'popup');
 $url = facebook_get_login_url($ary);
+*/
 
+$url = "/account/lightopenid/iframe";
 
  if (isset($_REQUEST['close'])){
         echo "<script>
             window.close();
             </script>";
 }
-
+die;
 print_r($_REQUEST);
 
 ?>
