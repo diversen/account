@@ -153,6 +153,64 @@ class accountFacebook {
     }
 }
 
+/**
+ * 
+ * @return int $res positive if we authenticated user correct else 0
+ *                  if already authenticated we return positive
+ */
+function account_facebook_service ($options = array ()) {
+
+    // check to see if user is allowed to use faccebook login
+    $account_logins = config::getModuleIni('account_logins');
+    if (!in_array('facebook', $account_logins)){
+        moduleLoader::setStatus(403);
+        return;
+    }
+    
+    // return if already logged in. 
+    accountFacebook::init();
+    if (accountFacebook::$loggedIn){
+        return 1;
+
+    }
+
+    $facebook = facebook_get_object();
+    $user = $facebook->getUser();
+
+    if ($user) {
+        try {
+            // Proceed knowing you have a logged in user who's authenticated.
+            $user_profile = $facebook->api('/me');
+        } catch (FacebookApiException $e) {
+            cos_debug($e);
+        }
+    } else {
+        $user_profile = null;
+    }
+
+    // login or logout url will be needed depending on current user state.
+    if ($user_profile) {
+        $account = new accountFacebook();
+        $row = $account->auth($user_profile['link']);
+
+        if (empty($row)){       
+            $res = $account->createUser();
+        } else {
+            $res = $account->loginUser($row);
+        }
+        
+    } else {
+        session::killSession();
+        $res = 0;
+    }    
+    return $res;
+}
+
+/**
+ * method for logging in a user. Used as a display function. 
+ * means that it will draw login and logout links at the same time
+ * as users are authenticated. 
+ */
 
 function account_facebook_login () {
 
@@ -175,14 +233,6 @@ function account_facebook_login () {
     } 
 
     $facebook = facebook_get_object();
-
-    // We may or may not have this data based on a $_GET or $_COOKIE based session.
-    //
-    // If we get a session here, it means we found a correctly signed session using
-    // the Application Secret only Facebook and the Application know. We dont know
-    // if it is still valid until we make an API call using the session. A session
-    // can become invalid if it has already expired (should not be getting the
-    // session back in this case) or if the user logged out of Facebook.
     $user = $facebook->getUser();
 
     if ($user) {
@@ -195,7 +245,7 @@ function account_facebook_login () {
                 )
             );
         } catch (FacebookApiException $e) {
-            print_r($e);
+            cos_debug($e);
         }
     } else {
         $user_profile = null;
@@ -233,6 +283,10 @@ function account_facebook_login () {
     
 }
 
+/**
+ * create a facebook object
+ * @return object $obj facebook object
+ */
 function facebook_get_object () {
     static $facebook = null;
     if (!$facebook)
@@ -244,6 +298,10 @@ function facebook_get_object () {
     return $facebook;
 }
 
+/**
+ * method for getting a user profile
+ * @return array $ary user profile
+ */
 function facebook_get_user_profile () {
     
     $facebook = facebook_get_object();
@@ -261,6 +319,11 @@ function facebook_get_user_profile () {
     return $user_profile;
 }
 
+/**
+ * method for getting login url
+ * @param type $options
+ * @return string $str login url as html
+ */
 function facebook_get_login_url ($options = array ()) {
 
     $facebook = facebook_get_object();
@@ -273,6 +336,10 @@ function facebook_get_login_url ($options = array ()) {
     return $loginUrl = $facebook->getLoginUrl($ary);
 }
 
+/**
+ *method for getting scope for login
+ * @return string 
+ */
 function facebook_get_scope () {
     $scope = 'email,';
     $scope.= 'user_birthday,';

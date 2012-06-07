@@ -1,5 +1,7 @@
 <?php
 
+$layout = new layout('clean/test');
+
 include_module('account/facebook');
 $app_id = config::getModuleIni('account_facebook_api_appid');
 $facebook_str = file::getCachedFile(
@@ -10,33 +12,49 @@ $facebook_str = str_replace('LANGUAGE', config::getMainIni('language'),$facebook
 
 template::setStartHTML($facebook_str);
 
+template::setJs('/js/jquery.cookie.js', null, array ('head' => true));
+subTemplate::printHeader();
+//die;
+$url = "/account/facebook/index";
 ?>
-<h3>New JavaScript SDK & OAuth 2.0 based FBConnect Tutorial | Thinkdiff.net</h3>
+<script type="text/javascript">
+    var newwindow;
+    var intId;
+    function openidlogin(){
+        var  screenX    = typeof window.screenX != 'undefined' ? window.screenX : window.screenLeft,
+             screenY    = typeof window.screenY != 'undefined' ? window.screenY : window.screenTop,
+             outerWidth = typeof window.outerWidth != 'undefined' ? window.outerWidth : document.body.clientWidth,
+             outerHeight = typeof window.outerHeight != 'undefined' ? window.outerHeight : (document.body.clientHeight - 22),
+             width    = 600,
+             height   = 400,
+             //left     = parseInt(screenX + ((outerWidth - width) / 2), 10),
+             //top      = parseInt(screenY + ((outerHeight - height) / 2.5), 10),
+             left     = 0
+             top      = 0
+             features = (
+                 'width=' + width +
+                 ',height=' + height +
+                 ',left=' + left +
+                 ',top=' + top
+             );
+      
+             newwindow=window.open('<?=$url?>','Login_by_facebook',features);
+             if (window.focus) {
+                 newwindow.focus()
+             }
+             return false;
+        }
+        
+</script>
+<a href="#" onclick="openidlogin();return false;">login</a>
+
         <button id="fb-auth">Login</button>
         <div id="loader" style="display:none">
             <img src="ajax-loader.gif" alt="loading" />
         </div>
-        <br />
-        <div id="user-info"></div>
-        <br />
-        <div id="debug"></div>
         
-        <div id="other" style="display:none">
-            <a href="#" onclick="showStream(); return false;">Publish Wall Post</a> |
-            <a href="#" onclick="share(); return false;">Share With Your Friends</a> |
-            <a href="#" onclick="graphStreamPublish(); return false;">Publish Stream Using Graph API</a> |
-            <a href="#" onclick="fqlQuery(); return false;">FQL Query Example</a>
-            
-            <br />
-            <textarea id="status" cols="50" rows="5">Write your status here and click 'Status Set Using Legacy Api Call'</textarea>
-            <br />
-            <a href="#" onclick="setStatus(); return false;">Status Set Using Legacy Api Call</a>
-        </div>
- <?php
+<?php
  
- include_once config::getModulePath('account') . "/lib/facebook.inc";
-include_module('account/iframe');
+mainTemplate::printFooter();
+die;
 
-$profile = facebook_get_user_profile();
-//$f = new accountFacebook();
-print_r($profile);

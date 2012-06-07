@@ -67,7 +67,6 @@ class accountLightopenid {
     public function login (){
 
         if (@$_GET['keep_session'] == 1){
-            cos_debug('Notice: Keep Session on login');
             $_SESSION['keep_session'] = 1;
         }
 
@@ -91,14 +90,8 @@ class accountLightopenid {
             } else {
                 
                 $status = lang::translate('account_openid_valid_login') . ' ' . htmlspecialchars($openid->identity). "<br />\n";
-                //$this->dispenseOpenid($openid);
                 if ($openid->validate()) {
-                    // dispense user
                     $this->dispenseOpenid($openid);
-                    /*
-                    session::setActionMessage(
-                        lang::translate('account_openid_loggedin_message')
-                    ); */
                 } else {
                     $error = lang::translate('account_openid_invalid_login');
                 }
@@ -126,11 +119,6 @@ class accountLightopenid {
                 //$status =lang::translate('account_openid_account_created');
                 $_SESSION['id'] = $new;
                 $_SESSION['account_type'] = 'openid';
-                
-                /*
-                session::setActionMessage(
-                    lang::translate('account_openid_account_created', false)
-                );*/
                 
                 // create events
                 $args = array (
