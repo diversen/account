@@ -171,7 +171,6 @@ function account_facebook_service ($options = array ()) {
     accountFacebook::init();
     if (accountFacebook::$loggedIn){
         return 1;
-
     }
 
     $facebook = facebook_get_object();

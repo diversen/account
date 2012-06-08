@@ -24,6 +24,9 @@ class accountLightopenid {
      */
     public $errors = array();
 
+    
+    public $options = array ();
+    
     /**
      * set some basic messages
      */
@@ -44,6 +47,10 @@ class accountLightopenid {
         if (isset($_SESSION['id'])) {
             $this->loggedIn = 1;
         }
+    }
+    
+    function __construct($options = array ()) {
+        $this->options = $options;
     }
 
     /**
@@ -110,8 +117,14 @@ class accountLightopenid {
     }
     
     public function dispenseOpenid ($openid) {
+        
         $account = $this->auth($openid->identity);
-
+        if (isset($this->options['redirect'])) {
+            $redirect = $this->options['redirect'];
+        } else {
+            $redirect = '/account/lightopenid/index';
+        }
+        
         if (!$account){
             $new = $this->createUser($openid);
             if ($new){
@@ -140,8 +153,8 @@ class accountLightopenid {
                         config::getModuleIni('account_events'), 
                         $args);
                 
-                session_write_close();
-                accountLogin::redirectOnLogin('/account/lightopenid/index');
+                session_write_close();        
+                accountLogin::redirectOnLogin($redirect);
              }
 
          // we got a row. use that for session
@@ -172,7 +185,7 @@ class accountLightopenid {
                 $args);
             
             session_write_close();
-            accountLogin::redirectOnLogin('/account/lightopenid/index');                       
+            accountLogin::redirectOnLogin($redirect);                       
         }
     }
 
