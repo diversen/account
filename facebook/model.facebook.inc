@@ -178,6 +178,8 @@ function account_facebook_service ($options = array ()) {
 
     if ($user) {
         try {
+            $token = $facebook->getAccessToken();
+            //print_r($token); die;
             // Proceed knowing you have a logged in user who's authenticated.
             $user_profile = $facebook->api('/me');
         } catch (FacebookApiException $e) {
@@ -232,19 +234,20 @@ function account_facebook_login () {
     } 
 
     $facebook = facebook_get_object();
-    $user = $facebook->getUser();
+    echo $user = $facebook->getUser();
 
     if ($user) {
         try {
             // Proceed knowing you have a logged in user who's authenticated.
             $user_profile = $facebook->api('/me');
+            print_r($user_profile);
             $logoutUrl = $facebook->getLogoutUrl(
                 array ('next' => 
                     accountFacebook::getLogoutNext()
                 )
             );
         } catch (FacebookApiException $e) {
-            cos_debug($e);
+            print_r($e);
         }
     } else {
         $user_profile = null;
@@ -264,7 +267,14 @@ function account_facebook_login () {
         account::redirectOnLogin ();
 
     } else {
+        /*
         session::killSession();
+        //$facebook = facebook_get_object();
+        $fb_key = 'fbs_'.config::getModuleIni('account_facebook_api_appid');
+        set_cookie($fb_key, '', '', '', '/', '');
+        $facebook->setSession(NULL);
+        session_destroy();
+        */
         $scope = facebook_get_scope();
         $loginUrl = $facebook->getLoginUrl(
             array(
@@ -274,7 +284,7 @@ function account_facebook_login () {
     }
 
     // display login or logout
-    if ($user) { 
+    if ($user_profile) { 
         echo html::createLink($logoutUrl, 'Log Out');
     } else {
         echo html::createLink($loginUrl, 'Log in');
@@ -292,7 +302,7 @@ function facebook_get_object () {
         $facebook = new Facebook(array(
             'appId'  => config::getModuleIni('account_facebook_api_appid'),
             'secret' => config::getModuleIni('account_facebook_api_secret'),
-            /*'cookie' => true, */ 
+            'cookie' => true,  
         ));
     return $facebook;
 }
