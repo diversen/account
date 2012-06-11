@@ -182,7 +182,7 @@ function account_facebook_service ($options = array ()) {
             //print_r($token); die;
             // Proceed knowing you have a logged in user who's authenticated.
             $user_profile = $facebook->api('/me');
-        } catch (FacebookApiException $e) {
+        } catch(FacebookApiException $e) {
             cos_debug($e);
         }
     } else {
@@ -194,12 +194,12 @@ function account_facebook_service ($options = array ()) {
         $account = new accountFacebook();
         $row = $account->auth($user_profile['link']);
 
-        if (empty($row)){       
+        if (empty($row)){   
             $res = $account->createUser();
         } else {
             $res = $account->loginUser($row);
         }
-        
+       
     } else {
         session::killSession();
         $res = 0;
@@ -240,13 +240,13 @@ function account_facebook_login () {
         try {
             // Proceed knowing you have a logged in user who's authenticated.
             $user_profile = $facebook->api('/me');
-            print_r($user_profile);
             $logoutUrl = $facebook->getLogoutUrl(
                 array ('next' => 
                     accountFacebook::getLogoutNext()
                 )
             );
         } catch (FacebookApiException $e) {
+            //$login_url = $facebook->getLoginUrl(); 
             print_r($e);
         }
     } else {
