@@ -5,7 +5,7 @@ include_once "lightopenid/openid.php";
 /**
  * class for doing login with openid
  */
-class accountLightopenid {
+class accountLightopenid extends account {
     /**
      *
      * @var int telling if a user is logged in
@@ -30,11 +30,13 @@ class accountLightopenid {
     /**
      * set some basic messages
      */
+    
     public function  init() {
         // logout is the same for all login methods so far.
+        /*
         if (session::isUser()){
             $this->id = session::getUserId();
-        }
+        } */
         
         $uri = uri::getInstance();
         if ($uri->fragment(3) == '1'){
@@ -43,10 +45,10 @@ class accountLightopenid {
             header( "Location: $redirect");
             die;
         }
-
+        /*
         if (isset($_SESSION['id'])) {
             $this->loggedIn = 1;
-        }
+        } */
     }
     
     function __construct($options = array ()) {
@@ -63,10 +65,11 @@ class accountLightopenid {
    /**
     * method for creating a logout link
     */
+    /*
     public static function viewLogout(){
         accountLogin::setId();
 
-    }
+    }*/
 
     /**
      * method for login via openid. 
@@ -154,7 +157,7 @@ class accountLightopenid {
                         $args);
                 
                 session_write_close();        
-                accountLogin::redirectOnLogin($redirect);
+                account::redirectOnLogin($redirect);
              }
 
          // we got a row. use that for session
@@ -185,7 +188,7 @@ class accountLightopenid {
                 $args);
             
             session_write_close();
-            accountLogin::redirectOnLogin($redirect);                       
+            account::redirectOnLogin($redirect);                       
         }
     }
 

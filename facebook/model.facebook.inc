@@ -145,7 +145,7 @@ class accountFacebook {
     * method for displaying a logout link
     */
     public static function logout($logoutUrl = null){      
-        $row = accountLogin::getUser();
+        $row = user::getAccount(); 
         $str = '';
         $str .= lang::translate('account_logged_in_with_facebook') . ": <br />" . $row['url'];
         $str .= "<hr />" . html::createLink($logoutUrl, lang::translate('account_logout'));

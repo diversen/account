@@ -2,7 +2,7 @@
 
 include_module('account');
 
-class accountLogin {
+class accountLogin extends account {
 
     /**
      * @var int     $loggedIn (1 yes 0 no)
@@ -15,26 +15,32 @@ class accountLogin {
      */
     public static $id;
 
+    public $options = array ();
     
     /**
      * static method for doing a login
      */
-    public static function login (){        
-        if (isset($_POST['keep_session'])){
-            //die('keep_session');
-            $keep_session = 1;
+    public function login ($options = null){
+        
+        // set options
+        if (isset($options)) {
+            $this->options = $options;
         }
 
-        $uri = uri::getInstance();
-        if ($uri->fragment(3) == '1'){
+        // logout
+        $logout = uri::getInstance()->fragment(3);
+        if ($logout == '1'){
             session::killSession();
             $redirect = config::getModuleIni('account_default_url');
-            header( "Location: $redirect");
+            if (isset($this->options['redirect_logout'])) {
+                $redirect = $this->options['redirect_logout'];
+            }
+            http::locationHeader($redirect);
         }
 
         // login
         if (isset($_POST['email']) && isset($_POST['password'])){
-            $account = self::auth($_POST['email'], $_POST['password']);
+            $account = $this->auth ($_POST['email'], $_POST['password']);
             if (!empty($account)){
 
                 $_SESSION['id'] = $account['id'];
@@ -42,7 +48,7 @@ class accountLogin {
                 $_SESSION['super'] = $account['super'];
                 $_SESSION['account_type'] = 'email';
 
-                if (isset($keep_session)){
+                if (isset($_POST['keep_session'])){
                     session::setSystemCookie($account['id']);
                 }
                 
@@ -57,40 +63,31 @@ class accountLogin {
                 );
                 
 
-                self::redirectOnLogin();
-            } else {
-                self::$loggedIn = 0;
-            }
+                $this->redirectOnLogin();
+            } //else {
+               // self::$loggedIn = 0;
+          //  }
         }
-        self::setId();
+        //$this->setId();
         
     }
 
+    /*
     public static function redirectOnLogin ($url = null){
         if (isset($_SESSION['redirect_on_login'])){
             $redirect = $_SESSION['redirect_on_login'];
             unset($_SESSION['redirect_on_login']);
-            header ("Location: $redirect");
-            die;
+            http::locationHeader ($redirect);
         } else {
             if ($url){
                 $location = $url;
             } else {
                 $location = config::getModuleIni('account_default_url');
             }
-            header("Location: $location");
+            http::locationHeader($location);
          }
-    }
+    }*/ 
 
-    /**
-     * sets self::$id from session
-     */
-    public static function setId(){
-        // logout is the same for all login methods so far.
-        if (session::isUser()){
-            self::$id = session::getUserId();
-        }
-    }
     
     /**
      * method for displaying email login 
@@ -105,15 +102,15 @@ class accountLogin {
     /**
      *method for controlling email login 
      */
-    public static function controlLogin (){
-        accountLogin::login();
+    public function controlLogin (){
+        $this->login();
         if (session::isUser()){
-            accountLogin::displayLogout();
+            $this->displayLogout();
         } elseif ( isset($_POST['submit_account_login']) && !accountLogin::$loggedIn ) {
             view_form_errors(lang::translate('account_login_wrong_username_password'));
-            accountLogin::displayLogin();
+            $this->displayLogin();
         } else {
-            accountLogin::displayLogin();
+            $this->displayLogin();
         }
     }
     
@@ -121,8 +118,9 @@ class accountLogin {
     * method for creating a logout link
     */
     public static function displayLogout(){
-        accountLogin::setId();
-        $row = accountLogin::getUser();  
+        //account::setId();
+        $row = user::getAccount(session::getUserId()); 
+        ////accountLogin::getUser();  
         echo user::getLogoutHTML($row);
     }
 
@@ -133,7 +131,7 @@ class accountLogin {
      * @param   string  password
      * @return  array|0 row with user creds on success, 0 if not
      */
-    public static function auth ($email, $password){
+    public function auth ($email, $password){
         $db = new db();
         $password = md5(html::specialDecode($password));
         $search = array ('email' => $email, 'password' => $password);

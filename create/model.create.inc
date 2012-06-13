@@ -38,7 +38,7 @@ class accountCreate {
         if ($this->emailExist($_POST['email'])){
             $this->errors['email'] = lang::translate('account_error_email_exists');
         }
-        if (strlen($_POST['password']) < 7){
+        if (mb_strlen($_POST['password']) < 7){
             $this->errors['password'] = lang::translate('account_error_password_length');
         }
         if ($_POST['password'] != $_POST['password2']){

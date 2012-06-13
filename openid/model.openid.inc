@@ -5,7 +5,7 @@ moduleLoader::includeModule('account/login');
 /**
  * class for doing login with openid
  */
-class accountOpenid {
+class accountOpenid extends account {
     /**
      *
      * @var int telling if a user is logged in
@@ -55,10 +55,11 @@ class accountOpenid {
    /**
     * method for creating a logout link
     */
+    /*
     public static function viewLogout(){
-        accountLogin::setId();
+        //accountLogin::setId();
         //accountLoginView::logout();
-    }
+    }*/
 
     /**
      * method for login via openid. 
@@ -126,7 +127,7 @@ class accountOpenid {
                                 lang::translate('account_openid_loggedin_message')
                             );
 
-                            accountLogin::redirectOnLogin('/account/openid/index');
+                            account::redirectOnLogin('/account/openid/index');
 
                         }
 
@@ -143,7 +144,7 @@ class accountOpenid {
                         }
 
                         session::setActionMessage(lang::translate('account_openid_loggedin_message'));
-                        accountLogin::redirectOnLogin('/account/openid/index');                       
+                        account::redirectOnLogin('/account/openid/index');                       
                     }
                 } else {
                     $error = lang::translate('account_openid_invalid_login') . ' ' .  htmlspecialchars($id);

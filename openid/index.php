@@ -17,6 +17,7 @@ if (!accountOpenid::$loggedIn){
     accountOpenid::login();
     accountOpenid::viewLoginForm();    
 } else {
-    accountLogin::setId();
-    accountLogin::displayLogout();
+    $a = new accountLogin();
+    $a->setId();
+    $a->displayLogout();
 }
