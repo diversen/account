@@ -227,7 +227,7 @@ function account_facebook_login () {
     if (accountFacebook::$loggedIn){
 
         if ($_SESSION['account_type'] != 'facebook'){
-            accountLoginView::logout();
+            accountLogin::displayLogout();
             return;
         }
 

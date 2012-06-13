@@ -18,5 +18,5 @@ if (!accountOpenid::$loggedIn){
     accountOpenid::viewLoginForm();    
 } else {
     accountLogin::setId();
-    accountLoginView::logout();
+    accountLogin::displayLogout();
 }

@@ -91,17 +91,39 @@ class accountLogin {
             self::$id = session::getUserId();
         }
     }
+    
+    /**
+     * method for displaying email login 
+     */
+    public static function displayLogin (){
+        echo templateView::get('account', 'account_login_email');
+        if (isset(self::$accountLoginHTML)){
+            echo self::$accountLoginHTML;
+        }
+    }
 
-    public static function controlLogin (){   
+    /**
+     *method for controlling email login 
+     */
+    public static function controlLogin (){
         accountLogin::login();
         if (session::isUser()){
-            accountLoginView::logout();
+            accountLogin::displayLogout();
         } elseif ( isset($_POST['submit_account_login']) && !accountLogin::$loggedIn ) {
             view_form_errors(lang::translate('account_login_wrong_username_password'));
-            accountLoginView::login();
+            accountLogin::displayLogin();
         } else {
-            accountLoginView::login();
+            accountLogin::displayLogin();
         }
+    }
+    
+       /**
+    * method for creating a logout link
+    */
+    public static function displayLogout(){
+        accountLogin::setId();
+        $row = accountLogin::getUser();  
+        echo user::getLogoutHTML($row);
     }
 
     /**

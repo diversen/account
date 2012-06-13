@@ -12,12 +12,12 @@ if (!in_array('lightopenid', config::getModuleIni('account_logins'))){
     return;
 }
 
-$account = new accountLightopenid();
-$account->init();
-if (!$account->loggedIn){
-    $account->login();
-    $account->viewLoginForm();    
+$l = new accountLightopenid();
+$l->init();
+if (!$l->loggedIn){
+    $l->login();
+    $l->viewLoginForm();    
 } else {
     accountLogin::setId();
-    accountLoginView::logout();
+    accountLogin::displayLogout();
 }

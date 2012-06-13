@@ -9,12 +9,12 @@ if (!session::checkAccessControl('account_allow_edit')){
 
 template::setTitle(lang::translate('account_delete_account_title'));
 
-$account = new accountAdmin();
-$account->verifyAccount();
-$user = $account->getUser();
+$l = new accountAdmin();
+$l->verifyAccount();
+$user = $l->getUser();
 
 if (!empty($_POST['submit'])){
-    $account->deleteUser();
+    $l->deleteUser();
     view_confirm(lang::translate('account_has_been_deleted'));
 } else {
     viewAccountAdmin::delete($user);

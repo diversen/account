@@ -6,20 +6,20 @@ if (!session::checkAccessControl('account_allow_edit')){
 
 template::setTitle(lang::translate('account_edit_account_title'));
 
-$account = new accountAdmin();
-$user = $account->getUser();
+$l = new accountAdmin();
+$user = $l->getUser();
 
 if (isset($_POST['submit'])){
     if (empty($user['url'])){
-        $account->validate();
+        $l->validate();
     }
-    if (empty($account->errors)){
+    if (empty($l->errors)){
 
         if (!empty($user['url'])){
 
-            $res = $account->updateUrlUser();
+            $res = $l->updateUrlUser();
         } else {
-            $res = $account->updateEmailUser();
+            $res = $l->updateEmailUser();
         }
         if ($res){
             session::setActionMessage(
@@ -28,7 +28,7 @@ if (isset($_POST['submit'])){
             header("Location: /account/admin/list");
         }
     } else {
-        view_form_errors($account->errors);
+        view_form_errors($l->errors);
     }
 }
 
