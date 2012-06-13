@@ -3,7 +3,7 @@
 include_once 'facebook.php';
 moduleLoader::includeModule('account/login');
 
-class accountFacebook {
+class accountFacebook extends account {
     /**
      *
      * @var boolean $loggedIn tells if user is logged in or not
@@ -29,7 +29,9 @@ class accountFacebook {
      * checks if session needs to be killed (logging out)
      * @return boolean $res true if user is logged in else false
      */
+    /*
     public static function  init() {
+        
         // logout is the same for all login methods so far.
         $uri = uri::getInstance();
         if ($uri->fragment(3) == '1'){
@@ -38,11 +40,12 @@ class accountFacebook {
         }
         
         if (session::isUser()){
-            self::$loggedIn = 1;
-            self::$id = session::getUserId();
+            
+            //self::$loggedIn = 1;
+            //self::$id = session::getUserId();
             return true;
         }
-    }
+    } */
     
     /**
      * method for getting the facebook 'next' param - the url to
@@ -86,7 +89,7 @@ class accountFacebook {
         return $res;
     }
     
-    function createUser () {
+    function createUser ($user_profile) {
         // we have a facebook session but no user in database
         $id = $this->createDbUser($user_profile);
         $_SESSION['id'] = $id;
@@ -168,10 +171,14 @@ function account_facebook_service ($options = array ()) {
     }
     
     // return if already logged in. 
+    if (session::isUser()) {
+        return 1;
+    }
+    /*
     accountFacebook::init();
     if (accountFacebook::$loggedIn){
         return 1;
-    }
+    } */
 
     $facebook = facebook_get_object();
     $user = $facebook->getUser();
@@ -195,7 +202,7 @@ function account_facebook_service ($options = array ()) {
         $row = $account->auth($user_profile['link']);
 
         if (empty($row)){   
-            $res = $account->createUser();
+            $res = $account->createUser($user_profile);
         } else {
             $res = $account->loginUser($row);
         }
@@ -223,7 +230,20 @@ function account_facebook_login () {
     }
 
     //$account = new accountOpenid();
-    accountFacebook::init();
+    
+    //accountFacebook::init();
+    //die;
+    $account = new accountFacebook();
+    
+    if (session::isUser()) {
+        
+        $account->displayLogout();
+        return;
+    }
+    
+    //die;
+    
+    /*
     if (accountFacebook::$loggedIn){
 
         if ($_SESSION['account_type'] != 'facebook'){
@@ -231,7 +251,7 @@ function account_facebook_login () {
             return;
         }
 
-    } 
+    } */
 
     $facebook = facebook_get_object();
     echo $user = $facebook->getUser();
@@ -255,16 +275,16 @@ function account_facebook_login () {
 
     // login or logout url will be needed depending on current user state.
     if ($user_profile) {
-        $account = new accountFacebook();
+        
         $row = $account->auth($user_profile['link']);
 
         if (empty($row)){       
-            $account->createUser();
+            $account->createUser($user_profile);
         } else {
             $account->loginUser($row);
         }
         
-        account::redirectOnLogin ();
+        $account->redirectOnLogin ();
 
     } else {
         /*

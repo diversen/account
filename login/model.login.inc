@@ -10,26 +10,19 @@ class accountLogin extends account {
      */
     public $options = array ();
     
+    public function __construct($options = null) {
+        $this->options = $options;
+    } 
+    
     /**
      * static method for doing a login
      */
     public function login ($options = null){
-        
-        // set options
-        if (isset($options)) {
-            $this->options = $options;
-        }
+
 
         // logout
-        $logout = uri::getInstance()->fragment(3);
-        if ($logout == '1'){
-            session::killSession();
-            $redirect = config::getModuleIni('account_default_url');
-            if (isset($this->options['redirect_logout'])) {
-                $redirect = $this->options['redirect_logout'];
-            }
-            http::locationHeader($redirect);
-        }
+        $this->checkLogout();
+        
 
         // login
         if (isset($_POST['email']) && isset($_POST['password'])){
@@ -86,15 +79,7 @@ class accountLogin extends account {
         }
     }
     
-       /**
-    * method for creating a logout link
-    */
-    public static function displayLogout(){
-        //account::setId();
-        $row = user::getAccount(session::getUserId()); 
-        ////accountLogin::getUser();  
-        echo user::getLogoutHTML($row);
-    }
+
 
     /**
      * method for authorizing a user

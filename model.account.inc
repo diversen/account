@@ -11,6 +11,26 @@ template::setInlineCss(
  * class account. Only containing one method. 
  */
 class account {
+    
+    public function checkLogout () {
+        $logout = uri::getInstance()->fragment(3);
+        if ($logout == '1'){
+            session::killSession();
+            $redirect = config::getModuleIni('account_default_url');
+            if (isset($this->options['redirect_logout'])) {
+                $redirect = $this->options['redirect_logout'];
+            }
+            http::locationHeader($redirect);
+        }
+    }
+    
+           /**
+    * method for creating a logout link
+    */
+    public static function displayLogout(){
+        $row = user::getAccount(session::getUserId()); 
+        echo user::getLogoutHTML($row);
+    }
 
     /**
      * Method for redireting to default login url. The default URL is set 

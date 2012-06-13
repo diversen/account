@@ -10,7 +10,7 @@ class accountLightopenid extends account {
      *
      * @var int telling if a user is logged in
      */
-    public $loggedIn = null;
+    //public $loggedIn = null;
 
     /**
      *
@@ -27,30 +27,6 @@ class accountLightopenid extends account {
     
     public $options = array ();
     
-    /**
-     * set some basic messages
-     */
-    
-    public function  init() {
-        // logout is the same for all login methods so far.
-        /*
-        if (session::isUser()){
-            $this->id = session::getUserId();
-        } */
-        
-        $uri = uri::getInstance();
-        if ($uri->fragment(3) == '1'){
-            session::killSession();
-            $redirect = config::getModuleIni('account_default_url');
-            header( "Location: $redirect");
-            die;
-        }
-        /*
-        if (isset($_SESSION['id'])) {
-            $this->loggedIn = 1;
-        } */
-    }
-    
     function __construct($options = array ()) {
         $this->options = $options;
     }
@@ -62,20 +38,13 @@ class accountLightopenid extends account {
         echo templateView::get('account/lightopenid', 'login');
     }
 
-   /**
-    * method for creating a logout link
-    */
-    /*
-    public static function viewLogout(){
-        accountLogin::setId();
-
-    }*/
-
     /**
      * method for login via openid. 
      */
     public function login (){
 
+        $this->checkLogout();
+        
         if (@$_GET['keep_session'] == 1){
             $_SESSION['keep_session'] = 1;
         }
@@ -213,7 +182,6 @@ class accountLightopenid extends account {
      * @return int      1 success or 0 on failure
      */
     public static function createUser ($openid){
-        //contact/email
         
         $ary = $openid->getAttributes();
         
@@ -232,20 +200,5 @@ class accountLightopenid extends account {
             return db::$dbh->lastInsertId();
         }
         return $res;
-    }
-
-    /**
-     *
-     * @return mixed    user row or 0
-     */
-    public static function getUser(){
-        $db = new db();
-        try {
-            $row = $db->selectOne('account', 'id', self::$id);           
-            return $row;
-        } catch (PDOException $e) {
-            $db->fatalError($e->getMessage());
-        }
-        return 0;
     }
 }
