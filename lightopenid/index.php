@@ -13,8 +13,7 @@ if (!in_array('lightopenid', config::getModuleIni('account_logins'))){
 }
 
 $l = new accountLightopenid();
-//$l->init();
-if (!session::isUser()/* $l->loggedIn */){
+if (!session::isUser()){
     $l->login();
     $l->viewLoginForm();    
 } else {

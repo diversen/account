@@ -5,16 +5,9 @@ include_module('account');
 class accountLogin extends account {
 
     /**
-     * @var int     $loggedIn (1 yes 0 no)
+     * options
+     * @var array $ary options 
      */
-    public static $loggedIn = 0;
-
-    /**
-     *
-     * @var int $id
-     */
-    public static $id;
-
     public $options = array ();
     
     /**
@@ -64,30 +57,9 @@ class accountLogin extends account {
                 
 
                 $this->redirectOnLogin();
-            } //else {
-               // self::$loggedIn = 0;
-          //  }
-        }
-        //$this->setId();
-        
-    }
-
-    /*
-    public static function redirectOnLogin ($url = null){
-        if (isset($_SESSION['redirect_on_login'])){
-            $redirect = $_SESSION['redirect_on_login'];
-            unset($_SESSION['redirect_on_login']);
-            http::locationHeader ($redirect);
-        } else {
-            if ($url){
-                $location = $url;
-            } else {
-                $location = config::getModuleIni('account_default_url');
             }
-            http::locationHeader($location);
-         }
-    }*/ 
-
+        }
+    }
     
     /**
      * method for displaying email login 
@@ -106,7 +78,7 @@ class accountLogin extends account {
         $this->login();
         if (session::isUser()){
             $this->displayLogout();
-        } elseif ( isset($_POST['submit_account_login']) && !accountLogin::$loggedIn ) {
+        } elseif ( isset($_POST['submit_account_login']) ) {
             view_form_errors(lang::translate('account_login_wrong_username_password'));
             $this->displayLogin();
         } else {
@@ -136,15 +108,6 @@ class accountLogin extends account {
         $password = md5(html::specialDecode($password));
         $search = array ('email' => $email, 'password' => $password);
         $row = $db->selectOne('account', null, $search);
-        return $row;
-    }
-    /**
-     *
-     * @return mixed    user row or 0
-     */
-    public static function getUser(){
-        $db = new db();
-        $row = $db->selectOne('account', 'id', self::$id);
         return $row;
     }
 }
