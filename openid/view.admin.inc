@@ -91,7 +91,7 @@ function view_users($users){ ?>
  * 
  * @param array row with user
  */
-function view_delete ($values){ ?>
+function view_settings_logo_delete ($values){ ?>
 <div id="form_main">
 <form method="post" action="">
 <fieldset>
