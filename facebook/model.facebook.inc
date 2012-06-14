@@ -229,32 +229,14 @@ function account_facebook_login () {
         return;
     }
 
-    //$account = new accountOpenid();
-    
-    //accountFacebook::init();
-    //die;
-    $account = new accountFacebook();
-    
-    if (session::isUser()) {
-        
+    $account = new accountFacebook();    
+    if (session::isUser()) {   
         $account->displayLogout();
         return;
     }
     
-    //die;
-    
-    /*
-    if (accountFacebook::$loggedIn){
-
-        if ($_SESSION['account_type'] != 'facebook'){
-            accountLogin::displayLogout();
-            return;
-        }
-
-    } */
-
     $facebook = facebook_get_object();
-    echo $user = $facebook->getUser();
+    $user = $facebook->getUser();
 
     if ($user) {
         try {
@@ -274,8 +256,7 @@ function account_facebook_login () {
     }
 
     // login or logout url will be needed depending on current user state.
-    if ($user_profile) {
-        
+    if ($user_profile) {        
         $row = $account->auth($user_profile['link']);
 
         if (empty($row)){       
