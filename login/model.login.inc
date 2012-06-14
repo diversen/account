@@ -59,9 +59,6 @@ class accountLogin extends account {
      */
     public static function displayLogin (){
         echo templateView::get('account', 'account_login_email');
-        if (isset(self::$accountLoginHTML)){
-            echo self::$accountLoginHTML;
-        }
     }
 
     /**
