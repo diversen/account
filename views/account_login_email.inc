@@ -9,6 +9,10 @@ if (!isset($_POST['submit_account_login'])){
     $init = html::specialEncode($_POST);
 }
 
+if (isset($vars['errors'])) {
+    view_form_errors($vars['errors']);
+}
+
 html::$autoLoadTrigger = 'submit';
 html::init($init);
 html::formStart('account_request_new_password');

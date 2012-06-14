@@ -1,17 +1,33 @@
 <?php
 
 /**
- * File containing main account class
+ * File containing main account class with a few shared 
+ * methods between different login methods. 
  */
 
 template::setInlineCss(
         config::getModulePath('account') .  '/assets/account.css');
 
 /**
- * class account. Only containing one method. 
+ * class account 
  */
 class account {
     
+    /**
+     * var holding errors
+     * @var array $errors 
+     */
+    public $errors = array ();
+    
+    /**
+     * status to give on login
+     * @var string $str
+     */
+    public $status = '';
+    
+    /**
+     * checks if a logout has taken place 
+     */
     public function checkLogout () {
         $logout = uri::getInstance()->fragment(3);
         if ($logout == '1'){
@@ -24,8 +40,9 @@ class account {
         }
     }
     
-           /**
-    * method for creating a logout link
+   /**
+    * method for creating a logout link. Fetch info from
+    * a profile to show how to display logut
     */
     public static function displayLogout(){
         $row = user::getAccount(session::getUserId()); 
@@ -40,25 +57,12 @@ class account {
         $redirect = config::getModuleIni('account_default_url');
         http::locationHeader ($redirect);
     }
-    /*
-    function redirectOnLogin() {
-        if (isset($_SESSION['redirect_on_login'])){
-            $redirect = $_SESSION['redirect_on_login'];
-            unset($_SESSION['redirect_on_login']);
-            header ("Location: $redirect");
-        }
-    }*/
-   /**
-     * sets self::$id from session
+
+    /**
+     * checks if we need to redirect to aspecified URL on login
+     * examines latest $_SESSION['redirect_on_login']
+     * @param string $url 
      */
-    //public static function setId(){
-        // logout is the same for all login methods so far.
-        /*
-        if (session::isUser()){
-            self::$id = session::getUserId();
-        }*/
-    //}
-    
     public static function redirectOnLogin ($url = null){
         if (isset($_SESSION['redirect_on_login'])){
             $redirect = $_SESSION['redirect_on_login'];

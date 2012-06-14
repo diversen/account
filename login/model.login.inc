@@ -10,6 +10,11 @@ class accountLogin extends account {
      */
     public $options = array ();
     
+    /**
+     * constructs accountLogin object.
+     * set options 
+     * @param array $options 
+     */
     public function __construct($options = null) {
         $this->options = $options;
     } 
@@ -17,8 +22,7 @@ class accountLogin extends account {
     /**
      * static method for doing a login
      */
-    public function login ($options = null){
-
+    public function login (){
 
         // logout
         $this->checkLogout();
@@ -57,20 +61,24 @@ class accountLogin extends account {
     /**
      * method for displaying email login 
      */
-    public static function displayLogin (){
-        echo templateView::get('account', 'account_login_email');
+    public function displayLogin (){
+        $vars['errors'] = $this->errors;
+        echo templateView::get('account', 'account_login_email', $vars);
     }
 
     /**
-     *method for controlling email login 
+     * method for controlling email login 
+     * 
      */
     public function controlLogin (){
         $this->login();
         if (session::isUser()){
             $this->displayLogout();
+        // submission has taking place but no redirect.     
         } elseif ( isset($_POST['submit_account_login']) ) {
-            view_form_errors(lang::translate('account_login_wrong_username_password'));
+            $this->errors[]= lang::translate('account_login_wrong_username_password');
             $this->displayLogin();
+        // no submission
         } else {
             $this->displayLogin();
         }

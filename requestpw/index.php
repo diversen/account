@@ -23,6 +23,8 @@ if (isset($_POST['submit'])){
             $location = config::getModuleIni('account_default_url');
             $header = "Location: $location";
             header($header);
+        } else {
+            cos_debug("could not send mail:" . __FILE__);
         }
     } else {
         view_form_errors($request->errors);

@@ -6,27 +6,12 @@ include_once "lightopenid/openid.php";
  * class for doing login with openid
  */
 class accountLightopenid extends account {
+    
     /**
      *
      * @var int telling if a user is logged in
      */
-    //public $loggedIn = null;
 
-    /**
-     *
-     * @var int userid
-     */
-    public $id;
-
-    /**
-     *
-     * @var array   holding errors
-     */
-    public $errors = array();
-
-    
-    public $options = array ();
-    
     function __construct($options = array ()) {
         $this->options = $options;
     }
@@ -45,15 +30,24 @@ class accountLightopenid extends account {
 
         $this->checkLogout();
         
+        if (isset($this->options['openid_identifier'])) {
+            //$openid_identifier = $this->options['openid_identifier'];
+        }
+        
         if (@$_GET['keep_session'] == 1){
             $_SESSION['keep_session'] = 1;
         }
 
-        $status = '';
         try {
             $domain = get_main_ini('server_name');
             $openid = new LightOpenID($domain);
+            
+            
             if(!$openid->mode) {
+                if (isset($this->options['openid_identifier'])) {
+                    $_GET['openid_identifier'] = $this->options['openid_identifier'];
+                }
+                
                 if(isset($_GET['openid_identifier'])) {
                    
                     $openid->identity = $_GET['openid_identifier'];
@@ -64,30 +58,30 @@ class accountLightopenid extends account {
                     header('Location: ' . $openid->authUrl());
                 }
 
-            } elseif($openid->mode == 'cancel') {
-                $error = lang::translate('account_openid_login_cancelled');
+            } else if($openid->mode == 'cancel') {
+                $this->errors[] = lang::translate('account_openid_login_cancelled');
+                // die;
+                return false;
+                
             } else {
                 
-                $status = lang::translate('account_openid_valid_login') . ' ' . htmlspecialchars($openid->identity). "<br />\n";
+                $this->status = lang::translate('account_openid_valid_login') . ' ' . htmlspecialchars($openid->identity). "<br />\n";
                 if ($openid->validate()) {
                     $this->dispenseOpenid($openid);
                 } else {
-                    $error = lang::translate('account_openid_invalid_login');
+                    $this->errors[] = lang::translate('account_openid_invalid_login');
                 }
-                echo 'User ' . ($openid->validate() ? $openid->identity . ' has ' : 'has not ') . 'logged in.';
+                //echo 'User ' . ($openid->validate() ? $openid->identity . ' has ' : 'has not ') . 'logged in.';
             }
         } catch(ErrorException $e) {
             echo $e->getMessage();
         }
-
-
-        if (isset($error)){
-            view_form_errors($error);
-        } else {
-            echo $status;
-        }
     }
     
+    /**
+     * creates a user in database
+     * @param type $openid unique openid identifier
+     */
     public function dispenseOpenid ($openid) {
         
         $account = $this->auth($openid->identity);

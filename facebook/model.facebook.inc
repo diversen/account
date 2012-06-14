@@ -4,49 +4,7 @@ include_once 'facebook.php';
 moduleLoader::includeModule('account/login');
 
 class accountFacebook extends account {
-    /**
-     *
-     * @var boolean $loggedIn tells if user is logged in or not
-     */
-    public static $loggedIn = null;
 
-    /**
-     *
-     * @var int $id the users id. 
-     */
-    public static $id;
-
-    /**
-     *
-     * @var array $errors array holding errors
-     */
-    public static $errors = null;
-
-    /**
-     * init facebook
-     * sets static vars logginIn and userId
-     * checks if user is logged in
-     * checks if session needs to be killed (logging out)
-     * @return boolean $res true if user is logged in else false
-     */
-    /*
-    public static function  init() {
-        
-        // logout is the same for all login methods so far.
-        $uri = uri::getInstance();
-        if ($uri->fragment(3) == '1'){
-            session_destroy();
-            return false;
-        }
-        
-        if (session::isUser()){
-            
-            //self::$loggedIn = 1;
-            //self::$id = session::getUserId();
-            return true;
-        }
-    } */
-    
     /**
      * method for getting the facebook 'next' param - the url to
      * redirect to when logging out. 
@@ -73,7 +31,8 @@ class accountFacebook extends account {
 
     /**
      * method for creating a user
-     * @return int $res last insert id or false if failure
+     * @param array $ary facebook user array
+     * @return int|false $res last insert id or false if failure
      */
     public function createDbUser ($user){
         $db = new db();     
@@ -89,6 +48,10 @@ class accountFacebook extends account {
         return $res;
     }
     
+    /**
+     * creates a facebook user from facebook profile array
+     * @param array $user_profile 
+     */
     function createUser ($user_profile) {
         // we have a facebook session but no user in database
         $id = $this->createDbUser($user_profile);
