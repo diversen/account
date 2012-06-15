@@ -171,7 +171,7 @@ function account_facebook_service ($options = array ()) {
         }
        
     } else {
-        session::killSession();
+        //session::killSession();
         $res = 0;
     }    
     return $res;

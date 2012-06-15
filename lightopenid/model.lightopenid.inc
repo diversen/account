@@ -173,12 +173,11 @@ class accountLightopenid extends account {
     /**
      * method for creating a user
      *
-     * @return int      1 success or 0 on failure
+     * @return int|false $res last_isnert_id on success or false on failure
      */
     public static function createUser ($openid){
         
         $ary = $openid->getAttributes();
-        
         $db = new db();
         $values = array(
             'url'=> $openid->identity, 
@@ -189,7 +188,6 @@ class accountLightopenid extends account {
         }
         
         $res = $db->insert('account', $values);
-
         if ($res) {
             return db::$dbh->lastInsertId();
         }
