@@ -38,10 +38,12 @@ if (in_array('facebook', $account_logins)){
     );
 }
 
-$_MODULE_MENU[] = array(
+if (!config::getModuleIni('account_disable_admin_interface')) {
+    $_MODULE_MENU[] = array(
     'title' => lang::translate('account_admin'),
     'url' => '/account/admin/index',
-    'auth' => $account_show_admin_link,
-);
+    'auth' => $account_show_admin_link);
+}
+
 
 ksort ($_MODULE_MENU);
