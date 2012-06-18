@@ -24,7 +24,7 @@ class accountFacebook extends account {
 
     public function auth ($facebook_url){
         $db = new db();
-        $search = array ('url' => $facebook_url);
+        $search = array ('url' => $facebook_url, 'type' => 'facebook');
         $row = $db->selectOne('account', null, $search);
         return $row;
     }
@@ -39,7 +39,8 @@ class accountFacebook extends account {
         $values = array(
             'url'=> $user['link'], 
             'username' => $user['name'],
-            'email' => $user['email']
+            'email' => $user['email'],
+            'type' => 'facebook'
             );
         $res = $db->insert('account', $values);
         if ($res) {
@@ -97,16 +98,6 @@ class accountFacebook extends account {
         );
     }
 
-    /**
-     *
-     * @return array $row
-     */
-    public static function getUser(){
-        $db = new db();
-        $row = $db->selectOne('account', 'id', self::$id);
-        return $row;
-    }
-    
     /**
     * method for displaying a logout link
     */

@@ -96,7 +96,11 @@ class accountLogin extends account {
     public function auth ($email, $password){
         $db = new db();
         $password = md5(html::specialDecode($password));
-        $search = array ('email' => $email, 'password' => $password);
+        $search = array (
+            'email' => $email, 
+            'password' => $password, 
+            'verified' => 1,
+            'type' => 'email');
         $row = $db->selectOne('account', null, $search);
         return $row;
     }

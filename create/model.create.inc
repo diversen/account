@@ -35,21 +35,65 @@ class accountCreate {
      */
     function validate(){
 
+        
         if ($this->emailExist($_POST['email'])){
             $this->errors['email'] = lang::translate('account_error_email_exists');
         }
+        
+        if (!cosValidate::validateEmailAndDomain($_POST['email'])) {
+            $this->errors['email'] = lang::translate('account_error_invalid_email');
+        }
+        
+        // if we use two fields for password
+        $this->validatePasswords();
+        
+        if (!captcha::checkCaptcha(trim($_POST['captcha']))){
+            $this->errors['captcha'] = lang::translate('account_error_incorrect_captcha');
+        }
+    }
+    
+    /**
+     * validate passwords 
+     */
+    function validatePasswords () {
         if (mb_strlen($_POST['password']) < 7){
             $this->errors['password'] = lang::translate('account_error_password_length');
         }
         if ($_POST['password'] != $_POST['password2']){
             $this->errors['password'] = lang::translate('account_error_password_mismatch');
+        }        
+    }
+    
+    /**
+     * validate emails from submission $_POST['email'] against $_POST['email2'] 
+     */
+    function validateEmails () {
+        if ($_POST['email'] != $_POST['email2']) {
+            $this->errors['email'] = lang::translate('account_error_email_does_not_match');
         }
-        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-            $this->errors['email'] = lang::translate('account_error_invalid_email');
-        }
-        if (!captcha::checkCaptcha(trim($_POST['captcha']))){
-            $this->errors['captcha'] = lang::translate('account_error_incorrect_captcha');
-        }
+    }
+    
+    /**
+     * inserts a user user into database
+     * @param string $email
+     * @param string $password
+     * @return int $last_insert_id
+     */
+    public function createDbUser ($email, $password, $md5_key) {
+
+
+        $values = 
+            array('username'=> $email,
+                  'password' => md5($password),
+                  'email' => $email,
+                  'md5_key' => $md5_key,
+                  'type' => 'email');
+
+        
+        $db = new db();
+        $db->insert('account', $values);
+        $last_insert_id = db::$dbh->lastInsertId();
+        return $last_insert_id;
     }
 
     /**
@@ -59,19 +103,14 @@ class accountCreate {
      */
     public function createUser (){
        
-        $md5_key = md5(uniqid(rand(), true));
-
-        $values = 
-            array('username'=> $_POST['email'],
-                  'password' => md5($_POST['password']),
-                  'email' => $_POST['email'],
-                  'md5_key' => $md5_key);
-
+        
         // transaction begin. Insert new user
         db::$dbh->beginTransaction();
-        $db = new db();
-        $db->insert('account', $values);
-        $last_insert_id = db::$dbh->lastInsertId();
+        
+        $md5_key = md5(uniqid(rand(), true));
+        $last_insert_id = $this->createDbUser(
+                $_POST['email'], 
+                $_POST['password'], $md5_key);
 
         // generate email
         $subject = lang::translate('account_signup_subject');
@@ -113,8 +152,13 @@ class accountCreate {
      */
     public function emailExist($email){
         $db = new db();
-        $row = $db->selectOne('account', 'email', $email);
-        if (empty($row)) return 0;
+        $row = $db->selectOne(
+                'account', 
+                null, 
+                array ('email' => $email, 'type' => $email)
+            );
+        
+        if (empty($row)) return false;
         return $row;
     }
 

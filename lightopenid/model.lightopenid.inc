@@ -164,10 +164,9 @@ class accountLightopenid extends account {
      */
     public function auth ($openid){
         $db = new db();
-        $search = array ('url' => $openid);
+        $search = array ('url' => $openid, 'type' => 'openid');
         $row = $db->selectOne('account', null, $search);
         return $row;
-
     }
 
     /**
@@ -181,7 +180,8 @@ class accountLightopenid extends account {
         $db = new db();
         $values = array(
             'url'=> $openid->identity, 
-            'email' => $ary['contact/email']);
+            'email' => $ary['contact/email'],
+            'type' => 'openid');
         
         if (isset($ary['namePerson/friendly'])) {
             $values['username'] = $ary['namePerson/friendly'];

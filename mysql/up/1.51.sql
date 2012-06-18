@@ -1,0 +1,1 @@
+ALTER TABLE `account` ADD COLUMN `type` varchar(255) DEFAULT '';
