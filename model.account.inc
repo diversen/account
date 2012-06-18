@@ -20,10 +20,20 @@ class account {
     public $errors = array ();
     
     /**
+     * var holding options
+     * @var type 
+     */
+    public $options = array ();
+    
+    /**
      * status to give on login
      * @var string $str
      */
     public $status = '';
+    
+    public function __construct($options = array ()) {
+        $this->options = $options;
+    }
     
     /**
      * checks if a logout has taken place 
@@ -31,13 +41,30 @@ class account {
     public function checkLogout () {
         $logout = uri::getInstance()->fragment(3);
         if ($logout == '1'){
-            session::killSession();
-            $redirect = config::getModuleIni('account_default_url');
-            if (isset($this->options['redirect_logout'])) {
-                $redirect = $this->options['redirect_logout'];
-            }
-            http::locationHeader($redirect);
+            $this->doLogout();
         }
+    }
+    
+    public function doLogout () {
+        //setcookie(‘fbs_’.$facebook->getAppId(), ”, time()-100, ‘/’, ‘http://www.repjesus.com’);
+//session_destroy();
+        
+        $app_id = config::getModuleIni('account_facebook_api_appid'); //$facebook->getAppId()
+        $server_name = config::getMainIni('server_name');
+        
+        //echo $cookie_id = "fbm_$app_id";
+        //print_r($_COOKIE);
+        //die;
+        setcookie('fbm_'.$app_id, '', time()-100, '/', $server_name);
+        setcookie('fbsr_'.$app_id, '', time()-100, '/', $server_name);
+        //session_destroy();
+        
+        session::killSession();
+        $redirect = config::getModuleIni('account_default_url');
+        if (isset($this->options['redirect_logout'])) {
+            $redirect = $this->options['redirect_logout'];
+        }
+        http::locationHeader($redirect);
     }
     
    /**

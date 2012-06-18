@@ -52,8 +52,11 @@ class accountLogin extends account {
                     $args
                 );
                 
-
-                $this->redirectOnLogin();
+                if (isset($this->options['redirect'])) {
+                    $this->redirectOnLogin($this->options['redirect']);
+                } else {
+                    $this->redirectOnLogin();
+                }
             }
         }
     }

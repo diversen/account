@@ -79,16 +79,19 @@ class accountCreate {
      * @param string $password
      * @return int $last_insert_id
      */
-    public function createDbUser ($email, $password, $md5_key) {
+    public function createDbUser ($email, $password, $options = array ()) {
 
 
         $values = 
             array('username'=> $email,
                   'password' => md5($password),
                   'email' => $email,
-                  'md5_key' => $md5_key,
+                  'md5_key' => $options['md5_key'],
                   'type' => 'email');
 
+        if (isset($options['verified'])) {
+            $values['verified'] = 1;
+        }
         
         $db = new db();
         $db->insert('account', $values);
@@ -110,7 +113,9 @@ class accountCreate {
         $md5_key = md5(uniqid(rand(), true));
         $last_insert_id = $this->createDbUser(
                 $_POST['email'], 
-                $_POST['password'], $md5_key);
+                $_POST['password'], 
+                array ('md5_key' => $md5_key)
+        );
 
         // generate email
         $subject = lang::translate('account_signup_subject');
