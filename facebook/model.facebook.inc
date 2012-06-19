@@ -140,7 +140,7 @@ function account_facebook_service ($options = array ()) {
 
     if ($user) {
         try {
-            $token = $facebook->getAccessToken();
+             $token = $facebook->getAccessToken();
             //print_r($token); die;
             // Proceed knowing you have a logged in user who's authenticated.
             $user_profile = $facebook->api('/me');

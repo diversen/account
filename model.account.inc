@@ -57,9 +57,13 @@ class account {
         //die;
         setcookie('fbm_'.$app_id, '', time()-100, '/', $server_name);
         setcookie('fbsr_'.$app_id, '', time()-100, '/', $server_name);
-        //session_destroy();
+        //setcookie('fbsr_'.$app_id, '', time()-100, '/', $server_name);
         
         session::killSession();
+        //session_regenerate_id(true);
+        session_regenerate_id(true);
+        /* erase data carried over from previous session */
+        $_SESSION=array();
         $redirect = config::getModuleIni('account_default_url');
         if (isset($this->options['redirect_logout'])) {
             $redirect = $this->options['redirect_logout'];

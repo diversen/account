@@ -79,19 +79,14 @@ class accountCreate {
      * @param string $password
      * @return int $last_insert_id
      */
-    public function createDbUser ($email, $password, $options = array ()) {
-
+    public function createDbUser ($email, $password, $md5_key) {
 
         $values = 
             array('username'=> $email,
                   'password' => md5($password),
                   'email' => $email,
-                  'md5_key' => $options['md5_key'],
+                  'md5_key' => $md5_key,
                   'type' => 'email');
-
-        if (isset($options['verified'])) {
-            $values['verified'] = 1;
-        }
         
         $db = new db();
         $db->insert('account', $values);
@@ -114,7 +109,7 @@ class accountCreate {
         $last_insert_id = $this->createDbUser(
                 $_POST['email'], 
                 $_POST['password'], 
-                array ('md5_key' => $md5_key)
+                $md5_key
         );
 
         // generate email
@@ -178,13 +173,11 @@ class accountCreate {
         $md5_key = $uri->fragment(4);
         
         $db = new db();
-        $db->begin();
+        //$db->begin();
         $search = array ('id' => $account_id,);
         $row = $db->selectOne('account', null, $search);
 
-        //print_r($row);
         if (!empty($row) && $row['verified'] == 1){
-            //echo "returning";
             return 2;
         }
 
@@ -195,21 +188,29 @@ class accountCreate {
             $this->errors[] = lang::translate('account_wrong_validation_combination');
             return 0;
         }     
-                
+        
+        $res = $this->verifyUpdateDb ($row['id']);
+        
+        
+        //$db->commit();
+        return $res;
+    }
+    
+    public function verifyUpdateDb ($id) {
+        $db = new db();
         $md5_key = md5(uniqid(rand(), true));
         $values = array('verified' => 1, 'md5_key' => $md5_key);
-        $res = $db->update('account', $values, $row['id']);
-       
+        $res = $db->update('account', $values, $id);
+        
         $args = array (
             'action' => 'account_create',
-            'user_id' => $row['id'],
+            'user_id' => $id,
         );
                 
         event::getTriggerEvent(
             config::getModuleIni('account_events'), 
         $args);
         
-        $db->commit();
         return $res;
     }
 }
