@@ -29,12 +29,7 @@ class accountLightopenid extends account {
     public function login (){
 
         $this->checkLogout();
-        
-        if (isset($this->options['openid_identifier'])) {
-            //$openid_identifier = $this->options['openid_identifier'];
-        }
-        
-        if (@$_GET['keep_session'] == 1){
+        if (isset($_GET['keep_session']) && $_GET['keep_session'] == 1){
             $_SESSION['keep_session'] = 1;
         }
 
@@ -49,7 +44,6 @@ class accountLightopenid extends account {
                 }
                 
                 if(isset($_GET['openid_identifier'])) {
-                   
                     $openid->identity = $_GET['openid_identifier'];
                     $openid->required = array(
                         'nickname', 
@@ -60,11 +54,8 @@ class accountLightopenid extends account {
 
             } else if($openid->mode == 'cancel') {
                 $this->errors[] = lang::translate('account_openid_login_cancelled');
-                // die;
-                return false;
-                
-            } else {
-                
+                return false; 
+            } else {               
                 $this->status = lang::translate('account_openid_valid_login') . ' ' . htmlspecialchars($openid->identity). "<br />\n";
                 if ($openid->validate()) {
                     $this->dispenseOpenid($openid);
@@ -118,8 +109,12 @@ class accountLightopenid extends account {
                 event::getTriggerEvent(
                         config::getModuleIni('account_events'), 
                         $args);
+            
+                session::setActionMessage(
+                    lang::translate('account_openid_loggedin_message'), true
+                );
                 
-                session_write_close();        
+                //session_write_close();        
                 account::redirectOnLogin($redirect);
              }
 

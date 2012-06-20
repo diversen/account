@@ -96,6 +96,8 @@ class accountFacebook extends account {
             config::getModuleIni('account_events'), 
             $args
         );
+        
+         //session::setActionMessage('facebook_logged_in');
     }
 
     /**
@@ -129,18 +131,13 @@ function account_facebook_service ($options = array ()) {
     if (session::isUser()) {
         return 1;
     }
-    /*
-    accountFacebook::init();
-    if (accountFacebook::$loggedIn){
-        return 1;
-    } */
 
     $facebook = facebook_get_object();
     $user = $facebook->getUser();
 
     if ($user) {
         try {
-             $token = $facebook->getAccessToken();
+            // $token = $facebook->getAccessToken();
             //print_r($token); die;
             // Proceed knowing you have a logged in user who's authenticated.
             $user_profile = $facebook->api('/me');
