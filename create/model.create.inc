@@ -56,6 +56,8 @@ class accountCreate {
      * validate passwords 
      */
     function validatePasswords () {
+
+        
         if (mb_strlen($_POST['password']) < 7){
             $this->errors['password'] = lang::translate('account_error_password_length');
         }
@@ -68,8 +70,21 @@ class accountCreate {
      * validate emails from submission $_POST['email'] against $_POST['email2'] 
      */
     function validateEmails () {
+
+                
+        if (!cosValidate::validateEmailAndDomain($_POST['email'])) {
+            $this->errors['email'] = lang::translate('account_error_invalid_email');
+        }
+        
+        if ($this->emailExist($_POST['email'])){
+            $this->errors['email'] = lang::translate('account_error_email_exists');
+            return false;
+        }
+        
+        
         if ($_POST['email'] != $_POST['email2']) {
             $this->errors['email'] = lang::translate('account_error_email_does_not_match');
+            return false;
         }
     }
     
@@ -91,6 +106,18 @@ class accountCreate {
         $db = new db();
         $db->insert('account', $values);
         $last_insert_id = db::$dbh->lastInsertId();
+        
+        if ($last_insert_id) {
+            $args = array (
+                'action' => 'account_create',
+                'user_id' => $last_insert_id,
+            );
+
+            event::getTriggerEvent(
+                config::getModuleIni('account_events'), 
+            $args);
+        }
+        
         return $last_insert_id;
     }
 
@@ -152,12 +179,13 @@ class accountCreate {
      */
     public function emailExist($email){
         $db = new db();
+        
         $row = $db->selectOne(
                 'account', 
                 null, 
-                array ('email' => $email, 'type' => $email)
+                array ('email' => $email, 'type' => 'email')
             );
-        
+
         if (empty($row)) return false;
         return $row;
     }
@@ -203,7 +231,7 @@ class accountCreate {
         $res = $db->update('account', $values, $id);
         
         $args = array (
-            'action' => 'account_create',
+            'action' => 'account_verify',
             'user_id' => $id,
         );
                 

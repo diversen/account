@@ -91,8 +91,6 @@ class accountLogin extends account {
         }
     }
     
-
-
     /**
      * method for authorizing a user
      *
@@ -100,14 +98,18 @@ class accountLogin extends account {
      * @param   string  password
      * @return  array|0 row with user creds on success, 0 if not
      */
-    public function auth ($email, $password){
+    public function auth ($email, $password, $params = array ()){
         $db = new db();
         $password = md5(html::specialDecode($password));
         $search = array (
             'email' => $email, 
             'password' => $password, 
-            'verified' => 1,
             'type' => 'email');
+        
+        if (!empty($this->options['auth_verified_only'])) {
+            $search['verified'] = 1;
+        }
+        
         $row = $db->selectOne('account', null, $search);
         return $row;
     }
