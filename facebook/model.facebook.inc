@@ -40,7 +40,8 @@ class accountFacebook extends account {
             'url'=> $user['link'], 
             'username' => $user['name'],
             'email' => $user['email'],
-            'type' => 'facebook'
+            'type' => 'facebook',
+            'verified' => 1
             );
         $res = $db->insert('account', $values);
         if ($res) {

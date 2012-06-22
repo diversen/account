@@ -176,7 +176,8 @@ class accountLightopenid extends account {
         $values = array(
             'url'=> $openid->identity, 
             'email' => $ary['contact/email'],
-            'type' => 'openid');
+            'type' => 'openid',
+            'verified' => 1);
         
         if (isset($ary['namePerson/friendly'])) {
             $values['username'] = $ary['namePerson/friendly'];

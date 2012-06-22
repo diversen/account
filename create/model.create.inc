@@ -105,26 +105,14 @@ class accountCreate {
         
         $db = new db();
         $db->insert('account', $values);
-        $last_insert_id = db::$dbh->lastInsertId();
-        
-        if ($last_insert_id) {
-            $args = array (
-                'action' => 'account_create',
-                'user_id' => $last_insert_id,
-            );
-
-            event::getTriggerEvent(
-                config::getModuleIni('account_events'), 
-            $args);
-        }
-        
+        $last_insert_id = db::$dbh->lastInsertId();        
         return $last_insert_id;
     }
 
     /**
      * method for creating a user
      *
-     * @return int $res 1 on success or 0 on failure
+     * @return int $res last insert id on success or 0 on failure
      */
     public function createUser (){
        
@@ -153,7 +141,7 @@ class accountCreate {
         $from = config::$vars['coscms_main']['site_email'];
         if (mail_utf8($_POST['email'], $subject, $message, $from)){
             db::$dbh->commit();
-            return 1;
+            return $last_insert_id;
         } else {
             db::$dbh->rollBack();
             return 0;
@@ -218,9 +206,18 @@ class accountCreate {
         }     
         
         $res = $this->verifyUpdateDb ($row['id']);
+        if ($res) {
+
+            $args = array (
+                'action' => 'account_create',
+                'user_id' => $row['id'],
+            );
+
+            event::getTriggerEvent(
+                config::getModuleIni('account_events'), 
+            $args);
         
-        
-        //$db->commit();
+        }
         return $res;
     }
     

@@ -104,11 +104,9 @@ class accountLogin extends account {
         $search = array (
             'email' => $email, 
             'password' => $password, 
-            'type' => 'email');
+            'type' => 'email', 
+            'verified' => 1);
         
-        if (!empty($this->options['auth_verified_only'])) {
-            $search['verified'] = 1;
-        }
         
         $row = $db->selectOne('account', null, $search);
         return $row;
