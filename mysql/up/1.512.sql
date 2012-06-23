@@ -1,1 +1,1 @@
-UPDATE `account` SET type = `email`;
+UPDATE `account` SET type = 'email';
