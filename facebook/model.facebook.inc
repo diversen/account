@@ -116,7 +116,7 @@ class accountFacebook extends account {
 
 /**
  * 
- * @return int $res positive if we authenticated user correct else 0
+ * @return int $res positive if we have an authenticated user correct else 0
  *                  if already authenticated we return positive
  */
 function account_facebook_service ($options = array ()) {
