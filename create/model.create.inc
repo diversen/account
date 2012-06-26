@@ -129,7 +129,9 @@ class accountCreate {
 
         // generate email
         $subject = lang::translate('account_signup_subject');
-        $vars['site_name'] = 'http://' . $_SERVER['HTTP_HOST'];
+        
+        $scheme = config::getHttpScheme();
+        $vars['site_name'] = "$scheme://$_SERVER[HTTP_HOST]";
         $subject.= " " . $vars['site_name'];
         $vars['verify_key'] = "$vars[site_name]/account/create/verify/$last_insert_id/$md5_key";
 
@@ -229,6 +231,11 @@ class accountCreate {
         return $res;
     }
     
+    /**
+     * updates db on verify account
+     * @param int $id user_id
+     * @return boolean $res true on success and false on failure 
+     */
     public function verifyUpdateDb ($id) {
         $db = new db();
         $md5_key = md5(uniqid(rand(), true));
