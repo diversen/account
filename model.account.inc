@@ -71,6 +71,31 @@ class account {
         http::locationHeader($redirect);
     }
     
+    /**
+     * sets session and system cookie on login.
+     * @param array $account user row 
+     */
+    public function setSesisonAndCookie ($account) {
+        $_SESSION['id'] = $account['id'];
+        $_SESSION['admin'] = $account['admin'];
+        $_SESSION['super'] = $account['super'];
+        $_SESSION['account_type'] = 'email';
+
+        if (isset($_POST['keep_session'])){
+            session::setSystemCookie($account['id']);
+        }
+                
+        $args = array (
+            'action' => 'account_login',
+            'user_id' => $account['id'],
+        );
+                
+        event::getTriggerEvent(
+            config::getModuleIni('account_events'), 
+            $args
+        );
+    }
+    
    /**
     * method for creating a logout link. Fetch info from
     * a profile to show how to display logut

@@ -216,8 +216,16 @@ class accountCreate {
             event::getTriggerEvent(
                 config::getModuleIni('account_events'), 
             $args);
+            
+            if (config::getModuleIni('account_verify_redirect')) {
+                //http::locationHeader('/account')
+            }
         
         }
+        
+        
+        
+        
         return $res;
     }
     

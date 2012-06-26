@@ -1,6 +1,5 @@
 account_allow_create = 0
 account_allow_edit = "super"
-account_show_menu = ""
 account_show_admin_link = "super"
 account_logins[] = 'email'
 ;account_logins[] = 'facebook'

@@ -1,6 +1,5 @@
 <?php
 
-//$account_show_menu = get_module_ini('account_show_menu');
 $account_default_url = config::getModuleIni('account_default_url');
 $account_admin_only = config::getModuleIni('account_admin_only');
 

@@ -33,24 +33,7 @@ class accountLogin extends account {
             $account = $this->auth ($_POST['email'], $_POST['password']);
             if (!empty($account)){
 
-                $_SESSION['id'] = $account['id'];
-                $_SESSION['admin'] = $account['admin'];
-                $_SESSION['super'] = $account['super'];
-                $_SESSION['account_type'] = 'email';
-
-                if (isset($_POST['keep_session'])){
-                    session::setSystemCookie($account['id']);
-                }
-                
-                $args = array (
-                    'action' => 'account_login',
-                    'user_id' => $account['id'],
-                );
-                
-                event::getTriggerEvent(
-                    config::getModuleIni('account_events'), 
-                    $args
-                );
+                $this->setSesisonAndCookie($account);
                 
                 if ($this->options['redirect'] === false) {
                     return;
@@ -64,6 +47,8 @@ class accountLogin extends account {
             }
         }
     }
+    
+
     
     /**
      * method for displaying email login 

@@ -121,9 +121,9 @@ class accountLightopenid extends account {
          // we got a row. use that for session
         } else {
             
-            session::setActionMessage(
-                lang::translate('account_openid_loggedin_message'), false
-            );
+            $this->setSesisonAndCookie($account);
+            
+            /*
             
             $_SESSION['id'] = $account['id'];
             $_SESSION['admin'] = $account['admin'];
@@ -144,6 +144,11 @@ class accountLightopenid extends account {
             event::getTriggerEvent(
                 config::getModuleIni('account_events'), 
                 $args);
+            
+            */
+            session::setActionMessage(
+                lang::translate('account_openid_loggedin_message'), false
+            );
             
             session_write_close();
             account::redirectOnLogin($redirect);                       

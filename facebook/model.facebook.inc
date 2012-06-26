@@ -80,38 +80,6 @@ class accountFacebook extends account {
             $args
         );
     }
-    
-    function loginUser ($row) {
-        // we have a row - user exists - we set creds
-        $_SESSION['id'] = $row['id'];
-        $_SESSION['admin'] = $row['admin'];
-        $_SESSION['super'] = $row['super'];
-        $_SESSION['account_type'] = 'facebook';
-
-        $args = array (
-            'action' => 'account_login',
-            'user_id' => $row['id'],
-        );
-
-        event::getTriggerEvent(
-            config::getModuleIni('account_events'), 
-            $args
-        );
-        
-         //session::setActionMessage('facebook_logged_in');
-    }
-
-    /**
-    * method for displaying a logout link
-    */
-    /*
-    public static function displayLogout($logoutUrl = null){      
-        $row = user::getAccount(); 
-        $str = '';
-        $str .= lang::translate('account_logged_in_with_facebook') . ": <br />" . $row['url'];
-        $str .= "<hr />" . html::createLink($logoutUrl, lang::translate('account_logout'));
-        view_confirm($str);
-    }*/
 }
 
 /**
@@ -157,7 +125,7 @@ function account_facebook_service ($options = array ()) {
         if (empty($row)){   
             $res = $account->createUser($user_profile);
         } else {
-            $res = $account->loginUser($row);
+            $res = $account->setSesisonAndCookie($row);
         }
        
     } else {
@@ -215,7 +183,7 @@ function account_facebook_login () {
         if (empty($row)){       
             $account->createUser($user_profile);
         } else {
-            $account->loginUser($row);
+            $account->setSesisonAndCookie($row);
         }
         
         $account->redirectOnLogin ();
