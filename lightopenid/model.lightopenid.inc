@@ -122,30 +122,7 @@ class accountLightopenid extends account {
         } else {
             
             $this->setSesisonAndCookie($account);
-            
-            /*
-            
-            $_SESSION['id'] = $account['id'];
-            $_SESSION['admin'] = $account['admin'];
-            $_SESSION['super'] = $account['super'];
-            $_SESSION['account_type'] = 'openid';
-                            
-            // set keep session
-            if (isset($_SESSION['keep_session'])){
-                session::setSystemCookie($account['id']);
-            }
-            
-            // login events
-            $args = array (
-                    'action' => 'account_login',
-                    'user_id' => $account['id'],
-                );
-                
-            event::getTriggerEvent(
-                config::getModuleIni('account_events'), 
-                $args);
-            
-            */
+
             session::setActionMessage(
                 lang::translate('account_openid_loggedin_message'), false
             );
