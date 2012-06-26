@@ -217,15 +217,15 @@ class accountCreate {
                 config::getModuleIni('account_events'), 
             $args);
             
-            if (config::getModuleIni('account_verify_redirect')) {
-                //http::locationHeader('/account')
+            $redirect = config::getModuleIni('account_verify_login'); 
+            if ($redirect) {
+                $row = user::getAccount($row['id']);
+                $a = new account();
+                $a->setSesisonAndCookie($row);
+                http::locationHeader($redirect);
             }
         
         }
-        
-        
-        
-        
         return $res;
     }
     

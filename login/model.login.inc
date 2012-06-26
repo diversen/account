@@ -44,6 +44,7 @@ class accountLogin extends account {
                 } else {
                     $this->redirectOnLogin();
                 }
+                
             }
         }
     }
