@@ -81,7 +81,7 @@ class account {
         $_SESSION['super'] = $account['super'];
         $_SESSION['account_type'] = 'email';
 
-        if (isset($_POST['keep_session'])){
+        if (isset($this->options['keep_session'])){
             session::setSystemCookie($account['id']);
         }
                 

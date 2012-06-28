@@ -110,6 +110,9 @@ class accountLightopenid extends account {
                         config::getModuleIni('account_events'), 
                         $args);
             
+                $account = user::getAccount($new);
+                $this->setSesisonAndCookie($account);
+                
                 session::setActionMessage(
                     lang::translate('account_openid_loggedin_message'), true
                 );

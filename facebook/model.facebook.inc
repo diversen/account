@@ -189,14 +189,6 @@ function account_facebook_login () {
         $account->redirectOnLogin ();
 
     } else {
-        /*
-        session::killSession();
-        //$facebook = facebook_get_object();
-        $fb_key = 'fbs_'.config::getModuleIni('account_facebook_api_appid');
-        set_cookie($fb_key, '', '', '', '/', '');
-        $facebook->setSession(NULL);
-        session_destroy();
-        */
         $scope = facebook_get_scope();
         $loginUrl = $facebook->getLoginUrl(
             array(
