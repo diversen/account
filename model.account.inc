@@ -45,8 +45,10 @@ class account {
         }
     }
     
+    /**
+     * logout 
+     */
     public function doLogout () {
-
         
         $app_id = config::getModuleIni('account_facebook_api_appid'); //$facebook->getAppId()
         $server_name = config::getMainIni('server_name');
@@ -66,8 +68,11 @@ class account {
     }
     
     /**
-     * sets session and system cookie on login.
-     * @param array $account user row 
+     * sets session and system cookie on login
+     * we know user is authenticated and all we need is to set
+     * the SESSION and system cookies.
+     * 
+     * @param array $account
      */
     public function setSesisonAndCookie ($account) {
         $_SESSION['id'] = $account['id'];
@@ -88,7 +93,17 @@ class account {
             config::getModuleIni('account_events'), 
             $args
         );
+        
     }
+    
+    /**
+     * method setSessionAndCookie fires account_evetns
+     * on method setSessionAndCookie
+     * action 'account_login'
+     * with arguments: account_login, user_id
+     * 
+     */
+    public static function __events () {}
     
    /**
     * method for creating a logout link. Fetch info from

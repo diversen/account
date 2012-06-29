@@ -116,8 +116,7 @@ class accountLightopenid extends account {
                 session::setActionMessage(
                     lang::translate('account_openid_loggedin_message'), true
                 );
-                
-                //session_write_close();        
+                      
                 account::redirectOnLogin($redirect);
              }
 
@@ -174,4 +173,20 @@ class accountLightopenid extends account {
         }
         return $res;
     }
+    
+    /**
+     * account_events (set in account_events)
+     * 
+     * method dispenseOpenid fires actions:
+     * 
+     *      account_create 
+     *      account_login
+     * 
+     * arguments to the event methods are
+     * 
+     *      action,
+     *      user_id,
+     * 
+     */
+    public static function __events () {}
 }

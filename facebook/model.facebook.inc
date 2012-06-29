@@ -52,6 +52,9 @@ class accountFacebook extends account {
     
     /**
      * creates a facebook user from facebook profile array
+     * 
+     * account_events::account_create
+     * 
      * @param array $user_profile 
      */
     function createUser ($user_profile) {
@@ -80,7 +83,25 @@ class accountFacebook extends account {
             $args
         );
     }
+    
+    
+    /**
+     * account_events (set in account_events)
+     * 
+     * method createUser fires actions:
+     * 
+     *      account_create 
+     *      account_login
+     * 
+     * arguments to the event methods is
+     *      action,
+     *      user_id,
+     * 
+     */
+    public static function __events () {}
 }
+
+
 
 /**
  * method for logging in a user. Used as a display function. 
