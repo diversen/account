@@ -130,7 +130,7 @@ class accountLightopenid extends account {
                 lang::translate('account_openid_loggedin_message'), false
             );
             
-            session_write_close();
+            //session_write_close();
             account::redirectOnLogin($redirect);                       
         }
     }
