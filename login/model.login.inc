@@ -27,14 +27,12 @@ class accountLogin extends account {
         // logout
         $this->checkLogout();
         
-
         // login
         if (isset($_POST['email']) && isset($_POST['password'])){
             $account = $this->auth ($_POST['email'], $_POST['password']);
             if (!empty($account)){
 
-                $this->setSesisonAndCookie($account);
-                
+                $this->setSesisonAndCookie($account);               
                 if ($this->options['redirect'] === false) {
                     return;
                 }

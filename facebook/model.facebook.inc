@@ -30,7 +30,7 @@ class accountFacebook extends account {
     }
 
     /**
-     * method for creating a user
+     * method for creating a user in the database
      * @param array $ary facebook user array
      * @return int|false $res last insert id or false if failure
      */
@@ -83,7 +83,77 @@ class accountFacebook extends account {
 }
 
 /**
- * 
+ * method for logging in a user. Used as a display function. 
+ * means that it will draw login and logout links at the same time
+ * as users are authenticated. 
+ */
+
+function account_facebook_login () {
+
+    // check to see if user is allowed to use faccebook login
+    $account_logins = config::getModuleIni('account_logins');
+    if (!in_array('facebook', $account_logins)){
+        moduleLoader::setStatus(403);
+        return;
+    }
+
+    $account = new accountFacebook();    
+    if (session::isUser()) {   
+        $account->displayLogout();
+        return;
+    }
+    
+    $facebook = facebook_get_object();
+    $user = $facebook->getUser();
+
+    if ($user) {
+        try {
+            // Proceed knowing you have a logged in user who's authenticated.
+            $user_profile = $facebook->api('/me');
+            $logoutUrl = $facebook->getLogoutUrl(
+                array ('next' => 
+                    accountFacebook::getLogoutNext()
+                )
+            );
+        } catch (FacebookApiException $e) {
+            cos_debug($e);
+        }
+    } else {
+        $user_profile = null;
+    }
+
+    // login or logout url will be needed depending on current user state.
+    if ($user_profile) {        
+        $row = $account->auth($user_profile['link']);
+
+        if (empty($row)){       
+            $account->createUser($user_profile);
+        } else {
+            $account->setSesisonAndCookie($row);
+        }
+        
+        $account->redirectOnLogin ();
+
+    } else {
+        $scope = facebook_get_scope();
+        $loginUrl = $facebook->getLoginUrl(
+            array(
+                'scope' => $scope,
+            )
+        );
+    }
+
+    // display login or logout
+    if ($user_profile) { 
+        echo html::createLink($logoutUrl, 'Log Out');
+    } else {
+        echo html::createLink($loginUrl, 'Log in');
+    }
+}
+
+/**
+ * try to login a user with facebook. No html will be displayed. Therefor
+ * I consider it to be a service like function.
  * @return int $res positive if we have an authenticated user correct else 0
  *                  if already authenticated we return positive
  */
@@ -135,76 +205,6 @@ function account_facebook_service ($options = array ()) {
     return $res;
 }
 
-/**
- * method for logging in a user. Used as a display function. 
- * means that it will draw login and logout links at the same time
- * as users are authenticated. 
- */
-
-function account_facebook_login () {
-
-    // check to see if user is allowed to use faccebook login
-    $account_logins = config::getModuleIni('account_logins');
-    if (!in_array('facebook', $account_logins)){
-        moduleLoader::setStatus(403);
-        return;
-    }
-
-    $account = new accountFacebook();    
-    if (session::isUser()) {   
-        $account->displayLogout();
-        return;
-    }
-    
-    $facebook = facebook_get_object();
-    $user = $facebook->getUser();
-
-    if ($user) {
-        try {
-            // Proceed knowing you have a logged in user who's authenticated.
-            $user_profile = $facebook->api('/me');
-            $logoutUrl = $facebook->getLogoutUrl(
-                array ('next' => 
-                    accountFacebook::getLogoutNext()
-                )
-            );
-        } catch (FacebookApiException $e) {
-            //$login_url = $facebook->getLoginUrl(); 
-            print_r($e);
-        }
-    } else {
-        $user_profile = null;
-    }
-
-    // login or logout url will be needed depending on current user state.
-    if ($user_profile) {        
-        $row = $account->auth($user_profile['link']);
-
-        if (empty($row)){       
-            $account->createUser($user_profile);
-        } else {
-            $account->setSesisonAndCookie($row);
-        }
-        
-        $account->redirectOnLogin ();
-
-    } else {
-        $scope = facebook_get_scope();
-        $loginUrl = $facebook->getLoginUrl(
-            array(
-                'scope' => $scope,
-            )
-        );
-    }
-
-    // display login or logout
-    if ($user_profile) { 
-        echo html::createLink($logoutUrl, 'Log Out');
-    } else {
-        echo html::createLink($loginUrl, 'Log in');
-    }
-    
-}
 
 /**
  * create a facebook object
@@ -234,7 +234,7 @@ function facebook_get_user_profile () {
             // Proceed knowing you have a logged in user who's authenticated.
             $user_profile = $facebook->api('/me');
         } catch (FacebookApiException $e) {
-            print_r($e);
+            cos_debug($e);
         }
     } else {
         $user_profile = null;
