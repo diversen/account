@@ -195,6 +195,8 @@ function account_facebook_service ($options = array ()) {
     $facebook = facebook_get_object();
     $user = $facebook->getUser();
 
+    
+    $user_profile = null;
     if ($user) {
         try {
             // $token = $facebook->getAccessToken();
@@ -204,9 +206,7 @@ function account_facebook_service ($options = array ()) {
         } catch(FacebookApiException $e) {
             cos_debug($e);
         }
-    } else {
-        $user_profile = null;
-    }
+    } 
 
     // login or logout url will be needed depending on current user state.
     if ($user_profile) {
