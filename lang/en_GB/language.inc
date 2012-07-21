@@ -48,7 +48,7 @@ $_COS_LANG_MODULE['account_login_wrong_username_password'] = 'Not a correct emai
 
 $_COS_LANG_MODULE['account_form_email'] = 'Email';
 $_COS_LANG_MODULE['account_form_password'] = 'Password';
-$_COS_LANG_MODULE['account_keep_session'] = 'Keep me logged in for';
+$_COS_LANG_MODULE['account_keep_session'] = 'Keep me logged in';
 $_COS_LANG_MODULE['account_num_days'] = 'days';
 $_COS_LANG_MODULE['account_logged_in_with_alternative'] = 'Logged in as';
 // Translation of file /home/dennis/www/oscmsdk/modules/account/index.php
