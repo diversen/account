@@ -115,11 +115,8 @@ class accountCreate {
      * @return int $res last insert id on success or 0 on failure
      */
     public function createUser (){
-       
-        
-        // transaction begin. Insert new user
-        db::$dbh->beginTransaction();
-        
+
+        db::$dbh->beginTransaction();        
         $md5_key = md5(uniqid(rand(), true));
         $last_insert_id = $this->createDbUser(
                 $_POST['email'], 
@@ -127,13 +124,30 @@ class accountCreate {
                 $md5_key
         );
 
-        // generate email
+        if ($this->sendVerifyMail($_POST['email'], $last_insert_id, $md5_key)){
+            db::$dbh->commit();
+            return $last_insert_id;
+        } else {
+            db::$dbh->rollBack();
+            return 0;
+        }
+    }
+    
+    /**
+     * send a verify email
+     * @param type $email
+     * @param type $user_id
+     * @param type $md5
+     * @return boolean $res 
+     */
+    public function sendVerifyMail ($email, $user_id, $md5) {
+        
         $subject = lang::translate('account_signup_subject');
         
         $scheme = config::getHttpScheme();
         $vars['site_name'] = "$scheme://$_SERVER[HTTP_HOST]";
         $subject.= " " . $vars['site_name'];
-        $vars['verify_key'] = "$vars[site_name]/account/create/verify/$last_insert_id/$md5_key";
+        $vars['verify_key'] = "$vars[site_name]/account/create/verify/$user_id/$md5";
 
         // compose message from language
         $lang = config::getMainIni('language');
@@ -141,13 +155,7 @@ class accountCreate {
         $message = get_include_contents($message_template, $vars);
         
         $from = config::$vars['coscms_main']['site_email'];
-        if (mail_utf8($_POST['email'], $subject, $message, $from)){
-            db::$dbh->commit();
-            return $last_insert_id;
-        } else {
-            db::$dbh->rollBack();
-            return 0;
-        }
+        return mail_utf8($email, $subject, $message, $from);
     }
     
 
