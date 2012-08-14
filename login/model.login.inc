@@ -41,8 +41,7 @@ class accountLogin extends account {
                     $this->redirectOnLogin($this->options['redirect']);
                 } else {
                     $this->redirectOnLogin();
-                }
-                
+                }       
             }
         }
     }
@@ -78,8 +77,11 @@ class accountLogin extends account {
     /**
      * method for authorizing a user
      *
-     * @param   string  username
-     * @param   string  password
+     * @param   string  $email
+     * @param   string  $password
+     * @param   array   $params 
+     *                  array ('verified' => false') // if you don't require
+     *                  the login creds to be verified. 
      * @return  array|0 row with user creds on success, 0 if not
      */
     public function auth ($email, $password, $params = array ()){
@@ -91,8 +93,15 @@ class accountLogin extends account {
             'type' => 'email', 
             'verified' => 1);
         
+        if (isset($this->options['verified']) && !$this->options['verified']) {
+            unset($search['verified']);
+        }
         
         $row = $db->selectOne('account', null, $search);
         return $row;
+    }
+    
+    public function setAcceptNonVerifiedAccount () {
+        $this->options['verified'] = false;
     }
 }

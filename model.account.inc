@@ -92,8 +92,7 @@ class account {
         event::getTriggerEvent(
             config::getModuleIni('account_events'), 
             $args
-        );
-        
+        );        
     }
     
     /**
