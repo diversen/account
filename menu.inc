@@ -41,7 +41,7 @@ if (in_array('facebook', $account_logins)){
 if (!config::getModuleIni('account_disable_admin_interface')) {
     $_MODULE_MENU[] = array(
     'title' => lang::translate('account_admin'),
-    'url' => '/account/admin/index',
+    'url' => '/account/admin/list',
     'auth' => $account_show_admin_link);
 }
 

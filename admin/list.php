@@ -12,8 +12,13 @@ if (config::getModuleIni('account_disable_admin_interface')) {
     return;
 }
 
+//$p = new pearPager($total);
 $a = new accountAdmin();
-$users = $a->getUsers();
+$num_rows = $a->getNumUsers();
+
+$p = new pearPager($num_rows);
+$users = $a->getUsers($p->from);
 
 template::setTitle(lang::translate('account_list_users'));
-viewAccountAdmin::users($users);
+echo view::get('account', 'admin_list_users', $users);
+echo $p->getPagerHTML();

@@ -5,6 +5,7 @@
  */
 moduleLoader::includeModel ('account');
 moduleLoader::includeModel ('account/create');
+include_once "coslib/pearPager.php";
 
 /**
  * Class accountAdmin
@@ -79,11 +80,18 @@ class accountAdmin extends accountCreate {
      * method for getting all users
      * @return  array   $rows containing all users
      */
-    public function getUsers(){
-        $query = "SELECT * FROM `account`";
-        $db = new db();
-        $rows = $db->selectAll('account'); /**$this->selectQuery($query); */
+    public function getUsers($from = 0){
+        $limit = 10;
+       
+        $q = new dbQ();
+        $q->setSelect('account')->limit($from, $limit);
+        $rows = $q->fetch();
         return $rows;
+    }
+    
+    public function getNumUsers () {
+        $db = new dbQ();
+        return $db->setSelectNumRows('account')->fetch();
     }
 
     /**
