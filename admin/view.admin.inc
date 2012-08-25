@@ -65,25 +65,7 @@ class viewAccountAdmin {
         html::formEnd();
         echo html::getStr();
     }
-
-
-
-    /**
-     * view function for listing users
-     *
-     * @param array array of users
-     */
-    function users($users){
-        
-    }
-
-/*
-    public static function viewUser ($v) {
-        echo view::get('account', 'admin_list_user', $v);
-    } */
-
-    
-      
+   
     /**
      * function for view a delete user form
      *
