@@ -4,12 +4,12 @@
  * @package    account
  */
 
-requestpw::disaplyRequestPassword();
+accountRequestpw::disaplyRequestPassword();
 return;
 
 template::setTitle(lang::translate('account_request_password_title'));
 
-$request = new requestpw();
+$request = new accountRequestpw();
 if (isset($_POST['submit'])){
     $request->sanitize();
     $request->validate();

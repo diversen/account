@@ -10,7 +10,7 @@ include_once "coslib/captcha.php";
 /**
  * class requestpw 
  */
-class requestpw {
+class accountRequestpw {
 
     /**
      *
@@ -179,7 +179,7 @@ class requestpw {
         template::setTitle(lang::translate('account_request_password_title'));
 
         http::prg();
-        $request = new requestpw();
+        $request = new accountRequestpw();
         if (isset($_POST['submit'])){
             $request->sanitize();
             $request->validate();
