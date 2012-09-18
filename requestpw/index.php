@@ -21,8 +21,8 @@ if (isset($_POST['submit'])){
                 lang::translate('account_request_login_info_sent_to')
             );
             $location = config::getModuleIni('account_default_url');
-            $header = "Location: $location";
-            header($header);
+            //$header = "Location: $location";
+            http::locationHeader($location);
         } else {
             cos_debug("could not send mail:" . __FILE__);
         }

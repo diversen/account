@@ -11,7 +11,7 @@ if ($res){
         if (empty($request->errors)){
             if ($request->setNewPassword()){
                 session::setActionMessage(
-                    lang::translate('account_request_new_password_has_been_set')
+                    lang::translate('account_request_new_password_has_been_set'), true
                 );
                 $location = config::getModuleIni('account_default_url');
                 $header = "Location: $location";
