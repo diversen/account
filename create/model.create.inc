@@ -58,9 +58,18 @@ class accountCreate {
      */
     function validatePasswords () {
 
+        if (function_exists('common_account_validate_passwords')) {
+            // TODO: Allow common function to check 
+        }
         
-        if (mb_strlen($_POST['password']) < 7){
-            $this->errors['password'] = lang::translate('account_error_password_length');
+        if (function_exists('mb_strlen')) {
+            if (mb_strlen($_POST['password'], 'UTF-8') < 7){
+                $this->errors['password'] = lang::translate('account_error_password_length');
+            }
+        } else {
+            if (strlen($_POST['password']) < 7){
+                $this->errors['password'] = lang::translate('account_error_password_length');
+            }
         }
         if ($_POST['password'] != $_POST['password2']){
             $this->errors['password'] = lang::translate('account_error_password_mismatch');
