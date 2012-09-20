@@ -1,6 +1,14 @@
 account (default account module for CosCMS)
 ===========================================
 
+### Configuration
+
+All configuration is set in account/account.ini
+
+If account module will be displayed to other than admin
+
+    account_admin_only = 1
+
 ### Events
 
 You can set events in the account.ini file: 
@@ -11,6 +19,8 @@ the following actions are possible so far:
 
 #### `account_login`:
 
+This event is fired when a user logs in. 
+
 The following params are sent to the class implementing the event:
 
     $args = array (
@@ -19,6 +29,8 @@ The following params are sent to the class implementing the event:
     );
 
 #### `account_create`:
+
+this event is fired when an account is created
 
 The following params are sent to the class implementing the event:
 
