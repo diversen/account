@@ -43,6 +43,12 @@ class accountFacebook extends account {
             'type' => 'facebook',
             'verified' => 1
             );
+        
+        // If not isset options verified - we allow non verified account to log in
+        if (isset($this->options['verified']) && !$this->options['verified']) {
+            unset($values['verified']);
+        }
+        
         $res = $db->insert('account', $values);
         if ($res) {
             return db::$dbh->lastInsertId();

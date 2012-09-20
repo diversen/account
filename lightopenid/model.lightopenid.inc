@@ -153,7 +153,7 @@ class accountLightopenid extends account {
      *
      * @return int|false $res last_isnert_id on success or false on failure
      */
-    public static function createUser ($openid){
+    public function createUser ($openid){
         
         $ary = $openid->getAttributes();
         $db = new db();
@@ -162,6 +162,11 @@ class accountLightopenid extends account {
             'email' => $ary['contact/email'],
             'type' => 'openid',
             'verified' => 1);
+        
+        // If not isset options verified - we allow non verified account to log in
+        if (isset($this->options['verified']) && !$this->options['verified']) {
+            unset($values['verified']);
+        }
         
         if (isset($ary['namePerson/friendly'])) {
             $values['username'] = $ary['namePerson/friendly'];

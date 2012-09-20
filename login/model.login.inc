@@ -8,7 +8,7 @@ class accountLogin extends account {
      * options
      * @var array $ary options 
      */
-    public $options = array ();
+    //public $options = array ();
     
     /**
      * constructs accountLogin object.
@@ -52,8 +52,8 @@ class accountLogin extends account {
      * method for displaying email login 
      */
     public function displayLogin (){
-        $vars['errors'] = $this->errors;
-        echo templateView::get('account', 'account_login_email', $vars);
+        $vars['errors'] = $this->errors;        
+        echo view::get('account', 'account_login_email', $vars);
     }
 
     /**
@@ -63,15 +63,16 @@ class accountLogin extends account {
     public function controlLogin (){
         $this->login();
         if (session::isUser()){
-            $this->displayLogout();
+            $this->displayLogout();           
         // submission has taking place but no redirect.     
         } elseif ( isset($_POST['submit_account_login']) ) {
+            
             $this->errors[]= lang::translate('account_login_wrong_username_password');
             $this->displayLogin();
         // no submission
-        } else {
+        } else {           
             $this->displayLogin();
-        }
+        }     
     }
     
     /**
@@ -93,6 +94,7 @@ class accountLogin extends account {
             'type' => 'email', 
             'verified' => 1);
         
+        // If not isset options verified - we allow non verified account to log in
         if (isset($this->options['verified']) && !$this->options['verified']) {
             unset($search['verified']);
         }
@@ -100,8 +102,5 @@ class accountLogin extends account {
         $row = $db->selectOne('account', null, $search);
         return $row;
     }
-    
-    public function setAcceptNonVerifiedAccount () {
-        $this->options['verified'] = false;
-    }
+
 }

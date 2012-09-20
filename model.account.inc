@@ -141,4 +141,9 @@ class account {
             http::locationHeader($location);
          }
     }
+    
+        
+    public function setAcceptNonVerifiedAccount () {
+        $this->options['verified'] = false;
+    }
 }
