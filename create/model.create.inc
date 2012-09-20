@@ -5,6 +5,7 @@
  * @package account
  */
 
+include_once "coslib/captcha.php";
 /**
  * class for creating an account using an email. 
  * @package account
