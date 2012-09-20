@@ -117,6 +117,8 @@ class accountCreate {
      */
     public function createUser (){
 
+        // enter decoded values
+        $_POST = html::specialDecode($_POST);
         db::$dbh->beginTransaction();        
         $md5_key = md5(uniqid(rand(), true));
         $last_insert_id = $this->createDbUser(
