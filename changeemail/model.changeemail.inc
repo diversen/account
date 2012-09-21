@@ -1,7 +1,6 @@
 <?php
 
-//include_module('account')
-
+include_once "coslib/date.php";
 class accountChangeemail {
     
     /**
@@ -14,9 +13,10 @@ class accountChangeemail {
                 filter('id =', $user_id)->
                 fetchSingle();
         
-        if ($row['email'] == $email) {
+        if (trim($row['email']) == trim($email)) {
             return true;
         }
+        
         
         $values = array ('email' => $email, 'verified' => 0);     
         $res = dbQ::setUpdate('account')->
@@ -24,6 +24,27 @@ class accountChangeemail {
                 filter('id =', $user_id)->
                 exec();
 
+                
+        $mysql_date = dateGetDateNow();
+        
+        // only allow 2 changes per day            
+        $bean = RB::getBean('account_email_changes', 'user_id', $user_id);
+        if ($bean->id) {
+            if ($bean->date_try == $mysql_date) {
+                if ($bean->tries >= 3) {
+                    return false;
+                }
+            } else {
+                R::trash($bean);  
+            }            
+        }
+        $bean = RB::getBean('account_email_changes', 'user_id', $user_id);
+        $bean->user_id = $user_id;
+        $bean->tries++;
+        $bean->date_try = $mysql_date;
+        R::store($bean);
+        
+        $this->sendVerifyMail($email, $user_id);
         $events = config::getModuleIni('account_events');
         
         if ($res) {
@@ -36,6 +57,7 @@ class accountChangeemail {
                      $events, 
                         $params);
         }
+        return true;
     }
     
     /**
