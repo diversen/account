@@ -10,6 +10,13 @@ class accountChangeemail {
      * @param type $email new email
      */
     function changeEmail ($user_id, $email) {
+        $row = dbQ::setSelect('account')->
+                filter('id =', $user_id)->
+                fetchSingle();
+        
+        if ($row['email'] == $email) {
+            return true;
+        }
         
         $values = array ('email' => $email, 'verified' => 0);     
         $res = dbQ::setUpdate('account')->
@@ -20,12 +27,10 @@ class accountChangeemail {
         $events = config::getModuleIni('account_events');
         
         if ($res) {
-            //print_r($events); die;
            $params = array (
                             'action' => 'account_change_email',
                             'user_id' => $user_id,
                             'email' => $email);
-             //print_r($params); die; 
             
              event::getTriggerEvent(
                      $events, 
@@ -33,4 +38,49 @@ class accountChangeemail {
         }
     }
     
+    /**
+     * send a verify email
+     * @param type $email
+     * @param type $user_id
+     * @param type $md5
+     * @return boolean $res 
+     */
+    public function sendVerifyMail ($email, $user_id) {
+        
+        $md5 = md5(uniqid(rand(), true));
+        $values = array ('md5_key' => $md5, 'email' => $email);       
+        $res = $this->updateUser($user_id, $values);
+        if (!$res) {
+            return false;
+        }
+        
+        $subject = lang::translate('account_signup_subject');
+        
+        $scheme = config::getHttpScheme();
+        $vars['site_name'] = "$scheme://$_SERVER[HTTP_HOST]";
+        $subject.= " " . $vars['site_name'];
+        $vars['verify_key'] = "$vars[site_name]/account/create/verify/$user_id/$md5";
+
+        // compose message from language
+        $lang = config::getMainIni('language');
+        $message = view::get('account', "lang/$lang/signup_message", $vars);
+        
+        
+        $from = config::$vars['coscms_main']['site_email'];
+        return mail_utf8($email, $subject, $message, $from);
+    }
+    
+    /**
+     * updates user with values 
+     * @param int $user_id
+     * @param array $values
+     * @return boolean $res true or false
+     */
+    public function updateUser ($user_id, $values) {
+        $res = dbQ::setUpdate('account')->
+                setUpdateValues($values)->
+                filter('id =', $user_id)->
+                exec();
+        return $res;
+    }
 }

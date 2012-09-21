@@ -163,8 +163,11 @@ class accountCreate {
 
         // compose message from language
         $lang = config::getMainIni('language');
-        $message_template = _COS_PATH . "/modules/account/lang/$lang/signup_message.inc";
-        $message = get_include_contents($message_template, $vars);
+        //$message_template = _COS_PATH . "/modules/account/lang/$lang/signup_message.inc";
+        //$message = get_include_contents($message_template, $vars);
+        //$lang = config::getMainIni('language');
+        $message = view::get('account', "lang/$lang/signup_message", $vars);
+        
         
         $from = config::$vars['coscms_main']['site_email'];
         return mail_utf8($email, $subject, $message, $from);
