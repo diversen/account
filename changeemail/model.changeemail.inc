@@ -68,7 +68,7 @@ class accountChangeemail {
      * @return boolean $res 
      */
     public function sendVerifyMail ($email, $user_id) {
-        
+        //var_dump($_POST['email']);  die;
         $md5 = md5(uniqid(rand(), true));
         $values = array ('md5_key' => $md5, 'email' => $email);       
         $res = $this->updateUser($user_id, $values);
