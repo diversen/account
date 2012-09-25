@@ -13,6 +13,7 @@ class accountChangeemail {
                 filter('id =', $user_id)->
                 fetchSingle();
         
+        
         if (trim($row['email']) == trim($email)) {
             return true;
         }
@@ -45,6 +46,7 @@ class accountChangeemail {
         R::store($bean);
         
         $this->sendVerifyMail($email, $user_id);
+        
         $events = config::getModuleIni('account_events');
         
         if ($res) {
@@ -68,7 +70,7 @@ class accountChangeemail {
      * @return boolean $res 
      */
     public function sendVerifyMail ($email, $user_id) {
-        //var_dump($_POST['email']);  die;
+        
         $md5 = md5(uniqid(rand(), true));
         $values = array ('md5_key' => $md5, 'email' => $email);       
         $res = $this->updateUser($user_id, $values);
