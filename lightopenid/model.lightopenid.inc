@@ -14,6 +14,9 @@ class accountLightopenid extends account {
 
     function __construct($options = array ()) {
         $this->options = $options;
+        if (!isset($this->options['redirect'])) {
+            $this->options['redirect'] = '/account/lightopenid/index';
+        }
     }
 
     /**
@@ -50,6 +53,7 @@ class accountLightopenid extends account {
                         'namePerson/friendly', 
                         'contact/email');
                     header('Location: ' . $openid->authUrl());
+                    die;
                 }
 
             } else if($openid->mode == 'cancel') {
@@ -61,13 +65,17 @@ class accountLightopenid extends account {
                     $this->dispenseOpenid($openid);
                 } else {
                     $this->errors[] = lang::translate('account_openid_invalid_login');
+                    return false;
                 }
                 //echo 'User ' . ($openid->validate() ? $openid->identity . ' has ' : 'has not ') . 'logged in.';
             }
         } catch(ErrorException $e) {
-            echo $e->getMessage();
+            log::error($e->getMessage());
+            return false;
         }
     }
+    
+ 
     
     /**
      * creates a user in database
@@ -76,13 +84,7 @@ class accountLightopenid extends account {
     public function dispenseOpenid ($openid) {
         
         $account = $this->auth($openid->identity);
-        if (isset($this->options['redirect'])) {
-            $redirect = $this->options['redirect'];
-        } else {
-            $redirect = '/account/lightopenid/index';
-        }
-        
-        if (!$account){
+        if (empty($account)){
             $new = $this->createUser($openid);
             if ($new){
                 // use new id as user id for session
@@ -117,22 +119,99 @@ class accountLightopenid extends account {
                     lang::translate('account_openid_loggedin_message'), true
                 );
                       
-                account::redirectOnLogin($redirect);
+                account::redirectOnLogin($this->options['redirect']);
              }
-
-         // we got a row. use that for session
         } else {
             
             $this->setSesisonAndCookie($account);
-
             session::setActionMessage(
                 lang::translate('account_openid_loggedin_message'), false
             );
             
-            //session_write_close();
-            account::redirectOnLogin($redirect);                       
+            account::redirectOnLogin($this->options['redirect']);                       
         }
     }
+    
+       /**
+     * connect a open id to a parent account
+     * @return boolean
+     */
+    public function connect () {
+
+        try {
+            $domain = get_main_ini('server_name');
+            $openid = new LightOpenID($domain);
+            $user_id = session::getUserId();
+            if (empty($user_id)) {
+                return false;
+            }
+            
+            if(!$openid->mode) {
+                if (isset($this->options['openid_identifier'])) {
+                    $_GET['openid_identifier'] = $this->options['openid_identifier'];
+                }
+                
+                if(isset($_GET['openid_identifier'])) {
+                    $openid->identity = $_GET['openid_identifier'];
+                    $openid->required = array(
+                        'nickname', 
+                        'namePerson/friendly', 
+                        'contact/email');
+                    header('Location: ' . $openid->authUrl());
+                }
+
+            } else if($openid->mode == 'cancel') {
+                $this->errors[] = lang::translate('account_openid_login_cancelled');
+                return false; 
+            } else {               
+                $this->status = lang::translate('account_openid_valid_login') . ' ' . htmlspecialchars($openid->identity). "<br />\n";
+                if ($openid->validate()) {
+                    $this->connectOpenidAccount($openid, $user_id);
+                } else {
+                    $this->errors[] = lang::translate('account_openid_invalid_login');
+                }
+                //echo 'User ' . ($openid->validate() ? $openid->identity . ' has ' : 'has not ') . 'logged in.';
+            }
+        } catch(ErrorException $e) {
+            log::error($e->getMessage());
+            return false;
+        }
+    }
+    
+    /**
+     * creates a user in database
+     * @param type $openid unique openid identifier
+     */
+    public function connectOpenidAccount ($openid, $user_id) {
+        
+        $account = $this->auth($openid->identity);
+        if (empty($account)){
+            $new = $this->createUserSub($openid, $user_id);
+
+            if ($new){
+
+                $args = array (
+                    'action' => 'account_connect',
+                    'user_id' => $new,
+                );
+                
+                event::getTriggerEvent(
+                    config::getModuleIni('account_events'), 
+                    $args);
+                
+                
+                
+             }
+             account::redirectOnLogin($this->options['redirect']);
+
+         // we got a row. user has connect his open id account
+        } else {
+
+            account::redirectOnLogin($this->options['redirect']);                       
+             
+        }
+    }
+    
 
     /**
      * method for authorizing a user
@@ -173,6 +252,44 @@ class accountLightopenid extends account {
         }
         
         $res = $db->insert('account', $values);
+        if ($res) {
+            return db::$dbh->lastInsertId();
+        }
+        return $res;
+    }
+    
+    /**
+     * method for creating a sub user
+     *
+     * @return int|false $res last_isnert_id on success or false on failure
+     */
+    public function createUserSub ($openid, $user_id){
+        
+        $db = new db();
+        $row = $db->selectOne('account_sub', 'url', $openid->identity);
+        if (!empty($row)) {
+            return array ();
+        }
+        
+        $ary = $openid->getAttributes();
+        
+        $values = array(
+            'url'=> $openid->identity, 
+            'email' => $ary['contact/email'],
+            'type' => 'openid',
+            'verified' => 1,
+            'parent' => $user_id);
+        
+        // If not isset options verified - we allow non verified account to log in
+        if (isset($this->options['verified']) && !$this->options['verified']) {
+            unset($values['verified']);
+        }
+        
+        if (isset($ary['namePerson/friendly'])) {
+            $values['username'] = $ary['namePerson/friendly'];
+        }
+        
+        $res = $db->insert('account_sub', $values);
         if ($res) {
             return db::$dbh->lastInsertId();
         }

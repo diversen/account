@@ -78,6 +78,18 @@ class accountFacebook extends account {
             config::getModuleIni('account_events'), 
             $args
         );
+        
+        $login_args = array (
+            'action' => 'account_login',
+            'user_id' => $id,
+        );
+
+        event::getTriggerEvent(
+            config::getModuleIni('account_events'), 
+            $login_args
+        );
+        
+        
     }
     
     
