@@ -192,7 +192,7 @@ class accountLightopenid extends account {
 
                 $args = array (
                     'action' => 'account_connect',
-                    'user_id' => $new,
+                    'user_id' => $user_id,
                 );
                 
                 event::getTriggerEvent(
@@ -221,7 +221,17 @@ class accountLightopenid extends account {
      * @return  array|0 row with user creds on success, 0 if not
      */
     public function auth ($openid){
+        
+        // first check for a sub account and return parent account
         $db = new db();
+        $search = array ('url' => $openid, 'type' => 'openid');
+        $row = $db->selectOne('account_sub', null, $search);
+        if (!empty($row)) {
+            $row = $db->selectOne('account', null, array ('id' => $row['parent']));
+            return $row;
+        } 
+        
+        // check main account
         $search = array ('url' => $openid, 'type' => 'openid');
         $row = $db->selectOne('account', null, $search);
         return $row;
