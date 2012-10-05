@@ -23,10 +23,27 @@ class accountFacebook extends account {
      */
 
     public function auth ($facebook_url){
+        /*
         $db = new db();
         $search = array ('url' => $facebook_url, 'type' => 'facebook');
         $row = $db->selectOne('account', null, $search);
         return $row;
+        */
+        // first check for a sub account and return parent account
+        $db = new db();
+        $search = array ('url' => $facebook_url, 'type' => 'facebook');
+        $row = $db->selectOne('account_sub', null, $search);
+        if (!empty($row)) {
+            $row = $db->selectOne('account', null, array ('id' => $row['parent']));
+            return $row;
+        } 
+        
+        // check main account
+        //$search = array ('url' => $openid, 'type' => 'openid');
+        $row = $db->selectOne('account', null, $search);
+        return $row;
+        
+        
     }
 
     /**
