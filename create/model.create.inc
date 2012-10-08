@@ -197,7 +197,7 @@ class accountCreate {
         $row = $db->selectOne(
                 'account', 
                 null, 
-                array ('email' => $email, 'type' => 'email')
+                array ('email' => $email, /*'type' => 'email' */)
             );
 
         if (empty($row)) return false;

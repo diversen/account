@@ -63,9 +63,7 @@ class accountRequestpw {
         $vars['verify_key'] = "$vars[site_name]/account/requestpw/verify/$row[id]/$md5_key";
    
         $lang = config::getMainIni('language');        
-        $view_file = _COS_PATH . "/modules/account/lang/$lang/request_password.inc";
-        
-        $message = get_include_contents($view_file, $vars);
+        $message = view::get('account', "lang/$lang/request_password", $vars);
 
         if (mail_utf8($row['email'], $subject, $message)){
             return 1;
@@ -101,7 +99,7 @@ class accountRequestpw {
      * sets errors if any
      */
     public function validatePassword(){
-        if (strlen($_POST['password1']) < 7){
+        if (mb_strlen($_POST['password1']) < 7){
             $this->errors['password'] = lang::translate('account_password_length_error');
         }
         if ($_POST['password1'] != $_POST['password2']){
@@ -191,7 +189,6 @@ class accountRequestpw {
                         lang::translate('account_request_login_info_sent_to'), true
                     );
                     $location = config::getModuleIni('account_default_url');
-                    //$header = "Location: $location";
                     http::locationHeader($location);
                 }
             } else {

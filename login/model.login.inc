@@ -27,11 +27,13 @@ class accountLogin extends account {
         // logout
         $this->checkLogout();
         
+        
+        
         // login
-        if (isset($_POST['email']) && isset($_POST['password'])){
+        if (isset($_POST['email']) && isset($_POST['password']) /* && !empty(trim($_POST['password']))*/){
             $account = $this->auth ($_POST['email'], $_POST['password']);
             if (!empty($account)){
-
+                
                 $this->setSesisonAndCookie($account);               
                 if ($this->options['redirect'] === false) {
                     return;
@@ -91,9 +93,9 @@ class accountLogin extends account {
         $search = array (
             'email' => $email, 
             'password' => $password, 
-            'type' => 'email', 
+            /*'type' => 'email', */ 
             'verified' => 1);
-        
+       // print_r($search); die;
         // If not isset options verified - we allow non verified account to log in
         if (isset($this->options['verified']) && !$this->options['verified']) {
             unset($search['verified']);
