@@ -104,7 +104,7 @@ class accountRequestpw {
     public function setNewPassword(){
         $id = $_GET['id'];
         $md5_key = $_GET['md5']; 
-        $password = $_POST['password1'];
+        $password = html::specialDecode($_POST['password1']);
         return $this->setPasswordDb($id, $md5_key, $password); 
     }
     
@@ -122,7 +122,6 @@ class accountRequestpw {
         $row = $db->selectOne('account', null, $search);
         $new_md5 = md5(uniqid(rand(), true));
         
-        $_POST = html::specialDecode($_POST);
         $values = array('verified' => 1, 'password' => md5($password), 'md5_key' => $new_md5);
         $res = $db->update('account', $values, $row['id']);
         return $res;
@@ -157,12 +156,12 @@ class accountRequestpw {
     public function validatePasswords ($password1, $password2) {
         $len = cosValidate::passwordLength($password1, 7);
         if (!$len) {
-            $this->errors['password'] = lang::translate('account_password_length_error');
+            $this->errors['password_length'] = lang::translate('account_password_length_error');
         }
         
         $match = cosValidate::passwordMatch($password1, $password2);
         if (!$match) {
-            $this->errors['password'] = lang::translate('account_password_no_match');
+            $this->errors['password_match'] = lang::translate('account_password_no_match');
         }
     }
     
