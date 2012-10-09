@@ -13,7 +13,9 @@ class accountLogin extends account {
     /**
      * constructs accountLogin object.
      * set options 
-     * @param array $options 
+     * @param array $options. Options can be:
+     *              redirect on login: 'redirect' => '/path/to/redirect'
+     *              accept accounts not verified: 'verified' => false  
      */
     public function __construct($options = null) {
         $this->options = $options;
@@ -83,13 +85,16 @@ class accountLogin extends account {
      * @param   string  $email
      * @param   string  $password
      * @param   array   $params 
-     *                  array ('verified' => false') // if you don't require
+     *                  array ('verified' => false', 'md5_password' => true) // if you don't require
      *                  the login creds to be verified. 
      * @return  array|0 row with user creds on success, 0 if not
      */
     public function auth ($email, $password, $params = array ()){
         $db = new db();
-        $password = md5(html::specialDecode($password));
+        
+        if (!isset($params['md5_password'])) {
+            $password = md5(html::specialDecode($password));
+        }
         $search = array (
             'email' => $email, 
             'password' => $password, 

@@ -7,7 +7,7 @@ $res = $request->verifyAccount();
 if ($res){
     $request->sanitize();
     if (isset($_POST['submit'])){        
-        $request->validatePassword();
+        $request->validatePasswordFromPost();
         if (empty($request->errors)){
             if ($request->setNewPassword()){
                 session::setActionMessage(

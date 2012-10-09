@@ -83,8 +83,8 @@ class accountRequestpw {
         }
         
         $vars['verify_key'] = "$vars[site_name]$path?id=$row[id]&md5=$md5_key";
-        if (isset($this->options['verify_get_attach']))  {
-            $vars['verify_key'].=$this->options['verify_get_attach'];
+        if (isset($this->options['verify_path_prepend']))  {
+            $vars['verify_key'].=$this->options['verify_path_prepend'];
         }
         
         $lang = config::getMainIni('language');        
@@ -102,40 +102,70 @@ class accountRequestpw {
      * @return boolean $res true on success and false on failure
      */
     public function setNewPassword(){
-        //$uri = uri::getInstance();
-        $id = $_GET['id'];//$uri->fragment(3);
-        $md5_key = $_GET['md5']; //$uri->fragment(4);
+        $id = $_GET['id'];
+        $md5_key = $_GET['md5']; 
+        $password = $_POST['password1'];
+        return $this->setPasswordDb($id, $md5_key, $password); 
+    }
+    
+    /**
+     * sets new password for user from user_id, md5_key
+     * @param int $id
+     * @param string $md5_key
+     * @param string $password
+     * @return boolean $res
+     */
+    public function setPasswordDb ($id, $md5_key, $password) {
         $search = array ('id' => $id, 'md5_key' => $md5_key);
         
         $db = new db();
-        
         $row = $db->selectOne('account', null, $search);
-        $md5_key = md5(uniqid(rand(), true));
+        $new_md5 = md5(uniqid(rand(), true));
         
         $_POST = html::specialDecode($_POST);
-        $values = array('verified' => 1, 'password' => md5($_POST['password1']), 'md5_key' => $md5_key);
+        $values = array('verified' => 1, 'password' => md5($password), 'md5_key' => $new_md5);
         $res = $db->update('account', $values, $row['id']);
         return $res;
     }
+    
+    /**
+     * set new md5 key
+     * @param int $user_id
+     */
+    public function setNewMd5 ($user_id) { 
+        $db = new db();
+        $md5_key = md5(uniqid(rand(), true));
+
+        $values = array('md5_key' => $md5_key);
+        return $db->update('account', $values, $user_id);
+        
+    }
 
     /**
-     * method for validating password
+     * method for validating password from POST
      * sets errors if any
      */
-    public function validatePassword(){
-        if (function_exists('mb_strlen')) {
-            if (mb_strlen($_POST['password1'], 'UTF-8') < 7){
-                $this->errors['password'] = lang::translate('account_password_length_error');
-            }
-        } else {
-            if (strlen($_POST['password1']) < 7){
-                $this->errors['password'] = lang::translate('account_password_length_error');
-            }
+    public function validatePasswordFromPost(){
+        $this->validatePasswords($_POST['password1'], $_POST['password2']);
+    }
+    
+    /**
+     * method for validating passwords. sets $this->errors
+     * @param string $password1
+     * @param string $password2
+     */
+    public function validatePasswords ($password1, $password2) {
+        $len = cosValidate::passwordLength($password1, 7);
+        if (!$len) {
+            $this->errors['password'] = lang::translate('account_password_length_error');
         }
-        if ($_POST['password1'] != $_POST['password2']){
+        
+        $match = cosValidate::passwordMatch($password1, $password2);
+        if (!$match) {
             $this->errors['password'] = lang::translate('account_password_no_match');
         }
     }
+    
 
     /**
      * method for verifying account from link sent in email
@@ -143,20 +173,25 @@ class accountRequestpw {
      * @return boolean  true on success or false on failure
      */
     public function verifyAccount(){
-        $uri = uri::getInstance();
-        $id = $_GET['id']; //$uri->fragment(3);
-        $md5_key = $_GET['md5'];
-        $search = array ('id' => $id, 'md5_key' => $md5_key);
-
-        $db = new db();
-        $row = $db->selectOne('account', null, $search);
-
+        
+        $row = $this->getAccountFromMd5();
+        
         if (empty($row)){
             $this->errors[] = lang::translate('account_request_no_combination_md5_user');
             return false;
         } else {
             return true;
         }
+    }
+    
+    public function getAccountFromMd5 () {
+        $id = $_GET['id']; 
+        $md5_key = $_GET['md5'];
+        $search = array ('id' => $id, 'md5_key' => $md5_key);
+
+        $db = new db();
+        $row = $db->selectOne('account', null, $search);
+        return $row;
     }
     
     /**
