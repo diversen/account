@@ -13,11 +13,25 @@ include_once "coslib/captcha.php";
 class accountRequestpw {
 
     /**
-     *
+     * errors
      * @var array $errors
      */
     public $errors = array();
 
+    /**
+     * options
+     * @var array $options 
+     */
+    public $options = array ();
+    
+    /**
+     * constructor. set options
+     * @param array $options
+     */
+    function __construct ($options = array ()) {
+        $this->options = $options;
+        
+    }
 
     /**
      * method for sanitizing input. 
@@ -47,12 +61,13 @@ class accountRequestpw {
      *
      * @return int  $res 1 on succes and 0 on failure
       */
-    public function requestPassword (){   
+    public function requestPassword ($email = null){   
         $md5_key = md5(uniqid(rand(), true));
 
+        if (!$email) $email = $_POST['email'];
         
         $db = new db();
-        $row = $db->selectOne('account', 'email', $_POST['email']);
+        $row = $db->selectOne('account', 'email', $email);
         
         $values = array('md5_key' => $md5_key);
         $db->update('account', $values, $row['id']);
@@ -60,11 +75,20 @@ class accountRequestpw {
         $vars['site_name'] = 'http://' . $_SERVER['HTTP_HOST'];
         $subject = lang::translate('account_request_pw_subject_for_site') . " " . $vars['site_name'];
 
-        $vars['verify_key'] = "$vars[site_name]/account/requestpw/verify/$row[id]/$md5_key";
-   
+        // allow class to be used in other setups
+        if (isset($this->options['verify_path'])) {
+            $path = $this->options['verify_path'];
+        } else {
+            $path = "/account/requestpw/verify";
+        }
+        
+        $vars['verify_key'] = "$vars[site_name]$path?id=$row[id]&md5=$md5_key";
+        if (isset($this->options['verify_get_attach']))  {
+            $vars['verify_key'].=$this->options['verify_get_attach'];
+        }
+        
         $lang = config::getMainIni('language');        
         $message = view::get('account', "lang/$lang/request_password", $vars);
-
         if (mail_utf8($row['email'], $subject, $message)){
             return 1;
         } else {
@@ -78,9 +102,9 @@ class accountRequestpw {
      * @return boolean $res true on success and false on failure
      */
     public function setNewPassword(){
-        $uri = uri::getInstance();
-        $id = $uri->fragment(3);
-        $md5_key = $uri->fragment(4);
+        //$uri = uri::getInstance();
+        $id = $_GET['id'];//$uri->fragment(3);
+        $md5_key = $_GET['md5']; //$uri->fragment(4);
         $search = array ('id' => $id, 'md5_key' => $md5_key);
         
         $db = new db();
@@ -99,8 +123,14 @@ class accountRequestpw {
      * sets errors if any
      */
     public function validatePassword(){
-        if (mb_strlen($_POST['password1']) < 7){
-            $this->errors['password'] = lang::translate('account_password_length_error');
+        if (function_exists('mb_strlen')) {
+            if (mb_strlen($_POST['password1'], 'UTF-8') < 7){
+                $this->errors['password'] = lang::translate('account_password_length_error');
+            }
+        } else {
+            if (strlen($_POST['password1']) < 7){
+                $this->errors['password'] = lang::translate('account_password_length_error');
+            }
         }
         if ($_POST['password1'] != $_POST['password2']){
             $this->errors['password'] = lang::translate('account_password_no_match');
@@ -114,8 +144,8 @@ class accountRequestpw {
      */
     public function verifyAccount(){
         $uri = uri::getInstance();
-        $id = $uri->fragment(3);
-        $md5_key = $uri->fragment(4);
+        $id = $_GET['id']; //$uri->fragment(3);
+        $md5_key = $_GET['md5'];
         $search = array ('id' => $id, 'md5_key' => $md5_key);
 
         $db = new db();
@@ -134,18 +164,7 @@ class accountRequestpw {
      */
     public function displayRequest () {
 
-        html::$autoLoadTrigger = 'submit';
-        html::init($_POST);
-        html::formStart('account_request_new_password');
-        html::legend(lang::translate('account_request_password_title'));
-        html::label('email', lang::translate('account_email_label'), array('required' => 1));
-        html::text('email');
-        html::label('captcha', captcha::createCaptcha());
-        html::text('captcha');
-        html::label('submit', '');
-        html::submit('submit', lang::translate('account_submit'));
-        html::formEnd();
-        echo html::getStr();
+        echo view::get('account', 'requestpw/form');
     }
     
     /**
@@ -161,8 +180,6 @@ class accountRequestpw {
         html::password('password1',  null, $field_size);
         html::label('password2', lang::translate('account_form_retype_password'));
         html::password('password2',  null, $field_size);
-        //html::label('captcha', captcha::createCaptcha());
-        //html::text('captcha', null, array ('size' => 1, 'maxlength'=> 2));
         html::label('submit', '');
         html::submit('submit', lang::translate('account_submit'));
         html::formEnd();

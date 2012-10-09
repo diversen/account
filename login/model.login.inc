@@ -95,7 +95,7 @@ class accountLogin extends account {
             'password' => $password, 
             /*'type' => 'email', */ 
             'verified' => 1);
-       // print_r($search); die;
+
         // If not isset options verified - we allow non verified account to log in
         if (isset($this->options['verified']) && !$this->options['verified']) {
             unset($search['verified']);
@@ -104,5 +104,9 @@ class accountLogin extends account {
         $row = $db->selectOne('account', null, $search);
         return $row;
     }
-
+    
+    public function getUserFromEmail ($email) {
+        $db = new db();
+        return $db->selectOne('account', 'email', $email);
+    }
 }

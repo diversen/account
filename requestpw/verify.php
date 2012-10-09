@@ -14,8 +14,7 @@ if ($res){
                     lang::translate('account_request_new_password_has_been_set'), true
                 );
                 $location = config::getModuleIni('account_default_url');
-                $header = "Location: $location";
-                header($header);
+                http::locationHeader($location);
             }
         } else {
             view_form_errors($request->errors);
@@ -23,7 +22,5 @@ if ($res){
     }
     $request->displayNewPassword();
 } else {
-
     view_form_errors($request->errors);
 }
-

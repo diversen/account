@@ -59,7 +59,7 @@ class accountCreate {
     function validatePasswords () {
 
         if (function_exists('common_account_validate_passwords')) {
-            // TODO: Allow common function to check 
+            // TODO: Allow common function to check passwords
         }
         
         if (function_exists('mb_strlen')) {
