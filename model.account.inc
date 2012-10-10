@@ -55,7 +55,7 @@ class account {
 
         setcookie('fbm_'.$app_id, '', time()-100, '/', $server_name);
         setcookie('fbsr_'.$app_id, '', time()-100, '/', $server_name); 
-        set_cookie('fbs_'.$app_id, '', '', '', '/', '');
+        setcookie('fbs_'.$app_id, '', '', '', '/', '');
         session::killSession();
 
         session_regenerate_id(true);
