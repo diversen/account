@@ -62,16 +62,13 @@ class accountCreate {
             // TODO: Allow common function to check passwords
         }
         
-        if (function_exists('mb_strlen')) {
-            if (mb_strlen($_POST['password'], 'UTF-8') < 7){
-                $this->errors['password'] = lang::translate('account_error_password_length');
-            }
-        } else {
-            if (strlen($_POST['password']) < 7){
-                $this->errors['password'] = lang::translate('account_error_password_length');
-            }
+        $l = cosValidate::passwordLength($_POST['password'], 7);
+        if (!$l) {
+            $this->errors['password'] = lang::translate('account_error_password_length');
         }
-        if ($_POST['password'] != $_POST['password2']){
+        
+        $m = cosValidate::passwordMatch($_POST['password'], $_POST['password2']);
+        if (!$m){
             $this->errors['password'] = lang::translate('account_error_password_mismatch');
         }        
     }
@@ -152,7 +149,7 @@ class accountCreate {
      * @param type $md5
      * @return boolean $res 
      */
-    public function sendVerifyMail ($email, $user_id, $md5) {
+    public function sendVerifyMail ($email, $user_id, $md5, $options = array ()) {
         
         $subject = lang::translate('account_signup_subject');
         
@@ -170,6 +167,10 @@ class accountCreate {
         
         
         $from = config::$vars['coscms_main']['site_email'];
+        if (isset($options['html'])) {
+            return mail_html($email, $subject, $message, $from);
+        }
+        
         return mail_utf8($email, $subject, $message, $from);
     }
     
