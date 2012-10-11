@@ -53,8 +53,8 @@ class account {
         $app_id = config::getModuleIni('account_facebook_api_appid'); //$facebook->getAppId()
         $server_name = config::getMainIni('server_name');
 
-        setcookie('fbm_'.$app_id, '1', time()-100, '/', $server_name);
-        setcookie('fbsr_'.$app_id, '1', time()-100, '/', $server_name); 
+        setcookie('fbm_'.$app_id, '', time()-100, '/', $server_name);
+        setcookie('fbsr_'.$app_id, '', time()-100, '/', $server_name); 
         //setcoo
         session::killSession();
 
