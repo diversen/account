@@ -1,6 +1,6 @@
 <?php
 
-include_once 'facebook.php';
+include_once 'facebook-php-sdk/src/facebook.php';
 moduleLoader::includeModule('account/login');
 
 class accountFacebook extends account {
