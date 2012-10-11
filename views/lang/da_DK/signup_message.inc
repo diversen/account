@@ -7,6 +7,5 @@ eller klippe og sætte det ind i browser linien.
 
 <?=$vars['verify_key']?>
 
-
 Vh <?=$vars['site_name']?>
 

@@ -6,6 +6,5 @@ følgende link eller indsætte det i din browsers addresse linie
 
 <?=$vars['verify_key']?>
 
-
 Hvis du ikke har forespurgt et nyt password, kan du se bort fra denne
 henvendelse.
