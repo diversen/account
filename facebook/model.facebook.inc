@@ -55,7 +55,7 @@ class accountFacebook extends account {
         $db = new db();     
         $values = array(
             'url'=> $user['link'], 
-            'username' => $user['name'],
+            'username' => strings::toUTF8($user['name']),
             'email' => $user['email'],
             'type' => 'facebook',
             'verified' => 1
