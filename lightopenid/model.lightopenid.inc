@@ -52,7 +52,7 @@ class accountLightopenid extends account {
                         'nickname', 
                         'namePerson/friendly', 
                         'contact/email');
-                    header('Location: ' . $openid->authUrl());
+                    http::locationHeader($openid->authUrl());
                     die;
                 }
 
@@ -157,7 +157,7 @@ class accountLightopenid extends account {
                         'nickname', 
                         'namePerson/friendly', 
                         'contact/email');
-                    header('Location: ' . $openid->authUrl());
+                    http::locationHeader($openid->authUrl());
                 }
 
             } else if($openid->mode == 'cancel') {

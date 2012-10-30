@@ -36,8 +36,7 @@ class accountOpenid extends account {
         if ($uri->fragment(3) == '1'){
             session::killSession();
             $redirect = config::getModuleIni('account_default_url');
-            header( "Location: $redirect");
-            die;
+            http::locationHeader($redirect);
         }
 
         if (isset($_SESSION['id'])) {

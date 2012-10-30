@@ -30,7 +30,7 @@ if (isset($_POST['submit'])){
             session::setActionMessage(
                 lang::translate('account_action_user_updated')
             );
-            header("Location: /account/admin/list");
+            http::locationHeader('/account/admin/list');
         }
     } else {
         view_form_errors($l->errors);
