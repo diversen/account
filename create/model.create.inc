@@ -157,6 +157,7 @@ class accountCreate {
         $vars['site_name'] = "$scheme://$_SERVER[HTTP_HOST]";
         $subject.= " " . $vars['site_name'];
         $vars['verify_key'] = "$vars[site_name]/account/create/verify/$user_id/$md5";
+        $vars['user_id'] = $user_id;
 
         // compose message from language
         $lang = config::getMainIni('language');
