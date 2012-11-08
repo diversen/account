@@ -183,6 +183,11 @@ class accountLightopenid extends account {
      * @param type $openid unique openid identifier
      */
     public function connectOpenidAccount ($openid, $user_id) {
+        $exists = $this->openIdExists($openid->identity);
+        if ($exists) {
+            $this->errors[] = 'Open id exists in other user account';
+            return false;
+        }
         
         $account = $this->auth($openid->identity);
         if (empty($account)){
@@ -210,6 +215,35 @@ class accountLightopenid extends account {
             account::redirectOnLogin($this->options['redirect']);                       
              
         }
+    }
+    
+    /**
+     * method for authorizing a user
+     *
+     * @param   string  username
+     * @param   string  password
+     * @return  array|0 row with user creds on success, 0 if not
+     */
+    public function openIdExists ($openid){
+        
+        // first check for a sub account and return parent account
+        $db = new db();
+        $search = array ('url' => $openid, 'type' => 'openid');
+        $row = $db->selectOne('account_sub', null, $search);
+        if (!empty($row)) {
+            return true;
+        } 
+        
+        // check main account
+        $search = array ('url' => $openid, 'type' => 'openid');
+        $row = $db->selectOne('account', null, $search);
+        if (!empty($row)) {
+
+            return true;
+        } 
+        
+        
+        return false;
     }
     
 
