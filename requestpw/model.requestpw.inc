@@ -61,7 +61,7 @@ class accountRequestpw {
      *
      * @return int  $res 1 on succes and 0 on failure
       */
-    public function requestPassword ($email = null){   
+    public function requestPassword ($email = null, $options = array ()){   
         $md5_key = md5(uniqid(rand(), true));
 
         if (!$email) $email = $_POST['email'];
@@ -89,11 +89,13 @@ class accountRequestpw {
         
         $lang = config::getMainIni('language');        
         $message = view::get('account', "lang/$lang/request_password", $vars);
-        if (mail_utf8($row['email'], $subject, $message)){
-            return 1;
-        } else {
-            return 0;
+        
+        if (isset($options['html'])) {
+            $res = mail_html($row['email'], $subject, $message);
+        } else { 
+            $res = mail_utf8($row['email'], $subject, $message);
         }
+        return $res;
     }
 
     /**

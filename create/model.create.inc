@@ -17,17 +17,19 @@ class accountCreate {
      * @var array $errors for holding errors
      */
     public $errors = array();
+    
+    /**
+     *
+     * @var array $errors for holding errors
+     */
+    public $options = array();
 
     /**
      * constructor
      * checks input data
      */
-    function __construct($validate = true){
-        if ($validate){
-            if (isset($_POST['submit'])) {
-                $this->validate();
-            }
-        }
+    function __construct($options = array ()){
+        $this->options = $options;
     }
 
     /**
@@ -36,20 +38,21 @@ class accountCreate {
      */
     function validate(){
 
-        
-        if ($this->emailExist($_POST['email'])){
-            $this->errors['email'] = lang::translate('account_error_email_exists');
-        }
-        
-        if (!cosValidate::validateEmailAndDomain($_POST['email'])) {
-            $this->errors['email'] = lang::translate('account_error_invalid_email');
-        }
-        
-        // if we use two fields for password
-        $this->validatePasswords();
-        
-        if (!captcha::checkCaptcha(trim($_POST['captcha']))){
-            $this->errors['captcha'] = lang::translate('account_error_incorrect_captcha');
+        if (isset($_POST['submit'])) {
+            if ($this->emailExist($_POST['email'])){
+                $this->errors['email'] = lang::translate('account_error_email_exists');
+            }
+
+            if (!cosValidate::validateEmailAndDomain($_POST['email'])) {
+                $this->errors['email'] = lang::translate('account_error_invalid_email');
+            }
+
+            // if we use two fields for password
+            $this->validatePasswords();
+
+            if (!captcha::checkCaptcha(trim($_POST['captcha']))){
+                $this->errors['captcha'] = lang::translate('account_error_incorrect_captcha');
+            }
         }
     }
     
@@ -149,7 +152,7 @@ class accountCreate {
      * @param type $md5
      * @return boolean $res 
      */
-    public function sendVerifyMail ($email, $user_id, $md5, $options = array ()) {
+    public function sendVerifyMail ($email, $user_id, $md5) {
         
         $subject = lang::translate('account_signup_subject');
         
@@ -164,7 +167,7 @@ class accountCreate {
         $message = view::get('account', "lang/$lang/signup_message", $vars);
                
         $from = config::$vars['coscms_main']['site_email'];
-        if (isset($options['html'])) {
+        if (isset($this->options['html'])) {
             return mail_html($email, $subject, $message, $from);
         }
         

@@ -2,6 +2,7 @@
 
 template::setTitle(lang::translate('account_title_verify_account'));
 $a = new accountCreate();
+$a->validate();
 $res = $a->verifyAccount();
 if (!$res){
     view_form_errors($a->errors);
