@@ -72,6 +72,7 @@ class accountRequestpw {
         $values = array('md5_key' => $md5_key);
         $db->update('account', $values, $row['id']);
         
+        $vars['user_id'] = $row['id'];
         $vars['site_name'] = 'http://' . $_SERVER['HTTP_HOST'];
         $subject = lang::translate('account_request_pw_subject_for_site') . " " . $vars['site_name'];
 
