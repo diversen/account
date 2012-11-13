@@ -168,7 +168,7 @@ class accountCreate {
                
         $from = config::$vars['coscms_main']['site_email'];
         if (isset($this->options['html'])) {
-            return mail_html($email, $subject, $message, $from);
+            return mail_smtp_html($email, $subject, $message, $from);
         }
         
         return mail_utf8($email, $subject, $message, $from);

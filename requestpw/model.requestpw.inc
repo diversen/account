@@ -92,7 +92,7 @@ class accountRequestpw {
         $message = view::get('account', "lang/$lang/request_password", $vars);
         
         if (isset($options['html'])) {
-            $res = mail_html($row['email'], $subject, $message);
+            $res = mail_smtp_html($row['email'], $subject, $message);
         } else { 
             $res = mail_utf8($row['email'], $subject, $message);
         }

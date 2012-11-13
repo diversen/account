@@ -90,7 +90,7 @@ class accountChangeemail {
         $message = view::get('account', "lang/$lang/signup_message", $vars);
         
         $from = config::$vars['coscms_main']['site_email'];
-        return mail_html($email, $subject, $message, $from);
+        return mail_smtp_html($email, $subject, $message, $from);
     }
     
     /**
