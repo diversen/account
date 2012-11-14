@@ -30,9 +30,11 @@ class accountChangeemail {
         
         // only allow 2 changes per day            
         $bean = RB::getBean('account_email_changes', 'user_id', $user_id);
+        
+        $email_max_changes = 1000;
         if ($bean->id) {
             if ($bean->date_try == $mysql_date) {
-                if ($bean->tries >= 3) {
+                if ($bean->tries >= $email_max_changes) {
                     return false;
                 }
             } else {
