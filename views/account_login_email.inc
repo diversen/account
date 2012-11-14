@@ -13,7 +13,7 @@ if (isset($vars['errors'])) {
     view_form_errors($vars['errors']);
 }
 
-html::$autoLoadTrigger = 'submit';
+html::$autoLoadTrigger = 'submit_account_login';
 html::init($init);
 html::formStart('account_request_new_password');
 html::legend(lang::translate('account_login_legend'));
