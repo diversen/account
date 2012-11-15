@@ -93,7 +93,7 @@ class accountRequestpw {
         $message['txt'] = view::get('account', "lang/$lang/request_password", $vars);
         $message['html'] = view::get('account', "lang/$lang/request_password_html", $vars);
         
-        $res = mail_multipart_utf8($row['email'], " ÆØÅ " . $subject, $message);
+        $res = mail_multipart_utf8($row['email'], $subject, $message);
         return $res;
     }
 
