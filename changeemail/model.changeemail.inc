@@ -87,12 +87,13 @@ class accountChangeemail {
         $subject.= " " . $vars['site_name'];
         $vars['verify_key'] = "$vars[site_name]/account/create/verify/$user_id/$md5";
         $vars['user_id'] = $user_id;
-        // compose message from language
+
         $lang = config::getMainIni('language');
-        $message = view::get('account', "lang/$lang/signup_message", $vars);
+        $message = array ();
+        $message['html'] = view::get('account', "lang/$lang/signup_message", $vars);
         
         $from = config::$vars['coscms_main']['site_email'];
-        return mail_smtp_html($email, $subject, $message, $from);
+        return mail_multipart_utf8($email, $subject, $message, $from);
     }
     
     /**

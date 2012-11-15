@@ -89,13 +89,11 @@ class accountRequestpw {
         }
         
         $lang = config::getMainIni('language');        
-        $message = view::get('account', "lang/$lang/request_password", $vars);
         
-        if (isset($options['html'])) {
-            $res = mail_smtp_html($row['email'], $subject, $message);
-        } else { 
-            $res = mail_utf8($row['email'], $subject, $message);
-        }
+        $message['txt'] = view::get('account', "lang/$lang/request_password", $vars);
+        $message['html'] = view::get('account', "lang/$lang/request_password_html", $vars);
+        
+        $res = mail_multipart_utf8($row['email'], " ÆØÅ " . $subject, $message);
         return $res;
     }
 

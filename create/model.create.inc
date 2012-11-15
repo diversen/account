@@ -164,14 +164,18 @@ class accountCreate {
 
         // compose message from language
         $lang = config::getMainIni('language');
-        $message = view::get('account', "lang/$lang/signup_message", $vars);
-               
-        $from = config::$vars['coscms_main']['site_email'];
-        if (isset($this->options['html'])) {
-            return mail_smtp_html($email, $subject, $message, $from);
-        }
         
-        return mail_utf8($email, $subject, $message, $from);
+        // option for multi part message
+        $message = array ();        
+        
+        $txt_message = view::get('account', "lang/$lang/signup_message", $vars);
+        $html_message = view::get('account', "lang/$lang/signup_message_html", $vars);
+        
+        $message['txt'] = $txt_message;
+        $message['html'] = $html_message;
+        
+        $from = config::$vars['coscms_main']['site_email'];
+        return mail_multipart_utf8($email, $subject, $message, $from);
     }
     
 
