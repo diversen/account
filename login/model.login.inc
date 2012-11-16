@@ -101,7 +101,7 @@ class accountLogin extends account {
             /*'type' => 'email', */ 
             'verified' => 1);
 
-        // If not isset options verified - we allow non verified account to log in
+        // If not isset verified - we allow non verified account to log in
         if (isset($this->options['verified']) && !$this->options['verified']) {
             unset($search['verified']);
         }
