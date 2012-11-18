@@ -101,16 +101,6 @@ class accountLightopenid extends account {
                 event::getTriggerEvent(
                         config::getModuleIni('account_events'), 
                         $args);
-                
-                // login events
-                $args = array (
-                    'action' => 'account_login',
-                    'user_id' => $new,
-                );
-                
-                event::getTriggerEvent(
-                        config::getModuleIni('account_events'), 
-                        $args);
             
                 $account = user::getAccount($new);
                 $this->setSesisonAndCookie($account);
