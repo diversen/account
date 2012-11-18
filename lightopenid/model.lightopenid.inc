@@ -53,7 +53,6 @@ class accountLightopenid extends account {
                         'namePerson/friendly', 
                         'contact/email');
                     http::locationHeader($openid->authUrl());
-                    die;
                 }
 
             } else if($openid->mode == 'cancel') {
