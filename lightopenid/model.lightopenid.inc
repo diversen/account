@@ -110,6 +110,8 @@ class accountLightopenid extends account {
                 );
                       
                 account::redirectOnLogin($this->options['redirect']);
+             } else {
+                 return false;
              }
         } else {
             
@@ -270,6 +272,16 @@ class accountLightopenid extends account {
         
         $ary = $openid->getAttributes();
         $db = new db();
+        
+        
+        if (config::getModuleIni('account_needs_email')) {
+            if (!isset($ary['contact/email']) || empty($ary['contact/email'])) {
+                $this->errors[] = 'No valid email';
+                return false;
+            }
+        } 
+       
+        
         $values = array(
             'url'=> $openid->identity, 
             'email' => $ary['contact/email'],
