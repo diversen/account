@@ -90,7 +90,9 @@ class accountChangeemail {
 
         $lang = config::getMainIni('language');
         $message = array ();
-        $message['html'] = view::get('account', "lang/$lang/signup_message", $vars);
+        
+        $message['txt'] = view::get('account', "lang/$lang/signup_message", $vars);
+        $message['html'] = view::get('account', "lang/$lang/signup_message_html", $vars);
         
         $from = config::$vars['coscms_main']['site_email'];
         return mail_multipart_utf8($email, $subject, $message, $from);
