@@ -4,8 +4,9 @@ account (default account module for CosCMS)
 ### Configuration
 
 All configuration is set in account/account.ini
+See acount/account.ini-dist for all options
 
-If account module will be displayed to other than admin
+If account module will be displayed to no other than admin
 
     account_admin_only = 1
 
@@ -39,7 +40,7 @@ The following params are sent to the class implementing the event:
         'user_id' => $new,
     );
 
-### Facebook login 
+### ABout facebook login 
 
 https://developers.facebook.com/docs/beta/opengraph/tutorial/
 
