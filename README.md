@@ -76,5 +76,6 @@ Press link on top right corner: 'Create New'
 Create settings: 
 
 In settings 'application domain': e.g. example.com
-In settings 'Homepage' set e.g: example.com/account/facebook/index
-Thinks those two has to correspond.  
+In settings 'Homepage' set e.g: example.com/account/facebook/index. 
+
+Those two has to correspond.  
