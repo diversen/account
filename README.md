@@ -30,13 +30,14 @@ All configuration is set in account/account.ini
 
 ### Events
 
-You can set events in the account.ini file: 
+You can set events in the account.ini file. The following will call the 
+module points with the static method events when account events are triggered: 
 
 account_events[0] = "points::events"
 
 the following actions are possible so far: 
 
-#### `account_login`:
+    account_login
 
 This event is fired when a user logs in. 
 
@@ -44,25 +45,29 @@ The following params are sent to the class implementing the event:
 
     $args = array (
         'action' => 'account_login',
-        'user_id' => $account['id'],
+        'user_id' => $account_id,
     );
-
-#### `account_create`:
+ 
+   account_create
 
 this event is fired when an account is created
 
-The following params are sent to the class implementing the event:
+The following params are sent to the classes implementing the event:
 
     $args = array (
         'action' => 'create',
-        'user_id' => $new,
+        'user_id' => $new_account_id,
     );
 
-### ABout facebook login 
+### Creating a facebook app 
+
+You will need an facebook app in order to use the facebook login 
+
+Here is a nice tutorial about the process: 
 
 https://developers.facebook.com/docs/beta/opengraph/tutorial/
 
-Create an app on this page. 
+Create an your app on this page. 
 
 https://developers.facebook.com/apps
 
@@ -73,4 +78,3 @@ Create settings:
 In settings 'application domain': e.g. example.com
 In settings 'Homepage' set e.g: example.com/account/facebook/index
 Thinks those two has to correspond.  
-
