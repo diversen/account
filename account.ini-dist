@@ -17,4 +17,4 @@ account_admin_only = 0
 ; login methods
 account_logins[0] = "email"
 account_logins[1] = "lightopenid"
-account_logins[2] = 'facebook'
+;account_logins[2] = 'facebook'

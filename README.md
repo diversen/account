@@ -4,11 +4,29 @@ account (default account module for CosCMS)
 ### Configuration
 
 All configuration is set in account/account.ini
-See acount/account.ini-dist for all options
 
-If account module will be displayed to no other than admin
+    ; who are allowed to edit: anon, admin, super, user
+    account_allow_edit = "super"
+    ; who will see admin link in main navigation: anon, admin, super, user
+    account_show_admin_link = "super"
+    ; default login url
+    account_default_url = "/account/login/index"
+    ; facebook secret if using facebook as login method
+    account_facebook_api_secret = "secret"
+    ; facebook appid if using facebook as login method
+    account_facebook_api_appid = "appid"
+    ; who can create a user: anon, admin, super, user
+    ; if your your system needs users to create accounts - set it to 'anon'
+    account_allow_create = "super"
+    ; disable editing of accounts - e.g. you don't want anyone to edit accounts
+    account_disable_admin_interface = 0
+    ; menu item is only in admin items
+    account_admin_only = 0
+    ; login methods
+    account_logins[0] = "email"
+    account_logins[1] = "lightopenid"
+    ;account_logins[2] = 'facebook'
 
-    account_admin_only = 1
 
 ### Events
 
