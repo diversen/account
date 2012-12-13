@@ -25,7 +25,6 @@ class accountLightopenid extends account {
      */
     public static function viewLoginForm(){
         view_lightopenid_login ();
-        //echo templateView::get('account/lightopenid', 'login');
     }
 
     /**
