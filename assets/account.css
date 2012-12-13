@@ -1,24 +1,4 @@
-
-table.account_list {
-
+.account_admin_user:hover {
+    background-color: #eee;
 }
-
-
-table.account_list td {
-
-}
-
-table.account_list {
-    border-width: thin;
-    border-spacing: 1px;
-    border-color: #fff;   
-    border-width: 1px;
-
-}
-
-table.account_list td {
-    vertical-align: top;
-    border-width: thin;
-    padding: 1px;
-    border-color: #fff;
-}
+    

@@ -112,6 +112,11 @@ class accountAdmin extends accountCreate {
         $res = $db->update('account', $values, $this->id);
         return $res;
     }
+    
+    public function searchAccount () {
+        $v = new viewAccountAdmin();
+        $v->searchForm();
+    }
 
     /**
      * method for updaing a user

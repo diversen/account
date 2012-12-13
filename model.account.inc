@@ -147,4 +147,16 @@ class account {
     public function setAcceptNonVerifiedAccount () {
         $this->options['verified'] = false;
     }
+    
+    /**
+     * get account from id
+     * @param int $id
+     * @return array $row
+     */
+    public function searchId ($id)  {
+        $db = new db();
+        $search = array ('id' => $id);
+        return $db->selectAll('account', null, $search);
+        
+    }
 }

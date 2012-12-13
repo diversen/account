@@ -152,3 +152,8 @@ $_COS_LANG_MODULE['account_wrong_validation_combination'] = 'Forkert kombination
 $_COS_LANG_MODULE['account: logout facebook link'] = 'Log ud';
 $_COS_LANG_MODULE['account: login facebook link'] = 'Log ind';
 $_COS_LANG_MODULE['account_error_email_does_not_match'] = 'Emails matcher ikke';
+
+$_COS_LANG_MODULE['account: admin: search legend'] = 'Søg efter bruger';
+$_COS_LANG_MODULE['account: admin: search user id'] = 'Bruger ID';
+$_COS_LANG_MODULE['account: admin: found results'] = 'Fandt følgende bruger: ';
+$_COS_LANG_MODULE['account: admin: found no results'] = 'Ingen resultat';

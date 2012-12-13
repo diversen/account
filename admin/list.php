@@ -13,8 +13,28 @@ if (config::getModuleIni('account_disable_admin_interface')) {
     return;
 }
 
-//$p = new pearPager($total);
+$_GET = html::specialEncode($_GET);
+
 $a = new accountAdmin();
+
+$a->searchAccount();
+if (isset($_GET['submit'])) {
+    $acc = new account();
+
+    $res = $acc->searchId($_GET['id']);
+    if (!empty($res)) {
+        echo lang::translate('account: admin: found results');
+        viewAccountAdmin::listUsers($res);
+        
+    } else {
+        echo lang::translate('account: admin: found no results');
+    }
+    
+    
+    
+}
+
+
 $num_rows = $a->getNumUsers();
 
 $p = new pearPager($num_rows);

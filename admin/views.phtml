@@ -1,5 +1,7 @@
 <?php
 
+template::setInlineCss(config::getModulePath('account') . "/assets/account.css");
+
 class viewAccountAdmin {
 
    /**
@@ -67,42 +69,58 @@ class viewAccountAdmin {
     }
     
     public function listUsers ($users) {
-        echo "<div >\n";
-        echo "<table class=\"account_list\">\n";
+
         foreach ($users as $k => $user) {
             echo self::listUser( $user);
         }
-        echo "</table>\n";
-        echo "</div>\n";
     }
     
     public function listUser ($v) {
         $date = time::getDateString($v['created']);
-        echo "<tr>\n";
-        echo "<td colspan=\"6\">" . user::getProfile($v, $date) . "</td>";
-        echo "</tr>\n";
-        echo "<tr>\n";
+
+        echo "<div class=\"account_admin_user\">\n";
+        echo user::getProfile($v, $date, array ('user_id'));
+
 
         if ($v['admin']) {
-            echo "<td>" . lang::translate('account_is_admin') . "</td>\n";
+            echo lang::translate('account_is_admin');
         } else {
-            echo "<td>" . lang::translate('account_is_not_admin') . "</td>\n";
+            echo lang::translate('account_is_not_admin');
         }
+        echo "<br />\n";
 
         if ($v['super']) {
-            echo "<td>" . lang::translate('account_is_super') . "</td>\n";
+            echo lang::translate('account_is_super');
         } else {
-            echo "<td>" . lang::translate('account_is_not_super'). "</td>\n";
+            echo lang::translate('account_is_not_super');
         }
+        echo "<br />\n";
 
         if ($v['verified']) {
-            echo "<td>" . lang::translate('account_is_verified') . "</td>\n";
+            echo lang::translate('account_is_verified');
         } else {
-            echo "<td>" . lang::translate('account_is_not_verified') . "</td>";
+            echo lang::translate('account_is_not_verified');
         }
-        echo "<td>" . $v['created'] . "</td>";
-        echo "<td>" . html::createLink("/account/admin/edit/$v[id]", lang::translate('account_edit')) . "</td>\n";
-        echo "<td>" . html::createLink("/account/admin/delete/$v[id]", lang::translate('account_delete')) . "</td>\n";
-        echo "</tr>\n";
+        echo "<br />\n";
+
+        echo html::createLink("/account/admin/edit/$v[id]", lang::translate('account_edit'));
+        echo MENU_SUB_SEPARATOR;
+        echo html::createLink("/account/admin/delete/$v[id]", lang::translate('account_delete'));
+        echo "<br />\n";
+        echo "<br />\n";
+        echo "</div>\n";
+    }
+    
+    public function searchForm () {
+        $f = new html ();
+        $f->formStart('form_search', 'get');
+        $f->legend(lang::translate('account: admin: search legend'));
+        $f->init(null, 'submit');
+        $f->label('id', lang::translate('account: admin: search user id'));
+        $f->text('id');
+        $f->submit('submit', lang::system('submit'));
+        $f->formEnd();
+        echo $f->getStr();
+                
     }
 }
