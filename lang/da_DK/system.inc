@@ -15,3 +15,4 @@ $_COS_LANG_MODULE['Account'] = 'Konto';
 $_COS_LANG_MODULE['account'] = 'Konto';
 
 
+

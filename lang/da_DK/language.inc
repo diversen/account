@@ -148,3 +148,7 @@ $_COS_LANG_MODULE['account_openid_login_failed'] = 'OpenID login mislykkedes. Ch
 $_COS_LANG_MODULE['account_logged_in_with_open_id'] = 'Logget ind med OpenID';
 
 $_COS_LANG_MODULE['account_wrong_validation_combination'] = 'Forkert kombination mellem bruger og validerings nøgle';
+
+$_COS_LANG_MODULE['account: logout facebook link'] = 'Log ud';
+$_COS_LANG_MODULE['account: login facebook link'] = 'Log ind';
+$_COS_LANG_MODULE['account_error_email_does_not_match'] = 'Emails matcher ikke';

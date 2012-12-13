@@ -2,6 +2,7 @@
 
 include_once 'facebook-php-sdk/src/facebook.php';
 moduleLoader::includeModule('account/login');
+view::includeOverrideFunctions('account', 'facebook/views.phtml');
 
 class accountFacebook extends account {
 
@@ -23,12 +24,7 @@ class accountFacebook extends account {
      */
 
     public function auth ($facebook_url){
-        /*
-        $db = new db();
-        $search = array ('url' => $facebook_url, 'type' => 'facebook');
-        $row = $db->selectOne('account', null, $search);
-        return $row;
-        */
+
         // first check for a sub account and return parent account
         $db = new db();
         $search = array ('url' => $facebook_url, 'type' => 'facebook');
@@ -39,7 +35,6 @@ class accountFacebook extends account {
         } 
         
         // check main account
-        //$search = array ('url' => $openid, 'type' => 'openid');
         $row = $db->selectOne('account', null, $search);
         return $row;
         
@@ -80,12 +75,14 @@ class accountFacebook extends account {
      * 
      * @param array $user_profile 
      */
-    function createUser ($user_profile) {
+    public function createUser ($user_profile) {
+        
         // we have a facebook session but no user in database
         $id = $this->createDbUser($user_profile);
         $_SESSION['id'] = $id;
         $_SESSION['account_type'] = 'facebook';
 
+        // run account_create events
         $args = array (
             'action' => 'account_create',
             'user_id' => $id,
@@ -96,6 +93,7 @@ class accountFacebook extends account {
             $args
         );
         
+        // run account_login events
         $login_args = array (
             'action' => 'account_login',
             'user_id' => $id,
@@ -105,12 +103,12 @@ class accountFacebook extends account {
             config::getModuleIni('account_events'), 
             $login_args
         );
-        
-        
     }
     
     
     /**
+     * dunmmy function for displaying docs about events
+     * 
      * account_events (set in account_events)
      * 
      * method createUser fires actions:
@@ -189,11 +187,11 @@ function account_facebook_login () {
         );
     }
 
-    // display login or logout
-    if ($user_profile) { 
-        echo html::createLink($logoutUrl, 'Log Out');
+    // display login or logout -  you can override this in any template
+    if ($user_profile) {
+        account_facebook_logout_url ($logoutUrl);
     } else {
-        echo html::createLink($loginUrl, 'Log in');
+        account_facebook_login_url ($loginUrl);
     }
 }
 
