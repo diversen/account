@@ -4,6 +4,7 @@
  * @package    account
  */
 if (!session::checkAccessControl('account_allow_edit')){
+    moduleLoader::setStatus(403);
     return;
 }
 
@@ -20,5 +21,6 @@ $p = new pearPager($num_rows);
 $users = $a->getUsers($p->from);
 
 template::setTitle(lang::translate('account_list_users'));
-echo view::get('account', 'admin_list_users', $users);
+viewAccountAdmin::listUsers($users);
+
 echo $p->getPagerHTML();

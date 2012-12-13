@@ -7,6 +7,8 @@ moduleLoader::includeModel ('account');
 moduleLoader::includeModel ('account/create');
 include_once "coslib/pearPager.php";
 
+view::includeOverrideFunctions('account', 'admin/views.phtml');
+
 /**
  * Class accountAdmin
  */

@@ -1,6 +1,7 @@
 <?php
 
 if (!session::checkAccessControl('account_allow_edit')){
+    moduleLoader::setStatus(403);
     return;
 }
 
@@ -37,7 +38,9 @@ if (isset($_POST['submit'])){
     }
 }
 
+
 if (!empty($user['url'])){
+    
     viewAccountAdmin::updateUrlUser($user);
 } else {   
     viewAccountAdmin::updateEmailUser($user);
