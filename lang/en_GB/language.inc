@@ -149,6 +149,11 @@ $_COS_LANG_MODULE['account_login_legend'] = 'Login';
 $_COS_LANG_MODULE['account_openid_login_failed'] = 'OpenID login failed. Check if URL is correct';
 $_COS_LANG_MODULE['account_wrong_validation_combination'] = 'Wrong combination between user and validation key';
 
-$_COS_LANG_MODULE['account: logout facebook link'] = 'account: logout facebook link';
-$_COS_LANG_MODULE['account: login facebook link'] = 'account: login facebook link';
-$_COS_LANG_MODULE['account_error_email_does_not_match'] = 'account_error_email_does_not_match';
+$_COS_LANG_MODULE['account: logout facebook link'] = 'Logout';
+$_COS_LANG_MODULE['account: login facebook link'] = 'Login using facebook';
+$_COS_LANG_MODULE['account_error_email_does_not_match'] = 'No match between emails';
+
+$_COS_LANG_MODULE['account: admin: search legend'] = 'Search user on ID';
+$_COS_LANG_MODULE['account: admin: search user id'] = 'User ID';
+$_COS_LANG_MODULE['account: admin: found results'] = 'Result found: ';
+$_COS_LANG_MODULE['account: admin: found no results'] = 'No results';
