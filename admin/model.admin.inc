@@ -59,12 +59,6 @@ class accountAdmin extends accountCreate {
         }
     }
 
-    /*
-    function validateUrlUser(){
-        if (empty($_POST['submit'])){
-            return;
-        }
-    }*/
 
     /**
      * method for getting a user from url fragemtn
@@ -95,21 +89,6 @@ class accountAdmin extends accountCreate {
         $db = new dbQ();
         return $db->setSelectNumRows('account')->fetch();
     }
-
-    /**
-     * check if username exists
-     *
-     * @param   string      $username
-     * @return  int         $num_rows
-     */
-    /*
-    public function usernameExist($username){
-        $query = "SELECT * FROM  `account` WHERE `username` = :username AND `id` <> :id";
-        $sth = self::$dbh->prepare($query);
-        $sth->execute(array(':username' => $username, ':id' => $this->id ));
-        $rows = $sth->fetchAll(PDO::FETCH_ASSOC);
-        return count($rows);    
-    }*/
 
     /**
      * method for updaing a user
