@@ -76,14 +76,14 @@ class accountAdmin extends accountCreate {
      * method for getting all users
      * @return  array   $rows containing all users
      */
-    public function getUsers($from = 0){
-        $limit = 10;
-       
+    public function getUsers($from = 0, $limit = 10){
         $q = new dbQ();
         $q->setSelect('account')->limit($from, $limit);
         $rows = $q->fetch();
         return $rows;
     }
+    
+    
     
     public function getNumUsers () {
         $db = new dbQ();

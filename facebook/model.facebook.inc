@@ -47,13 +47,16 @@ class accountFacebook extends account {
      * @return int|false $res last insert id or false if failure
      */
     public function createDbUser ($user){
-        $db = new db();     
+        $db = new db();
+        $md5_key = md5(uniqid(rand(), true));
+        
         $values = array(
             'url'=> $user['link'], 
             'username' => strings::toUTF8($user['name']),
             'email' => $user['email'],
             'type' => 'facebook',
-            'verified' => 1
+            'verified' => 1,
+            'md5_key' => $md5_key
             );
         
         // If not isset options verified - we allow non verified account to log in

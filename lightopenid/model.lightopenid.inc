@@ -89,6 +89,7 @@ class accountLightopenid extends account {
             if ($new){
                 // use new id as user id for session
                 //$status =lang::translate('account_openid_account_created');
+                
                 $_SESSION['id'] = $new;
                 $_SESSION['account_type'] = 'openid';
                 
@@ -281,12 +282,13 @@ class accountLightopenid extends account {
             }
         } 
        
-        
+        $md5_key = md5(uniqid(rand(), true));
         $values = array(
             'url'=> $openid->identity, 
             'email' => $ary['contact/email'],
             'type' => 'openid',
-            'verified' => 1);
+            'verified' => 1,
+            'md5_key' => $md5_key);
         
         // If not isset options verified - we allow non verified account to log in
         if (isset($this->options['verified']) && !$this->options['verified']) {
