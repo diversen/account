@@ -89,7 +89,7 @@ class accountLogin extends account {
      *                  the login creds to be verified. 
      * @return  array|0 row with user creds on success, 0 if not
      */
-    public function auth ($email, $password, $params = array ()){
+    public function auth ($email, $password = null, $params = array ()){
         $db = new db();
         
         if (!isset($params['md5_password'])) {
