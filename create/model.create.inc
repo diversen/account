@@ -56,10 +56,12 @@ class accountCreate {
         }
     }
     
+    
+    
     /**
      * validate passwords 
      */
-    function validatePasswords () {
+    public function validatePasswords () {
 
         if (function_exists('common_account_validate_passwords')) {
             // TODO: Allow common function to check passwords
@@ -77,18 +79,31 @@ class accountCreate {
     }
     
     /**
-     * validate emails from submission $_POST['email'] against $_POST['email2'] 
+     * set this to true if you want to ignore if a mail exist when signing up
+     * sets $this->options['ignore_email_exists']
+     * @param  boolean $bool
      */
-    function validateEmails () {
+    public function ignoreEmailExists ($bool) {
+        if ($bool) {
+            $this->options['ignore_email_exists'] = true;
+        }
+    }
+    
+    /**
+     * validate emails from submission $_POST['email'] against $_POST['email2']
+     */
+    public function validateEmails () {
 
                 
         if (!cosValidate::validateEmailAndDomain($_POST['email'])) {
             $this->errors['email'] = lang::translate('account_error_invalid_email');
         }
         
-        if ($this->emailExist($_POST['email'])){
-            $this->errors['email'] = lang::translate('account_error_email_exists');
-            return false;
+        if (!isset($this->options['ignore_email_exists'])) {
+            if ($this->emailExist($_POST['email'])){
+                $this->errors['email'] = lang::translate('account_error_email_exists');
+                return false;
+            }
         }
         
         
