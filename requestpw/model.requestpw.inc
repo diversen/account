@@ -63,8 +63,6 @@ class accountRequestpw {
       */
     public function requestPassword ($email = null, $options = array ()){   
         $md5_key = md5(uniqid(rand(), true));
-
-        if (!$email) $email = $_POST['email'];
         
         $db = new db();
         $row = $db->selectOne('account', 'email', $email);
