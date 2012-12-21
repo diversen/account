@@ -1,5 +1,6 @@
 <?php
 
+http::prg();
 moduleLoader::includeModule('account/create');
 if (!session::checkAccessControl('account_allow_create')){
     return;

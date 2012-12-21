@@ -1,5 +1,5 @@
 <?php
 
 function account_create_verify ($message = null) {
-    view_confirm($message);
+    http::locationHeader('/account/login/index', $message);
 }
