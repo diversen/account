@@ -12,11 +12,12 @@ if (!empty($_POST['submit'])){
     $l->validate();
     if (empty($l->errors)){
         $l->createUser();
-        view_confirm(lang::translate('account_create_account_has_been_created'));
+        http::locationHeader(
+                '/account/login/index',
+                lang::translate('account_create_account_has_been_created'));
     } else {
         view_form_errors($l->errors);
-        echo view::get('account', 'create/create');
     }
-} else {
-    echo view::get('account', 'create/create');
 }
+
+echo view::get('account', 'create/create');
