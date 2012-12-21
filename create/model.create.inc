@@ -265,7 +265,8 @@ class accountCreate {
         
         $res = $this->verifyUpdateDb ($row['id']);
         if ($res) {
-
+            
+            /*
             $args = array (
                 'action' => 'account_verify',
                 'user_id' => $row['id'],
@@ -273,7 +274,7 @@ class accountCreate {
 
             event::getTriggerEvent(
                 config::getModuleIni('account_events'), 
-            $args);
+            $args); */
             
             $redirect = config::getModuleIni('account_verify_login'); 
             if ($redirect) {
