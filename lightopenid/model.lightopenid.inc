@@ -274,10 +274,9 @@ class accountLightopenid extends account {
         $ary = $openid->getAttributes();
         $db = new db();
         
-        
         if (config::getModuleIni('account_needs_email')) {
             if (!isset($ary['contact/email']) || empty($ary['contact/email'])) {
-                $this->errors[] = 'No valid email';
+                $this->errors[] = 'account: openid: no valid email';
                 return false;
             }
         } 
