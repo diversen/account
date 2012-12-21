@@ -21,7 +21,9 @@ $user = $l->getUser();
 
 if (!empty($_POST['submit'])){
     $l->deleteUser();
-    view_confirm(lang::translate('account_has_been_deleted'));
+    http::locationHeader(
+            '/account/admin/list', 
+            lang::translate('account_has_been_deleted'));
 } else {
     viewAccountAdmin::delete($user);
 }
