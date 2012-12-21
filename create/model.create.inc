@@ -5,6 +5,7 @@
  * @package account
  */
 
+view::includeOverrideFunctions('account', 'create/views.phtml');
 include_once "coslib/captcha.php";
 /**
  * class for creating an account using an email. 
@@ -235,7 +236,6 @@ class accountCreate {
         $md5_key = $uri->fragment(4);
         
         $db = new db();
-        //$db->begin();
         $search = array ('id' => $account_id,);
         $row = $db->selectOne('account', null, $search);
 

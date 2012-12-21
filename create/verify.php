@@ -7,7 +7,9 @@ $res = $a->verifyAccount();
 if (!$res){
     view_form_errors($a->errors);
 } else if ($res === 2) {
-    view_confirm(lang::translate('account_is_already_verified'));
+    account_create_verify(lang::translate('account_is_already_verified'));
+    //view_confirm();
 } else {
-    view_confirm(lang::translate('account_has_been_verified'));
+    account_create_verify(lang::translate('account_has_been_verified'));
+    //view_confirm();
 }
