@@ -9,4 +9,3 @@ setcookie($fb_key, '', 0, '', '/', '');
 session_destroy();
 
 http::locationHeader ("/account/facebook/index");
-die;

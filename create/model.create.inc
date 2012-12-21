@@ -131,7 +131,19 @@ class accountCreate {
         
         $db = new db();
         $db->insert('account', $values);
-        $last_insert_id = db::$dbh->lastInsertId();        
+        $last_insert_id = db::$dbh->lastInsertId();
+        
+        // create events
+        $args = array (
+            'action' => 'account_create',
+             'user_id' => $last_insert_id,
+        );
+                
+        event::getTriggerEvent(
+            config::getModuleIni('account_events'), 
+        $args);
+        
+        
         return $last_insert_id;
     }
 
@@ -255,7 +267,7 @@ class accountCreate {
         if ($res) {
 
             $args = array (
-                'action' => 'account_create',
+                'action' => 'account_verify',
                 'user_id' => $row['id'],
             );
 
