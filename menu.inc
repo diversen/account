@@ -38,6 +38,13 @@ if (in_array('facebook', $account_logins)){
     );
 }
 
+if (in_array('github', $account_logins)){
+    $_MODULE_MENU[] = array(
+        'title' => lang::translate('account_login_github'),
+        'url' => '/account/github/index'
+    );
+}
+
 if (!config::getModuleIni('account_disable_admin_interface')) {
     $_MODULE_MENU[] = array(
     'title' => lang::translate('account_admin'),

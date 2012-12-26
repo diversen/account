@@ -65,7 +65,10 @@ class accountRequestpw {
         $md5_key = md5(uniqid(rand(), true));
         
         $db = new db();
-        $row = $db->selectOne('account', 'email', $email);
+        
+        $search = array ('email' => $email, 'type' => 'email');
+        
+        $row = $db->selectOne('account', 'email', $search);
         
         $values = array('md5_key' => $md5_key);
         $db->update('account', $values, $row['id']);
@@ -223,7 +226,7 @@ class accountRequestpw {
      * method for displaying the request password form
      * in a single call. 
      */
-    public static function disaplyRequestPassword () {
+    public static function displayRequestPassword () {
         template::setTitle(lang::translate('account_request_password_title'));
 
         http::prg();

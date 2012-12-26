@@ -4,5 +4,5 @@
  * @package    account
  */
 
-accountRequestpw::disaplyRequestPassword();
+accountRequestpw::displayRequestPassword();
 return;
