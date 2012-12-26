@@ -6,7 +6,8 @@ $post = array (
     'client_id' => config::getModuleIni('account_github_id'),
     'client_secret' => config::getModuleIni('account_github_secret'),
 );
-//echo $_SESSION['state']; die;
+
+
 $api = new githubApi();
 $res = $api->setAccessToken($post);
 
