@@ -157,3 +157,6 @@ $_COS_LANG_MODULE['account: admin: search legend'] = 'Search user on ID';
 $_COS_LANG_MODULE['account: admin: search user id'] = 'User ID';
 $_COS_LANG_MODULE['account: admin: found results'] = 'Result found: ';
 $_COS_LANG_MODULE['account: admin: found no results'] = 'No results';
+
+
+$_COS_LANG_MODULE['account: github: Login'] = 'Github login';

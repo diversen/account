@@ -36,7 +36,7 @@ class accountGithub extends account {
         // login
         $api = new githubApi();
         $url = $api->getAccessUrl($access_config);
-        echo html::createLink($url, 'Login with Github OAuth');
+        echo html::createLink($url, lang::translate('account: github: Login'));
     }
     
 
