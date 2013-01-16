@@ -112,6 +112,7 @@ class accountLogin extends account {
     
     public function getUserFromEmail ($email) {
         $db = new db();
-        return $db->selectOne('account', 'email', $email);
+        $search = array ('email' => $email, 'type' => 'email');
+        return $db->selectOne('account', null, $search);
     }
 }
