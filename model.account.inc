@@ -159,4 +159,20 @@ class account {
         return $db->selectAll('account', null, $search);
         
     }
+    
+    /**
+     * auth from md5 key
+     * @param string $md5
+     * @return boolean true on success and false on failure 
+     */
+    public function authFromMd5 ($md5) {
+        $db = new db();
+        $search = array ('md5_key' => $md5);
+        $row = $db->selectOne('account', null, $search);
+        if (!empty($row)) {
+             $this->setSesisonAndCookie($row);
+             return true;
+        }
+        return false;
+    }
 }
