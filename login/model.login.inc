@@ -98,7 +98,7 @@ class accountLogin extends account {
         $search = array (
             'email' => $email, 
             'password' => $password, 
-            /*'type' => 'email', */ 
+            'type' => 'email',  
             'verified' => 1);
 
         // If not isset verified - we allow non verified account to log in
