@@ -281,7 +281,7 @@ class accountLightopenid extends account {
             }
         } 
        
-        $md5_key = md5(uniqid(rand(), true));
+        $md5_key = random::md5();
         $values = array(
             'url'=> $openid->identity, 
             'email' => $ary['contact/email'],

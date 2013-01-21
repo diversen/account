@@ -157,7 +157,7 @@ class accountCreate {
         // enter decoded values
         $_POST = html::specialDecode($_POST);
         db::$dbh->beginTransaction();        
-        $md5_key = md5(uniqid(rand(), true));
+        $md5_key = random::md5();
         $last_insert_id = $this->createDbUser(
                 $_POST['email'], 
                 $_POST['password'], 
@@ -295,7 +295,7 @@ class accountCreate {
      */
     public function verifyUpdateDb ($id) {
         $db = new db();
-        $md5_key = md5(uniqid(rand(), true));
+        $md5_key = random::md5();
         $values = array('verified' => 1, 'md5_key' => $md5_key);
         $res = $db->update('account', $values, $id);
         

@@ -62,7 +62,7 @@ class accountRequestpw {
      * @return int  $res 1 on succes and 0 on failure
       */
     public function requestPassword ($email = null, $options = array ()){   
-        $md5_key = md5(uniqid(rand(), true));
+        $md5_key = random::md5();
         
         $db = new db();
         
@@ -122,7 +122,7 @@ class accountRequestpw {
         
         $db = new db();
         $row = $db->selectOne('account', null, $search);
-        $new_md5 = md5(uniqid(rand(), true));
+        $new_md5 = random::md5();
         
         $values = array('verified' => 1, 'password' => md5($password), 'md5_key' => $new_md5);
         $res = $db->update('account', $values, $row['id']);
@@ -135,7 +135,7 @@ class accountRequestpw {
      */
     public function setNewMd5 ($user_id) { 
         $db = new db();
-        $md5_key = md5(uniqid(rand(), true));
+        $md5_key = random::md5();
 
         $values = array('md5_key' => $md5_key);
         return $db->update('account', $values, $user_id);

@@ -27,7 +27,7 @@ class accountGithub extends account {
         $access_config = array (
             'redirect_uri' => $callback,
             'client_id' => config::getModuleIni('account_github_id'),
-            'state' =>  md5(uniqid()),
+            'state' =>  random::md5(),
         );
         
         $scope = config::getModuleIni('account_github_scope');
