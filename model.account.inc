@@ -80,6 +80,25 @@ class account {
     }
     
     /**
+     * set a redirect on login
+     * @param string $redirect e.g. '/mypage/test'
+     */
+    public function setRedirect ($redirect = null) {
+        if (!$redirect) return;
+        $this->options['redirect'] = $redirect;
+        
+    }
+    
+     
+    /**
+     * allow non verified accounts - e.g. direct login with email without
+     * a verified account
+     */
+    public function setAcceptNonVerifiedAccount () {
+        $this->options['verified'] = false;
+    }
+    
+    /**
      * sets session and system cookie on login
      * we know user is authenticated and all we need is to set
      * the SESSION and system cookies.
@@ -154,10 +173,7 @@ class account {
          }
     }
     
-        
-    public function setAcceptNonVerifiedAccount () {
-        $this->options['verified'] = false;
-    }
+
     
     /**
      * get account from id
