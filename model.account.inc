@@ -69,6 +69,17 @@ class account {
     }
     
     /**
+     * set value of $this->options['keep_session']
+     * needs to be set before login.
+     * @param boolean $bool true if we want to set persistent cookie. 
+     */
+    public function setPersistentCookie($bool = true) {
+        if ($bool) {
+            $this->options['keep_session'] = true;
+        }
+    }
+    
+    /**
      * sets session and system cookie on login
      * we know user is authenticated and all we need is to set
      * the SESSION and system cookies.
