@@ -29,7 +29,7 @@ class accountChangeemail {
         $mysql_date = dateGetDateNow();
         
         // only allow 2 changes per day            
-        $bean = RB::getBean('account_email_changes', 'user_id', $user_id);
+        $bean = cosRB::getBean('account_email_changes', 'user_id', $user_id);
         
         $email_max_changes = 1000;
         if ($bean->id) {
@@ -41,7 +41,7 @@ class accountChangeemail {
                 R::trash($bean);  
             }            
         }
-        $bean = RB::getBean('account_email_changes', 'user_id', $user_id);
+        $bean = cosRB::getBean('account_email_changes', 'user_id', $user_id);
         $bean->user_id = $user_id;
         $bean->tries++;
         $bean->date_try = $mysql_date;
@@ -95,7 +95,7 @@ class accountChangeemail {
         $message['html'] = view::get('account', "lang/$lang/signup_message_html", $vars);
         
         $from = config::$vars['coscms_main']['site_email'];
-        return mail_multipart_utf8($email, $subject, $message, $from);
+        return cosMail::multipart($email, $subject, $message, $from);
     }
     
     /**

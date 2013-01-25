@@ -203,7 +203,7 @@ class accountCreate {
         $message['html'] = $html_message;
         
         $from = config::$vars['coscms_main']['site_email'];
-        return mail_multipart_utf8($email, $subject, $message, $from);
+        return cosMail::multipart($email, $subject, $message, $from);
     }
     
 

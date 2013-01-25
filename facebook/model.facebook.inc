@@ -163,7 +163,7 @@ function account_facebook_login () {
                 )
             );
         } catch (FacebookApiException $e) {
-            cos_debug($e);
+            log::debug($e);
         }
     } else {
         $user_profile = null;
@@ -230,7 +230,7 @@ function account_facebook_service ($options = array ()) {
             // Proceed knowing you have a logged in user who's authenticated.
             $user_profile = $facebook->api('/me');
         } catch(FacebookApiException $e) {
-            cos_debug($e);
+            log::debug($e);
         }
     } 
 
@@ -281,7 +281,7 @@ function facebook_get_user_profile () {
             // Proceed knowing you have a logged in user who's authenticated.
             $user_profile = $facebook->api('/me');
         } catch (FacebookApiException $e) {
-            cos_debug($e);
+            log::debug($e);
         }
     } else {
         $user_profile = null;
