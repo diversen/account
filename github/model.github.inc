@@ -1,7 +1,7 @@
 <?php
 
 include_module('account');
-include_once "coslib/github_api.php";
+include_once "coslib/githubApi.php";
 include_once "coslib/mycurl.php";
 
 class accountGithub extends account {
