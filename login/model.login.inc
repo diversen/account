@@ -1,6 +1,6 @@
 <?php
 
-include_module('account');
+moduleloader::includeModule('account');
 
 class accountLogin extends account {
 

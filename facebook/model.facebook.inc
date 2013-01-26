@@ -12,7 +12,7 @@ class accountFacebook extends account {
      * @return string $str the logout url
      */
     public static function getLogoutNext () {
-        $server = get_main_ini('server_name');
+        $server = config::getMainIni('server_name');
         return "http://$server/account/facebook/logout";
     }
 

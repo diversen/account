@@ -4,7 +4,6 @@
  * @ignore
  */
 
-
 $account_logins = config::getModuleIni('account_logins');
 $account_show_admin_link = config::getModuleIni('account_show_admin_link');
 

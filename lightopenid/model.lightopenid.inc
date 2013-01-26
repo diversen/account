@@ -38,7 +38,7 @@ class accountLightopenid extends account {
         }
 
         try {
-            $domain = get_main_ini('server_name');
+            $domain = config::getMainIni('server_name');
             $openid = new LightOpenID($domain);
             
             
@@ -132,7 +132,7 @@ class accountLightopenid extends account {
     public function connect () {
 
         try {
-            $domain = get_main_ini('server_name');
+            $domain = config::getMainIni('server_name');
             $openid = new LightOpenID($domain);
             $user_id = session::getUserId();
             if (empty($user_id)) {

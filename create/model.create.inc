@@ -7,6 +7,7 @@
 
 view::includeOverrideFunctions('account', 'create/views.phtml');
 include_once "coslib/captcha.php";
+
 /**
  * class for creating an account using an email. 
  * @package account
@@ -264,18 +265,7 @@ class accountCreate {
         }     
         
         $res = $this->verifyUpdateDb ($row['id']);
-        if ($res) {
-            
-            /*
-            $args = array (
-                'action' => 'account_verify',
-                'user_id' => $row['id'],
-            );
-
-            event::getTriggerEvent(
-                config::getModuleIni('account_events'), 
-            $args); */
-            
+        if ($res) {            
             $redirect = config::getModuleIni('account_verify_login'); 
             if ($redirect) {
                 $row = user::getAccount($row['id']);
@@ -283,7 +273,6 @@ class accountCreate {
                 $a->setSesisonAndCookie($row);
                 http::locationHeader($redirect);
             }
-        
         }
         return $res;
     }
