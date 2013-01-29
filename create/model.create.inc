@@ -6,25 +6,25 @@
  */
 
 view::includeOverrideFunctions('account', 'create/views.phtml');
-include_once "coslib/captcha.php";
+moduleloader::includeModule('account');
 
 /**
  * class for creating an account using an email. 
  * @package account
  */
-class accountCreate {
+class accountCreate extends account {
 
     /**
      *
      * @var array $errors for holding errors
      */
-    public $errors = array();
+    //public $errors = array();
     
     /**
      *
      * @var array $errors for holding errors
      */
-    public $options = array();
+    //public $options = array();
 
     /**
      * constructor
@@ -217,25 +217,6 @@ class accountCreate {
         $db = new db();
         $res = $db->insert('account', $values);
         return $res;
-    }
-
-    /**
-     * method for checking if a email exists in `account` table
-     *
-     * @param   string  $email the email to be checked for existens
-     * @return  array|0  $row user row or 0
-     */
-    public function emailExist($email){
-        $db = new db();
-        
-        $row = $db->selectOne(
-                'account', 
-                null, 
-                array ('email' => $email, /*'type' => 'email' */)
-            );
-
-        if (empty($row)) return false;
-        return $row;
     }
 
     /**

@@ -99,6 +99,14 @@ class account {
     }
     
     /**
+     * flag to indicate if we only allow one account per email
+     * @param boolean $bool true if we only allow one account per email else false
+     */
+    public function setAcceptUniqueOnlyEmail ($bool = true) {
+        $this->options['unique_email'] = true;
+    }
+    
+    /**
      * sets session and system cookie on login
      * we know user is authenticated and all we need is to set
      * the SESSION and system cookies.
@@ -201,5 +209,35 @@ class account {
              return true;
         }
         return false;
+    }
+    
+    
+    /**
+     * gets a user row from emaill where account type is email
+     * @param type $email
+     * @return array $row empty if no user else users account row
+     */
+    public function getUserFromEmail ($email, $type= 'email') {
+        $db = new db();
+        
+        $search = array ();
+        $search['email'] = $email;
+        if ($type) {
+            $search['type'] = $type;
+        }
+
+        return $db->selectOne('account', null, $search);
+    }
+    
+    /**
+     * method for checking if a email exists in `account` table
+     *
+     * @param   string  $email the email to be checked for existens
+     * @return  array|false  $row user row or false
+     */
+    public function emailExist($email){
+        $row = $this->getUserFromEmail($email, null);
+        if (empty($row)) return false;
+        return $row;
     }
 }

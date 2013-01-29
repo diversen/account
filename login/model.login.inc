@@ -90,17 +90,18 @@ class accountLogin extends account {
      * @return  array|0 row with user creds on success, 0 if not
      */
     public function auth ($email, $password = null, $params = array ()){
-        $db = new db();
+        $db = new db(); 
         
         if (!isset($params['md5_password'])) {
             $password = md5(html::specialDecode($password));
         }
+        
         $search = array (
             'email' => $email, 
             'password' => $password, 
             'type' => 'email',  
             'verified' => 1);
-
+       
         // If not isset verified - we allow non verified account to log in
         if (isset($this->options['verified']) && !$this->options['verified']) {
             unset($search['verified']);
@@ -108,11 +109,5 @@ class accountLogin extends account {
         
         $row = $db->selectOne('account', null, $search);
         return $row;
-    }
-    
-    public function getUserFromEmail ($email) {
-        $db = new db();
-        $search = array ('email' => $email, 'type' => 'email');
-        return $db->selectOne('account', null, $search);
     }
 }

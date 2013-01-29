@@ -47,8 +47,22 @@ class accountFacebook extends account {
      * @return int|false $res last insert id or false if failure
      */
     public function createDbUser ($user){
+        
+        
+        
         $db = new db();
+        
+       if (isset($this->options['unique_email'])) {
+            if ($this->emailExist($user['email'])) {
+                $this->errors[] = lang::translate('account: facebook: email already exists for user');
+                return false;
+            }
+        }
+        
+        
         $md5_key = random::md5();
+        
+        
         
         $values = array(
             'url'=> $user['link'], 
@@ -82,6 +96,9 @@ class accountFacebook extends account {
         
         // we have a facebook session but no user in database
         $id = $this->createDbUser($user_profile);
+        if (!$id) {
+            return false;
+        }
         $_SESSION['id'] = $id;
         $_SESSION['account_type'] = 'facebook';
 

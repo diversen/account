@@ -98,9 +98,4 @@ class accountGithub extends account {
             } 
         }
     }
-    
-    public function getUserFromEmail ($email) {
-        $db = new db();
-        return $db->selectOne('account', 'email', $email);
-    }
 }

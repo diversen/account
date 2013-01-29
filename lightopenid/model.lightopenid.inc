@@ -15,6 +15,8 @@ class accountLightopenid extends account {
 
     function __construct($options = array ()) {
         $this->options = $options;
+        
+        // default login redirect
         if (!isset($this->options['redirect'])) {
             $this->options['redirect'] = '/account/lightopenid/index';
         }
@@ -62,7 +64,10 @@ class accountLightopenid extends account {
             } else {               
                 $this->status = lang::translate('account_openid_valid_login') . ' ' . htmlspecialchars($openid->identity). "<br />\n";
                 if ($openid->validate()) {
-                    $this->dispenseOpenid($openid);
+                    $res = $this->dispenseOpenid($openid);
+                    if (!$res) {
+                        return false;
+                    }
                 } else {
                     $this->errors[] = lang::translate('account_openid_invalid_login');
                     return false;
@@ -123,6 +128,15 @@ class accountLightopenid extends account {
             
             account::redirectOnLogin($this->options['redirect']);                       
         }
+    }
+    
+    /**
+     * under normal mode we accept any identifier. 
+     * Use this if you only want to allow a single identifier
+     * @param string $identifier, e.g. 'https://www.google.com/accounts/o8/id'
+     */
+    public function setOpenidIdentifier ($identifier) {
+        $this->options['openid_identifier'] = $identifier;
     }
     
        /**
@@ -276,11 +290,19 @@ class accountLightopenid extends account {
         
         if (config::getModuleIni('account_needs_email')) {
             if (!isset($ary['contact/email']) || empty($ary['contact/email'])) {
-                $this->errors[] = 'account: openid: no valid email';
+                $this->errors[] = lang::translate('account: openid: no valid email');
                 return false;
             }
         } 
        
+        
+        if (isset($this->options['unique_email'])) {
+            if ($this->emailExist($ary['contact/email'])) {
+                $this->errors[] = lang::translate('account: openid: email already exists');
+                return false;
+            }
+        }
+        
         $md5_key = random::md5();
         $values = array(
             'url'=> $openid->identity, 
