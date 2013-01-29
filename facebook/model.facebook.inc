@@ -253,6 +253,7 @@ function account_facebook_service ($options = array ()) {
     // login or logout url will be needed depending on current user state.
     if ($user_profile) {
         $account = new accountFacebook();
+        $account->setAcceptUniqueOnlyEmail();
         $row = $account->auth($user_profile['link']);
 
         if (empty($row)){   
