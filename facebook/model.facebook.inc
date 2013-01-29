@@ -47,11 +47,8 @@ class accountFacebook extends account {
      * @return int|false $res last insert id or false if failure
      */
     public function createDbUser ($user){
-        
-        
-        
-        $db = new db();
-        
+         
+       $db = new db();
        if (isset($this->options['unique_email'])) {
             if ($this->emailExist($user['email'])) {
                 $this->errors[] = lang::translate('account: facebook: email already exists for user');
@@ -161,7 +158,8 @@ function account_facebook_login () {
         return;
     }
 
-    $account = new accountFacebook();    
+    $account = new accountFacebook();
+    $account->setAcceptUniqueOnlyEmail();
     if (session::isUser()) {   
         $account->displayLogout();
         return;
@@ -236,6 +234,7 @@ function account_facebook_service ($options = array ()) {
     }
 
     $facebook = facebook_get_object();
+    
     $user = $facebook->getUser();
 
     
