@@ -20,6 +20,6 @@ if ($account_admin_only){
     $_INSTALL['MAIN_MENU_ITEM']['admin_only'] = 1;
 }
 
-$_INSTALL['VERSION'] = 1.71;
+$_INSTALL['VERSION'] = 1.711;
 $_INSTALL['PUBLIC_CLONE_URL'] = 'git://github.com/diversen/account.git';
 $_INSTALL['PRIVATE_CLONE_URL'] = 'git@github.com:diversen/account.git';
