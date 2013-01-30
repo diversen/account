@@ -5,12 +5,12 @@
  * 
  */
 
-include_once "coslib/captcha.php";
+include_module('account');
 
 /**
  * class requestpw 
  */
-class accountRequestpw {
+class accountRequestpw extends account {
 
     /**
      * errors

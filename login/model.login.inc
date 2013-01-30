@@ -29,13 +29,10 @@ class accountLogin extends account {
         // logout
         $this->checkLogout();
         
-        
-        
         // login
-        if (isset($_POST['email']) && isset($_POST['password']) /* && !empty(trim($_POST['password']))*/){
+        if (isset($_POST['email']) && isset($_POST['password']) ){
             $account = $this->auth ($_POST['email'], $_POST['password']);
-            if (!empty($account)){
-                
+            if (!empty($account)){            
                 $this->setSesisonAndCookie($account);               
                 if ($this->options['redirect'] === false) {
                     return;
@@ -83,30 +80,29 @@ class accountLogin extends account {
      * method for authorizing a user
      *
      * @param   string  $email
-     * @param   string  $password
-     * @param   array   $params 
-     *                  array ('verified' => false', 'md5_password' => true) // if you don't require
-     *                  the login creds to be verified. 
+     * @param   string  $password 
      * @return  array|0 row with user creds on success, 0 if not
      */
-    public function auth ($email, $password = null, $params = array ()){
+    public function auth ($email, $password = null){
+        $row = $this->authGetAccount($email, $password);
+        return $this->checkAccountFlags($row);
+    }
+    
+    /**
+     * get an account from password and email
+     * @param string $email
+     * @param string $password
+     * @return array $row
+     */
+    public function authGetAccount ($email, $password) {
         $db = new db(); 
-        
-        if (!isset($params['md5_password'])) {
-            $password = md5(html::specialDecode($password));
-        }
         
         $search = array (
             'email' => $email, 
-            'password' => $password, 
-            'type' => 'email',  
-            'verified' => 1);
-       
-        // If not isset verified - we allow non verified account to log in
-        if (isset($this->options['verified']) && !$this->options['verified']) {
-            unset($search['verified']);
-        }
-        
+            'password' => md5($password), 
+            'type' => 'email',
+        );
+               
         $row = $db->selectOne('account', null, $search);
         return $row;
     }

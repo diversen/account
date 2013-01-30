@@ -15,18 +15,6 @@ moduleloader::includeModule('account');
 class accountCreate extends account {
 
     /**
-     *
-     * @var array $errors for holding errors
-     */
-    //public $errors = array();
-    
-    /**
-     *
-     * @var array $errors for holding errors
-     */
-    //public $options = array();
-
-    /**
      * constructor
      * checks input data
      */

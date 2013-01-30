@@ -133,16 +133,7 @@ class account {
             $args
         );        
     }
-    
-    /**
-     * method setSessionAndCookie fires account_evetns
-     * on method setSessionAndCookie
-     * action 'account_login'
-     * with arguments: account_login, user_id
-     * 
-     */
-    public static function __events () {}
-    
+        
    /**
     * method for creating a logout link. Fetch info from
     * a profile to show how to display logut
@@ -203,7 +194,9 @@ class account {
     public function authFromMd5 ($md5) {
         $db = new db();
         $search = array ('md5_key' => $md5);
+        
         $row = $db->selectOne('account', null, $search);
+        $row = $this->checkAccountFlags($row);
         if (!empty($row)) {
              $this->setSesisonAndCookie($row);
              return true;
@@ -226,7 +219,8 @@ class account {
             $search['type'] = $type;
         }
 
-        return $db->selectOne('account', null, $search);
+        $row = $db->selectOne('account', null, $search);
+        return $row;
     }
     
     /**
@@ -240,4 +234,57 @@ class account {
         if (empty($row)) return false;
         return $row;
     }
+    
+        /**
+     * method for checking if auth row is verified. 
+     * @param array $row
+     * @return array $row original row or empty array if we don't allow non 
+     *                    verified accounts
+     */
+    public function checkVerified ($row) {
+        // If not verified == false. Thren we allow non verified account to log in
+        if (isset($this->options['verified']) && !$this->options['verified']) {
+            return $row;
+        } else {
+            if ($row['verified'] == 1) {
+                return $row;
+            } else {
+                return array ();
+            }
+        }
+    }
+    
+    /**
+     * 
+     * @param row $row
+     * @return row $row
+     */
+    public function checkLocked ($row) {
+        if ($row['locked'] == 1) {
+            return array ();
+        }
+        return $row;
+    }
+    
+    /**
+     * compines check of locked account and check of verified account
+     * @param array $row
+     * @return array $row account row or empty row if user is not valid.
+     */
+    public function checkAccountFlags ($row) {
+        if (empty($row)) return $row;
+        $row = $this->checkVerified($row);
+        if (empty($row)) return $row;
+        $row = $this->checkLocked($row);
+        return $row;
+    }
+    
+    /**
+     * method setSessionAndCookie fires account_evetns
+     * on method setSessionAndCookie
+     * action 'account_login'
+     * with arguments: account_login, user_id
+     * 
+     */
+    public static function __events () {}
 }
