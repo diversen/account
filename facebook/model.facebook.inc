@@ -258,6 +258,7 @@ function account_facebook_service ($options = array ()) {
                 $res = $account->setSesisonAndCookie($row);
             }
         } else {
+            print_r($account->errors);
             session::setPersistentVar('facebook_error', $account->errors);
             $res = 0;
         }
