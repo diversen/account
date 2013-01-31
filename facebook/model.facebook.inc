@@ -261,7 +261,7 @@ function account_facebook_service ($options = array ()) {
         
         if (!$res) {
 
-            print_r($account->errors);
+            //print_r($account->errors);
             session::setPersistentVar('facebook_error', $account->errors);
             $res = 0;
 
