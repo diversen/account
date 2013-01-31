@@ -257,10 +257,14 @@ function account_facebook_service ($options = array ()) {
             } else {
                 $res = $account->setSesisonAndCookie($row);
             }
-        } else {
+        } 
+        
+        if (!$res) {
+
             print_r($account->errors);
             session::setPersistentVar('facebook_error', $account->errors);
             $res = 0;
+
         }
        
     } else {
