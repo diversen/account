@@ -94,8 +94,13 @@ class account {
      * allow non verified accounts - e.g. direct login with email without
      * a verified account
      */
-    public function setAcceptNonVerifiedAccount () {
-        $this->options['verified'] = false;
+    public function setAcceptNonVerifiedAccount ($bool = false) {
+        if ($bool) {
+            $this->options['verified'] = $bool;
+        } else {
+            $this->options['verified'] = false;
+        }
+        
     }
     
     /**

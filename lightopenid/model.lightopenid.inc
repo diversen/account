@@ -269,12 +269,17 @@ class accountLightopenid extends account {
         $row = $db->selectOne('account_sub', null, $search);
         if (!empty($row)) {
             $row = $db->selectOne('account', null, array ('id' => $row['parent']));
+            
+            $row = $this->checkAccountFlags($row);
+            
+
             return $row;
         } 
         
         // check main account
         $search = array ('url' => $openid, 'type' => 'openid');
         $row = $db->selectOne('account', null, $search);
+        $row = $this->checkAccountFlags($row);
         return $row;
     }
 
