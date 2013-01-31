@@ -3,6 +3,8 @@
 include_once "coslib/date.php";
 class accountChangeemail {
     
+    public $errors = array ();
+    
     /**
      * changes email of an account
      * @param type $user_id the users id
@@ -16,6 +18,13 @@ class accountChangeemail {
         
         if (trim($row['email']) == trim($email)) {
             return true;
+        }
+        
+        $account = new account();
+        $user = $account->getUserFromEmail($email);
+        if (!empty($user) && ($user['id'] != $user_id) ) {
+            $this->errors['email_exists'] = lang::translate('account: error: email exists');
+            return false;
         }
         
         

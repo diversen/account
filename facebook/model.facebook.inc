@@ -32,13 +32,13 @@ class accountFacebook extends account {
         $row = $db->selectOne('account_sub', null, $search);
         if (!empty($row)) { 
             $row = $db->selectOne('account', null, array ('id' => $row['parent']));
-            $row = $this->checkAccountFlags($row);
+            //$row = $this->checkAccountFlags($row);
             return $row;
         } 
         
         // check main account
         $row = $db->selectOne('account', null, $search);      
-        $row = $this->checkAccountFlags($row);        
+        //$row = $this->checkAccountFlags($row);        
         return $row;
         
     }
@@ -53,7 +53,7 @@ class accountFacebook extends account {
        $db = new db();
        if (isset($this->options['unique_email'])) {
             if ($this->emailExist($user['email'])) {
-                $this->errors[] = lang::translate('account: facebook: email already exists for user');
+                $this->errors['facebook_email_exists'] = lang::translate('account: facebook: email already exists for user');
                 return false;
             }
         }
