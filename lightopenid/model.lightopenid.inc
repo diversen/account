@@ -290,7 +290,7 @@ class accountLightopenid extends account {
         
         if (config::getModuleIni('account_needs_email')) {
             if (!isset($ary['contact/email']) || empty($ary['contact/email'])) {
-                $this->errors[] = lang::translate('account: openid: no valid email');
+                $this->errors['openid_email'] = lang::translate('account: openid: no valid email');
                 return false;
             }
         } 
@@ -298,7 +298,7 @@ class accountLightopenid extends account {
         
         if (isset($this->options['unique_email'])) {
             if ($this->emailExist($ary['contact/email'])) {
-                $this->errors[] = lang::translate('account: openid: email already exists');
+                $this->errors['openid_email_exists'] = lang::translate('account: openid: email already exists');
                 return false;
             }
         }

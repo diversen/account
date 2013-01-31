@@ -25,19 +25,21 @@ class accountFacebook extends account {
 
     public function auth ($facebook_url){
 
+        
         // first check for a sub account and return parent account
         $db = new db();
         $search = array ('url' => $facebook_url, 'type' => 'facebook');
         $row = $db->selectOne('account_sub', null, $search);
-        if (!empty($row)) {
+        if (!empty($row)) { 
             $row = $db->selectOne('account', null, array ('id' => $row['parent']));
+            $row = $this->checkAccountFlags($row);
             return $row;
         } 
         
         // check main account
-        $row = $db->selectOne('account', null, $search);
+        $row = $db->selectOne('account', null, $search);      
+        $row = $this->checkAccountFlags($row);        
         return $row;
-        
         
     }
 
@@ -56,11 +58,7 @@ class accountFacebook extends account {
             }
         }
         
-        
-        $md5_key = random::md5();
-        
-        
-        
+        $md5_key = random::md5();   
         $values = array(
             'url'=> $user['link'], 
             'username' => strings::toUTF8($user['name']),
@@ -233,11 +231,8 @@ function account_facebook_service ($options = array ()) {
         return 1;
     }
 
-    $facebook = facebook_get_object();
-    
+    $facebook = facebook_get_object();   
     $user = $facebook->getUser();
-
-    
     $user_profile = null;
     if ($user) {
         try {
@@ -255,15 +250,19 @@ function account_facebook_service ($options = array ()) {
         $account = new accountFacebook();
         $account->setAcceptUniqueOnlyEmail();
         $row = $account->auth($user_profile['link']);
-
-        if (empty($row)){   
-            $res = $account->createUser($user_profile);
+ 
+        if (empty($account->errors)) {
+            if  (empty($row)){   
+                $res = $account->createUser($user_profile);
+            } else {
+                $res = $account->setSesisonAndCookie($row);
+            }
         } else {
-            $res = $account->setSesisonAndCookie($row);
+            session::setPersistentVar('facebook_error', $account->errors);
+            $res = 0;
         }
        
     } else {
-        //session::killSession();
         $res = 0;
     }    
     return $res;

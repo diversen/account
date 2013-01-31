@@ -3,12 +3,6 @@
 moduleloader::includeModule('account');
 
 class accountLogin extends account {
-
-    /**
-     * options
-     * @var array $ary options 
-     */
-    //public $options = array ();
     
     /**
      * constructs accountLogin object.
