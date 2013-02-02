@@ -28,7 +28,7 @@ class accountLogin extends account {
             $account = $this->auth ($_POST['email'], $_POST['password']);
             if (!empty($account)){            
                 $this->setSesisonAndCookie($account);               
-                if ($this->options['redirect'] === false) {
+                if (@$this->options['redirect'] === false) {
                     return;
                 }
                 
