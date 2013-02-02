@@ -5,7 +5,7 @@
  * 
  */
 
-include_module('account');
+moduleloader::includeModule('account');
 
 /**
  * class requestpw 
