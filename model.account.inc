@@ -286,6 +286,13 @@ class account {
         return $row;
     }
     
+    public static function getAdminEditLink ($user_id) {
+        $profile = user::getProfileInfo($user_id);
+        $url = "/account/admin/edit/$user_id";
+        return html::createLink($url, $profile['screenname']);
+        
+    }
+    
     /**
      * method setSessionAndCookie fires account_evetns
      * on method setSessionAndCookie

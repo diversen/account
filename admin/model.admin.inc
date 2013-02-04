@@ -3,16 +3,15 @@
 /**
  * File contains accountAdmin class which extends account create. 
  */
-moduleLoader::includeModel ('account');
-moduleLoader::includeModel ('account/create');
-include_once "coslib/pearPager.php";
 
+moduleLoader::includeModule ('account');
+moduleLoader::includeModel ('account/create');
 view::includeOverrideFunctions('account', 'admin/views.phtml');
 
 /**
  * Class accountAdmin
  */
-class accountAdmin extends accountCreate {
+class accountAdmin extends account {
 
     /**
      * 
@@ -103,7 +102,8 @@ class accountAdmin extends accountCreate {
         isset($_POST['admin']) ? $values['admin'] = 1 : $values['admin'] = 0;
         isset($_POST['super']) ? $values['super'] = 1 : $values['super'] = 0;
         isset($_POST['verified']) ? $values['verified'] = 1 : $values['verified'] = 0;
-    
+        isset($_POST['locked']) ? $values['locked'] = 1 : $values['locked'] = 0;
+        
         if ( strlen($_POST['password']) != 0){
             $values['password'] = md5($_POST['password']);
         }
@@ -127,6 +127,7 @@ class accountAdmin extends accountCreate {
         isset($_POST['admin']) ? $values['admin'] = 1 : $values['admin'] = 0;
         isset($_POST['super']) ? $values['super'] = 1 : $values['super'] = 0;
         isset($_POST['verified']) ? $values['verified'] = 1 : $values['verified'] = 0;
+        isset($_POST['locked']) ? $values['locked'] = 1 : $values['locked'] = 0;
         $db = new db();
         $res = $db->update('account', $values, $this->id);
         return $res;

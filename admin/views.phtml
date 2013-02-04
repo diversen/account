@@ -32,6 +32,8 @@ class viewAccountAdmin {
         html::checkbox ('admin');
         html::label('super', lang::translate('account_is_super') );
         html::checkbox ('super');
+        html::label('locked', lang::translate('account: is locked') );
+        html::checkbox ('locked');
         html::submit('submit', lang::translate('account_update'));
         html::formEnd();
         echo html::getStr();
@@ -50,6 +52,8 @@ class viewAccountAdmin {
         html::checkbox ('admin');
         html::label('super', lang::translate('account_form_is_super') );
         html::checkbox ('super');
+        html::label('locked', lang::translate('account: is locked') );
+        html::checkbox ('locked');
         html::submit('submit', lang::translate('account_update'));
         html::formEnd();
         echo html::getStr();
