@@ -8,7 +8,7 @@ if (!session::checkAccessControl('account_allow_edit')){
 }
 
 if (config::getModuleIni('account_disable_admin_interface')) {
-    moduleLoader::setStatus(403);
+    moduleloader::setStatus(403);
     return;
 }
 // account_disable_admin_interface

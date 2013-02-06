@@ -4,8 +4,8 @@
  * File contains accountAdmin class which extends account create. 
  */
 
-moduleLoader::includeModule ('account');
-moduleLoader::includeModel ('account/create');
+moduleloader::includeModule ('account');
+moduleloader::includeModel ('account/create');
 view::includeOverrideFunctions('account', 'admin/views.phtml');
 
 /**

@@ -1,4 +1,4 @@
 <?php
 
-moduleLoader::includeModule('account/requestpw');
+moduleloader::includeModule('account/requestpw');
 accountRequestpw::displayRequestPassword();

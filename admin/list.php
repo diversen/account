@@ -4,12 +4,12 @@
  * @package    account
  */
 if (!session::checkAccessControl('account_allow_edit')){
-    moduleLoader::setStatus(403);
+    moduleloader::setStatus(403);
     return;
 }
 
 if (config::getModuleIni('account_disable_admin_interface')) {
-    moduleLoader::setStatus(403);
+    moduleloader::setStatus(403);
     return;
 }
 

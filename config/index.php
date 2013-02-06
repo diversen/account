@@ -1,4 +1,4 @@
 <?php
 
-//moduleLoader::includeModule ('config');
+//moduleloader::includeModule ('config');
 //config::displayConfig('account');

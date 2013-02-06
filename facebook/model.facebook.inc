@@ -1,7 +1,7 @@
 <?php
 
 include_once 'facebook-php-sdk/src/facebook.php';
-moduleLoader::includeModule('account/login');
+moduleloader::includeModule('account/login');
 view::includeOverrideFunctions('account', 'facebook/views.phtml');
 
 class accountFacebook extends account {
@@ -152,7 +152,7 @@ function account_facebook_login () {
     // check to see if user is allowed to use faccebook login
     $account_logins = config::getModuleIni('account_logins');
     if (!in_array('facebook', $account_logins)){
-        moduleLoader::setStatus(403);
+        moduleloader::setStatus(403);
         return;
     }
 
@@ -222,7 +222,7 @@ function account_facebook_service ($options = array ()) {
     // check to see if user is allowed to use faccebook login
     $account_logins = config::getModuleIni('account_logins');
     if (!in_array('facebook', $account_logins)){
-        moduleLoader::setStatus(403);
+        moduleloader::setStatus(403);
         return;
     }
     
