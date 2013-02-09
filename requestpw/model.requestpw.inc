@@ -245,7 +245,7 @@ class accountRequestpw extends account {
                     http::locationHeader($location);
                 }
             } else {
-                view_form_errors($request->errors);
+                html::errors($request->errors);
             }
         }
 

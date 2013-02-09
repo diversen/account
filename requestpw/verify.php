@@ -17,10 +17,10 @@ if ($res){
                 http::locationHeader($location);
             }
         } else {
-            view_form_errors($request->errors);
+            html::errors($request->errors);
         }
     }
     $request->displayNewPassword();
 } else {
-    view_form_errors($request->errors);
+    html::errors($request->errors);
 }

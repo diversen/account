@@ -10,7 +10,7 @@ if (!isset($_POST['submit_account_login'])){
 }
 
 if (isset($vars['errors'])) {
-    view_form_errors($vars['errors']);
+    html::errors($vars['errors']);
 }
 
 html::$autoLoadTrigger = 'submit_account_login';

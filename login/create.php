@@ -17,7 +17,7 @@ if (!empty($_POST['submit'])){
                 '/account/login/index',
                 lang::translate('account_create_account_has_been_created'));
     } else {
-        view_form_errors($l->errors);
+        html::errors($l->errors);
     }
 }
 

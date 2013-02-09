@@ -5,7 +5,7 @@ $a = new accountCreate();
 $a->validate();
 $res = $a->verifyAccount();
 if (!$res){
-    view_form_errors($a->errors);
+    html::errors($a->errors);
 } else if ($res === 2) {
     account_create_verify(lang::translate('account_is_already_verified'));
 } else {

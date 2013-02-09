@@ -21,7 +21,7 @@ if (!session::isUser()){
         echo $l->status;
     } 
     if (!empty($l->errors)) {
-        view_form_errors($l->errors);
+        html::errors($l->errors);
     }
     $l->viewLoginForm();    
 } else {

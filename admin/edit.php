@@ -34,7 +34,7 @@ if (isset($_POST['submit'])){
             http::locationHeader('/account/admin/list');
         }
     } else {
-        view_form_errors($l->errors);
+        html::errors($l->errors);
     }
 }
 
