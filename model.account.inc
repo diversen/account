@@ -5,7 +5,7 @@
  * methods between different login methods. 
  */
 
-if (!defined('_COS_CLI')) {
+if (!config::isCli()) {
     template::setInlineCss(
         config::getModulePath('account') .  '/assets/account.css');
 }
