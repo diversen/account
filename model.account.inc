@@ -214,16 +214,30 @@ class account {
     
     /**
      * gets a user row from emaill where account type is email
-     * @param type $email
-     * @return array $row empty if no user else users account row
+     * type defaults to 'email' in order to search for any type of
+     * account use null
+     * @param string $email
+     * @param null|string $type defaults to email. Use NULL if you want to
+     *                    fetch from any type of account. Or set type to e.g.
+     *                    openid or facebook
+     * @return array $row the user's account row if empty there is no user
+     *                    with requested email
      */
-    public function getUserFromEmail ($email, $type= 'email') {
+    public function getUserFromEmail ($email, $type= 'email', $check_sub = null) {
         $db = new db();
         
         $search = array ();
         $search['email'] = $email;
         if ($type) {
             $search['type'] = $type;
+        }
+        
+        if ($check_sub) {
+            $row = $db->selectOne('account_sub', null, $search);
+            if (!empty($row)) {
+                $parent = $db->selectOne('account', 'id', $row['parent']);
+                return $parent;
+            }
         }
 
         $row = $db->selectOne('account', null, $search);
