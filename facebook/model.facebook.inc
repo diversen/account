@@ -100,8 +100,7 @@ class accountFacebook extends account {
         if ($res) {
             $res_create = $this->createUserSub($user, $user_id);
             if ($res_create) {
-                $parent = $this->getParentAccount($res_create);
-                return $parent['id'];    
+                return $user_id; 
             }
         }
         return false;      
@@ -121,9 +120,7 @@ class accountFacebook extends account {
         if (!$id) {
             return false;
         }
-        $_SESSION['id'] = $id;
-        $_SESSION['account_type'] = 'facebook';
-
+        
         // run account_create events
         $args = array (
             'action' => 'account_create',
@@ -145,6 +142,8 @@ class accountFacebook extends account {
             config::getModuleIni('account_events'), 
             $login_args
         );
+        
+        return $id;
     }
     
     /**
@@ -229,7 +228,7 @@ class accountFacebook extends account {
             $row = $this->auth($user_profile['link']);
 
             if (empty($row)){       
-                $this->createUser($user_profile);
+                $id = $this->createUser($user_profile);
             } else {
                 $this->setSesisonAndCookie($row);
             }
@@ -366,7 +365,11 @@ function account_facebook_login () {
         $row = $account->auth($user_profile['link']);
 
         if (empty($row)){       
-            $account->createUser($user_profile);
+            $id = $account->createUser($user_profile);
+            if ($id) {
+                $row = user::getAccount($id);
+                $account->setSesisonAndCookie($row);
+            }
         } else {
             $account->setSesisonAndCookie($row);
         }

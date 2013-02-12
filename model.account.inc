@@ -93,16 +93,18 @@ class account {
     
      
     /**
-     * allow non verified accounts - e.g. direct login with email without
+     * Allow non verified accounts. Direct login with an email without
      * a verified account
+     * @param boolean $bool if false we accept non verified accounts. 
+     *                      If set to true
+     *                
      */
-    public function setAcceptNonVerifiedAccount ($bool = false) {
+    public function setAcceptNonVerifiedAccount ($bool = true) {
         if ($bool) {
-            $this->options['verified'] = $bool;
-        } else {
             $this->options['verified'] = false;
+        } else {
+            $this->options['verified'] = true;
         }
-        
     }
     
     /**
@@ -110,7 +112,7 @@ class account {
      * @param boolean $bool true if we only allow one account per email else false
      */
     public function setAcceptUniqueOnlyEmail ($bool = true) {
-        $this->options['unique_email'] = true;
+        $this->options['unique_email'] = $bool;
     }
     
     /**
@@ -220,7 +222,7 @@ class account {
     
     public function getParentAccount ($id) {
         $db = new db();
-        return $db->selectOne('account_sub', 'parent', $id);
+        return $db->selectOne('account_sub', 'id', $id);
     }
     
     
