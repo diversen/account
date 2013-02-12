@@ -361,26 +361,31 @@ function account_facebook_service ($options = array ()) {
         }
     } 
 
+     $res = null;
     // login or logout url will be needed depending on current user state.
     if ($user_profile) {
         $account = new accountFacebook();
         $account->setAcceptUniqueOnlyEmail();
         $row = $account->auth($user_profile['link']);
  
+       
         if (empty($account->errors)) {
             // new user - create row
             if (empty($row)){       
                 $id = $account->createUser($user_profile);
                 $row = user::getAccount($id);
             }
-
-            $res = $account->setSesisonAndCookie($row);
-        } 
+            
+            $account->setSesisonAndCookie($row);
+            $res = 1;
+        } else {
+            print_r($errors); die;
+        }
         
         if (!$res) {
 
             //print_r($account->errors);
-            session::setPersistentVar('facebook_error', $account->errors);
+            // session::setPersistentVar('facebook_error', $account->errors);
             $res = 0;
 
         }
