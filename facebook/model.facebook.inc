@@ -289,6 +289,7 @@ class accountFacebook extends account {
             
             if (empty($this->errors)) {
                 $this->setAcceptUniqueOnlyEmail();
+                $this->setAcceptNonVerifiedAccount();
                 $row = $this->auth($user_profile['link']);
             
                 // new user - create row
