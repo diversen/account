@@ -28,3 +28,7 @@ account_facebook_api_appid = "appid"
 ;account_github_secret = 'secret'
 ; scope
 ;account_github_scope = 'user'
+; accounts were we trust email provided and merge them with a main account
+account_auto_merge[] = 'facebook.com'
+account_auto_merge[] = 'google.com'
+
