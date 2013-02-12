@@ -226,13 +226,14 @@ class accountFacebook extends account {
         // login or logout url will be needed depending on current user state.
         if ($user_profile) {        
             $row = $this->auth($user_profile['link']);
-
+            
+            // new user - create row
             if (empty($row)){       
                 $id = $this->createUser($user_profile);
-            } else {
-                $this->setSesisonAndCookie($row);
+                $row = user::getAccount($id);
             }
 
+            $this->setSesisonAndCookie($row);
             if (empty($this->errors)) {
                 $this->redirectOnLogin ();
             } else {
