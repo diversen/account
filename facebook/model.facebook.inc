@@ -199,6 +199,7 @@ class accountFacebook extends account {
         }
         
         if (session::isUser()) {   
+            echo session::getUserId(); die;
             $this->displayLogout();
             return;
         }
