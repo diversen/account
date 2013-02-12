@@ -233,7 +233,11 @@ class accountFacebook extends account {
                 $this->setSesisonAndCookie($row);
             }
 
-            $this->redirectOnLogin ();
+            if (empty($this->errors)) {
+                $this->redirectOnLogin ();
+            } else {
+                return false;
+            }
 
         } else {
             $scope = $this->getScope();
