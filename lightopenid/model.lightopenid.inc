@@ -364,6 +364,7 @@ class accountLightopenid extends account {
             $res_create = $this->createUserSub($openid, $user_id);
             if ($res_create) {
                 $parent = $this->getParentAccount($res_create);
+                if (!$parent) return false;
                 return $parent['id'];    
             }
         }
