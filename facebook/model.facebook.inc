@@ -366,6 +366,7 @@ function account_facebook_login () {
 
         if (empty($row)){       
             $id = $account->createUser($user_profile);
+            
             if ($id) {
                 $row = user::getAccount($id);
                 $account->setSesisonAndCookie($row);
