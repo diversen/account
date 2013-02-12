@@ -326,74 +326,6 @@ class accountFacebook extends account {
  * as users are authenticated. 
  */
 
-function account_facebook_login () {
-
-    // check to see if user is allowed to use faccebook login
-    $account_logins = config::getModuleIni('account_logins');
-    if (!in_array('facebook', $account_logins)){
-        moduleloader::setStatus(403);
-        return;
-    }
-
-    $account = new accountFacebook();
-    $account->setAcceptUniqueOnlyEmail();
-    if (session::isUser()) {   
-        $account->displayLogout();
-        return;
-    }
-    
-    $facebook = facebook_get_object();
-    $user = $facebook->getUser();
-
-    if ($user) {
-        try {
-            // Proceed knowing you have a logged in user who's authenticated.
-            $user_profile = $facebook->api('/me');
-            $logoutUrl = $facebook->getLogoutUrl(
-                array ('next' => 
-                    accountFacebook::getLogoutNext()
-                )
-            );
-        } catch (FacebookApiException $e) {
-            log::debug($e);
-        }
-    } else {
-        $user_profile = null;
-    }
-
-    // login or logout url will be needed depending on current user state.
-    if ($user_profile) {        
-        $row = $account->auth($user_profile['link']);
-
-        if (empty($row)){       
-            $id = $account->createUser($user_profile);
-            
-            if ($id) {
-                $row = user::getAccount($id);
-                $account->setSesisonAndCookie($row);
-            }
-        } else {
-            $account->setSesisonAndCookie($row);
-        }
-        
-        $account->redirectOnLogin ();
-
-    } else {
-        $scope = facebook_get_scope();
-        $loginUrl = $facebook->getLoginUrl(
-            array(
-                'scope' => $scope,
-            )
-        );
-    }
-
-    // display login or logout -  you can override this in any template
-    if ($user_profile) {
-        account_facebook_logout_url ($logoutUrl);
-    } else {
-        account_facebook_login_url ($loginUrl);
-    }
-}
 
 /**
  * try to login a user with facebook. No html will be displayed. Therefor
@@ -415,7 +347,7 @@ function account_facebook_service ($options = array ()) {
         return 1;
     }
 
-    $facebook = facebook_get_object();   
+    $facebook = facebook_get_object();
     $user = $facebook->getUser();
     $user_profile = null;
     if ($user) {
@@ -436,11 +368,13 @@ function account_facebook_service ($options = array ()) {
         $row = $account->auth($user_profile['link']);
  
         if (empty($account->errors)) {
-            if  (empty($row)){   
-                $res = $account->createUser($user_profile);
-            } else {
-                $res = $account->setSesisonAndCookie($row);
+            // new user - create row
+            if (empty($row)){       
+                $id = $this->createUser($user_profile);
+                $row = user::getAccount($id);
             }
+
+            $res = $this->setSesisonAndCookie($row);
         } 
         
         if (!$res) {
@@ -468,7 +402,7 @@ function facebook_get_object () {
         $facebook = new Facebook(array(
             'appId'  => config::getModuleIni('account_facebook_api_appid'),
             'secret' => config::getModuleIni('account_facebook_api_secret'),
-            'cookie' => true,  
+            'cookie' => true,
         ));
     return $facebook;
 }
