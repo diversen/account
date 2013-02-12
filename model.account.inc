@@ -211,6 +211,18 @@ class account {
         return false;
     }
     
+    /**
+     * returns parent account
+     * used when auto merging sub accounts
+     * @param int $id usub accounts user_id
+     * @return array $row parent account row
+     */
+    
+    public function getParentAccount ($id) {
+        $db = new db();
+        return $db->selectOne('account_sub', 'parent', $id);
+    }
+    
     
     /**
      * gets a user row from emaill where account type is email

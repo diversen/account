@@ -14,7 +14,8 @@ if (!in_array('lightopenid', config::getModuleIni('account_logins'))){
 
 // $options = array ('openid_identifier' => 'https://www.google.com/accounts/o8/id');
 // $l = new accountLightopenid($options);
-$l = new accountLightopenid();
+$options = array ('unique_email' => true);
+$l = new accountLightopenid($options);
 if (!session::isUser()){
     $l->login();
     if (!empty($l->status)) {

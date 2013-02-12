@@ -7,17 +7,6 @@ view::includeOverrideFunctions('account', 'facebook/views.phtml');
 class accountFacebook extends account {
 
     /**
-     * method for getting the facebook 'next' param - the url to
-     * redirect to when logging out. 
-     * @return string $str the logout url
-     */
-    public static function getLogoutNext () {
-        $server = config::getMainIni('server_name');
-        return "http://$server/account/facebook/logout";
-    }
-
-
-    /**
      * method for authorizing a user
      * @param   string  $facebook_url
      * @return  array   $row with user creds on success, empty if no user
@@ -50,9 +39,16 @@ class accountFacebook extends account {
      */
     public function createDbUser ($user){
          
-       $db = new db();
-       if (isset($this->options['unique_email'])) {
-            if ($this->emailExist($user['email'])) {
+        $db = new db();
+        if (isset($this->options['unique_email'])) {
+            $account = $this->getUserFromEmail($user['email'], null);
+            if (!empty($account)) {
+                $auto_merge = config::getModuleIni('account_auto_merge');
+                if ($auto_merge) {
+                    return $this->autoMergeAccounts($user, $account['id']);                    
+                }
+                
+                // if no auto merge we set an error
                 $this->errors['facebook_email_exists'] = lang::translate('account: facebook: email already exists for user');
                 return false;
             }
@@ -76,6 +72,73 @@ class accountFacebook extends account {
         $res = $db->insert('account', $values);
         if ($res) {
             return db::$dbh->lastInsertId();
+        }
+        return $res;
+    }
+    
+        /**
+     * auto merge two accounts
+     * @param objct $openid lightopenid object
+     * @param int $user_id
+     * @return int|false $parent_id main account id
+     */
+    public function autoMergeAccounts ($user, $user_id) {
+        
+        // examine if we are allowed to merge this URL
+        $allow_merge = config::getModuleIni('account_auto_merge');
+        $url = $user['link'];
+        $parts = parse_url($url);
+        $host = $parts['host'];
+        $res = false;
+        foreach($allow_merge as $host) {
+            if (in_array($host, $allow_merge)) {
+                $res = true;
+                break;
+            }
+        }
+        
+        if ($res) {
+            $res_create = $this->createUserSub($user, $user_id);
+            if ($res_create) {
+                $parent = $this->getParentAccount($res_create);
+                return $parent['id'];    
+            }
+        }
+        return false;      
+    }
+    
+        /**
+     * method for creating a sub user
+     *
+     * @return int|false $res last_isnert_id on success or false on failure
+     */
+    public function createUserSub ($user, $user_id){
+        
+        $db = new db();
+        $row = $db->selectOne('account_sub', 'url', $user['link']);
+        if (!empty($row)) {
+            return array ();
+        }
+        
+        $values = array(
+            'url'=> $user['link'],
+            'email' => $user['email'],
+            'type' => 'facebook',
+            'verified' => 1,
+            'parent' => $user_id);
+        
+        // If not isset options verified - we allow non verified account to log in
+        if (isset($this->options['verified']) && !$this->options['verified']) {
+            unset($values['verified']);
+        }
+        
+        if (isset($user['name'])) {
+            $values['username'] = strings::toUTF8($user['name']);
+        }
+        
+        $res = $db->insert('account_sub', $values);
+        if ($res) {
+            return $db->lastInsertId();
         }
         return $res;
     }
@@ -119,6 +182,116 @@ class accountFacebook extends account {
             $login_args
         );
     }
+    
+    /**
+     * method for logging in a user. Used as a display function. 
+     * means that it will draw login and logout links at the same time
+     * as users are authenticated. 
+     */
+
+    public function login () {
+
+        // check to see if user is allowed to use faccebook login
+        $account_logins = config::getModuleIni('account_logins');
+        if (!in_array('facebook', $account_logins)){
+            moduleloader::setStatus(403);
+            return;
+        }
+        
+        if (session::isUser()) {   
+            $this->displayLogout();
+            return;
+        }
+
+        $facebook = $this->getFBObject();
+        $user = $facebook->getUser();
+
+        if ($user) {
+            try {
+                // Proceed knowing you have a logged in user who's authenticated.
+                $user_profile = $facebook->api('/me');
+                $logoutUrl = $facebook->getLogoutUrl(
+                    array ('next' => 
+                        accountFacebook::getLogoutNext()
+                    )
+                );
+            } catch (FacebookApiException $e) {
+                log::debug($e);
+            }
+        } else {
+            $user_profile = null;
+        }
+
+        // login or logout url will be needed depending on current user state.
+        if ($user_profile) {        
+            $row = $this->auth($user_profile['link']);
+
+            if (empty($row)){       
+                $this->createUser($user_profile);
+            } else {
+                $this->setSesisonAndCookie($row);
+            }
+
+            $this->redirectOnLogin ();
+
+        } else {
+            $scope = $this->getScope();
+            $loginUrl = $facebook->getLoginUrl(
+                array(
+                    'scope' => $scope,
+                )
+            );
+        }
+
+        // display login or logout -  you can override this in any template
+        if ($user_profile) {
+            account_facebook_logout_url ($logoutUrl);
+        } else {
+            account_facebook_login_url ($loginUrl);
+        }
+    }
+    
+    /**
+     * create a facebook object
+     * @return object $obj facebook object
+     */
+    function getFBObject () {
+        static $facebook = null;
+        if (!$facebook)
+            $facebook = new Facebook(array(
+                'appId'  => config::getModuleIni('account_facebook_api_appid'),
+                'secret' => config::getModuleIni('account_facebook_api_secret'),
+                'cookie' => true,  
+            ));
+        return $facebook;
+    }
+
+    /**
+     * method for getting the facebook 'next' param - the url to
+     * redirect to when logging out. 
+     * @return string $str the logout url
+     */
+    public static function getLogoutNext () {
+        $server = config::getMainIni('server_name');
+        return "http://$server/account/facebook/logout";
+    }
+    
+
+
+/**
+ *method for getting scope for login
+ * @return string 
+ */
+function getScope () {
+    $scope = 'email,';
+    $scope.= 'user_birthday,';
+    $scope.= 'user_location,';
+    $scope.= 'user_work_history,';
+    $scope.= 'user_about_me,';
+    $scope.= 'user_hometown,';
+    $scope.= 'user_website';
+    return $scope;
+}
     
     
     /**

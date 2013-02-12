@@ -88,7 +88,9 @@ class accountLightopenid extends account {
      */
     public function dispenseOpenid ($openid) {
         
+        // check both account and account_sub
         $account = $this->auth($openid->identity);
+        
         if (empty($account)){
             $new = $this->createUser($openid);
             if ($new){
@@ -269,10 +271,7 @@ class accountLightopenid extends account {
         $row = $db->selectOne('account_sub', null, $search);
         if (!empty($row)) {
             $row = $db->selectOne('account', null, array ('id' => $row['parent']));
-            
             $row = $this->checkAccountFlags($row);
-            
-
             return $row;
         } 
         
@@ -301,8 +300,16 @@ class accountLightopenid extends account {
         } 
        
         
+
         if (isset($this->options['unique_email'])) {
-            if ($this->emailExist($ary['contact/email'])) {
+            $account = $this->getUserFromEmail($ary['contact/email'], null);
+            if (!empty($account)) {
+                $auto_merge = config::getModuleIni('account_auto_merge');
+                if ($auto_merge) {
+                    return $this->autoMergeAccounts($openid, $account['id']);                    
+                }
+                
+                // if no auto merge we set an error
                 $this->errors['openid_email_exists'] = lang::translate('account: openid: email already exists');
                 return false;
             }
@@ -330,6 +337,37 @@ class accountLightopenid extends account {
             return db::$dbh->lastInsertId();
         }
         return $res;
+    }
+    
+    /**
+     * auto merge two accounts
+     * @param objct $openid lightopenid object
+     * @param int $user_id
+     * @return int|false $parent_id main account id
+     */
+    public function autoMergeAccounts ($openid, $user_id) {
+        
+        // examine if we are allowed to merge this URL
+        $allow_merge = config::getModuleIni('account_auto_merge');
+        $url = $openid->identity;
+        $parts = parse_url($url);
+        $host = $parts['host'];
+        $res = false;
+        foreach($allow_merge as $host) {
+            if (in_array($host, $allow_merge)) {
+                $res = true;
+                break;
+            }
+        }
+        
+        if ($res) {
+            $res_create = $this->createUserSub($openid, $user_id);
+            if ($res_create) {
+                $parent = $this->getParentAccount($res_create);
+                return $parent['id'];    
+            }
+        }
+        return false;      
     }
     
     /**
@@ -365,7 +403,7 @@ class accountLightopenid extends account {
         
         $res = $db->insert('account_sub', $values);
         if ($res) {
-            return db::$dbh->lastInsertId();
+            return $db->lastInsertId();
         }
         return $res;
     }
