@@ -258,7 +258,7 @@ class accountFacebook extends account {
     }
     
     public function loginService () {
-                // check to see if user is allowed to use faccebook login
+        // check to see if user is allowed to use faccebook login
         $account_logins = config::getModuleIni('account_logins');
         if (!in_array('facebook', $account_logins)){
             moduleloader::setStatus(403);
@@ -297,7 +297,7 @@ class accountFacebook extends account {
                     $row = user::getAccount($id);
                     $res = 1;
                 }
-                $this->setSesisonAndCookie($row);
+                $res = $this->setSesisonAndCookie($row);
             }
 
         } 
