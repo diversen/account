@@ -266,8 +266,7 @@ class accountFacebook extends account {
         }
         
         if (session::isUser()) {   
-            $this->displayLogout();
-            return;
+            return 1;
         }
 
         $facebook = $this->getFBObject();
@@ -289,6 +288,7 @@ class accountFacebook extends account {
         if ($user_profile) {
             
             if (empty($this->errors)) {
+                $this->setAcceptUniqueOnlyEmail();
                 $row = $this->auth($user_profile['link']);
             
                 // new user - create row
