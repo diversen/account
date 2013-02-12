@@ -370,11 +370,11 @@ function account_facebook_service ($options = array ()) {
         if (empty($account->errors)) {
             // new user - create row
             if (empty($row)){       
-                $id = $this->createUser($user_profile);
+                $id = $account->createUser($user_profile);
                 $row = user::getAccount($id);
             }
 
-            $res = $this->setSesisonAndCookie($row);
+            $res = $account->setSesisonAndCookie($row);
         } 
         
         if (!$res) {
