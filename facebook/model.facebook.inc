@@ -108,42 +108,6 @@ class accountFacebook extends account {
     }
     
         /**
-     * method for creating a sub user
-     *
-     * @return int|false $res last_isnert_id on success or false on failure
-     */
-    public function createUserSub ($user, $user_id){
-        
-        $db = new db();
-        $row = $db->selectOne('account_sub', 'url', $user['link']);
-        if (!empty($row)) {
-            return array ();
-        }
-        
-        $values = array(
-            'url'=> $user['link'],
-            'email' => $user['email'],
-            'type' => 'facebook',
-            'verified' => 1,
-            'parent' => $user_id);
-        
-        // If not isset options verified - we allow non verified account to log in
-        if (isset($this->options['verified']) && !$this->options['verified']) {
-            unset($values['verified']);
-        }
-        
-        if (isset($user['name'])) {
-            $values['username'] = strings::toUTF8($user['name']);
-        }
-        
-        $res = $db->insert('account_sub', $values);
-        if ($res) {
-            return $db->lastInsertId();
-        }
-        return $res;
-    }
-    
-    /**
      * creates a facebook user from facebook profile array
      * 
      * account_events::account_create
@@ -182,6 +146,44 @@ class accountFacebook extends account {
             $login_args
         );
     }
+    
+    /**
+     * method for creating a sub user
+     *
+     * @return int|false $res last_isnert_id on success or false on failure
+     */
+    public function createUserSub ($user, $user_id){
+        
+        $db = new db();
+        $row = $db->selectOne('account_sub', 'url', $user['link']);
+        if (!empty($row)) {
+            return array ();
+        }
+        
+        $values = array(
+            'url'=> $user['link'],
+            'email' => $user['email'],
+            'type' => 'facebook',
+            'verified' => 1,
+            'parent' => $user_id);
+        
+        // If not isset options verified - we allow non verified account to log in
+        if (isset($this->options['verified']) && !$this->options['verified']) {
+            unset($values['verified']);
+        }
+        
+        if (isset($user['name'])) {
+            $values['username'] = strings::toUTF8($user['name']);
+        }
+        
+        $res = $db->insert('account_sub', $values);
+        if ($res) {
+            return $db->lastInsertId();
+        }
+        return $res;
+    }
+    
+
     
     /**
      * method for logging in a user. Used as a display function. 
