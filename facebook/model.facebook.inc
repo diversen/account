@@ -257,6 +257,53 @@ class accountFacebook extends account {
         }
     }
     
+    public function loginService () {
+                // check to see if user is allowed to use faccebook login
+        $account_logins = config::getModuleIni('account_logins');
+        if (!in_array('facebook', $account_logins)){
+            moduleloader::setStatus(403);
+            return;
+        }
+        
+        if (session::isUser()) {   
+            $this->displayLogout();
+            return;
+        }
+
+        $facebook = $this->getFBObject();
+        $user = $facebook->getUser();
+
+        if ($user) {
+            try {
+                // Proceed knowing you have a logged in user who's authenticated.
+                $user_profile = $facebook->api('/me');
+            } catch (FacebookApiException $e) {
+                log::debug($e);
+            }
+        } else {
+            $user_profile = null;
+        }
+
+        $res = 0;
+        // login or logout url will be needed depending on current user state.
+        if ($user_profile) {
+            
+            if (empty($this->errors)) {
+                $row = $this->auth($user_profile['link']);
+            
+                // new user - create row
+                if (empty($row)){       
+                    $id = $this->createUser($user_profile);
+                    $row = user::getAccount($id);
+                    $res = 1;
+                }
+                $this->setSesisonAndCookie($row);
+            }
+
+        } 
+        return $res;
+    }
+    
     /**
      * create a facebook object
      * @return object $obj facebook object
@@ -333,7 +380,7 @@ class accountFacebook extends account {
  * @return int $res positive if we have an authenticated user correct else 0
  *                  if already authenticated we return positive
  */
-function account_facebook_service ($options = array ()) {
+function account_facebook_service () {
 
     // check to see if user is allowed to use faccebook login
     $account_logins = config::getModuleIni('account_logins');
@@ -342,7 +389,7 @@ function account_facebook_service ($options = array ()) {
         return;
     }
     
-    // return if already logged in. 
+    // return if already logged in.
     if (session::isUser()) {
         return 1;
     }
@@ -359,40 +406,33 @@ function account_facebook_service ($options = array ()) {
         } catch(FacebookApiException $e) {
             log::debug($e);
         }
-    } 
+    }
 
-     $res = null;
     // login or logout url will be needed depending on current user state.
     if ($user_profile) {
         $account = new accountFacebook();
         $account->setAcceptUniqueOnlyEmail();
         $row = $account->auth($user_profile['link']);
  
-       
         if (empty($account->errors)) {
-            // new user - create row
-            if (empty($row)){       
-                $id = $account->createUser($user_profile);
-                $row = user::getAccount($id);
+            if (empty($row)){
+                $res = $account->createUser($user_profile);
+            } else {
+                $res = $account->setSesisonAndCookie($row);
             }
-            
-            $account->setSesisonAndCookie($row);
-            $res = 1;
-        } else {
-            print_r($errors); die;
         }
         
         if (!$res) {
 
             //print_r($account->errors);
-            // session::setPersistentVar('facebook_error', $account->errors);
+            session::setPersistentVar('facebook_error', $account->errors);
             $res = 0;
 
         }
        
     } else {
         $res = 0;
-    }    
+    }
     return $res;
 }
 
