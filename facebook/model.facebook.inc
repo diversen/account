@@ -297,7 +297,7 @@ class accountFacebook extends account {
                     $row = user::getAccount($id);
                     $res = 1;
                 }
-                $this->setSesisonAndCookie($row);
+                $res = $this->setSesisonAndCookie($row);
             }
 
         } 
