@@ -5,4 +5,7 @@ $fb = new accountFacebook();
 $fb->setAcceptUniqueOnlyEmail();
 $fb->login();
 
-account_facebook_login();
+if (empty($fb->errors)) {
+    html::errors($fb->errors);
+}
+
