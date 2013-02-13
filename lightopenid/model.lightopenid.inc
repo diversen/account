@@ -312,13 +312,8 @@ class accountLightopenid extends account {
             'url'=> $openid->identity, 
             'email' => $ary['contact/email'],
             'type' => 'openid',
-            'verified' => 1,
+            'verified' => 1, // open id accounts are always verified
             'md5_key' => $md5_key);
-        
-        // If not isset options verified - we allow non verified account to log in
-        if (isset($this->options['verified']) && !$this->options['verified']) {
-            unset($values['verified']);
-        }
         
         if (isset($ary['namePerson/friendly'])) {
             $values['username'] = $ary['namePerson/friendly'];
@@ -328,6 +323,7 @@ class accountLightopenid extends account {
         if ($res) {
             
             $id = $db->lastInsertId();
+            
             // create events
             $args = array (
                 'action' => 'account_create',

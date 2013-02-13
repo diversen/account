@@ -64,14 +64,9 @@ class accountFacebook extends account {
             'md5_key' => $md5_key
             );
         
-        // If not isset options verified - we allow non verified account to log in
-        if (isset($this->options['verified']) && !$this->options['verified']) {
-            unset($values['verified']);
-        }
         
         $res = $db->insert('account', $values);
-        if ($res) {
-            
+        if ($res) {           
             $id = $db->lastInsertId();
             
             // run account_create events
@@ -92,7 +87,7 @@ class accountFacebook extends account {
         return $res;
     }
     
-        /**
+    /**
      * auto merge two accounts
      * @param objct $openid lightopenid object
      * @param int $user_id
