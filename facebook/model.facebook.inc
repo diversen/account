@@ -71,7 +71,23 @@ class accountFacebook extends account {
         
         $res = $db->insert('account', $values);
         if ($res) {
-            return db::$dbh->lastInsertId();
+            
+            $id = $db->lastInsertId();
+            
+            // run account_create events
+            $args = array (
+                'action' => 'account_create',
+                'type' => 'facebook',
+                'user_id' => $id,
+            );
+
+            event::getTriggerEvent(
+                config::getModuleIni('account_events'), 
+                $args
+            );
+            
+            return $id;
+            
         }
         return $res;
     }
@@ -100,6 +116,19 @@ class accountFacebook extends account {
         if ($res) {
             $res_create = $this->createUserSub($user, $user_id);
             if ($res_create) {
+                
+                // run account_connect events
+                $args = array (
+                    'action' => 'account_connect',
+                    'type' => 'facebook',
+                    'user_id' => $user_id,
+                );
+
+                event::getTriggerEvent(
+                    config::getModuleIni('account_events'), 
+                    $args
+                );
+                     
                 return $user_id; 
             }
         }
@@ -120,17 +149,6 @@ class accountFacebook extends account {
         if (!$id) {
             return false;
         }
-        
-        // run account_create events
-        $args = array (
-            'action' => 'account_create',
-            'user_id' => $id,
-        );
-
-        event::getTriggerEvent(
-            config::getModuleIni('account_events'), 
-            $args
-        );
         
         // run account_login events
         $login_args = array (
@@ -293,7 +311,7 @@ class accountFacebook extends account {
                 $row = $this->auth($user_profile['link']);
             
                 // new user - create row
-                if (empty($row)){       
+                if (empty($row)){
                     $id = $this->createUser($user_profile);
                     $row = user::getAccount($id);
                     $res = 1;
@@ -373,70 +391,6 @@ class accountFacebook extends account {
  * means that it will draw login and logout links at the same time
  * as users are authenticated. 
  */
-
-
-/**
- * try to login a user with facebook. No html will be displayed. Therefor
- * I consider it to be a service like function.
- * @return int $res positive if we have an authenticated user correct else 0
- *                  if already authenticated we return positive
- */
-function account_facebook_service () {
-
-    // check to see if user is allowed to use faccebook login
-    $account_logins = config::getModuleIni('account_logins');
-    if (!in_array('facebook', $account_logins)){
-        moduleloader::setStatus(403);
-        return;
-    }
-    
-    // return if already logged in.
-    if (session::isUser()) {
-        return 1;
-    }
-
-    $facebook = facebook_get_object();
-    $user = $facebook->getUser();
-    $user_profile = null;
-    if ($user) {
-        try {
-            // $token = $facebook->getAccessToken();
-            //print_r($token); die;
-            // Proceed knowing you have a logged in user who's authenticated.
-            $user_profile = $facebook->api('/me');
-        } catch(FacebookApiException $e) {
-            log::debug($e);
-        }
-    }
-
-    // login or logout url will be needed depending on current user state.
-    if ($user_profile) {
-        $account = new accountFacebook();
-        $account->setAcceptUniqueOnlyEmail();
-        $row = $account->auth($user_profile['link']);
- 
-        if (empty($account->errors)) {
-            if (empty($row)){
-                $res = $account->createUser($user_profile);
-            } else {
-                $res = $account->setSesisonAndCookie($row);
-            }
-        }
-        
-        if (!$res) {
-
-            //print_r($account->errors);
-            session::setPersistentVar('facebook_error', $account->errors);
-            $res = 0;
-
-        }
-       
-    } else {
-        $res = 0;
-    }
-    return $res;
-}
-
 
 /**
  * create a facebook object

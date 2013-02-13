@@ -363,6 +363,18 @@ class accountLightopenid extends account {
         if ($res) {
             $res_create = $this->createUserSub($openid, $user_id);
             if ($res_create) {
+                
+                // run account_connect events
+                $args = array (
+                    'action' => 'account_connect',
+                    'user_id' => $user_id,
+                );
+
+                event::getTriggerEvent(
+                    config::getModuleIni('account_events'), 
+                    $args
+                );
+                
                 return $user_id;   
             }
         }
