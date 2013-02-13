@@ -97,21 +97,13 @@ class accountLightopenid extends account {
                 // use new id as user id for session
                 //$status =lang::translate('account_openid_account_created');
                 
-                $_SESSION['id'] = $new;
-                $_SESSION['account_type'] = 'openid';
+                //$_SESSION['id'] = $new;
+                //$_SESSION['account_type'] = 'openid';
                 
-                // create events
-                $args = array (
-                    'action' => 'account_create',
-                    'user_id' => $new,
-                );
                 
-                event::getTriggerEvent(
-                        config::getModuleIni('account_events'), 
-                        $args);
             
                 $account = user::getAccount($new);
-                $this->setSesisonAndCookie($account);
+                $this->setSesisonAndCookie($account, 'openid');
                 
                 session::setActionMessage(
                     lang::translate('account_openid_loggedin_message'), true
@@ -334,7 +326,21 @@ class accountLightopenid extends account {
         
         $res = $db->insert('account', $values);
         if ($res) {
-            return db::$dbh->lastInsertId();
+            
+            $id = $db->lastInsertId();
+            // create events
+            $args = array (
+                'action' => 'account_create',
+                'user_id' => $id,
+            );
+                
+            event::getTriggerEvent(
+                config::getModuleIni('account_events'), 
+                $args);
+            
+            return $id;
+            
+            
         }
         return $res;
     }
