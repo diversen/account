@@ -1,6 +1,6 @@
 <?php
 
-include_once 'facebook-php-sdk/src/facebook.php';
+//include_once 'facebook-php-sdk/src/facebook.php';
 moduleloader::includeModule('account/login');
 view::includeOverrideFunctions('account', 'facebook/views.phtml');
 
