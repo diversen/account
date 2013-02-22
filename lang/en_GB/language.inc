@@ -160,3 +160,11 @@ $_COS_LANG_MODULE['account: admin: found no results'] = 'No results';
 
 
 $_COS_LANG_MODULE['account: github: Login'] = 'Github login';
+
+$_COS_LANG_MODULE['account: is locked'] = 'Account is locked';
+$_COS_LANG_MODULE['account: openid: no valid email'] = 'Not a valid email. ';
+$_COS_LANG_MODULE['account: openid: email already exists'] = 'Email already in system and can not be auto merged';
+$_COS_LANG_MODULE['account: error: account needs to be verified before log in'] = 'Account needs to be verified before you may log in';
+$_COS_LANG_MODULE['account: error: account is logged'] = 'This account has been locked';
+$_COS_LANG_MODULE['account: facebook: email already exists for user'] = 'Email already in system and can not be auto merged';
+$_COS_LANG_MODULE['account: error: email exists'] = 'Email already exists';
