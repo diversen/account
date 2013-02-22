@@ -1,5 +1,7 @@
 <?php
 
+usleep(100000);
+
 http::prg();
 template::setTitle(lang::translate('account_login_or_logout'));
 

@@ -4,6 +4,7 @@
  * @ignore
  */
 
+usleep(100000);
 template::setTitle(lang::translate('account_openid_login_index'));
 
 // check to see if user is allowed to use faccebook login

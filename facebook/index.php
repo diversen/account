@@ -1,5 +1,6 @@
 <?php
 
+usleep(100000);
 template::setTitle(lang::translate('account_facebook_login'));
 $fb = new accountFacebook();
 $fb->setAcceptUniqueOnlyEmail();
