@@ -63,7 +63,11 @@ class account {
         session_regenerate_id(true);
 
         $_SESSION=array();
-        $redirect = config::getModuleIni('account_default_url');
+        //$redirect = config::getModuleIni('account_default_url');
+        
+        $redirect = $_GET['redirect'];
+        
+        // redirect set in options override get param
         if (isset($this->options['redirect_logout'])) {
             $redirect = $this->options['redirect_logout'];
         }
