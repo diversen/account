@@ -2,8 +2,6 @@
 account_allow_edit = "super"
 ; who will see admin link: anon, admin, super, user
 account_show_admin_link = "super"
-; default login url
-account_default_url = "/account/login/index"
 ; who can create a user: anon, admin, super, user
 account_allow_create = "super"
 ; disable editing of accounts
