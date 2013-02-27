@@ -95,7 +95,7 @@ $_COS_LANG_MODULE['account_openid_invalid_login'] = 'Ugyldigt login';
 $_COS_LANG_MODULE['account_openid_login_cancelled'] = 'Login afbrudt';
 // Translation of file /home/dennis/www/oscmsdk/modules/account/admin/model.admin.inc
 
-$_COS_LANG_MODULE['account_password_error_length'] = 'Password ksla mindst være 7 karakterer langt';
+$_COS_LANG_MODULE['account_password_error_length'] = 'Password skal mindst være 7 karakterer langt';
 $_COS_LANG_MODULE['account_password_dont_match'] = 'Passwords matcher ikke';
 // Translation of file /home/dennis/www/oscmsdk/modules/account/admin/list.php
 
@@ -112,7 +112,7 @@ $_COS_LANG_MODULE['account_edit_legend'] = 'Ret konto';
 $_COS_LANG_MODULE['account_email'] = 'Email';
 $_COS_LANG_MODULE['account_password'] = 'Password';
 $_COS_LANG_MODULE['account_password_repeat'] = 'Gentag password';
-$_COS_LANG_MODULE['account_is_verfied'] = 'Verificere';
+$_COS_LANG_MODULE['account_is_verfied'] = 'Verificeret';
 $_COS_LANG_MODULE['account_is_admin'] = 'Admin';
 $_COS_LANG_MODULE['account_is_super'] = 'Super';
 $_COS_LANG_MODULE['account_form_is_verified'] = 'Er verificeret';
@@ -154,9 +154,20 @@ $_COS_LANG_MODULE['account: login facebook link'] = 'Log ind';
 $_COS_LANG_MODULE['account_error_email_does_not_match'] = 'Emails matcher ikke';
 
 $_COS_LANG_MODULE['account: admin: search legend'] = 'Søg efter bruger';
-$_COS_LANG_MODULE['account: admin: search user id'] = 'Bruger ID';
+$_COS_LANG_MODULE['account: admin: search user id'] = 'Søg efter ID eller email';
 $_COS_LANG_MODULE['account: admin: found results'] = 'Fandt følgende bruger: ';
 $_COS_LANG_MODULE['account: admin: found no results'] = 'Ingen resultat';
 
 
 $_COS_LANG_MODULE['account: github: Login'] = 'Github login';
+
+$_COS_LANG_MODULE['account: facebook: email already exists for user'] = 'Email eksisterer allerede';
+$_COS_LANG_MODULE['account: openid: no valid email'] = 'Ikke en gyldig email';
+$_COS_LANG_MODULE['account: openid: email already exists'] = 'Email eksisterer allerede';
+$_COS_LANG_MODULE['account: is locked'] = 'Konto er låst';
+$_COS_LANG_MODULE['account: error: account needs to be verified before log in'] = 'Konto skal verificeres før du kan logge ind';
+$_COS_LANG_MODULE['account: error: account is logged'] = 'Konto er låst';
+$_COS_LANG_MODULE['account: error: email exists'] = 'Email eksisterer allerede';
+
+$_COS_LANG_MODULE['account: ID'] = 'ID';
+$_COS_LANG_MODULE['account: email'] = 'Email';

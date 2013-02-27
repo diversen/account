@@ -192,11 +192,12 @@ class account {
      * @param int $id
      * @return array $row
      */
-    public function searchId ($id)  {
-        $db = new db();
-        $search = array ('id' => $id);
-        return $db->selectAll('account', null, $search);
-        
+    public function searchIdOrEmail ($id)  {        
+        return dbQ::setSelect('account')->
+                filter('id = ', $id)->
+                condition('OR')->
+                filter('email =', $id)->
+                fetch();   
     }
     
     /**

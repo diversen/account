@@ -21,17 +21,15 @@ $a->searchAccount();
 if (isset($_GET['submit'])) {
     $acc = new account();
 
-    $res = $acc->searchId($_GET['id']);
+    $res = $acc->searchIdOrEmail($_GET['id']);
     if (!empty($res)) {
         echo lang::translate('account: admin: found results');
         viewAccountAdmin::listUsers($res);
+        echo "<hr />\n";
         
     } else {
         echo lang::translate('account: admin: found no results');
-    }
-    
-    
-    
+    }   
 }
 
 
