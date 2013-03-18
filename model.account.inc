@@ -7,7 +7,7 @@
 
 if (!config::isCli()) {
     template::setInlineCss(
-        config::getModulePath('account') .  '/assets/account.css');
+        config::getModulePath('account') .  '/assets/account.css', 1100);
 }
 
 /**
