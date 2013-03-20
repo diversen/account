@@ -22,3 +22,4 @@ $_COS_LANG_MODULE['account'] = 'Account';
 $_COS_LANG_MODULE['account_login_github'] = 'Github';
 
 
+

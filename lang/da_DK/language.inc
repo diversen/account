@@ -171,3 +171,4 @@ $_COS_LANG_MODULE['account: error: email exists'] = 'Email eksisterer allerede';
 
 $_COS_LANG_MODULE['account: ID'] = 'ID';
 $_COS_LANG_MODULE['account: email'] = 'Email';
+

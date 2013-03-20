@@ -168,3 +168,6 @@ $_COS_LANG_MODULE['account: error: account needs to be verified before log in'] 
 $_COS_LANG_MODULE['account: error: account is logged'] = 'This account has been locked';
 $_COS_LANG_MODULE['account: facebook: email already exists for user'] = 'Email already in system and can not be auto merged';
 $_COS_LANG_MODULE['account: error: email exists'] = 'Email already exists';
+
+$_COS_LANG_MODULE['account: ID'] = 'ID';
+$_COS_LANG_MODULE['account: email'] = 'Email';
