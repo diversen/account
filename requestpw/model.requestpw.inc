@@ -94,6 +94,20 @@ class accountRequestpw extends account {
         $message['txt'] = view::get('account', "lang/$lang/request_password", $vars);
         $message['html'] = view::get('account', "lang/$lang/request_password_html", $vars);
         
+        /*
+         * we just use email as defualt - may addd this later
+        $profile = user::getProfileInfo($row['id']);
+        if (isset($profile['screenname']) && !empty($profile['screenname'])) {
+            $to = '"' . htmlspecialchars($profile['screenname']) . '"';
+            $to.= " <$row[email]>";
+        } else {
+            $to = $row['email'];
+        }*/
+        
+        
+        
+
+        
         $res = cosMail::multipart($row['email'], $subject, $message);
         return $res;
     }
