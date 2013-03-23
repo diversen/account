@@ -199,6 +199,10 @@ class accountRequestpw extends account {
         }
     }
     
+    /**
+     * gets account from md5 - uses $GET['md5'] and $_GET['id']
+     * @return array $account
+     */
     public function getAccountFromMd5 () {
         $id = $_GET['id']; 
         $md5_key = $_GET['md5'];
