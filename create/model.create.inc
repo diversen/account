@@ -125,7 +125,7 @@ class accountCreate extends account {
         // create events
         $args = array (
             'action' => 'account_create',
-             'user_id' => $last_insert_id,
+            'user_id' => $last_insert_id,
         );
                 
         event::getTriggerEvent(
