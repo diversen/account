@@ -21,4 +21,5 @@ if (!empty($_POST['submit'])){
     }
 }
 
+
 echo view::get('account', 'create/create');

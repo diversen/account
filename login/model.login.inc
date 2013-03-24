@@ -58,6 +58,7 @@ class accountLogin extends account {
     public function controlLogin (){
         $this->login();
         if (session::isUser()){
+
             $this->displayLogout();           
         // submission has taking place but no redirect.     
         } elseif ( isset($_POST['submit_account_login']) ) {
