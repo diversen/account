@@ -63,6 +63,7 @@ class accountLightopenid extends account {
                 return false; 
             } else {               
                 $this->status = lang::translate('account_openid_valid_login') . ' ' . htmlspecialchars($openid->identity). "<br />\n";
+
                 if ($openid->validate()) {
                     $res = $this->dispenseOpenid($openid);
                     if (!$res) {
@@ -72,7 +73,6 @@ class accountLightopenid extends account {
                     $this->errors[] = lang::translate('account_openid_invalid_login');
                     return false;
                 }
-                //echo 'User ' . ($openid->validate() ? $openid->identity . ' has ' : 'has not ') . 'logged in.';
             }
         } catch(ErrorException $e) {
             log::error($e->getMessage());
