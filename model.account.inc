@@ -246,7 +246,7 @@ class account {
         $db = new db();
         
         $search = array ();
-        $search['email'] = $email;
+        $search['email'] = strings_mb::tolower($email);
         if ($type) {
             $search['type'] = $type;
         }

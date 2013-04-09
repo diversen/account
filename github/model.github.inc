@@ -76,7 +76,7 @@ class accountGithub extends account {
             $search = array (
                 'type' => 'github',
                 'url' => $res['id'],
-                'email' => $res['email']
+                'email' => strings_mb::tolower($res['email'])
                 );
             $account = $db->selectOne('account', null, $search);
             if (empty($account)) {

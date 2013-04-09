@@ -93,7 +93,7 @@ class accountLogin extends account {
         $db = new db(); 
         
         $search = array (
-            'email' => $email, 
+            'email' => strings_mb::tolower($email), 
             'password' => md5($password), 
             'type' => 'email',
         );

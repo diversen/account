@@ -137,12 +137,14 @@ class accountCreate extends account {
     }
 
     /**
-     * method for creating a user
-     *
+     * method for creating an email user
+     * emails will always be lower case
      * @return int $res last insert id on success or 0 on failure
      */
     public function createUser (){
-
+                
+        $_POST['email'] = strings_mb::tolower($_POST['email']);
+        
         // enter decoded values
         $_POST = html::specialDecode($_POST);
         db::$dbh->beginTransaction();        
@@ -170,7 +172,7 @@ class accountCreate extends account {
      * @return boolean $res 
      */
     public function sendVerifyMail ($email, $user_id, $md5) {
-        
+
         $subject = lang::translate('account_signup_subject');
         
         $scheme = config::getHttpScheme();

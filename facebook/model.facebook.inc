@@ -57,7 +57,7 @@ class accountFacebook extends account {
         $values = array(
             'url'=> $user['link'], 
             'username' => strings::toUTF8($user['name']),
-            'email' => $user['email'],
+            'email' => strings_mb::tolower($user['email']),
             'type' => 'facebook',
             'verified' => 1,
             'md5_key' => $md5_key
@@ -173,7 +173,7 @@ class accountFacebook extends account {
         
         $values = array(
             'url'=> $user['link'],
-            'email' => $user['email'],
+            'email' => strings_mb::tolower($user['email']),
             'type' => 'facebook',
             'verified' => 1,
             'parent' => $user_id);

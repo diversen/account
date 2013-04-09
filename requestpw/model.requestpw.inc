@@ -62,12 +62,12 @@ class accountRequestpw extends account {
      * @return int  $res 1 on succes and 0 on failure
       */
     public function requestPassword ($email = null, $options = array ()){   
+        
+        $email = strings_mb::tolower($email);
         $md5_key = random::md5();
         
         $db = new db();
-        
         $search = array ('email' => $email, 'type' => 'email');
-        
         $row = $db->selectOne('account', 'email', $search);
         
         $values = array('md5_key' => $md5_key);
@@ -93,21 +93,7 @@ class accountRequestpw extends account {
         
         $message['txt'] = view::get('account', "lang/$lang/request_password", $vars);
         $message['html'] = view::get('account', "lang/$lang/request_password_html", $vars);
-        
-        /*
-         * we just use email as defualt - may addd this later
-        $profile = user::getProfileInfo($row['id']);
-        if (isset($profile['screenname']) && !empty($profile['screenname'])) {
-            $to = '"' . htmlspecialchars($profile['screenname']) . '"';
-            $to.= " <$row[email]>";
-        } else {
-            $to = $row['email'];
-        }*/
-        
-        
-        
 
-        
         $res = cosMail::multipart($row['email'], $subject, $message);
         return $res;
     }

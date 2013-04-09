@@ -11,6 +11,8 @@ class accountChangeemail {
      * @param type $email new email
      */
     function changeEmail ($user_id, $email) {
+        
+        $email = strings_mb::tolower($email);
         $row = dbQ::setSelect('account')->
                 filter('id =', $user_id)->
                 fetchSingle();
