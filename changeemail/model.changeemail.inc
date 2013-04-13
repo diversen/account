@@ -13,7 +13,7 @@ class accountChangeemail {
     function changeEmail ($user_id, $email) {
         
         $email = strings_mb::tolower($email);
-        $row = dbQ::setSelect('account')->
+        $row = db_q::setSelect('account')->
                 filter('id =', $user_id)->
                 fetchSingle();
         
@@ -31,7 +31,7 @@ class accountChangeemail {
         
         
         $values = array ('email' => $email, 'verified' => 0);     
-        $res = dbQ::setUpdate('account')->
+        $res = db_q::setUpdate('account')->
                 setUpdateValues($values)->
                 filter('id =', $user_id)->
                 exec();
@@ -116,7 +116,7 @@ class accountChangeemail {
      * @return boolean $res true or false
      */
     public function updateUser ($user_id, $values) {
-        $res = dbQ::setUpdate('account')->
+        $res = db_q::setUpdate('account')->
                 setUpdateValues($values)->
                 filter('id =', $user_id)->
                 exec();

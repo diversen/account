@@ -193,7 +193,7 @@ class account {
      * @return array $row
      */
     public function searchIdOrEmail ($id)  {        
-        return dbQ::setSelect('account')->
+        return db_q::setSelect('account')->
                 filter('id = ', $id)->
                 condition('OR')->
                 filter('email =', $id)->
