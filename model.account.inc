@@ -153,7 +153,7 @@ class account {
     */
     public static function displayLogout(){
         $row = user::getAccount(session::getUserId()); 
-        echo user::getLogoutHTML($row);
+        echo user::getLogoutHTML($row, 'github');
     }
 
     /**
