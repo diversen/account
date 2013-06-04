@@ -6,29 +6,50 @@ class accountChangeemail {
     public $errors = array ();
     
     /**
-     * changes email of an account
-     * @param type $user_id the users id
-     * @param type $email new email
+     * checks is user_id can change his email
+     * examines if the email is the same as his accounts email
+     * then it examines if the email is used by another user
+     * @param  int $user_id
+     * @param string $email
+     * @return int $res
+     *                  -1 if email is the same as users existing email
+     *                   0 if email exists for another account
+     *                   1 Ok to shift email
      */
-    function changeEmail ($user_id, $email) {
-        
+    public function changeEmailPossible ($user_id, $email) {
         $email = strings_mb::tolower($email);
-        $row = db_q::setSelect('account')->
-                filter('id =', $user_id)->
-                fetchSingle();
+        $row = user::getAccount($user_id);
         
         
+        // if mails are identical - we can change to the same email.  
         if (trim($row['email']) == trim($email)) {
-            return true;
+            return -1;
         }
         
         $account = new account();
         $user = $account->getUserFromEmail($email);
         if (!empty($user) && ($user['id'] != $user_id) ) {
             $this->errors['email_exists'] = lang::translate('account: error: email exists');
-            return false;
+            return 0;
         }
         
+        return 1;
+    }
+    
+    /**
+     * changes email of an account
+     * @param type $user_id the users id
+     * @param type $email new email
+     */
+    public function changeEmail ($user_id, $email) {
+
+        $pos = $this->changeEmailPossible($user_id, $email);
+        if ($pos == -1) {
+            return true;
+        }
+        if ($pos == 0) {
+            return false;
+        }
         
         $values = array ('email' => $email, 'verified' => 0);     
         $res = db_q::setUpdate('account')->
@@ -52,6 +73,7 @@ class accountChangeemail {
                 R::trash($bean);  
             }            
         }
+        
         $bean = cosRB::getBean('account_email_changes', 'user_id', $user_id);
         $bean->user_id = $user_id;
         $bean->tries++;
@@ -74,6 +96,7 @@ class accountChangeemail {
         }
         return true;
     }
+    
     
     /**
      * send a verify email
