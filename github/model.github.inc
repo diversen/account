@@ -131,7 +131,7 @@ class accountGithub extends account {
      * @return boolean $res
      */
     public function doLogin ($account) {
-        $this->setSesisonAndCookie($account);               
+        $this->setSessionAndCookie($account);               
         if ($this->options['redirect'] === false) {
             return true;
         }

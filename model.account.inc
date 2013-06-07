@@ -132,7 +132,7 @@ class account {
      * 
      * @param array $account
      */
-    public function setSesisonAndCookie ($account, $type = 'email') {
+    public function setSessionAndCookie ($account, $type = 'email') {
         $_SESSION['id'] = $account['id'];
         $_SESSION['admin'] = $account['admin'];
         $_SESSION['super'] = $account['super'];
@@ -218,7 +218,7 @@ class account {
         $row = $db->selectOne('account', null, $search);
         $row = $this->checkAccountFlags($row);
         if (!empty($row)) {
-             $this->setSesisonAndCookie($row);
+             $this->setSessionAndCookie($row);
              return true;
         }
         return false;

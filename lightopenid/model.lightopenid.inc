@@ -94,16 +94,9 @@ class accountLightopenid extends account {
         if (empty($account)){
             $new = $this->createUser($openid);
             if ($new){
-                // use new id as user id for session
-                //$status =lang::translate('account_openid_account_created');
-                
-                //$_SESSION['id'] = $new;
-                //$_SESSION['account_type'] = 'openid';
-                
-                
             
                 $account = user::getAccount($new);
-                $this->setSesisonAndCookie($account, 'openid');
+                $this->setSessionAndCookie($account, 'openid');
                 
                 session::setActionMessage(
                     lang::translate('account_openid_loggedin_message'), true
@@ -115,7 +108,7 @@ class accountLightopenid extends account {
              }
         } else {
             
-            $this->setSesisonAndCookie($account);
+            $this->setSessionAndCookie($account);
             session::setActionMessage(
                 lang::translate('account_openid_loggedin_message'), false
             );
