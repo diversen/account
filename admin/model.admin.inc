@@ -76,7 +76,7 @@ class accountAdmin extends account {
      * @return  array   $rows containing all users
      */
     public function getUsers($from = 0, $limit = 10){
-        $q = new dbQ();
+        $q = new db_q();
         $q->setSelect('account')->limit($from, $limit);
         $rows = $q->fetch();
         return $rows;
@@ -85,7 +85,7 @@ class accountAdmin extends account {
     
     
     public function getNumUsers () {
-        $db = new dbQ();
+        $db = new db_q();
         return $db->setSelectNumRows('account')->fetch();
     }
 

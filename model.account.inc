@@ -63,11 +63,17 @@ class account {
         session_regenerate_id(true);
 
         $_SESSION=array();
-        //$redirect = config::getModuleIni('account_default_url');
+
+        if (isset($_GET['redirect']) && !empty($_GET['redirect'])) {
+            $redirect = $_GET['redirect'];
+        } else {
+            $redirect = config::getModuleIni('account_default_url');
+            if (!$redirect) {
+                $redirect = '/';
+            }
+        }
         
-        $redirect = $_GET['redirect'];
-        
-        // redirect set in options override get param
+        // redirect set in options override anything
         if (isset($this->options['redirect_logout'])) {
             $redirect = $this->options['redirect_logout'];
         }
@@ -193,7 +199,7 @@ class account {
      * @return array $row
      */
     public function searchIdOrEmail ($id)  {        
-        return dbQ::setSelect('account')->
+        return db_q::setSelect('account')->
                 filter('id = ', $id)->
                 condition('OR')->
                 filter('email =', $id)->
