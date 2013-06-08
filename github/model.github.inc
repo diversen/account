@@ -1,8 +1,15 @@
 <?php
 
+<<<<<<< HEAD
 use diversen\githubapi as githubApi;
 
 moduleloader::includeModule('account');
+=======
+use \diversen\githubapi as githubApi;
+moduleloader::includeModule('account');
+//include_once "coslib/githubApi.php";
+//include_once "coslib/mycurl.php";
+>>>>>>> e685011873bec7d19a408e491f009e4353db6b4d
 
 class accountGithub extends account {
 
@@ -131,7 +138,7 @@ class accountGithub extends account {
      * @return boolean $res
      */
     public function doLogin ($account) {
-        $this->setSesisonAndCookie($account);               
+        $this->setSessionAndCookie($account);               
         if ($this->options['redirect'] === false) {
             return true;
         }

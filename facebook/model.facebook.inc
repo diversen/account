@@ -245,7 +245,7 @@ class accountFacebook extends account {
                 $row = user::getAccount($id);
             }
 
-            $this->setSesisonAndCookie($row);
+            $this->setSessionAndCookie($row);
             if (empty($this->errors)) {
                 $this->redirectOnLogin ();
             } else {
@@ -310,7 +310,7 @@ class accountFacebook extends account {
                     $row = user::getAccount($id);
                     $res = 1;
                 }
-                $this->setSesisonAndCookie($row);
+                $this->setSessionAndCookie($row);
             }
 
         } 
