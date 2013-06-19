@@ -1,9 +1,11 @@
 <?php
 
-$_SUB_MODULE_MENU[] = array(
+if (!session::isUser()) {
+    $_SUB_MODULE_MENU[] = array(
         'title' => lang::translate('account_request_password'),
         'url' => '/account/login/requestpw'
     );
+}
 
 // can we create accounts. And who is allowed to create accounts. 
 $account_allow_create = config::getModuleIni('account_allow_create');
