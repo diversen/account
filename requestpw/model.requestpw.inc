@@ -4,7 +4,7 @@
  * File containing class for srequesting and etting a new user password
  * 
  */
-
+view::includeOverrideFunctions('account', 'requestpw/views.phtml');
 moduleloader::includeModule('account');
 
 /**
@@ -12,11 +12,6 @@ moduleloader::includeModule('account');
  */
 class accountRequestpw extends account {
 
-    /**
-     * errors
-     * @var array $errors
-     */
-    public $errors = array();
 
     /**
      * options
@@ -49,10 +44,10 @@ class accountRequestpw extends account {
         }
 
         $db = new db();
-        $row = $db->selectOne('account', 'email', $_POST['email']);
+        $search = array ('email' => $_POST['email'], 'type' => 'email');
+        $row = $db->selectOne('account', 'email', $search);
         if (empty($row)){
             $this->errors['email'] = lang::translate('account_error_no_such_email');
-            return 0;
         }
     }
 
@@ -62,7 +57,7 @@ class accountRequestpw extends account {
      * @return int  $res 1 on succes and 0 on failure
       */
     public function requestPassword ($email = null, $options = array ()){   
-        
+
         $email = strings_mb::tolower($email);
         $md5_key = random::md5();
         
@@ -198,33 +193,7 @@ class accountRequestpw extends account {
         $row = $db->selectOne('account', null, $search);
         return $row;
     }
-    
-    /**
-     * Displays a form for requesting a new password. 
-     */
-    public function displayRequest () {
 
-        echo view::get('account', 'requestpw/form');
-    }
-    
-    /**
-     * displays form for setting new password. 
-     */
-    public function displayNewPassword () {
-        $field_size = array ('size' => '30');
-        html::$autoLoadTrigger = 'submit';
-        html::init($_POST);
-        html::formStart('account_set_new_password');
-        html::legend(lang::translate('account_request_legend_set_new_password'));
-        html::label('password1', lang::translate('account_form_password'));
-        html::password('password1',  null, $field_size);
-        html::label('password2', lang::translate('account_form_retype_password'));
-        html::password('password2',  null, $field_size);
-        html::label('submit', '');
-        html::submit('submit', lang::translate('account_submit'));
-        html::formEnd();
-        echo html::getStr();
-    }
     
     /**
      * method for displaying the request password form
@@ -247,12 +216,15 @@ class accountRequestpw extends account {
                     );
                     $location = config::getModuleIni('account_default_url');
                     http::locationHeader($location);
+                } else {
+                    html::errors(array ('Could not send email'));
+                    return;
                 }
             } else {
                 html::errors($request->errors);
             }
         }
 
-        $request->displayRequest();
+        accountRequestpwView::formSend();
     }
 }

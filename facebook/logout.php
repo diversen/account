@@ -1,7 +1,8 @@
 <?php
 
-// Create our Application instance (replace this with your appId and secret).
-// Create our Application instance.
+/**
+ * controller for logging out of facebook
+ */
 
 $facebook = facebook_get_object();
 $fb_key = 'fbs_'.config::getModuleIni('account_facebook_api_appid');

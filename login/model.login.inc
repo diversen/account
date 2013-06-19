@@ -1,6 +1,7 @@
 <?php
 
 moduleloader::includeModule('account');
+view::includeOverrideFunctions('account', 'login/views.phtml');
 
 class accountLogin extends account {
     
@@ -47,8 +48,9 @@ class accountLogin extends account {
      * method for displaying email login 
      */
     public function displayLogin (){
-        $vars['errors'] = $this->errors;        
-        echo view::get('account', 'account_login_email', $vars);
+        $vars['errors'] = $this->errors;
+        accountLoginView::formLogin($vars);
+        //echo view::get('account', 'account_login_email', $vars);
     }
 
     /**

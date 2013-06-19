@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * controller file for creating a user
+ */
+
 http::prg();
 moduleloader::includeModule('account/create');
 if (!session::checkAccessControl('account_allow_create')){
@@ -21,5 +25,4 @@ if (!empty($_POST['submit'])){
     }
 }
 
-
-echo view::get('account', 'create/create');
+accountLoginView::formCreate();

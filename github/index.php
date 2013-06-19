@@ -2,7 +2,6 @@
 
 template::setTitle(lang::translate('account_login_or_logout'));
 
-
 usleep(100000);
 
 // check to see if user is allowed to use faccebook login

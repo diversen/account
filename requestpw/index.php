@@ -5,4 +5,3 @@
  */
 
 accountRequestpw::displayRequestPassword();
-return;

@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * controller for making api calls
+ */
 $git = new accountGithub();
 $git->setAcceptUniqueOnlyEmail(true);
 $git->auth ();

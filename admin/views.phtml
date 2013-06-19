@@ -72,13 +72,20 @@ class viewAccountAdmin {
         echo html::getStr();
     }
     
+    /**
+     * list all users
+     * @param array $users
+     */
     public function listUsers ($users) {
-
         foreach ($users as $user) {
             echo self::listUser( $user);
         }
     }
     
+    /**
+     * list single user
+     * @param array $v
+     */
     public function listUser ($v) {
         $date = time::getDateString($v['created']);
 
@@ -121,6 +128,9 @@ class viewAccountAdmin {
         echo "</div>\n";
     }
     
+    /**
+     * user search form 
+     */
     public function searchForm () {
         $f = new html ();
         $f->formStart('form_search', 'get');

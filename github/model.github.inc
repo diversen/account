@@ -1,9 +1,17 @@
 <?php
 
+/**
+ * contains class for logging in with github api
+ * @package account
+ */
 use diversen\githubapi as githubApi;
 
 moduleloader::includeModule('account');
 
+/**
+ * contains class for logging in with github api
+ * @package account
+ */
 class accountGithub extends account {
 
     
@@ -45,7 +53,6 @@ class accountGithub extends account {
      * 
      */
     public function controlLogin (){
-        //$this->login();
         if (session::isUser()){
             $this->displayLogout();    
         // submission has taking place but no redirect.     
@@ -216,7 +223,6 @@ class accountGithub extends account {
      */
     public function createUserSub ($search, $user_id){
         
-
         $db = new db();
 
         $values = array(

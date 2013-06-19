@@ -20,7 +20,7 @@ if ($res){
             html::errors($request->errors);
         }
     }
-    $request->displayNewPassword();
+    accountRequestpwView::formVerify();
 } else {
     html::errors($request->errors);
 }

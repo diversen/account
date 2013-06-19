@@ -1,6 +1,15 @@
 <?php
 
+/**
+ * contains class for changing users email
+ * @package account
+ */
 include_once "coslib/date.php";
+
+/**
+ * contians class for changing users email
+ * @package account
+ */
 class accountChangeemail {
     
     public $errors = array ();
@@ -60,7 +69,7 @@ class accountChangeemail {
                 
         $mysql_date = dateGetDateNow();
         
-        // only allow 2 changes per day            
+        // only allow 2 changes per day
         $bean = cosRB::getBean('account_email_changes', 'user_id', $user_id);
         
         $email_max_changes = 1000;
@@ -139,8 +148,8 @@ class accountChangeemail {
      * @return boolean $res true or false
      */
     public function updateUser ($user_id, $values) {
-        $res = db_q::setUpdate('account')->
-                setUpdateValues($values)->
+        $res = db_q::update('account')->
+                values($values)->
                 filter('id =', $user_id)->
                 exec();
         return $res;
