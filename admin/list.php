@@ -24,7 +24,7 @@ if (isset($_GET['submit'])) {
     $res = $acc->searchIdOrEmail($_GET['id']);
     if (!empty($res)) {
         echo lang::translate('account: admin: found results');
-        viewAccountAdmin::listUsers($res);
+        AccountAdminViews::listUsers($res);
         echo "<hr />\n";
         
     } else {
@@ -39,6 +39,6 @@ $p = new pearPager($num_rows);
 $users = $a->getUsers($p->from);
 
 template::setTitle(lang::translate('account_list_users'));
-viewAccountAdmin::listUsers($users);
+AccountAdminViews::listUsers($users);
 
 echo $p->getPagerHTML();

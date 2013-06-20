@@ -20,7 +20,7 @@ if ($res){
             html::errors($request->errors);
         }
     }
-    accountRequestpwView::formVerify();
+    accountRequestpwViews::formVerify();
 } else {
     html::errors($request->errors);
 }

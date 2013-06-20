@@ -40,7 +40,7 @@ if (isset($_POST['submit'])){
 
 
 if (!empty($user['url'])){  
-    viewAccountAdmin::updateUrlUser($user);
+    AccountAdminViews::updateUrlUser($user);
 } else {   
-    viewAccountAdmin::updateEmailUser($user);
+    AccountAdminViews::updateEmailUser($user);
 }

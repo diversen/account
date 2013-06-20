@@ -1,5 +1,9 @@
 <?php
 
-function account_create_verify ($message = null) {
-    http::locationHeader('/account/login/index', $message);
+class accountCreateViews {
+    
+    public static function verify ($message = null) {
+        http::locationHeader('/account/login/index', $message);
+    }    
 }
+

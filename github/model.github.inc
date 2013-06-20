@@ -54,7 +54,7 @@ class accountGithub extends account {
      */
     public function controlLogin (){
         if (session::isUser()){
-            $this->displayLogout();    
+            $this->displayLogout();  
         // submission has taking place but no redirect.     
         } else {
             $this->login();

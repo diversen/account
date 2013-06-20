@@ -1,18 +1,19 @@
 <?php
 
-/**
- * echo a facebook login url link
- * @param string $loginUrl facebook login url.
- */
-
-function account_facebook_login_url ($loginUrl) {
-    echo html::createLink($loginUrl, lang::translate('account: login facebook link'));
-}
-
-/**
- * echo a facebook logout url
- * @param string $loginUrl facebook login url.
- */
-function account_facebook_logout_url ($logoutUrl) {
-    echo html::createLink($logoutUrl, lang::translate('account: logout facebook link'));
+class accountFacebookViews {
+    /**
+     * echo a facebook login url
+     * @param string $loginUrl facebook login url.
+    */
+    public static function loginLink ($loginUrl) {
+        echo html::createLink($loginUrl, lang::translate('account: login facebook link'));
+    }
+    
+    /**
+     * echo a facebook logout url
+     * @param string $loginUrl facebook logout url.
+    */
+    public static function logoutLink($logoutUrl) {
+        echo html::createLink($logoutUrl, lang::translate('account: logout facebook link'));
+    }
 }

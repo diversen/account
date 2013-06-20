@@ -49,8 +49,7 @@ class accountLogin extends account {
      */
     public function displayLogin (){
         $vars['errors'] = $this->errors;
-        accountLoginView::formLogin($vars);
-        //echo view::get('account', 'account_login_email', $vars);
+        accountLoginViews::formLogin($vars);
     }
 
     /**

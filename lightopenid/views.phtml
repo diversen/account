@@ -1,11 +1,13 @@
 <?php
 
-/** 
- * @TODO refactor
- * displays default lightopenid login box
- */
-function view_lightopenid_login () {
-    moduleloader::includeTemplateCommon('openid-selector');
-    openid_selector_load_assets();
-    echo openid_selector_get_form();
+class accountLightopenidViews {
+    
+    /**
+     * displays jquery openid login options
+     */
+    public static function loginForm () {
+        moduleloader::includeTemplateCommon('openid-selector');
+        openid_selector_load_assets();
+        echo openid_selector_get_form();
+    }
 }

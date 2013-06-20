@@ -1,6 +1,6 @@
 <?php
 
-moduleloader::includeModule('account/login');
+moduleloader::includeModule('account');
 include_once "lightopenid/openid.php";
 view::includeOverrideFunctions('account', 'lightopenid/views.phtml');
 /**
@@ -26,7 +26,7 @@ class accountLightopenid extends account {
      * method for showing a openid login form
      */
     public static function viewLoginForm(){
-        view_lightopenid_login ();
+        accountLightopenidViews::loginForm ();
     }
 
     /**

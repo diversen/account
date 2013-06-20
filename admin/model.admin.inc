@@ -114,7 +114,7 @@ class accountAdmin extends account {
     }
     
     public function searchAccount () {
-        $v = new viewAccountAdmin();
+        $v = new AccountAdminViews();
         $v->searchForm();
     }
 
