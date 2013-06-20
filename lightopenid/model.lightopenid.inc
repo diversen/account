@@ -1,6 +1,7 @@
 <?php
 
-moduleloader::includeModule('account');
+// we need both account and accountLogin.
+moduleloader::includeModule('account/login');
 include_once "lightopenid/openid.php";
 view::includeOverrideFunctions('account', 'lightopenid/views.phtml');
 /**
