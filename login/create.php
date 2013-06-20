@@ -25,4 +25,4 @@ if (!empty($_POST['submit'])){
     }
 }
 
-accountLoginViews::formCreate();
+account_login_views::formCreate();

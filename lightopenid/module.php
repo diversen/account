@@ -27,7 +27,7 @@ class account_lightopenid extends account {
      * method for showing a openid login form
      */
     public static function viewLoginForm(){
-        accountLightopenidViews::loginForm ();
+        account_lightopenid_views::loginForm ();
     }
 
     /**

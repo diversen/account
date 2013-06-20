@@ -11,7 +11,6 @@ view::includeOverrideFunctions('account', 'admin/views.phtml');
 /**
  * Class account_admin
  */
-class account_admin_module extends account_admin {}
 class account_admin extends account {
 
     /**
@@ -119,7 +118,7 @@ class account_admin extends account {
     }
     
     public function searchAccount () {
-        $v = new AccountAdminViews();
+        $v = new account_admin_views();
         $v->searchForm();
     }
 
@@ -148,3 +147,4 @@ class account_admin extends account {
         return $db->delete('account', 'id',  $this->id);
     }
 }
+class account_admin_module extends account_admin {}

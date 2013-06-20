@@ -263,9 +263,9 @@ class account_facebook extends account {
 
         // display login or logout -  you can override this in any template
         if ($user_profile) {
-            accountFacebookViews::logoutLink ($logoutUrl);
+            account_facebook_views::logoutLink ($logoutUrl);
         } else {
-            accountFacebookViews::loginLink ($loginUrl);
+            account_facebook_views::loginLink ($loginUrl);
         }
     }
     

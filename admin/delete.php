@@ -24,5 +24,5 @@ if (!empty($_POST['submit'])){
             '/account/admin/list', 
             lang::translate('account_has_been_deleted'));
 } else {
-    AccountAdminViews::delete($user);
+    account_admin_views::delete($user);
 }

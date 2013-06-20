@@ -225,6 +225,6 @@ class account_requestpw extends account {
             }
         }
 
-        accountRequestpwViews::formSend();
+        account_requestpw_views::formSend();
     }
 }
