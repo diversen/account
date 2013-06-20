@@ -4,4 +4,4 @@
  * @package    account
  */
 
-accountRequestpw::displayRequestPassword();
+account_requestpw::displayRequestPassword();

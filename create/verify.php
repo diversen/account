@@ -1,7 +1,7 @@
 <?php
 
 template::setTitle(lang::translate('account_title_verify_account'));
-$a = new accountCreate();
+$a = new account_create();
 $a->validate();
 $res = $a->verifyAccount();
 if (!$res){

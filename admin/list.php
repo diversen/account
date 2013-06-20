@@ -15,7 +15,7 @@ if (config::getModuleIni('account_disable_admin_interface')) {
 
 $_GET = html::specialEncode($_GET);
 
-$a = new accountAdmin();
+$a = new account_admin();
 
 $a->searchAccount();
 if (isset($_GET['submit'])) {

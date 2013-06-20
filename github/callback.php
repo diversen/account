@@ -1,5 +1,7 @@
 <?php
 
+use diversen\githubapi as githubApi;
+
 $redirect_uri = config::getSchemeWithServerName() . "/account/github/callback";
 $post = array (
     'redirect_uri' => $redirect_uri,

@@ -2,7 +2,7 @@
 
 template::setTitle(lang::translate('account_request_set_new_passwords_title'));
 
-$request = new accountRequestpw();
+$request = new account_requestpw();
 $res = $request->verifyAccount();
 if ($res){
     $request->sanitize();

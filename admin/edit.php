@@ -12,7 +12,7 @@ if (config::getModuleIni('account_disable_admin_interface')) {
 
 template::setTitle(lang::translate('account_edit_account_title'));
 
-$l = new accountAdmin();
+$l = new account_admin();
 $user = $l->getUser();
 
 if (isset($_POST['submit'])){
