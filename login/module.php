@@ -43,14 +43,7 @@ class account_login extends account {
     }
     
 
-    
-    /**
-     * method for displaying email login 
-     */
-    public function displayLogin (){
-        $vars['errors'] = $this->errors;
-        account_login_views::formLogin($vars);
-    }
+   
 
     /**
      * method for controlling email login 
@@ -65,10 +58,14 @@ class account_login extends account {
         } elseif ( isset($_POST['submit_account_login']) ) {
             
             $this->errors[]= lang::translate('account_login_wrong_username_password');
-            $this->displayLogin();
+            $vars['errors'] = $this->errors;
+            account_login_views::formLogin($vars);
+
         // no submission
         } else {           
-            $this->displayLogin();
+
+            account_login_views::formLogin();
+
         }     
     }
     

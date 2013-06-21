@@ -26,8 +26,8 @@ class account_login_views {
         echo html::getStr();
     }
     
-    public static function formLogin ($vars) {
-        
+    public static function formLogin ($vars = null) {
+
         if (!isset($_POST['submit_account_login'])){
             $init = array ('keep_session' => 'on');
         } else {
