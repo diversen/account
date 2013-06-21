@@ -5,7 +5,7 @@
  */
 
 moduleloader::includeModule ('account');
-moduleloader::includeModel ('account/create');
+moduleloader::includeModule ('account/create');
 view::includeOverrideFunctions('account', 'admin/views.phtml');
 
 /**
