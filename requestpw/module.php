@@ -4,7 +4,7 @@
  * File containing class for srequesting and etting a new user password
  * 
  */
-view::includeOverrideFunctions('account', 'requestpw/views.phtml');
+view::includeOverrideFunctions('account', 'requestpw/views.php');
 moduleloader::includeModule('account');
 
 /**

@@ -1,7 +1,7 @@
 <?php
 
 moduleloader::includeModule('account');
-view::includeOverrideFunctions('account', 'login/views.phtml');
+view::includeOverrideFunctions('account', 'login/views.php');
 
 class account_login extends account {
     

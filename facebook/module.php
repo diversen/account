@@ -1,7 +1,7 @@
 <?php
 
 moduleloader::includeModule('account/login');
-view::includeOverrideFunctions('account', 'facebook/views.phtml');
+view::includeOverrideFunctions('account', 'facebook/views.php');
 
 class account_facebook extends account {
 

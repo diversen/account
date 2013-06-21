@@ -5,7 +5,7 @@
  * @package account
  */
 moduleloader::includeModule('account');
-view::includeOverrideFunctions('account', 'create/views.phtml');
+view::includeOverrideFunctions('account', 'create/views.php');
 /**
  * class for creating an account using an email. 
  * @package account
