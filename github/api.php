@@ -3,7 +3,7 @@
 /**
  * controller for making api calls
  */
-$git = new accountGithub();
+$git = new account_github();
 $git->setAcceptUniqueOnlyEmail(true);
 $git->auth ();
 

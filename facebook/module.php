@@ -3,7 +3,7 @@
 moduleloader::includeModule('account/login');
 view::includeOverrideFunctions('account', 'facebook/views.phtml');
 
-class accountFacebook extends account {
+class account_facebook extends account {
 
     /**
      * method for authorizing a user
@@ -225,7 +225,7 @@ class accountFacebook extends account {
                 $user_profile = $facebook->api('/me');
                 $logoutUrl = $facebook->getLogoutUrl(
                     array ('next' => 
-                        accountFacebook::getLogoutNext()
+                        account_facebook::getLogoutNext()
                     )
                 );
             } catch (FacebookApiException $e) {
@@ -263,9 +263,9 @@ class accountFacebook extends account {
 
         // display login or logout -  you can override this in any template
         if ($user_profile) {
-            accountFacebookViews::logoutLink ($logoutUrl);
+            account_facebook_views::logoutLink ($logoutUrl);
         } else {
-            accountFacebookViews::loginLink ($loginUrl);
+            account_facebook_views::loginLink ($loginUrl);
         }
     }
     

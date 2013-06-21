@@ -19,7 +19,7 @@ if (isset($_SESSION['keep_session'])) {
 }
 
 $options['unique_email'] = true;
-$l = new accountLightopenid($options);
+$l = new account_lightopenid($options);
 if (!session::isUser()){
     $l->login();
     if (!empty($l->status)) {
@@ -30,6 +30,6 @@ if (!session::isUser()){
     }
     $l->viewLoginForm();    
 } else {
-    $a = new accountLogin();
+    $a = new account_login();
     $a->displayLogout();
 }

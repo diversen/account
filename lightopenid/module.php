@@ -7,7 +7,7 @@ view::includeOverrideFunctions('account', 'lightopenid/views.phtml');
 /**
  * class for doing login with openid
  */
-class accountLightopenid extends account {
+class account_lightopenid extends account {
     
     /**
      *
@@ -27,7 +27,7 @@ class accountLightopenid extends account {
      * method for showing a openid login form
      */
     public static function viewLoginForm(){
-        accountLightopenidViews::loginForm ();
+        account_lightopenid_views::loginForm ();
     }
 
     /**

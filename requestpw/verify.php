@@ -2,7 +2,7 @@
 
 template::setTitle(lang::translate('account_request_set_new_passwords_title'));
 
-$request = new accountRequestpw();
+$request = new account_requestpw();
 $res = $request->verifyAccount();
 if ($res){
     $request->sanitize();
@@ -20,7 +20,7 @@ if ($res){
             html::errors($request->errors);
         }
     }
-    accountRequestpwViews::formVerify();
+    account_requestpw_views::formVerify();
 } else {
     html::errors($request->errors);
 }

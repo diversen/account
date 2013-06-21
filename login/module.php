@@ -3,7 +3,7 @@
 moduleloader::includeModule('account');
 view::includeOverrideFunctions('account', 'login/views.phtml');
 
-class accountLogin extends account {
+class account_login extends account {
     
     /**
      * constructs accountLogin object.
@@ -49,7 +49,7 @@ class accountLogin extends account {
      */
     public function displayLogin (){
         $vars['errors'] = $this->errors;
-        accountLoginViews::formLogin($vars);
+        account_login_views::formLogin($vars);
     }
 
     /**

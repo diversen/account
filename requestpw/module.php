@@ -10,7 +10,7 @@ moduleloader::includeModule('account');
 /**
  * class requestpw 
  */
-class accountRequestpw extends account {
+class account_requestpw extends account {
 
 
     /**
@@ -203,7 +203,7 @@ class accountRequestpw extends account {
         template::setTitle(lang::translate('account_request_password_title'));
 
         http::prg();
-        $request = new accountRequestpw();
+        $request = new account_requestpw();
         if (isset($_POST['submit'])){
             $request->sanitize();
             $request->validate();
@@ -225,6 +225,6 @@ class accountRequestpw extends account {
             }
         }
 
-        accountRequestpwViews::formSend();
+        account_requestpw_views::formSend();
     }
 }

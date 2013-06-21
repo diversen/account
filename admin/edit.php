@@ -12,7 +12,7 @@ if (config::getModuleIni('account_disable_admin_interface')) {
 
 template::setTitle(lang::translate('account_edit_account_title'));
 
-$l = new accountAdmin();
+$l = new account_admin();
 $user = $l->getUser();
 
 if (isset($_POST['submit'])){
@@ -40,7 +40,7 @@ if (isset($_POST['submit'])){
 
 
 if (!empty($user['url'])){  
-    AccountAdminViews::updateUrlUser($user);
+    account_admin_views::updateUrlUser($user);
 } else {   
-    AccountAdminViews::updateEmailUser($user);
+    account_admin_views::updateEmailUser($user);
 }

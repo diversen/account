@@ -10,7 +10,7 @@ view::includeOverrideFunctions('account', 'create/views.phtml');
  * class for creating an account using an email. 
  * @package account
  */
-class accountCreate extends account {
+class account_create extends account {
 
     /**
      * constructor

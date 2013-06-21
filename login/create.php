@@ -11,7 +11,7 @@ if (!session::checkAccessControl('account_allow_create')){
 }
 
 template::setTitle(lang::translate('account_create_index_title'));
-$l = new accountCreate();
+$l = new account_create();
 if (!empty($_POST['submit'])){
     $_POST = html::specialEncode($_POST);
     $l->validate();
@@ -25,4 +25,4 @@ if (!empty($_POST['submit'])){
     }
 }
 
-accountLoginViews::formCreate();
+account_login_views::formCreate();

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * File contains accountAdmin class which extends account create. 
+ * File contains account_admin class which extends account create. 
  */
 
 moduleloader::includeModule ('account');
@@ -9,9 +9,9 @@ moduleloader::includeModule ('account/create');
 view::includeOverrideFunctions('account', 'admin/views.phtml');
 
 /**
- * Class accountAdmin
+ * Class account_admin
  */
-class accountAdmin extends account {
+class account_admin extends account {
 
     /**
      * 
@@ -29,6 +29,10 @@ class accountAdmin extends account {
     function __construct(){
         $this->uri = uri::getInstance();
         $this->id = (int)$this->uri->fragment(3);
+    }
+    
+    public static function test () {
+        echo "hello world";
     }
 
     /**
@@ -114,7 +118,7 @@ class accountAdmin extends account {
     }
     
     public function searchAccount () {
-        $v = new AccountAdminViews();
+        $v = new account_admin_views();
         $v->searchForm();
     }
 
@@ -143,3 +147,4 @@ class accountAdmin extends account {
         return $db->delete('account', 'id',  $this->id);
     }
 }
+class account_admin_module extends account_admin {}
