@@ -93,8 +93,10 @@ class account_create extends account {
                 return false;
             }
         }
-        
-        
+    }
+    
+    public function validateIdenticalEmail () {
+                
         if ($_POST['email'] != $_POST['email2']) {
             $this->errors['email'] = lang::translate('account_error_email_does_not_match');
             return false;
