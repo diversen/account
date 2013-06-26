@@ -36,7 +36,7 @@ class accountChangeemail {
         }
         
         $account = new account();
-        $user = $account->getUserFromEmail($email);
+        $user = $account->getUserFromEmail($email, null, true);
         if (!empty($user) && ($user['id'] != $user_id) ) {
             $this->errors['email_exists'] = lang::translate('account: error: email exists');
             return 0;
@@ -52,6 +52,7 @@ class accountChangeemail {
      */
     public function changeEmail ($user_id, $email) {
 
+        
         $pos = $this->changeEmailPossible($user_id, $email);
         if ($pos == -1) {
             return true;
@@ -59,13 +60,12 @@ class accountChangeemail {
         if ($pos == 0) {
             return false;
         }
-        
+       
         $values = array ('email' => $email, 'verified' => 0);     
-        $res = db_q::setUpdate('account')->
-                setUpdateValues($values)->
+        $res = db_q::update('account')->
+                values($values)->
                 filter('id =', $user_id)->
                 exec();
-
                 
         $mysql_date = dateGetDateNow();
         
