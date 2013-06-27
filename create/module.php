@@ -137,8 +137,10 @@ class account_create extends account {
     }
 
     /**
-     * method for creating an email user
-     * emails will always be lower case
+     * method for creating an email user from POST
+     * we need a $_POST['email'] and a $_POST['password']
+     * Calls $this->sendVerify email
+     * Note: Emails will always be lower case
      * @return int $res last insert id on success or 0 on failure
      */
     public function createUser (){
