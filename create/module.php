@@ -243,6 +243,7 @@ class account_create extends account {
             if ($redirect) {
                 $row = user::getAccount($row['id']);
                 $a = new account();
+                $a->setPersistentCookie(true);
                 $a->setSessionAndCookie($row);
                 http::locationHeader($redirect);
             }
