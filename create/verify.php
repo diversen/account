@@ -1,13 +1,13 @@
 <?php
 
-template::setTitle(lang::translate('account_title_verify_account'));
+template::setTitle(lang::translate('Verify Account'));
 $a = new account_create();
 $a->validate();
 $res = $a->verifyAccount();
 if (!$res){
     html::errors($a->errors);
 } else if ($res === 2) {
-    account_create_views::verify(lang::translate('account_is_already_verified'));
+    account_create_views::verify(lang::translate('Account is already verified'));
 } else {
-    account_create_views::verify(lang::translate('account_has_been_verified'));
+    account_create_views::verify(lang::translate('Account has been verified'));
 }

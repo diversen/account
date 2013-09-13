@@ -7,12 +7,12 @@ class account_login_views {
         html::$autoLoadTrigger = 'submit';
         html::init($_POST);
         html::formStart('account_create_form');
-        html::legend(lang::translate('account_user_create_legend'));
-        html::label('email', lang::translate('account_email_label'), array('required' => 1));
+        html::legend(lang::translate('Create account'));
+        html::label('email', lang::translate('Email'), array('required' => 1));
         html::text('email',  null, $options);
-        html::label('password', lang::translate('account_password_label'), array('required' => 1));
+        html::label('password', lang::translate('Password'), array('required' => 1));
         html::password('password', null, $options);
-        html::label('password2', lang::translate('account_retype_password_label'), array('required' => 1));
+        html::label('password2', lang::translate('Repeat password'), array('required' => 1));
         html::password('password2', null, $options);
 
         event::triggerEvent(config::getModuleIni('account_events'),
@@ -41,10 +41,10 @@ class account_login_views {
         html::$autoLoadTrigger = 'submit_account_login';
         html::init($init);
         html::formStart('account_request_new_password');
-        html::legend(lang::translate('account_login_legend'));
-        html::label('email', lang::translate('account_email_label'), array('required' => true));
+        html::legend(lang::translate('Login'));
+        html::label('email', lang::translate('Email'), array('required' => true));
         html::text('email');
-        html::label('password', lang::translate('account_form_password'), array('required' => true));
+        html::label('password', lang::translate('Password'), array('required' => true));
         html::password('password');
 
         self::keepSession();
@@ -57,11 +57,11 @@ class account_login_views {
     
     public static function keepSession () {
 
-        $keep_session_label = lang::translate('account_keep_session');
+        $keep_session_label = lang::translate('Let me stay logged in');
         $days = config::getMainIni('cookie_time'); 
 
         if ($days > 0 ) {
-            $keep_session_label.= ' ' .  $days . ' ' . lang::translate('account_num_days'); 
+            $keep_session_label.= ' ' .  $days . ' ' . lang::translate('days'); 
 
         }            
         html::label('keep_session', $keep_session_label);

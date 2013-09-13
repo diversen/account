@@ -1,4 +1,4 @@
 <?php
 
-template::setTitle(lang::translate('account_title_index'));
+template::setTitle(lang::translate('Account'));
 account_admin_module::test();

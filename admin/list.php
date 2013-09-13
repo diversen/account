@@ -23,12 +23,12 @@ if (isset($_GET['submit'])) {
 
     $res = $acc->searchIdOrEmail($_GET['id']);
     if (!empty($res)) {
-        echo lang::translate('account: admin: found results');
+        echo lang::translate('Found the following accounts');
         account_admin_views::listUsers($res);
         echo "<hr />\n";
         
     } else {
-        echo lang::translate('account: admin: found no results');
+        echo lang::translate('I could not find any matching results');
     }   
 }
 
@@ -38,7 +38,7 @@ $num_rows = $a->getNumUsers();
 $p = new pearPager($num_rows);
 $users = $a->getUsers($p->from);
 
-template::setTitle(lang::translate('account_list_users'));
+template::setTitle(lang::translate('Search for users'));
 account_admin_views::listUsers($users);
 
 echo $p->getPagerHTML();

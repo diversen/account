@@ -3,7 +3,7 @@
 usleep(100000);
 
 http::prg();
-template::setTitle(lang::translate('account_login_or_logout'));
+template::setTitle(lang::translate('Log in or Log out'));
 
 $options = array();
 if (isset($_POST['keep_session']) && $_POST['keep_session'] == 1) {

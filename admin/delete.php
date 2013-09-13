@@ -7,13 +7,13 @@ if (!session::checkAccessControl('account_allow_edit')){
     return;
 }
 
+// account_disable_admin_interface
 if (config::getModuleIni('account_disable_admin_interface')) {
     moduleloader::setStatus(403);
     return;
 }
-// account_disable_admin_interface
 
-template::setTitle(lang::translate('account_delete_account_title'));
+template::setTitle(lang::translate('Delete account'));
 
 $l = new account_admin();
 $user = $l->getUser();
@@ -22,7 +22,7 @@ if (!empty($_POST['submit'])){
     $l->deleteUser();
     http::locationHeader(
             '/account/admin/list', 
-            lang::translate('account_has_been_deleted'));
+            lang::translate('Account has been deleted'));
 } else {
     account_admin_views::delete($user);
 }

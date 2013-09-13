@@ -1,6 +1,6 @@
 <?php
 
-template::setTitle(lang::translate('account_login_or_logout'));
+template::setTitle(lang::translate('Log in or Log out'));
 
 usleep(100000);
 

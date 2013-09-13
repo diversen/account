@@ -52,13 +52,13 @@ class account_admin extends account {
             return;
         }
         if (strlen($_POST['password']) < 7){
-            $this->errors['password'] = lang::translate('account_password_error_length');
+            $this->errors['password'] = lang::translate('Password needs to be 7 chars');
         }
         if (strlen($_POST['password']) == 0){
             unset($this->errors['password']);
         }
         if ($_POST['password'] != $_POST['password2']){
-            $this->errors['password'] = lang::translate('account_password_dont_match');
+            $this->errors['password'] = lang::translate('Passwords does not match');
         }
     }
 

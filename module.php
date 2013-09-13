@@ -295,7 +295,7 @@ class account {
             if ($row['verified'] == 1) {
                 return $row;
             } else {
-                $this->errors['not_verified'] = lang::translate('account: error: account needs to be verified before log in'); 
+                $this->errors['not_verified'] = lang::translate('Account needs to be verified before you may log in'); 
                 return array ();
             }
         }
@@ -308,7 +308,7 @@ class account {
      */
     public function checkLocked ($row) {
         if ($row['locked'] == 1) {
-            $this->errors['locked'] = lang::translate('account: error: account is logged'); 
+            $this->errors['locked'] = lang::translate('This account has been locked'); 
             return array ();
         }
         return $row;

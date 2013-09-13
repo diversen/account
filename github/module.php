@@ -44,7 +44,7 @@ class account_github extends account {
         // login
         $api = new githubApi();
         $url = $api->getAccessUrl($access_config);
-        echo html::createLink($url, lang::translate('account: github: Login'));
+        echo html::createLink($url, lang::translate('Github login'));
     }
     
 
@@ -114,7 +114,7 @@ class account_github extends account {
                     }
 
                     // if no auto merge we set an error
-                    $this->errors['github_email_exists'] = lang::translate('account: github: email already exists');
+                    $this->errors['github_email_exists'] = lang::translate('Email already exists in system');
                     return false;
                 }
             } else {

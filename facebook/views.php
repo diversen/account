@@ -6,7 +6,7 @@ class account_facebook_views {
      * @param string $loginUrl facebook login url.
     */
     public static function loginLink ($loginUrl) {
-        echo html::createLink($loginUrl, lang::translate('account: login facebook link'));
+        echo html::createLink($loginUrl, lang::translate('Login using facebook'));
     }
     
     /**
@@ -14,6 +14,6 @@ class account_facebook_views {
      * @param string $loginUrl facebook logout url.
     */
     public static function logoutLink($logoutUrl) {
-        echo html::createLink($logoutUrl, lang::translate('account: logout facebook link'));
+        echo html::createLink($logoutUrl, lang::translate('Logout'));
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 usleep(100000);
-template::setTitle(lang::translate('account_openid_login_index'));
+template::setTitle(lang::translate('OpenID login'));
 
 // check to see if user is allowed to use lightopenid
 if (!in_array('lightopenid', config::getModuleIni('account_logins'))){

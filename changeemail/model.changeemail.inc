@@ -38,7 +38,7 @@ class accountChangeemail {
         $account = new account();
         $user = $account->getUserFromEmail($email, null, true);
         if (!empty($user) && ($user['id'] != $user_id) ) {
-            $this->errors['email_exists'] = lang::translate('account: error: email exists');
+            $this->errors['email_exists'] = lang::translate('Email already exists');
             return 0;
         }
         
@@ -123,7 +123,7 @@ class accountChangeemail {
             return false;
         }
         
-        $subject = lang::translate('account_signup_subject');
+        $subject = lang::translate('Confirm account creation');
         
         $scheme = config::getHttpScheme();
         $vars['site_name'] = "$scheme://$_SERVER[HTTP_HOST]";
@@ -131,11 +131,11 @@ class accountChangeemail {
         $vars['verify_key'] = "$vars[site_name]/account/create/verify/$user_id/$md5";
         $vars['user_id'] = $user_id;
 
-        $lang = config::getMainIni('language');
         $message = array ();
         
-        $message['txt'] = view::get('account', "lang/$lang/signup_message", $vars);
-        $message['html'] = view::get('account', "lang/$lang/signup_message_html", $vars);
+        // same message for change password as for request new password.
+        $message['txt'] = view::get('account', "mails/signup_message", $vars);
+        $message['html'] = view::get('account', "mails/signup_message_html", $vars);
         
         $from = config::$vars['coscms_main']['site_email'];
         return cosMail::multipart($email, $subject, $message, $from);

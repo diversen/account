@@ -60,10 +60,10 @@ class account_lightopenid extends account {
                 }
 
             } else if($openid->mode == 'cancel') {
-                $this->errors[] = lang::translate('account_openid_login_cancelled');
+                $this->errors[] = lang::translate('OpenID Login was cancelled');
                 return false; 
             } else {               
-                $this->status = lang::translate('account_openid_valid_login') . ' ' . htmlspecialchars($openid->identity). "<br />\n";
+                $this->status = lang::translate('OpenID login accepted') . ' ' . htmlspecialchars($openid->identity). "<br />\n";
 
                 if ($openid->validate()) {
                     $res = $this->dispenseOpenid($openid);
@@ -71,7 +71,7 @@ class account_lightopenid extends account {
                         return false;
                     }
                 } else {
-                    $this->errors[] = lang::translate('account_openid_invalid_login');
+                    $this->errors[] = lang::translate('Invalid openID');
                     return false;
                 }
             }
@@ -100,7 +100,7 @@ class account_lightopenid extends account {
                 $this->setSessionAndCookie($account, 'openid');
                 
                 session::setActionMessage(
-                    lang::translate('account_openid_loggedin_message'), true
+                    lang::translate('Logged ind with openID'), true
                 );
                       
                 account::redirectOnLogin($this->options['redirect']);
@@ -111,7 +111,7 @@ class account_lightopenid extends account {
             
             $this->setSessionAndCookie($account);
             session::setActionMessage(
-                lang::translate('account_openid_loggedin_message'), false
+                lang::translate('Logged ind with openID'), false
             );
             
             account::redirectOnLogin($this->options['redirect']);                       
@@ -156,14 +156,14 @@ class account_lightopenid extends account {
                 }
 
             } else if($openid->mode == 'cancel') {
-                $this->errors[] = lang::translate('account_openid_login_cancelled');
+                $this->errors[] = lang::translate('OpenID Login was cancelled');
                 return false; 
             } else {               
-                $this->status = lang::translate('account_openid_valid_login') . ' ' . htmlspecialchars($openid->identity). "<br />\n";
+                $this->status = lang::translate('OpenID login accepted') . ' ' . htmlspecialchars($openid->identity). "<br />\n";
                 if ($openid->validate()) {
                     $this->connectOpenidAccount($openid, $user_id);
                 } else {
-                    $this->errors[] = lang::translate('account_openid_invalid_login');
+                    $this->errors[] = lang::translate('Invalid openID');
                 }
                 //echo 'User ' . ($openid->validate() ? $openid->identity . ' has ' : 'has not ') . 'logged in.';
             }
@@ -280,7 +280,7 @@ class account_lightopenid extends account {
         
         if (config::getModuleIni('account_needs_email')) {
             if (!isset($ary['contact/email']) || empty($ary['contact/email'])) {
-                $this->errors['openid_email'] = lang::translate('account: openid: no valid email');
+                $this->errors['openid_email'] = lang::translate('Invalid login. We need a valid OpenID email');
                 return false;
             }
         } 
@@ -296,7 +296,7 @@ class account_lightopenid extends account {
                 }
                 
                 // if no auto merge we set an error
-                $this->errors['openid_email_exists'] = lang::translate('account: openid: email already exists');
+                $this->errors['openid_email_exists'] = lang::translate('Email already exists in system');
                 return false;
             }
         }

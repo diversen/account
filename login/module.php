@@ -57,7 +57,7 @@ class account_login extends account {
         // submission has taking place but no redirect.     
         } elseif ( isset($_POST['submit_account_login']) ) {
             
-            $this->errors[]= lang::translate('account_login_wrong_username_password');
+            $this->errors[]= lang::translate('Not a correct email or password');
             $vars['errors'] = $this->errors;
             account_login_views::formLogin($vars);
 

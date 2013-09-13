@@ -19,22 +19,22 @@ class account_admin_views {
         html::$autoLoadTrigger = 'submit';
         html::init($values);
         html::formStart('account_form');
-        html::legend(lang::translate('account_edit_legend'));
-        html::label('email', lang::translate('account_email') );
+        html::legend(lang::translate('Edit account'));
+        html::label('email', lang::translate('Email') );
         html::text('email');
-        html::label('password', lang::translate('account_password') );
+        html::label('password', lang::translate('Password') );
         html::password('password');
-        html::label('password2', lang::translate('account_password_repeat') );
+        html::label('password2', lang::translate('Repeat password') );
         html::password('password2');
-        html::label('verified', lang::translate('account_is_verfied') );
+        html::label('verified', lang::translate('Account is verified') );
         html::checkbox ('verified');
-        html::label('admin', lang::translate('account_is_admin') );
+        html::label('admin', lang::translate('Account is admin') );
         html::checkbox ('admin');
-        html::label('super', lang::translate('account_is_super') );
+        html::label('super', lang::translate('Account is super') );
         html::checkbox ('super');
-        html::label('locked', lang::translate('account: is locked') );
+        html::label('locked', lang::translate('Account is locked') );
         html::checkbox ('locked');
-        html::submit('submit', lang::translate('account_update'));
+        html::submit('submit', lang::translate('Update account'));
         html::formEnd();
         echo html::getStr();
 
@@ -45,16 +45,16 @@ class account_admin_views {
         html::$autoLoadTrigger = 'submit';
         html::init($values);
         html::formStart('account_form');
-        html::legend(lang::translate('account_edit_legend'));
-        html::label('verified', lang::translate('account_form_is_verified') );
+        html::legend(lang::translate('Edit account'));
+        html::label('verified', lang::translate('Account is verified') );
         html::checkbox ('verified');
-        html::label('admin', lang::translate('account_form_is_admin') );
+        html::label('admin', lang::translate('Account is admin') );
         html::checkbox ('admin');
-        html::label('super', lang::translate('account_form_is_super') );
+        html::label('super', lang::translate('Account is super') );
         html::checkbox ('super');
-        html::label('locked', lang::translate('account: is locked') );
+        html::label('locked', lang::translate('Account is locked') );
         html::checkbox ('locked');
-        html::submit('submit', lang::translate('account_update'));
+        html::submit('submit', lang::translate('Update account'));
         html::formEnd();
         echo html::getStr();
     }
@@ -66,8 +66,8 @@ class account_admin_views {
      */
     public function delete ($values){
         html::formStart('account_form');
-        html::legend(lang::translate('account_delete_account_legend'));
-        html::submit('submit', lang::translate('account_delete'));
+        html::legend(lang::translate('Delete account'));
+        html::submit('submit', lang::translate('Delete account'));
         html::formEnd();
         echo html::getStr();
     }
@@ -92,37 +92,37 @@ class account_admin_views {
         echo "<div class=\"account_admin_user\">\n";
         echo user::getProfile($v, $date, array ('user_id'));
         
-        echo lang::translate('account: ID') . MENU_SUB_SEPARATOR_SEC . $v['id'];
+        echo lang::translate('ID') . MENU_SUB_SEPARATOR_SEC . $v['id'];
         echo "<br />";
             
-        echo lang::translate('account: email') . MENU_SUB_SEPARATOR_SEC . $v['email'];
+        echo lang::translate('Email') . MENU_SUB_SEPARATOR_SEC . $v['email'];
         echo "<br />";
 
 
         if ($v['admin']) {
-            echo lang::translate('account_is_admin');
+            echo lang::translate('Account is admin');
         } else {
-            echo lang::translate('account_is_not_admin');
+            echo lang::translate('Account is not admin');
         }
         echo "<br />\n";
 
         if ($v['super']) {
-            echo lang::translate('account_is_super');
+            echo lang::translate('Account is super user');
         } else {
-            echo lang::translate('account_is_not_super');
+            echo lang::translate('Account is not super user');
         }
         echo "<br />\n";
 
         if ($v['verified']) {
-            echo lang::translate('account_is_verified');
+            echo lang::translate('Account is verified');
         } else {
-            echo lang::translate('account_is_not_verified');
+            echo lang::translate('Account is not verified');
         }
         echo "<br />\n";
 
-        echo html::createLink("/account/admin/edit/$v[id]", lang::translate('account_edit'));
+        echo html::createLink("/account/admin/edit/$v[id]", lang::translate('Edit'));
         echo MENU_SUB_SEPARATOR;
-        echo html::createLink("/account/admin/delete/$v[id]", lang::translate('account_delete'));
+        echo html::createLink("/account/admin/delete/$v[id]", lang::translate('Delete'));
         echo "<br />\n";
         echo "<br />\n";
         echo "</div>\n";
@@ -134,11 +134,11 @@ class account_admin_views {
     public function searchForm () {
         $f = new html ();
         $f->formStart('form_search', 'get');
-        $f->legend(lang::translate('account: admin: search legend'));
+        $f->legend(lang::translate('Search accounts'));
         $f->init(null, 'submit');
-        $f->label('id', lang::translate('account: admin: search user id'));
+        $f->label('id', lang::translate('Search account ID'));
         $f->text('id');
-        $f->submit('submit', lang::system('submit'));
+        $f->submit('submit', lang::system('Search'));
         $f->formEnd();
         echo $f->getStr();
                 

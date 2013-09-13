@@ -28,18 +28,18 @@ class account_create extends account {
 
         if (isset($_POST['submit'])) {
             if ($this->emailExist($_POST['email'])){
-                $this->errors['email'] = lang::translate('account_error_email_exists');
+                $this->errors['email'] = lang::translate('Email already exists');
             }
 
             if (!cosValidate::validateEmailAndDomain($_POST['email'])) {
-                $this->errors['email'] = lang::translate('account_error_invalid_email');
+                $this->errors['email'] = lang::translate('That is not a valid email');
             }
 
             // if we use two fields for password
             $this->validatePasswords();
 
             if (!captcha::checkCaptcha(trim($_POST['captcha']))){
-                $this->errors['captcha'] = lang::translate('account_error_incorrect_captcha');
+                $this->errors['captcha'] = lang::translate('Incorrect answer to captcha test');
             }
         }
     }
@@ -57,12 +57,12 @@ class account_create extends account {
         
         $l = cosValidate::passwordLength($_POST['password'], 7);
         if (!$l) {
-            $this->errors['password'] = lang::translate('account_error_password_length');
+            $this->errors['password'] = lang::translate('Password needs to be 7 chars');
         }
         
         $m = cosValidate::passwordMatch($_POST['password'], $_POST['password2']);
         if (!$m){
-            $this->errors['password'] = lang::translate('account_error_password_mismatch');
+            $this->errors['password'] = lang::translate('Passwords does not match');
         }        
     }
     
@@ -84,12 +84,12 @@ class account_create extends account {
 
                 
         if (!cosValidate::validateEmailAndDomain($_POST['email'])) {
-            $this->errors['email'] = lang::translate('account_error_invalid_email');
+            $this->errors['email'] = lang::translate('That is not a valid email');
         }
         
         if (!isset($this->options['ignore_email_exists'])) {
             if ($this->emailExist($_POST['email'])){
-                $this->errors['email'] = lang::translate('account_error_email_exists');
+                $this->errors['email'] = lang::translate('Email already exists');
                 return false;
             }
         }
@@ -98,7 +98,7 @@ class account_create extends account {
     public function validateIdenticalEmail () {
                 
         if ($_POST['email'] != $_POST['email2']) {
-            $this->errors['email'] = lang::translate('account_error_email_does_not_match');
+            $this->errors['email'] = lang::translate('Emails does not match');
             return false;
         }
     }
@@ -175,7 +175,7 @@ class account_create extends account {
      */
     public function sendVerifyMail ($email, $user_id, $md5) {
 
-        $subject = lang::translate('account_signup_subject');
+        $subject = lang::translate('Account created');
         
         $scheme = config::getHttpScheme();
         $vars['site_name'] = "$scheme://$_SERVER[HTTP_HOST]";
@@ -183,14 +183,11 @@ class account_create extends account {
         $vars['verify_key'] = "$vars[site_name]/account/create/verify/$user_id/$md5";
         $vars['user_id'] = $user_id;
 
-        // compose message from language
-        $lang = config::getMainIni('language');
-        
         // option for multi part message
         $message = array ();        
         
-        $txt_message = view::get('account', "lang/$lang/signup_message", $vars);
-        $html_message = view::get('account', "lang/$lang/signup_message_html", $vars);
+        $txt_message = view::get('account', "mails/signup_message", $vars);
+        $html_message = view::get('account', "mails/signup_message_html", $vars);
         
         $message['txt'] = $txt_message;
         $message['html'] = $html_message;
@@ -233,7 +230,7 @@ class account_create extends account {
         $row = $db->selectOne('account', null, $search);
         
         if (empty($row)){
-            $this->errors[] = lang::translate('account_wrong_validation_combination');
+            $this->errors[] = lang::translate('Wrong validation key on account creation');
             return 0;
         }     
         

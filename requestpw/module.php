@@ -40,14 +40,14 @@ class account_requestpw extends account {
      */
     function validate(){
         if (!captcha::checkCaptcha(trim($_POST['captcha']))){
-            $this->errors['captcha'] = lang::translate('account_error_incorrect_captcha');
+            $this->errors['captcha'] = lang::translate('Wrong answer to captcha test');
         }
 
         $db = new db();
         $search = array ('email' => $_POST['email'], 'type' => 'email');
         $row = $db->selectOne('account', 'email', $search);
         if (empty($row)){
-            $this->errors['email'] = lang::translate('account_error_no_such_email');
+            $this->errors['email'] = lang::translate('Email does not exists in our system');
         }
     }
 
@@ -70,7 +70,7 @@ class account_requestpw extends account {
         
         $vars['user_id'] = $row['id'];
         $vars['site_name'] = 'http://' . $_SERVER['HTTP_HOST'];
-        $subject = lang::translate('account_request_pw_subject_for_site') . " " . $vars['site_name'];
+        $subject = lang::translate('Create new password for site') . " " . $vars['site_name'];
 
         // allow class to be used in other setups
         if (isset($this->options['verify_path'])) {
@@ -83,11 +83,9 @@ class account_requestpw extends account {
         if (isset($this->options['verify_path_prepend']))  {
             $vars['verify_key'].=$this->options['verify_path_prepend'];
         }
-        
-        $lang = config::getMainIni('language');        
-        
-        $message['txt'] = view::get('account', "lang/$lang/request_password", $vars);
-        $message['html'] = view::get('account', "lang/$lang/request_password_html", $vars);
+               
+        $message['txt'] = view::get('account', "mails/request_password", $vars);
+        $message['html'] = view::get('account', "mails/request_password_html", $vars);
 
         $res = cosMail::multipart($row['email'], $subject, $message);
         return $res;
@@ -153,12 +151,12 @@ class account_requestpw extends account {
     public function validatePasswords ($password1, $password2) {
         $len = cosValidate::passwordLength($password1, 7);
         if (!$len) {
-            $this->errors['password_length'] = lang::translate('account_password_length_error');
+            $this->errors['password_length'] = lang::translate('Password has to be at least 7 chars');
         }
         
         $match = cosValidate::passwordMatch($password1, $password2);
         if (!$match) {
-            $this->errors['password_match'] = lang::translate('account_password_no_match');
+            $this->errors['password_match'] = lang::translate('Passwords does not match');
         }
     }
     
@@ -173,7 +171,7 @@ class account_requestpw extends account {
         $row = $this->getAccountFromMd5();
         
         if (empty($row)){
-            $this->errors[] = lang::translate('account_request_no_combination_md5_user');
+            $this->errors[] = lang::translate('No such combination between token and email. You can only use the token one time');
             return false;
         } else {
             return true;
@@ -200,7 +198,7 @@ class account_requestpw extends account {
      * in a single call. 
      */
     public static function displayRequestPassword () {
-        template::setTitle(lang::translate('account_request_password_title'));
+        template::setTitle(lang::translate('Request new password'));
 
         http::prg();
         $request = new account_requestpw();
@@ -212,7 +210,7 @@ class account_requestpw extends account {
                 $mail_sent = $request->requestPassword($_POST['email']);
                 if ($mail_sent){
                     session::setActionMessage(
-                        lang::translate('account_request_login_info_sent_to'), true
+                        lang::translate('Visit your mailbox and follow instructions in order to get a new password'), true
                     );
                     $location = config::getModuleIni('account_default_url');
                     http::locationHeader($location);

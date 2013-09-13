@@ -10,7 +10,7 @@ if (config::getModuleIni('account_disable_admin_interface')) {
     return;
 }
 
-template::setTitle(lang::translate('account_edit_account_title'));
+template::setTitle(lang::translate('Edit account'));
 
 $l = new account_admin();
 $user = $l->getUser();
@@ -29,7 +29,7 @@ if (isset($_POST['submit'])){
         }
         if ($res){
             session::setActionMessage(
-                lang::translate('account_action_user_updated')
+                lang::translate('Account has been updated')
             );
             http::locationHeader('/account/admin/list');
         }

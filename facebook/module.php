@@ -48,7 +48,7 @@ class account_facebook extends account {
                 }
                 
                 // if no auto merge we set an error
-                $this->errors['facebook_email_exists'] = lang::translate('account: facebook: email already exists for user');
+                $this->errors['facebook_email_exists'] = lang::translate('Email already exists in system');
                 return false;
             }
         }

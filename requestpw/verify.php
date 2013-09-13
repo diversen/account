@@ -1,6 +1,6 @@
 <?php
 
-template::setTitle(lang::translate('account_request_set_new_passwords_title'));
+template::setTitle(lang::translate('Create new password'));
 
 $request = new account_requestpw();
 $res = $request->verifyAccount();
@@ -11,7 +11,7 @@ if ($res){
         if (empty($request->errors)){
             if ($request->setNewPassword()){
                 session::setActionMessage(
-                    lang::translate('account_request_new_password_has_been_set'), true
+                    lang::translate('New password has been saved'), true
                 );
                 $location = config::getModuleIni('account_default_url');
                 http::locationHeader($location);
