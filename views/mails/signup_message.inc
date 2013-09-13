@@ -1,11 +1,11 @@
-Hej
+Hi!
 
-Du har henvendt dig på <?=$vars['site_name']?> og oprettet en konto.
-
-For at aktivere din konto skal du blot trykke på det følgende link
-eller klippe og sætte det ind i browser linien.
+You have connected with <?=$vars['site_name']?> and requested an
+account.In order to activate your account, you just have to press
+the following link or copy and paste into your browsers URL line. 
 
 <?=$vars['verify_key']?>
 
-Vh <?=$vars['site_name']?>
+
+Kind Regards <?=$vars['site_name']?>
 
