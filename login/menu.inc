@@ -2,7 +2,7 @@
 
 if (!session::isUser()) {
     $_SUB_MODULE_MENU[] = array(
-        'title' => lang::translate('account_request_password'),
+        'title' => lang::translate('Lost password'),
         'url' => '/account/login/requestpw'
     );
 }
@@ -11,7 +11,7 @@ if (!session::isUser()) {
 $account_allow_create = config::getModuleIni('account_allow_create');
 if ($account_allow_create) {
     $_SUB_MODULE_MENU[1] = array(
-        'title' => lang::translate('account_create_email_account'),
+        'title' => lang::translate('Create account'),
         'url' => '/account/login/create',
         'auth' => $account_allow_create
     );

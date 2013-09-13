@@ -19,9 +19,10 @@ class account_requestpw_views {
     
     public static function formSend () {
         html::$autoLoadTrigger = 'submit';
+
         html::init($_POST);
         html::formStart('account_request_new_password');
-        html::legend(lang::translate('Request new password'));
+        html::legend( lang::translate('Request new password') );
         html::label('email', lang::translate('Email'), array('required' => 1));
         html::text('email');
         html::label('captcha', captcha::createCaptcha());

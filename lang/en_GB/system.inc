@@ -2,24 +2,16 @@
 
 // Translation of menu file /home/dennis/www/oscmsdk/modules/account/menu.inc
 
-$_COS_LANG_MODULE['account_login_with_email'] = 'Email Login';
-$_COS_LANG_MODULE['account_create_email_account'] = 'Create account';
-$_COS_LANG_MODULE['account_request_password'] = 'Lost password?';
-$_COS_LANG_MODULE['account_use_open_id'] = 'OpenID';
-$_COS_LANG_MODULE['account_login_facebook'] = 'Facebook';
-$_COS_LANG_MODULE['account_admin'] = 'Admin';
+$_COS_LANG_MODULE['Email login'] = 'Email Login';
+$_COS_LANG_MODULE['Create account'] = 'Create account';
+$_COS_LANG_MODULE['Lost password'] = 'Lost password?';
+$_COS_LANG_MODULE['OpenID'] = 'OpenID';
+$_COS_LANG_MODULE['Facebook'] = 'Facebook';
+$_COS_LANG_MODULE['Admin'] = 'Admin';
 // Translation of menu file /home/dennis/www/oscmsdk/modules/account/admin/menu.inc
 
-$_COS_LANG_MODULE['account_list_users'] = 'Show accounts';
 $_COS_LANG_MODULE['Account'] = 'Account';
-$_COS_LANG_MODULE['account'] = 'Account';
-
-
-
-
-
-
-$_COS_LANG_MODULE['account_login_github'] = 'Github';
+$_COS_LANG_MODULE['Github'] = 'Github';
 
 
 

@@ -14,42 +14,42 @@ $_MODULE_MENU = array();
 
 if (in_array('email', $account_logins)){
     $_MODULE_MENU[0] = array(
-        'title' => lang::translate('account_login_with_email'),
+        'title' => lang::translate('Email login'),
         'url' => '/account/login/index'
     );
 }
 
 if (in_array('openid', $account_logins)){
     $_MODULE_MENU[] = array(
-        'title' => lang::translate('account_use_open_id'),
+        'title' => lang::translate('OpenID'),
         'url' => '/account/openid/index'
     );
 }
 
 if (in_array('lightopenid', $account_logins)){
     $_MODULE_MENU[] = array(
-        'title' => lang::translate('account_use_open_id'),
+        'title' => lang::translate('OpenID'),
         'url' => '/account/lightopenid/index'
     );
 }
 
 if (in_array('facebook', $account_logins)){
     $_MODULE_MENU[] = array(
-        'title' => lang::translate('account_login_facebook'),
+        'title' => lang::translate('Facebook'),
         'url' => '/account/facebook/index'
     );
 }
 
 if (in_array('github', $account_logins)){
     $_MODULE_MENU[] = array(
-        'title' => lang::translate('account_login_github'),
+        'title' => lang::translate('Github'),
         'url' => '/account/github/index'
     );
 }
 
 if (!config::getModuleIni('account_disable_admin_interface')) {
     $_MODULE_MENU[] = array(
-    'title' => lang::translate('account_admin'),
+    'title' => lang::translate('Admin'),
     'url' => '/account/admin/list',
     'auth' => $account_show_admin_link);
 }

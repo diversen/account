@@ -4,8 +4,8 @@
  * File containg method for creating an account using an email
  * @package account
  */
-moduleloader::includeModule('account');
-view::includeOverrideFunctions('account', 'create/views.php');
+
+view::includeOverrideFunctions('account', 'login/views.php');
 /**
  * class for creating an account using an email. 
  * @package account
