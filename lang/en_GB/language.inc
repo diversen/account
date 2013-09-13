@@ -155,3 +155,11 @@ following link or paste it into your browsers URL line';
 $_COS_LANG_MODULE['If you have not requested a new password then you can just delete
 this message'] = 'If you have not requested a new password then you can just delete
 this message';
+
+$_COS_LANG_MODULE['and requested an
+account'] = 'and requested an
+account';
+$_COS_LANG_MODULE['In order to activate your account, you just have to press
+the following link or copy and paste into your browsers URL line'] = 'In order to activate your account, you just have to press
+the following link or copy and paste into your browsers URL line';
+$_COS_LANG_MODULE['Kind Regards'] = 'Kind Regards';
