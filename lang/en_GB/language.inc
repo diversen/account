@@ -26,7 +26,7 @@ $_COS_LANG_MODULE['Create account'] = 'Create account';
 $_COS_LANG_MODULE['Email'] = 'Email';
 $_COS_LANG_MODULE['Password'] = 'Password';
 $_COS_LANG_MODULE['Repeat password'] = 'Repeat password';
-$_COS_LANG_MODULE['account_submit'] = 'Send';
+$_COS_LANG_MODULE['Send'] = 'Send';
 // Translation of file /home/dennis/www/oscmsdk/modules/account/view.account.inc
 
 $_COS_LANG_MODULE['You can now log in'] = 'You can now log in';
@@ -111,3 +111,47 @@ $_COS_LANG_MODULE['Invalid login. We need a valid OpenID email'] = 'Invalid logi
 $_COS_LANG_MODULE['Email already exists in system'] = 'Email already exists in system';
 $_COS_LANG_MODULE['Account needs to be verified before you may log in'] = 'Account needs to be verified before you may log in';
 $_COS_LANG_MODULE['This account has been locked'] = 'This account has been locked';
+
+$_COS_LANG_MODULE['Password needs to be 7 chars'] = 'Password needs to be 7 chars';
+$_COS_LANG_MODULE['Admin index'] = 'Admin index';
+$_COS_LANG_MODULE['Edit account'] = 'Edit account';
+$_COS_LANG_MODULE['Account is verified'] = 'Account is verified';
+$_COS_LANG_MODULE['Account is admin'] = 'Account is admin';
+$_COS_LANG_MODULE['Account is super'] = 'Account is super';
+$_COS_LANG_MODULE['Account is locked'] = 'Account is locked';
+$_COS_LANG_MODULE['Update account'] = 'Update account';
+$_COS_LANG_MODULE['Delete account'] = 'Delete account';
+$_COS_LANG_MODULE['ID'] = 'ID';
+$_COS_LANG_MODULE['Account is not admin'] = 'Account is not admin';
+$_COS_LANG_MODULE['Account is super user'] = 'Account is super user';
+$_COS_LANG_MODULE['Account is not super user'] = 'Account is not super user';
+$_COS_LANG_MODULE['Account is not verified'] = 'Account is not verified';
+$_COS_LANG_MODULE['Edit'] = 'Edit';
+$_COS_LANG_MODULE['Delete'] = 'Delete';
+$_COS_LANG_MODULE['Search accounts'] = 'Search accounts';
+$_COS_LANG_MODULE['Search account ID'] = 'Search account ID';
+$_COS_LANG_MODULE['Edit account'] = 'Edit account';
+$_COS_LANG_MODULE['Account has been updated'] = 'Account has been updated';
+$_COS_LANG_MODULE['Found the following accounts'] = 'Found the following accounts';
+$_COS_LANG_MODULE['I could not find any matching results'] = 'I could not find any matching results';
+$_COS_LANG_MODULE['Search for users'] = 'Search for users';
+$_COS_LANG_MODULE['Delete account'] = 'Delete account';
+$_COS_LANG_MODULE['Account has been deleted'] = 'Account has been deleted';
+$_COS_LANG_MODULE['That is not a valid email'] = 'That is not a valid email';
+$_COS_LANG_MODULE['Incorrect answer to captcha test'] = 'Incorrect answer to captcha test';
+$_COS_LANG_MODULE['Password needs to be 7 chars'] = 'Password needs to be 7 chars';
+$_COS_LANG_MODULE['Emails does not match'] = 'Emails does not match';
+$_COS_LANG_MODULE['Account created'] = 'Account created';
+$_COS_LANG_MODULE['Wrong validation key on account creation'] = 'Wrong validation key on account creation';
+$_COS_LANG_MODULE['Confirm account creation'] = 'Confirm account creation';
+$_COS_LANG_MODULE['Hi'] = 'Hi';
+$_COS_LANG_MODULE['You have connected with'] = 'You have connected with';
+$_COS_LANG_MODULE['because you have lost
+your password'] = 'because you have lost
+your password';
+$_COS_LANG_MODULE['In order to create a new password just press the
+following link or paste it into your browsers URL line'] = 'In order to create a new password just press the
+following link or paste it into your browsers URL line';
+$_COS_LANG_MODULE['If you have not requested a new password then you can just delete
+this message'] = 'If you have not requested a new password then you can just delete
+this message';

@@ -21,7 +21,7 @@ class account_login_views {
         html::label('captcha', captcha::createCaptcha());
         html::text('captcha');
         html::label('submit', '');
-        html::submit('submit', lang::translate('account_submit'));
+        html::submit('submit', lang::translate('Send'));
         html::formEnd();
         echo html::getStr();
     }
@@ -50,7 +50,7 @@ class account_login_views {
         self::keepSession();
 
         html::label('submit', '');
-        html::submit('submit_account_login', lang::translate('account_submit'));
+        html::submit('submit_account_login', lang::translate('Send'));
         html::formEnd();
         echo html::getStr();
     }

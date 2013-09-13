@@ -16,3 +16,5 @@ $_COS_LANG_MODULE['Github'] = 'Github';
 
 
 
+
+$_COS_LANG_MODULE['Search for users'] = 'Search for users';

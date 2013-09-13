@@ -12,7 +12,7 @@ class account_requestpw_views {
         html::label('password2', lang::translate('Repeat new password'));
         html::password('password2',  null, $field_size);
         html::label('submit', '');
-        html::submit('submit', lang::translate('account_submit'));
+        html::submit('submit', lang::translate('Send'));
         html::formEnd();
         echo html::getStr();
     }
@@ -28,7 +28,7 @@ class account_requestpw_views {
         html::label('captcha', captcha::createCaptcha());
         html::text('captcha');
         html::label('submit', '');
-        html::submit('submit', lang::translate('account_submit'));
+        html::submit('submit', lang::translate('Send'));
         html::formEnd();
         echo html::getStr();
     }
