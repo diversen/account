@@ -182,3 +182,5 @@ $_COS_LANG_MODULE['In order to activate your account, you just have to press
 the following link or copy and paste into your browsers URL line'] = 'For at oprette din konto skal du blot
 trykke det følgende link eller kopiere det ind browserens adresse linje';
 $_COS_LANG_MODULE['Kind Regards'] = 'Venlig hilsen';
+
+$_COS_LANG_MODULE['Search'] = 'Søg';
