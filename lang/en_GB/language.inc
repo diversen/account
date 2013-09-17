@@ -163,3 +163,5 @@ $_COS_LANG_MODULE['In order to activate your account, you just have to press
 the following link or copy and paste into your browsers URL line'] = 'In order to activate your account, you just have to press
 the following link or copy and paste into your browsers URL line';
 $_COS_LANG_MODULE['Kind Regards'] = 'Kind Regards';
+
+$_COS_LANG_MODULE['Search'] = 'Search';

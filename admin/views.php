@@ -138,7 +138,7 @@ class account_admin_views {
         $f->init(null, 'submit');
         $f->label('id', lang::translate('Search account ID'));
         $f->text('id');
-        $f->submit('submit', lang::system('Search'));
+        $f->submit('submit', lang::translate('Search'));
         $f->formEnd();
         echo $f->getStr();
                 
