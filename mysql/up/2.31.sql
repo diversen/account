@@ -9,4 +9,3 @@ CREATE TABLE `account_email_changes` (
 ) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 
 CREATE INDEX `idx_email_changes` ON account_email_changes(`user_id`);
-
