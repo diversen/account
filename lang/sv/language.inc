@@ -20,7 +20,6 @@ $_COS_LANG_MODULE['You can now log in'] = 'Du kan nu logga in';
 $_COS_LANG_MODULE['Facebook Login'] = 'Facebook Login';
 $_COS_LANG_MODULE['Logged in with email'] = 'Loggade in med e-post';
 $_COS_LANG_MODULE['Logged in with facebook'] = 'Loggade in med Facebook';
-$_COS_LANG_MODULE['account_logout'] = 'Logga ut';
 $_COS_LANG_MODULE['Log in or Log out'] = 'Logga in eller logga ut';
 $_COS_LANG_MODULE['Not a correct email or password'] = 'Inte en korrekt e-postadress eller lösenord';
 $_COS_LANG_MODULE['Let me stay logged in'] = 'Låt mig förbli inloggad';
@@ -49,7 +48,58 @@ $_COS_LANG_MODULE['Login'] = 'Inloggning';
 $_COS_LANG_MODULE['Logout'] = 'Logga ut';
 $_COS_LANG_MODULE['Login using facebook'] = 'Logga in med Facebook';
 $_COS_LANG_MODULE['Github login'] = 'Github inloggning';
-$_COS_LANG_MODULE['Invalid login. We need a valid OpenID email'] = 'Ogiltig inloggning. Vi behöver ett giltigt OpenID email';
 $_COS_LANG_MODULE['Email already exists in system'] = 'E-postadressen finns redan i systemet';
+$_COS_LANG_MODULE['Invalid login. We need a valid OpenID email'] = 'Ogiltig inloggning. Vi behöver ett giltigt OpenID email';
 $_COS_LANG_MODULE['Account needs to be verified before you may log in'] = 'Hänsyn måste verifieras innan du kan logga in';
 $_COS_LANG_MODULE['This account has been locked'] = 'Detta konto har låsts';
+$_COS_LANG_MODULE['Hej'] = 'Hallå';
+$_COS_LANG_MODULE['Du har henvendt dig på'] = 'Ni har vänt er på';
+$_COS_LANG_MODULE['fordi du har mistet
+dit password'] = 'eftersom du har glömt ditt lösenord';
+$_COS_LANG_MODULE['For at genskabe dit password bedes du trykke på det
+følgende link eller indsætte det i din browsers addresse linie'] = 'För att återställa ditt lösenord, vänligen tryck på följande länk eller klistra in den i webbläsarens adressfält linje';
+$_COS_LANG_MODULE['Hvis du ikke har forespurgt et nyt password, kan du se bort fra denne
+henvendelse'] = 'Om du inte har begärt ett nytt lösenord, vänligen bortse från denna begäran';
+$_COS_LANG_MODULE['Admin index'] = 'Punkt Listing';
+$_COS_LANG_MODULE['Edit account'] = 'Redigera konto';
+$_COS_LANG_MODULE['Account is verified'] = 'Account verifieras';
+$_COS_LANG_MODULE['Account is admin'] = 'Användaren är admin';
+$_COS_LANG_MODULE['Account is super'] = 'Användaren är super';
+$_COS_LANG_MODULE['Account is locked'] = 'Kontot är låst låst';
+$_COS_LANG_MODULE['Update account'] = 'Uppdatera konto';
+$_COS_LANG_MODULE['Delete account'] = 'Radera konto';
+$_COS_LANG_MODULE['ID'] = 'ID';
+$_COS_LANG_MODULE['Account is not admin'] = 'Användaren är inte admin';
+$_COS_LANG_MODULE['Account is super user'] = 'Användaren är superanvändare';
+$_COS_LANG_MODULE['Account is not super user'] = 'Användaren är inte superanvändare';
+$_COS_LANG_MODULE['Account is not verified'] = 'Hänsyn har inte verifierats';
+$_COS_LANG_MODULE['Edit'] = 'Redigera';
+$_COS_LANG_MODULE['Delete'] = 'Radera';
+$_COS_LANG_MODULE['Search accounts'] = 'Sök i konton';
+$_COS_LANG_MODULE['Search account ID'] = 'Sök Konto-ID';
+$_COS_LANG_MODULE['Account has been updated'] = 'Kontot har uppdaterats';
+$_COS_LANG_MODULE['Found the following accounts'] = 'Hittade följande konton';
+$_COS_LANG_MODULE['I could not find any matching results'] = 'Man fann ingen reultater';
+$_COS_LANG_MODULE['Search for users'] = 'Sök efter användare';
+$_COS_LANG_MODULE['Account has been deleted'] = 'Hänsyn har tagits bort';
+$_COS_LANG_MODULE['That is not a valid email'] = 'Inte en giltig e-';
+$_COS_LANG_MODULE['Incorrect answer to captcha test'] = 'Inte ett korrekt svar på den CAPTCHA testet';
+$_COS_LANG_MODULE['Password needs to be 7 chars'] = 'Lösenord måste vara minst nio tecken långt';
+$_COS_LANG_MODULE['Emails does not match'] = 'E stämmer inte';
+$_COS_LANG_MODULE['Account created'] = 'Konto inrättas';
+$_COS_LANG_MODULE['Wrong validation key on account creation'] = 'Fel valideringsnyckel';
+$_COS_LANG_MODULE['Confirm account creation'] = 'Bekräfta att skapa konto';
+$_COS_LANG_MODULE['Hi'] = 'Hallå';
+$_COS_LANG_MODULE['You have connected with'] = 'Du har varit på';
+$_COS_LANG_MODULE['because you have lost
+your password'] = 'Eftersom du har glömt ditt lösenord';
+$_COS_LANG_MODULE['In order to create a new password just press the
+following link or paste it into your browsers URL line'] = 'Om du vill skapa ett nytt lösenord, tryck bara på följande URL eller kopiera in den i webbläsarens adressfält';
+$_COS_LANG_MODULE['If you have not requested a new password then you can just delete
+this message'] = 'Om du inte har begärt ett nytt lösenord, kan du enkelt ignorera detta meddelande';
+$_COS_LANG_MODULE['and requested an
+account'] = 'och skapade ett konto';
+$_COS_LANG_MODULE['In order to activate your account, you just have to press
+the following link or copy and paste into your browsers URL line'] = 'För att skapa ditt konto, tryck helt enkelt på följande länk eller kopiera den i webbläsarens adressfält';
+$_COS_LANG_MODULE['Kind Regards'] = 'Med vänliga hälsningar,';
+$_COS_LANG_MODULE['Search'] = 'Sök';
