@@ -3,6 +3,7 @@
 /**
  * @package    account
  */
+
 if (!session::checkAccessControl('account_allow_edit')){
     return;
 }

@@ -54,5 +54,4 @@ if (!config::getModuleIni('account_disable_admin_interface')) {
     'auth' => $account_show_admin_link);
 }
 
-
 ksort ($_MODULE_MENU);
