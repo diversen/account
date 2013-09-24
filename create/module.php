@@ -43,17 +43,11 @@ class account_create extends account {
             }
         }
     }
-    
-    
-    
+      
     /**
      * validate passwords 
      */
     public function validatePasswords () {
-
-        if (function_exists('common_account_validate_passwords')) {
-            // TODO: Allow common function to check passwords
-        }
         
         $l = cosValidate::passwordLength($_POST['password'], 7);
         if (!$l) {
@@ -95,26 +89,35 @@ class account_create extends account {
         }
     }
     
+    /**
+     * check for identical email from $_POST['email'] and $_POST['email2']
+     * @return boolean $res 
+     */
     public function validateIdenticalEmail () {
                 
         if ($_POST['email'] != $_POST['email2']) {
             $this->errors['email'] = lang::translate('Emails does not match');
             return false;
         }
+        return true;
     }
     
     /**
-     * inserts a user user into database
+     * inserts a user user into database.
+     * runs the event action account_create with the created user_id
+     * as param
+     * 
      * @param string $email
      * @param string $password
+     * @param string $md5_key
      * @return int $last_insert_id
      */
     public function createDbUser ($email, $password, $md5_key) {
 
         $values = 
-            array('username'=> $email,
+            array('username'=> strings_mb::tolower($email),
                   'password' => md5($password),
-                  'email' => $email,
+                  'email' => strings_mb::tolower($email),
                   'md5_key' => $md5_key,
                   'type' => 'email');
         
@@ -132,7 +135,6 @@ class account_create extends account {
             config::getModuleIni('account_events'), 
         $args);
         
-        
         return $last_insert_id;
     }
 
@@ -140,7 +142,6 @@ class account_create extends account {
      * method for creating an email user from POST
      * we need a $_POST['email'] and a $_POST['password']
      * Calls $this->sendVerify email
-     * Note: Emails will always be lower case
      * @return int $res last insert id on success or 0 on failure
      */
     public function createUser (){
@@ -250,6 +251,7 @@ class account_create extends account {
     
     /**
      * updates db on verify account
+     * triggers events with action account_verify and user_id as params
      * @param int $id user_id
      * @return boolean $res true on success and false on failure 
      */
