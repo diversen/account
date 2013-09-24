@@ -76,7 +76,7 @@ class account_admin_views {
      * list all users
      * @param array $users
      */
-    public function listUsers ($users) {
+    public static function listUsers ($users) {
         foreach ($users as $user) {
             echo self::listUser( $user);
         }
@@ -86,7 +86,7 @@ class account_admin_views {
      * list single user
      * @param array $v
      */
-    public function listUser ($v) {
+    public static function listUser ($v) {
         $date = time::getDateString($v['created']);
 
         echo "<div class=\"account_admin_user\">\n";
