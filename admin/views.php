@@ -9,7 +9,7 @@ class account_admin_views {
     *
     * @param array row to use when updating a user
     */
-    function updateEmailUser ($values){
+    public static function updateEmailUser ($values){
 
         if (!isset($_POST['submit'])){
             $values['password'] = '';
@@ -40,7 +40,7 @@ class account_admin_views {
 
    }
 
-    public function updateUrlUser ($values){
+    public static function updateUrlUser ($values){
 
         html::$autoLoadTrigger = 'submit';
         html::init($values);
@@ -64,7 +64,7 @@ class account_admin_views {
      *
      * @param array row with user
      */
-    public function delete ($values){
+    public static function delete ($values){
         html::formStart('account_form');
         html::legend(lang::translate('Delete account'));
         html::submit('submit', lang::translate('Delete account'));
@@ -131,7 +131,7 @@ class account_admin_views {
     /**
      * user search form 
      */
-    public function searchForm () {
+    public static function searchForm () {
         $f = new html ();
         $f->formStart('form_search', 'get');
         $f->legend(lang::translate('Search accounts'));
