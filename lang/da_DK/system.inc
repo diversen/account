@@ -10,6 +10,10 @@ $_COS_LANG_MODULE['Create account'] = 'Opret konto';
 
 $_COS_LANG_MODULE['Search for users'] = 'Søg efter brugere';
 
+// Translation of file /modules/account/install.inc
+
+$_COS_LANG_MODULE['account'] = 'Konto';
+
 // Translation of file /modules/account/menu.inc
 
 $_COS_LANG_MODULE['Email login'] = 'Login med email';
