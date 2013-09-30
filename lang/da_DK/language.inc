@@ -6,16 +6,38 @@
 $_COS_LANG_MODULE['Account needs to be verified before you may log in'] = 'Konto skal verificeres før du kan logge ind';
 $_COS_LANG_MODULE['This account has been locked'] = 'Konto er låst';
 
+// Translation of file /modules/account/facebook/module.php
+
+$_COS_LANG_MODULE['Email already exists in system'] = 'Email eksisterer allerede';
+
+// Translation of file /modules/account/facebook/index.php
+
+$_COS_LANG_MODULE['Facebook Login'] = 'Facebook login';
+
+// Translation of file /modules/account/facebook/views.php
+
+$_COS_LANG_MODULE['Login using facebook'] = 'Log ind';
+$_COS_LANG_MODULE['Logout'] = 'Log ud';
+
+// Translation of file /modules/account/lightopenid/module.php
+
+$_COS_LANG_MODULE['OpenID Login was cancelled'] = 'Login afbrudt';
+$_COS_LANG_MODULE['OpenID login accepted'] = 'Gyldigt login';
+$_COS_LANG_MODULE['Invalid openID'] = 'Ugyldigt login';
+$_COS_LANG_MODULE['Logged ind with openID'] = 'Logget ind med openID';
+$_COS_LANG_MODULE['Invalid login. We need a valid OpenID email'] = 'Ikke en gyldig email';
+
+// Translation of file /modules/account/lightopenid/index.php
+
+$_COS_LANG_MODULE['OpenID login'] = 'open ID login';
+
 // Translation of file /modules/account/login/module.php
 
 $_COS_LANG_MODULE['Not a correct email or password'] = 'Enten forkert password eller email';
 
-// Translation of file /modules/account/login/create.php
+// Translation of file /modules/account/login/index.php
 
-$_COS_LANG_MODULE['Create Account'] = 'Opret konto';
-$_COS_LANG_MODULE['Account: Create notice'] = 'Konto er blevet oprettet. 
-Du vil modtage en email i løbet af kort tid.     
-Tryk et link i denne mail og du er verificeret.';
+$_COS_LANG_MODULE['Log in or Log out'] = 'Log ind eller ud';
 
 // Translation of file /modules/account/login/views.php
 
@@ -28,9 +50,99 @@ $_COS_LANG_MODULE['Login'] = 'Log ind';
 $_COS_LANG_MODULE['Let me stay logged in'] = 'Forbliv logget ind';
 $_COS_LANG_MODULE['days'] = 'dage';
 
-// Translation of file /modules/account/login/index.php
+// Translation of file /modules/account/login/create.php
 
-$_COS_LANG_MODULE['Log in or Log out'] = 'Log ind eller ud';
+$_COS_LANG_MODULE['Create Account'] = 'Opret konto';
+$_COS_LANG_MODULE['Account: Create notice'] = 'Konto er blevet oprettet. 
+Du vil modtage en email i løbet af kort tid.     
+Tryk et link i denne mail og du er verificeret.';
+
+// Translation of file /modules/account/index.php
+
+$_COS_LANG_MODULE['Account'] = 'Konto';
+
+// Translation of file /modules/account/admin/module.php
+
+$_COS_LANG_MODULE['Password needs to be 7 chars'] = 'Password skal mindst være ni karakterer langt';
+$_COS_LANG_MODULE['Passwords does not match'] = 'Passwords stemmer ikke overens';
+
+// Translation of file /modules/account/admin/index.php
+
+$_COS_LANG_MODULE['Admin index'] = 'Konto oversigt';
+
+// Translation of file /modules/account/admin/views.php
+
+$_COS_LANG_MODULE['Edit account'] = 'Ret konto';
+$_COS_LANG_MODULE['Account is verified'] = 'Konto er verificeret';
+$_COS_LANG_MODULE['Account is admin'] = 'Bruger er admin';
+$_COS_LANG_MODULE['Account is super'] = 'Bruger er super';
+$_COS_LANG_MODULE['Account is locked'] = 'Konto er låst locked';
+$_COS_LANG_MODULE['Update account'] = 'Opdater konto';
+$_COS_LANG_MODULE['Delete account'] = 'Slet konto';
+$_COS_LANG_MODULE['ID'] = 'ID';
+$_COS_LANG_MODULE['Account is not admin'] = 'Bruger er ikke admin';
+$_COS_LANG_MODULE['Account is super user'] = 'Bruger er super bruger';
+$_COS_LANG_MODULE['Account is not super user'] = 'Bruger er ikke super bruger';
+$_COS_LANG_MODULE['Account is not verified'] = 'Konto er ikke verificeret';
+$_COS_LANG_MODULE['Edit'] = 'Ret';
+$_COS_LANG_MODULE['Delete'] = 'Slet';
+$_COS_LANG_MODULE['Search accounts'] = 'Søg konti';
+$_COS_LANG_MODULE['Search account ID'] = 'Søg konto ID';
+$_COS_LANG_MODULE['Search'] = 'Søg';
+
+// Translation of file /modules/account/admin/edit.php
+
+$_COS_LANG_MODULE['Account has been updated'] = 'Kontoen er blevet opdateret';
+
+// Translation of file /modules/account/admin/list.php
+
+$_COS_LANG_MODULE['Found the following accounts'] = 'Der blev fundet følgende konti';
+$_COS_LANG_MODULE['I could not find any matching results'] = 'Der blev ikke fundet nogen reultater';
+$_COS_LANG_MODULE['Search for users'] = 'Søg efter brugere';
+
+// Translation of file /modules/account/admin/delete.php
+
+$_COS_LANG_MODULE['Account has been deleted'] = 'Konto er blevet slettet';
+
+// Translation of file /modules/account/requestpw/verify.php
+
+$_COS_LANG_MODULE['Create new password'] = 'Nyt password';
+$_COS_LANG_MODULE['New password has been saved'] = 'Nyt password er blevet gemt';
+
+// Translation of file /modules/account/requestpw/module.php
+
+$_COS_LANG_MODULE['Wrong answer to captcha test'] = 'Ikke et korrekt svar til captcha';
+$_COS_LANG_MODULE['Email does not exists in our system'] = 'Ingen sådan email i systemet';
+$_COS_LANG_MODULE['Create new password for site'] = 'Genskabelse af password';
+$_COS_LANG_MODULE['Password has to be at least 7 chars'] = 'Password skal mindst være syv karakterer langt';
+$_COS_LANG_MODULE['No such combination between token and email. You can only use the token one time'] = 'Ingen sådan kombination mellem bruger id og validerings kode';
+$_COS_LANG_MODULE['Request new password'] = 'Opret nyt password';
+$_COS_LANG_MODULE['Visit your mailbox and follow instructions in order to get a new password'] = 'Check din email. Heri er der instruktioner til at 
+    skabe et nyt password.';
+
+// Translation of file /modules/account/requestpw/views.php
+
+$_COS_LANG_MODULE['Enter new password'] = 'Indtast nyt password';
+$_COS_LANG_MODULE['Repeat new password'] = 'Gentag password';
+
+// Translation of file /modules/account/create/verify.php
+
+$_COS_LANG_MODULE['Verify Account'] = 'Verificer Konto';
+$_COS_LANG_MODULE['Account is already verified'] = 'Konto er allerede verificeret';
+$_COS_LANG_MODULE['Account has been verified'] = 'Konto er blevet verificeret. Du kan nu <a href="/account/login/index">logge ind</a>';
+
+// Translation of file /modules/account/create/module.php
+
+$_COS_LANG_MODULE['Email already exists'] = 'Email eksisterer allerede';
+$_COS_LANG_MODULE['That is not a valid email'] = 'Ikke en gyldig email';
+$_COS_LANG_MODULE['Incorrect answer to captcha test'] = 'Ikke et korrekt svar til CAPTCHA testen';
+$_COS_LANG_MODULE['Emails does not match'] = 'Email matcher ikke';
+$_COS_LANG_MODULE['Account created'] = 'Konto oprettet';
+$_COS_LANG_MODULE['Wrong validation key on account creation'] = 'Forkert validerings nøgle';
+
+// Translation of file /modules/account/changeemail/model.changeemail.inc
+
+$_COS_LANG_MODULE['Confirm account creation'] = 'Bekræft oprettelse af konto';
 
 // Translation of file /modules/account/views/mails/signup_message.inc
 
@@ -54,121 +166,8 @@ trykke den følgende URL eller kopiere det ind browserens adresse linje';
 $_COS_LANG_MODULE['If you have not requested a new password then you can just delete
 this message'] = 'Hvis du ikke har forespurgt et nyt password kan du blot se bort fra denne meddelse';
 
-// Translation of file /modules/account/facebook/module.php
-
-$_COS_LANG_MODULE['Email already exists in system'] = 'Email eksisterer allerede';
-
-// Translation of file /modules/account/facebook/views.php
-
-$_COS_LANG_MODULE['Login using facebook'] = 'Log ind';
-$_COS_LANG_MODULE['Logout'] = 'Log ud';
-
-// Translation of file /modules/account/facebook/index.php
-
-$_COS_LANG_MODULE['Facebook Login'] = 'Facebook login';
-
-// Translation of file /modules/account/admin/module.php
-
-$_COS_LANG_MODULE['Password needs to be 7 chars'] = 'Password skal mindst være ni karakterer langt';
-$_COS_LANG_MODULE['Passwords does not match'] = 'Passwords stemmer ikke overens';
-
-// Translation of file /modules/account/admin/delete.php
-
-$_COS_LANG_MODULE['Delete account'] = 'Slet konto';
-$_COS_LANG_MODULE['Account has been deleted'] = 'Konto er blevet slettet';
-
-// Translation of file /modules/account/admin/edit.php
-
-$_COS_LANG_MODULE['Edit account'] = 'Ret konto';
-$_COS_LANG_MODULE['Account has been updated'] = 'Kontoen er blevet opdateret';
-
-// Translation of file /modules/account/admin/views.php
-
-$_COS_LANG_MODULE['Account is verified'] = 'Konto er verificeret';
-$_COS_LANG_MODULE['Account is admin'] = 'Bruger er admin';
-$_COS_LANG_MODULE['Account is super'] = 'Bruger er super';
-$_COS_LANG_MODULE['Account is locked'] = 'Konto er låst locked';
-$_COS_LANG_MODULE['Update account'] = 'Opdater konto';
-$_COS_LANG_MODULE['ID'] = 'ID';
-$_COS_LANG_MODULE['Account is not admin'] = 'Bruger er ikke admin';
-$_COS_LANG_MODULE['Account is super user'] = 'Bruger er super bruger';
-$_COS_LANG_MODULE['Account is not super user'] = 'Bruger er ikke super bruger';
-$_COS_LANG_MODULE['Account is not verified'] = 'Konto er ikke verificeret';
-$_COS_LANG_MODULE['Edit'] = 'Ret';
-$_COS_LANG_MODULE['Delete'] = 'Slet';
-$_COS_LANG_MODULE['Search accounts'] = 'Søg konti';
-$_COS_LANG_MODULE['Search account ID'] = 'Søg konto ID';
-$_COS_LANG_MODULE['Search'] = 'Søg';
-
-// Translation of file /modules/account/admin/list.php
-
-$_COS_LANG_MODULE['Found the following accounts'] = 'Der blev fundet følgende konti';
-$_COS_LANG_MODULE['I could not find any matching results'] = 'Der blev ikke fundet nogen reultater';
-$_COS_LANG_MODULE['Search for users'] = 'Søg efter brugere';
-
-// Translation of file /modules/account/admin/index.php
-
-$_COS_LANG_MODULE['Admin index'] = 'Konto oversigt';
-
 // Translation of file /modules/account/github/module.php
 
 $_COS_LANG_MODULE['Github login'] = 'Github login';
 
 // Translation of file /modules/account/github/index.php
-
-
-// Translation of file /modules/account/requestpw/module.php
-
-$_COS_LANG_MODULE['Wrong answer to captcha test'] = 'Ikke et korrekt svar til captcha';
-$_COS_LANG_MODULE['Email does not exists in our system'] = 'Ingen sådan email i systemet';
-$_COS_LANG_MODULE['Create new password for site'] = 'Genskabelse af password';
-$_COS_LANG_MODULE['Password has to be at least 7 chars'] = 'Password skal mindst være syv karakterer langt';
-$_COS_LANG_MODULE['No such combination between token and email. You can only use the token one time'] = 'Ingen sådan kombination mellem bruger id og validerings kode';
-$_COS_LANG_MODULE['Request new password'] = 'Opret nyt password';
-$_COS_LANG_MODULE['Visit your mailbox and follow instructions in order to get a new password'] = 'Check din email. Heri er der instruktioner til at 
-    skabe et nyt password.';
-
-// Translation of file /modules/account/requestpw/views.php
-
-$_COS_LANG_MODULE['Enter new password'] = 'Indtast nyt password';
-$_COS_LANG_MODULE['Repeat new password'] = 'Gentag password';
-
-// Translation of file /modules/account/requestpw/verify.php
-
-$_COS_LANG_MODULE['Create new password'] = 'Nyt password';
-$_COS_LANG_MODULE['New password has been saved'] = 'Nyt password er blevet gemt';
-
-// Translation of file /modules/account/changeemail/model.changeemail.inc
-
-$_COS_LANG_MODULE['Email already exists'] = 'Email eksisterer allerede';
-$_COS_LANG_MODULE['Confirm account creation'] = 'Bekræft oprettelse af konto';
-
-// Translation of file /modules/account/lightopenid/module.php
-
-$_COS_LANG_MODULE['OpenID Login was cancelled'] = 'Login afbrudt';
-$_COS_LANG_MODULE['OpenID login accepted'] = 'Gyldigt login';
-$_COS_LANG_MODULE['Invalid openID'] = 'Ugyldigt login';
-$_COS_LANG_MODULE['Logged ind with openID'] = 'Logget ind med openID';
-$_COS_LANG_MODULE['Invalid login. We need a valid OpenID email'] = 'Ikke en gyldig email';
-
-// Translation of file /modules/account/lightopenid/index.php
-
-$_COS_LANG_MODULE['OpenID login'] = 'open ID login';
-
-// Translation of file /modules/account/index.php
-
-$_COS_LANG_MODULE['Account'] = 'Konto';
-
-// Translation of file /modules/account/create/module.php
-
-$_COS_LANG_MODULE['That is not a valid email'] = 'Ikke en gyldig email';
-$_COS_LANG_MODULE['Incorrect answer to captcha test'] = 'Ikke et korrekt svar til CAPTCHA testen';
-$_COS_LANG_MODULE['Emails does not match'] = 'Email matcher ikke';
-$_COS_LANG_MODULE['Account created'] = 'Konto oprettet';
-$_COS_LANG_MODULE['Wrong validation key on account creation'] = 'Forkert validerings nøgle';
-
-// Translation of file /modules/account/create/verify.php
-
-$_COS_LANG_MODULE['Verify Account'] = 'Verificer Konto';
-$_COS_LANG_MODULE['Account is already verified'] = 'Konto er allerede verificeret';
-$_COS_LANG_MODULE['Account has been verified'] = 'Konto er blevet verificeret. Du kan nu <a href="/account/login/index">logge ind</a>';
