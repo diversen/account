@@ -72,16 +72,10 @@ $_COS_LANG_MODULE['Account created'] = 'Konto inrättas';
 $_COS_LANG_MODULE['Wrong validation key on account creation'] = 'Fel valideringsnyckel';
 $_COS_LANG_MODULE['Confirm account creation'] = 'Bekräfta att skapa konto';
 $_COS_LANG_MODULE['Hi'] = 'Hallå';
-$_COS_LANG_MODULE['You have connected with'] = 'Du har varit på';
-$_COS_LANG_MODULE['and requested an
-account'] = 'och skapade ett konto';
-$_COS_LANG_MODULE['In order to activate your account, you just have to press
-the following link or copy and paste into your browsers URL line'] = 'För att skapa ditt konto, tryck helt enkelt på följande länk eller kopiera den i webbläsarens adressfält';
+$_COS_LANG_MODULE['You have connected with {SITE_NAME} and requested an account'] = 'Du har anslutit med {SITE_NAME} och begärde ett konto';
+$_COS_LANG_MODULE['In order to activate your account, you just have to press the following link or copy and paste into your browsers URL line'] = 'För att aktivera ditt konto, behöver du bara trycka på följande länk eller kopiera och klistra in i din webbläsare URL linje';
 $_COS_LANG_MODULE['Kind Regards'] = 'Med vänliga hälsningar,';
-$_COS_LANG_MODULE['because you have lost
-your password'] = 'Eftersom du har glömt ditt lösenord';
-$_COS_LANG_MODULE['In order to create a new password just press the
-following link or paste it into your browsers URL line'] = 'Om du vill skapa ett nytt lösenord, tryck bara på följande URL eller kopiera in den i webbläsarens adressfält';
-$_COS_LANG_MODULE['If you have not requested a new password then you can just delete
-this message'] = 'Om du inte har begärt ett nytt lösenord, kan du enkelt ignorera detta meddelande';
+$_COS_LANG_MODULE['You have connected with {SITE_NAME} because you have lost your password'] = 'Du har anslutit med {SITE_NAME} eftersom du har glömt ditt lösenord';
+$_COS_LANG_MODULE['In order to create a new password just press the following link or paste it into your browsers URL line'] = 'För att skapa ett nytt lösenord trycker du bara på följande länk eller klistra in den på din webbläsare URL linje';
+$_COS_LANG_MODULE['If you have not requested a new password then you can just delete this message'] = 'Om du inte har begärt ett nytt lösenord kan du bara ta bort det här meddelandet';
 $_COS_LANG_MODULE['Github login'] = 'Github inloggning';
