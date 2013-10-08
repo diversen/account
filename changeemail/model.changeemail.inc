@@ -67,7 +67,7 @@ class accountChangeemail {
                 filter('id =', $user_id)->
                 exec();
                 
-        $mysql_date = dateGetDateNow();
+        $mysql_date = date::getDateNow();
         
         // only allow 2 changes per day
         $bean = cosRB::getBean('account_email_changes', 'user_id', $user_id);
