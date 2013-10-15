@@ -7,7 +7,7 @@
 http::prg();
 
 moduleloader::includeModule('account/create');
-if (!session::checkAccessControl('account_allow_create')){
+if (!session::checkAccessFromModuleIni('account_allow_create')){
     return;
 }
 

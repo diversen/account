@@ -3,7 +3,7 @@
 /**
  * @package    account
  */
-if (!session::checkAccessControl('account_allow_edit')){
+if (!session::checkAccessFromModuleIni('account_allow_edit')){
     moduleloader::setStatus(403);
     return;
 }
