@@ -1,9 +1,21 @@
 <?php
 
+
+// Translation of file /modules/account/install.inc
+
 $_COS_LANG_MODULE['account'] = 'Konto';
+
+// Translation of file /modules/account/login/menu.inc
+
 $_COS_LANG_MODULE['Lost password'] = 'Mistet password?';
 $_COS_LANG_MODULE['Create account'] = 'Opret konto';
+
+// Translation of file /modules/account/admin/menu.inc
+
 $_COS_LANG_MODULE['Search for users'] = 'Søg efter brugere';
+
+// Translation of file /modules/account/menu.inc
+
 $_COS_LANG_MODULE['Email login'] = 'Login med email';
 $_COS_LANG_MODULE['OpenID'] = 'OpenID';
 $_COS_LANG_MODULE['Facebook'] = 'Facebook';
