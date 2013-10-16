@@ -1,50 +1,56 @@
 <?php
 
-/**
- * @ignore
- */
 
-// load ini settings
-moduleloader::includeModule('account');
-
+// get types of logins
 $account_logins = config::getModuleIni('account_logins');
+
+// do we show admin link
 $account_show_admin_link = config::getModuleIni('account_show_admin_link');
 
 $_MODULE_MENU = array();
 
-if (in_array('email', $account_logins)){
-    $_MODULE_MENU[0] = array(
-        'title' => lang::translate('Email login'),
-        'url' => '/account/login/index'
-    );
-}
+/**
+ * anon function which return a menu item for each account type enabled
+ */
+$attach_menu = function ($type) { 
+    if ($type == 'email') {
+        return array(
+            'title' => lang::translate('Email login'),
+            'url' => '/account/login/index'
+        );
+    }
+    
+    if ($type == 'openid'){
+        return array(
+            'title' => lang::translate('OpenID'),
+            'url' => '/account/openid/index'
+        );
+    }
+    
+    if ($type == 'lightopenid') {
+        return array(
+            'title' => lang::translate('OpenID'),
+            'url' => '/account/lightopenid/index'
+        );
+    }
+    
+    if ($type == 'facebook'){
+        return array(
+            'title' => lang::translate('Facebook'),
+            'url' => '/account/facebook/index'
+        );
+    }
+    
+    if ($type == 'github'){
+        return array(
+            'title' => lang::translate('Github'),
+            'url' => '/account/github/index'
+        );
+    }
+};
 
-if (in_array('openid', $account_logins)){
-    $_MODULE_MENU[] = array(
-        'title' => lang::translate('OpenID'),
-        'url' => '/account/openid/index'
-    );
-}
-
-if (in_array('lightopenid', $account_logins)){
-    $_MODULE_MENU[] = array(
-        'title' => lang::translate('OpenID'),
-        'url' => '/account/lightopenid/index'
-    );
-}
-
-if (in_array('facebook', $account_logins)){
-    $_MODULE_MENU[] = array(
-        'title' => lang::translate('Facebook'),
-        'url' => '/account/facebook/index'
-    );
-}
-
-if (in_array('github', $account_logins)){
-    $_MODULE_MENU[] = array(
-        'title' => lang::translate('Github'),
-        'url' => '/account/github/index'
-    );
+foreach($account_logins as $login) {
+    $_MODULE_MENU[] = $attach_menu($login);
 }
 
 if (!config::getModuleIni('account_disable_admin_interface')) {
@@ -53,5 +59,3 @@ if (!config::getModuleIni('account_disable_admin_interface')) {
     'url' => '/account/admin/list',
     'auth' => $account_show_admin_link);
 }
-
-ksort ($_MODULE_MENU);
