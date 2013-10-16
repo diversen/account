@@ -13,3 +13,5 @@ if (!in_array('github', config::getModuleIni('account_logins'))){
 $login = new account_github();
 $login->setAcceptUniqueOnlyEmail(true);
 $login->controlLogin();
+
+

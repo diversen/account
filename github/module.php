@@ -58,6 +58,7 @@ class account_github extends account {
         // submission has taking place but no redirect.     
         } else {
             $this->login();
+            echo "<br /><br />" . account_views::getTermsLink();
         }
     }
     

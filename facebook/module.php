@@ -266,6 +266,7 @@ class account_facebook extends account {
             account_facebook_views::logoutLink ($logoutUrl);
         } else {
             account_facebook_views::loginLink ($loginUrl);
+            echo "<br /><br />" . account_views::getTermsLink();
         }
     }
     

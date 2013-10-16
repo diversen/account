@@ -27,3 +27,4 @@ if (!empty($_POST['submit'])){
 }
 
 account_login_views::formCreate();
+echo account_views::getTermsLink();

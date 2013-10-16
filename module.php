@@ -329,9 +329,6 @@ class account {
         return $row;
     }
 
-    public function displayConditions () {
-        
-    }
     
     /**
      * method setSessionAndCookie fires account_evetns
