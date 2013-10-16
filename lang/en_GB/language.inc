@@ -145,13 +145,7 @@ $_COS_LANG_MODULE['Confirm account creation'] = 'Confirm account creation';
 
 // Translation of file /modules/account/views.php
 
-$_COS_LANG_MODULE['By registering, you agree to the 
-        <a href="/account/terms/privacy" target="_blank">privacy policy</a> and 
-        <a href="/account/terms/service" target="_blank">terms of service</a>.'] = 'By registering, you agree to the 
-        <a href="/account/terms/privacy" target="_blank">privacy policy</a> and 
-        <a href="/account/terms/service" target="_blank">terms of service</a>.';
-$_COS_LANG_MODULE['Account privacy'] = 'Account privacy';
-$_COS_LANG_MODULE['Account terms'] = 'Account terms';
+$_COS_LANG_MODULE['By registering, you agree to the <a href="/account/terms/privacy">privacy policy</a> and <a href="/account/terms/service">terms of service</a>.'] = 'By registering, you agree to the <a href="/account/terms/privacy">privacy policy</a> and <a href="/account/terms/service">terms of service</a>.';
 
 // Translation of file /modules/account/views/mails/signup_message.inc
 
