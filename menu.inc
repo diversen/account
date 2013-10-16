@@ -59,3 +59,4 @@ if (!config::getModuleIni('account_disable_admin_interface')) {
     'url' => '/account/admin/list',
     'auth' => $account_show_admin_link);
 }
+
