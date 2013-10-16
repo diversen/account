@@ -28,7 +28,8 @@ if (!session::isUser()){
     if (!empty($l->errors)) {
         html::errors($l->errors);
     }
-    $l->viewLoginForm();    
+    $l->viewLoginForm();  
+    echo account_views::getTermsLink();
 } else {
     $a = new account_login();
     $a->displayLogout();

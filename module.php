@@ -10,6 +10,8 @@ if (!config::isCli()) {
         config::getModulePath('account') .  '/assets/account.css', 1100);
 }
 
+view::includeOverrideFunctions('account', 'views.php');
+
 /**
  * class account 
  */
@@ -326,11 +328,8 @@ class account {
         $row = $this->checkLocked($row);
         return $row;
     }
-    
-    public static function getAdminEditLink ($user_id) {
-        $profile = user::getProfileInfo($user_id);
-        $url = "/account/admin/edit/$user_id";
-        return html::createLink($url, $profile['screenname']);
+
+    public function displayConditions () {
         
     }
     

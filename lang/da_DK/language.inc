@@ -63,7 +63,7 @@ $_COS_LANG_MODULE['Account'] = 'Konto';
 
 // Translation of file /modules/account/admin/module.php
 
-$_COS_LANG_MODULE['Password needs to be 7 chars'] = 'Password skal mindst være ni karakterer langt';
+$_COS_LANG_MODULE['Password needs to be 7 chars'] = 'Password skal mindst være 7 karakterer langt';
 $_COS_LANG_MODULE['Passwords does not match'] = 'Passwords stemmer ikke overens';
 
 // Translation of file /modules/account/admin/index.php
