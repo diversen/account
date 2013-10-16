@@ -54,9 +54,9 @@ $laws_of = $site_state . ', ' . $site_country;
 </p>
 
 <p> <strong> Links til andre sider </strong > <br />
-    Vores hjemmeside kan indeholde links til andre websteder , der ikke drives af os. Hvis du klikker på en tredjeparts link, vil du blive dirigeret til denne tredjepart websted. Vi anbefaler dig at gennemgå Privacy Policy af ethvert websted , du besøger .
+    Vores hjemmeside kan indeholde links til andre websteder , der ikke drives af os. Hvis du klikker på en tredjeparts link, vil du blive dirigeret til denne tredjepart websted. Vi anbefaler dig at gennemgå fortrolighedspolitikken af ethvert websted , du besøger .
 </p>
-<p> <?=$site_name?> har ingen kontrol over , og påtager sig intet ansvar for , at indholdet , privatliv politikker eller praksis tredjeparters websteder eller tjenester.
+<p> <?=$site_name?> har ingen kontrol over , og påtager sig intet ansvar for, at indholdet , privatliv politikker eller praksis tredjeparters websteder eller tjenester.
 </p>
 
 <p> <strong> ændringer i denne Privacy Policy </strong > <br />

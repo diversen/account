@@ -15,7 +15,7 @@ $_MODULE_MENU = array();
 $attach_menu = function ($type) { 
     if ($type == 'email') {
         return array(
-            'title' => lang::translate('Email login'),
+            'title' => lang::translate('Email'),
             'url' => '/account/login/index'
         );
     }
