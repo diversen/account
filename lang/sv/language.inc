@@ -71,6 +71,7 @@ $_COS_LANG_MODULE['Emails does not match'] = 'E stämmer inte';
 $_COS_LANG_MODULE['Account created'] = 'Konto inrättas';
 $_COS_LANG_MODULE['Wrong validation key on account creation'] = 'Fel valideringsnyckel';
 $_COS_LANG_MODULE['Confirm account creation'] = 'Bekräfta att skapa konto';
+$_COS_LANG_MODULE['By registering, you agree to the <a href="/account/terms/privacy">privacy policy</a> and <a href="/account/terms/service">terms of service</a>.'] = 'Genom att registrera dig, godkänner du <a href="/account/terms/privacy">sekretesspolicy</a> och <a href="/account/terms/service">användarvillkor</a> .';
 $_COS_LANG_MODULE['Hi'] = 'Hallå';
 $_COS_LANG_MODULE['You have connected with {SITE_NAME} and requested an account'] = 'Du har anslutit med {SITE_NAME} och begärde ett konto';
 $_COS_LANG_MODULE['In order to activate your account, you just have to press the following link or copy and paste into your browsers URL line'] = 'För att aktivera ditt konto, behöver du bara trycka på följande länk eller kopiera och klistra in i din webbläsare URL linje';

@@ -71,6 +71,7 @@ $_COS_LANG_MODULE['Emails does not match'] = 'E-post samsvarer ikke';
 $_COS_LANG_MODULE['Account created'] = 'Konto etablert';
 $_COS_LANG_MODULE['Wrong validation key on account creation'] = 'Feil validering nøkkelen';
 $_COS_LANG_MODULE['Confirm account creation'] = 'Bekreft Account Creation';
+$_COS_LANG_MODULE['By registering, you agree to the <a href="/account/terms/privacy">privacy policy</a> and <a href="/account/terms/service">terms of service</a>.'] = 'Ved å registrere deg, samtykker du til <a href="/account/terms/privacy">personvern</a> og <a href="/account/terms/service">vilkårene for tjenesten</a> .';
 $_COS_LANG_MODULE['Hi'] = 'Hallo';
 $_COS_LANG_MODULE['You have connected with {SITE_NAME} and requested an account'] = 'Du har besøkt {SITE_NAME} og ba om en konto';
 $_COS_LANG_MODULE['In order to activate your account, you just have to press the following link or copy and paste into your browsers URL line'] = 'Å aktivere kontoen din, trykker du bare på følgende link eller kopiere og lime den inn i nettleserens URL bar';
