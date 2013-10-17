@@ -70,7 +70,7 @@ class accountChangeemail {
         $mysql_date = date::getDateNow();
         
         // only allow 2 changes per day
-        $bean = cosRB::getBean('account_email_changes', 'user_id', $user_id);
+        $bean = db_rb::getBean('account_email_changes', 'user_id', $user_id);
         
         $email_max_changes = 1000;
         if ($bean->id) {
@@ -83,7 +83,7 @@ class accountChangeemail {
             }            
         }
         
-        $bean = cosRB::getBean('account_email_changes', 'user_id', $user_id);
+        $bean = db_rb::getBean('account_email_changes', 'user_id', $user_id);
         $bean->user_id = $user_id;
         $bean->tries++;
         $bean->date_try = $mysql_date;
