@@ -4,9 +4,7 @@ $_COS_LANG_MODULE['Verify Account'] = 'Verify Account';
 $_COS_LANG_MODULE['Account is already verified'] = 'Account is already verified';
 $_COS_LANG_MODULE['Account has been verified'] = 'Account has been verified';
 $_COS_LANG_MODULE['Create Account'] = 'Create Account';
-$_COS_LANG_MODULE['Account: Create notice'] = 'Account has been created.
-You will recieve an email in a short time.
-Press a link and you have verified your account!';
+$_COS_LANG_MODULE['Account: Create notice'] = 'Account has been created. You will recieve an email in a short time. Press a link and you have verified your account!';
 $_COS_LANG_MODULE['Email already exists'] = 'Email already exists';
 $_COS_LANG_MODULE['Password has to be at least 7 chars'] = 'Password has to be at least 7 chars';
 $_COS_LANG_MODULE['Passwords does not match'] = 'Passwords does not match';

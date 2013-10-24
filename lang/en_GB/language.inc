@@ -23,9 +23,7 @@ $_COS_LANG_MODULE['Login'] = 'Login';
 $_COS_LANG_MODULE['Let me stay logged in'] = 'Let me stay logged in';
 $_COS_LANG_MODULE['days'] = 'days';
 $_COS_LANG_MODULE['Create Account'] = 'Create Account';
-$_COS_LANG_MODULE['Account: Create notice'] = 'Account has been created.
-You will recieve an email in a short time.
-Press a link and you have verified your account!';
+$_COS_LANG_MODULE['Account: Create notice'] = 'Account has been created. You will recieve an email in a short time. Press a link and you have verified your account!';
 $_COS_LANG_MODULE['Account'] = 'Account';
 $_COS_LANG_MODULE['Password needs to be 7 chars'] = 'Password needs to be 7 chars';
 $_COS_LANG_MODULE['Passwords does not match'] = 'Passwords does not match';
