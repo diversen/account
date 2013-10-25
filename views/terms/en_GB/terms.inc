@@ -24,7 +24,7 @@ $laws_of = $site_state . ', ' . $site_country;
 <p>Please read these Terms and Conditions ("Agreement", "Terms and Conditions") carefully before using <?=$site_url?> ("the Site") operated by <?=$site_name_bold?> ("us", "we", or "our"). This Agreement sets forth the legally binding terms and conditions for your use of the Site at <?=$site_url?>.</p>
 <p>By accessing or using the Site in any manner, including, but not limited to, visiting or browsing the Site or contributing content or other materials to the Site, you agree to be bound by these Terms and Conditions. Capitalized terms are defined in this Agreement.</p>
 
-<p><strong>Intellectual Property</strong><br />The Site and its original content, features and functionality are owned by <?=$site_name_bold?> and are protected by international copyright, trademark, patent, trade secret and other intellectual property or proprietary rights laws.</p>
+<p><strong>Intellectual Property</strong><br />The Site and its original content, features and functionality are owned by <?=$site_name_bold?> The licence for content is this site corresponds with the following license:  <?=html::createLink('http://creativecommons.org/licenses/by-sa/3.0/', 'Attribution-ShareAlike 3.0 ')?> </p>
 
 <p><strong>Termination</strong><br />We may terminate your access to the Site, without cause or notice, which may result in the forfeiture and destruction of all information associated with you. All provisions of this Agreement that by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity, and limitations of liability.</p>
 

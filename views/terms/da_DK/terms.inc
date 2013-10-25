@@ -25,7 +25,7 @@ $laws_of = $site_state . ', ' . $site_country;
 <p> Ved at tilgå eller bruge hjemmesiden på nogen måde, herunder , men ikke begrænset til , besøger eller surfe på sitet eller bidrage indhold eller andre materialer til webstedet , accepterer du at være bundet af disse vilkår og betingelser. Aktiverede er defineret i denne aftale. </p>
 
 <p> <strong>Intellektuel Ejendomsret</strong > <br /> 
-    stedet og dets oprindelige indhold , funktioner og funktionalitet er ejet af <?=$site_name_bold?> og er beskyttet af international copyright, varemærker , patent, forretningshemmelighed og anden intellektuel ejendom eller ejendomsrettigheder love. </p>
+    stedet og dets oprindelige indhold, funktioner og funktionalitet er ejet af <?=$site_name_bold?>. Licensen for indhold er <?=html::createLink('http://creativecommons.org/licenses/by-sa/3.0/', 'Attribution-ShareAlike 3.0 ')?> </p>
 
 <p> <strong> Opsigelse </strong > <br /> Vi kan opsige din adgang til webstedet, uden årsag eller varsel , hvilket kan resultere i konfiskation og tilintetgørelse af alle oplysninger i forbindelse med dig. Alle bestemmelserne i denne aftale , som efter deres natur skal overleve opsigelse skal overleve opsigelse , herunder, uden begrænsning , ejerskab bestemmelser , garanti ansvarsfraskrivelser , erstatning og ansvarsbegrænsninger . </p>
 
