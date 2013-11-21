@@ -12,8 +12,7 @@ class account_facebook extends account {
      */
 
     public function auth ($facebook_url){
-
-        
+     
         // first check for a sub account and return parent account
         $db = new db();
         $search = array ('url' => $facebook_url, 'type' => 'facebook');

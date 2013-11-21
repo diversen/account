@@ -61,7 +61,7 @@ class account {
      * 3) In __construct we can specify array ('redirect_logout' => /url/after/logout');
      */
     public function doLogout () {
-        $app_id = config::getModuleIni('account_facebook_api_appid'); //$facebook->getAppId()
+        $app_id = config::getModuleIni('account_facebook_api_appid'); 
         $server_name = config::getMainIni('server_name');
 
         setcookie('fbm_'.$app_id, '', time()-100, '/', $server_name);
@@ -187,9 +187,9 @@ class account {
      * @param string $url 
      */
     public static function redirectOnLogin ($url = null){
-        if (isset($_SESSION['redirect_on_login'])){
-            $redirect = $_SESSION['redirect_on_login'];
-            unset($_SESSION['redirect_on_login']);
+        if (isset($_SESSION['return_to'])){
+            $redirect = $_SESSION['return_to'];
+            unset($_SESSION['return_to']);
             http::locationHeader ($redirect);
         } else {
             if ($url){
