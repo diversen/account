@@ -45,17 +45,22 @@ class account {
         
     
     /**
-     * Logout action
-     * 
+     * Logout action 
      * Logout when going to URL  /account/logout
+     *
+     * this calls $this->doLogout();
+     */
+    
+    public function logoutAction () {
+        $this->doLogout();
+    }
+    
+    /** 
      * 1) If $_GET['redirect'] is set we will redirect to this URL
      * 2) If not set: We redirect to default login URL 
      * 3) In __construct we can specify array ('redirect_logout' => /url/after/logout');
      */
-    
-    public function logoutAction () {
-        
-        print_r($_SESSION); die;
+    public function doLogout () {
         $app_id = config::getModuleIni('account_facebook_api_appid'); //$facebook->getAppId()
         $server_name = config::getMainIni('server_name');
 
