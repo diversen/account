@@ -35,25 +35,27 @@ class account {
      */
     public $status = '';
     
+    /**
+     * 
+     * @param array $options
+     */
     public function __construct($options = array ()) {
         $this->options = $options;
     }
-    
-    /**
-     * checks if a logout has taken place 
-     */
-    public function checkLogout () {
-        $logout = uri::getInstance()->fragment(3);
-        if ($logout == '1'){
-            $this->doLogout();
-        }
-    }
-    
-    /**
-     * logout 
-     */
-    public function doLogout () {
         
+    
+    /**
+     * Logout action
+     * 
+     * Logout when going to URL  /account/logout
+     * 1) If $_GET['redirect'] is set we will redirect to this URL
+     * 2) If not set: We redirect to default login URL 
+     * 3) In __construct we can specify array ('redirect_logout' => /url/after/logout');
+     */
+    
+    public function logoutAction () {
+        
+        print_r($_SESSION); die;
         $app_id = config::getModuleIni('account_facebook_api_appid'); //$facebook->getAppId()
         $server_name = config::getMainIni('server_name');
 
@@ -81,6 +83,7 @@ class account {
         }
         http::locationHeader($redirect);
     }
+
     
     /**
      * set value of $this->options['keep_session']
@@ -154,7 +157,7 @@ class account {
             $args
         );        
     }
-        
+
    /**
     * method for creating a logout link. Fetch info from
     * a profile to show how to display logut

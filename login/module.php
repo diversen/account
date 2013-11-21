@@ -20,9 +20,6 @@ class account_login extends account {
      * static method for doing a login
      */
     public function login (){
-
-        // logout
-        $this->checkLogout();
         
         // login
         if (isset($_POST['email']) && isset($_POST['password']) ){

@@ -35,7 +35,6 @@ class account_lightopenid extends account {
      */
     public function login (){
 
-        $this->checkLogout();
         if (isset($_GET['keep_session']) && $_GET['keep_session'] == 1){
             $_SESSION['keep_session'] = 1;
         }
