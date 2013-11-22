@@ -17,7 +17,7 @@ class account_login extends account {
     } 
     
     /**
-     * method for doing a login
+     * method for doing a login from default $_POST values
      * what will be done depends on $this->options['redirect']
      * @return void|boolean $res true if no redirect is performed
      *                            void if redirect is set: will direct to set value

@@ -187,6 +187,9 @@ class account {
      * @param string $url 
      */
     public static function redirectOnLogin ($url = null){
+        
+        // if session return_to has been set we will use this as redirect 
+        // else redirect to URL given or if null redirect to default account url
         if (isset($_SESSION['return_to'])){
             $redirect = $_SESSION['return_to'];
             unset($_SESSION['return_to']);
