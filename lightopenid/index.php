@@ -28,7 +28,7 @@ if (!session::isUser()){
     if (!empty($l->errors)) {
         html::errors($l->errors);
     }
-    $l->viewLoginForm();  
+    account_lightopenid_views::loginForm ();
     echo account_views::getTermsLink();
 } else {
     $a = new account_login();

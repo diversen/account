@@ -16,17 +16,12 @@ class account_lightopenid extends account {
 
     function __construct($options = array ()) {
         $this->options = $options;
-        
-        // default login redirect
-        if (!isset($this->options['redirect'])) {
-            $this->options['redirect'] = '/account/lightopenid/index';
-        }
     }
 
     /**
      * method for showing a openid login form
      */
-    public static function viewLoginForm(){
+    public function viewLoginForm(){
         account_lightopenid_views::loginForm ();
     }
 
