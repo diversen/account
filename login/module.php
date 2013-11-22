@@ -9,8 +9,10 @@ class account_login extends account {
      * constructs accountLogin object.
      * set options 
      * @param array $options. Options can be:
-     *              redirect on login: 'redirect' => '/path/to/redirect'
-     *              accept accounts not verified: 'verified' => false  
+     *              redirect on login:            'redirect' => '/path/to/redirect'
+     *              accept accounts not verified: 'verified' => false
+     *              keep session in system cookie 'keep_session => true
+     *                          
      */
     public function __construct($options = null) {
         $this->options = $options;
@@ -28,22 +30,31 @@ class account_login extends account {
             $account = $this->auth ($_POST['email'], $_POST['password']);
             if (!empty($account)){            
                 $this->setSessionAndCookie($account);               
-                if (isset($this->options['redirect']) && ($this->options['redirect'] === false) ) {
-                    return true;
-                }
-                
-                if (isset($this->options['redirect'])) {
-                    $this->redirectOnLogin($this->options['redirect']);
-                } else {
-                    $this->redirectOnLogin();
-                }       
+                return $this->redirect();
             }
         }
     }
     
     /**
+     * redirect after valid email login
+     * @return boolean|void $res true if we don't redirect
+     *                            void if we redirect
+     */
+    public function redirect() {
+        if (isset($this->options['redirect']) && ($this->options['redirect'] === false) ) {
+            return true;
+        }
+                
+        if (isset($this->options['redirect'])) {
+            $this->redirectOnLogin($this->options['redirect']);
+        } else {
+            $this->redirectOnLogin();
+        } 
+    }
+    
+    /**
      * default page action to be performed on /account/login/index page
-     * only verified users, keep session
+     * only verified users, check for keep session
      */
     public function indexAction () {
         usleep(100000);
@@ -52,11 +63,11 @@ class account_login extends account {
         template::setTitle(lang::translate('Log in or Log out'));
 
         $options = array();
+        
+        // check if we want to keep session
         if (isset($_POST['keep_session']) && $_POST['keep_session'] == 1) {
             $options['keep_session'] = 1;
         }
-
-        $options['auth_verified_only'] = 1;
 
         $login = new account_login($options);
         $login->displayLogin();

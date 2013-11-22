@@ -102,7 +102,7 @@ class account_lightopenid extends account {
                     lang::translate('Logged ind with openID'), true
                 );
                       
-                account::redirectOnLogin($this->options['redirect']);
+                $this->redirectOnLogin($this->options['redirect']);
              } else {
                  return false;
              }
@@ -113,7 +113,7 @@ class account_lightopenid extends account {
                 lang::translate('Logged ind with openID'), false
             );
             
-            account::redirectOnLogin($this->options['redirect']);                       
+            $this->redirectOnLogin($this->options['redirect']);                       
         }
     }
     
@@ -197,16 +197,15 @@ class account_lightopenid extends account {
                 event::getTriggerEvent(
                     config::getModuleIni('account_events'), 
                     $args);
+    
                 
-                
-                
-             }
-             account::redirectOnLogin($this->options['redirect']);
+            }
+             $this->redirectOnLogin($this->options['redirect']);
 
          // we got a row. user has connect his open id account
         } else {
 
-            account::redirectOnLogin($this->options['redirect']);                       
+            $this->redirectOnLogin($this->options['redirect']);                       
              
         }
     }
