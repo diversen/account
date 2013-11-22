@@ -17,17 +17,19 @@ class account_login extends account {
     } 
     
     /**
-     * static method for doing a login
+     * method for doing a login
+     * what will be done depends on $this->options['redirect']
+     * @return void|boolean $res true if no redirect is performed
+     *                            void if redirect is set: will direct to set value
+     *                                 or: redirect to default login url 
      */
     public function login (){
-        
-        // login
         if (isset($_POST['email']) && isset($_POST['password']) ){
             $account = $this->auth ($_POST['email'], $_POST['password']);
             if (!empty($account)){            
                 $this->setSessionAndCookie($account);               
-                if (@$this->options['redirect'] === false) {
-                    return;
+                if (isset($this->options['redirect']) && ($this->options['redirect'] === false) ) {
+                    return true;
                 }
                 
                 if (isset($this->options['redirect'])) {
@@ -39,6 +41,10 @@ class account_login extends account {
         }
     }
     
+    /**
+     * default page action to be performed on /account/login/index page
+     * only verified users, keep session
+     */
     public function indexAction () {
         usleep(100000);
 
@@ -53,18 +59,15 @@ class account_login extends account {
         $options['auth_verified_only'] = 1;
 
         $login = new account_login($options);
-        $login->controlLogin();
+        $login->displayLogin();
     }
     
-
-   
-
     /**
      * method for controlling email login 
      * this uses default controller found at 
      * 
      */
-    public function controlLogin (){
+    public function displayLogin (){
         $this->login();
         if (session::isUser()){
 
@@ -78,7 +81,6 @@ class account_login extends account {
 
         // no submission
         } else {           
-
             account_login_views::formLogin();
 
         }     
