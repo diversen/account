@@ -10,4 +10,10 @@ class account_facebook_publish extends account_facebook {
         $p = new account_facebook_publish();
         $this->getPublishAuth();
     } 
+    
+    public function testAction () {
+        $facebook = $this->getFBObject();
+        $user = $facebook->getUser();
+        print_r($user);
+    }
 }
