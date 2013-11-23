@@ -13,8 +13,14 @@ class account_facebook_publish extends account_facebook {
     
     public function testAction () {
         $facebook = $this->getFBObject();
-        print_r($facebook);
         $user = $facebook->getUser();
-        print_r($user);
+        //print_r($user);
+    }
+    
+    public function postAction () {
+        $facebook = $this->getFBObject();
+        $user = $facebook->getUser();
+        $result = $facebook->api("/$user/feed", 'POST', array('message' => "http://en.wikipedia.org/wiki/Infinite_monkey_theorem"));
+        var_dump($result);
     }
 }
