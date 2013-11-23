@@ -2,8 +2,9 @@
 include_module('account/facebook');
 
 class account_facebook_publish extends account_facebook {
+    // get token for publishing
     public function getPublishAuth () {
-        $this->login('publish_actions');
+        $ret = $this->login('publish_actions');
     }
     
     public function indexAction () {
@@ -11,7 +12,7 @@ class account_facebook_publish extends account_facebook {
         $this->getPublishAuth();
     } 
     
-    public function testAction () {
+    public function meAction () {
         $facebook = $this->getFBObject();
         $user = $facebook->getUser();
         print_r($user);
@@ -24,6 +25,20 @@ class account_facebook_publish extends account_facebook {
         $result = $facebook->api("/$user/feed", 'POST', array('message' => $share));
         var_dump($result);
     }
+    
+    public function getUserInfo ($id = 'me') {
+        $facebook = $this->getFBObject();
+        $user_profile = $facebook->api("/$id",'GET');
+        return $user_profile;
+    }
+    
+    public function infomeAction() {
+        print_r($this->getUserInfo());
+    }
+    
+    public function saveUserInfo($account_id, $values) {
+        return db_rb::getBean('user', 'account_id', $account_id);
+    } 
     
     public function autoAction () {
         $facebook = $this->getFBObject();
