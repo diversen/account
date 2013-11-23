@@ -13,6 +13,7 @@ class account_facebook_publish extends account_facebook {
     
     public function testAction () {
         $facebook = $this->getFBObject();
+        print_r($facebook);
         $user = $facebook->getUser();
         print_r($user);
     }
