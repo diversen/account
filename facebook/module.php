@@ -201,7 +201,7 @@ class account_facebook extends account {
      * as users are authenticated. 
      */
 
-    public function login () {
+    public function login ($scope = null) {
 
         // check to see if user is allowed to use faccebook login
         $account_logins = config::getModuleIni('account_logins');
@@ -252,7 +252,9 @@ class account_facebook extends account {
             }
 
         } else {
-            $scope = $this->getScope();
+            if (!$scope) {
+                $scope = $this->getScope();
+            }
             $loginUrl = $facebook->getLoginUrl(
                 array(
                     'scope' => $scope,
