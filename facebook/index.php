@@ -5,7 +5,8 @@
  */
 usleep(100000);
 template::setTitle(lang::translate('Facebook Login'));
-$fb = new account_facebook();
+$options = array ('keep_session' => 1);
+$fb = new account_facebook($options);
 $fb->setAcceptUniqueOnlyEmail();
 $fb->login();
 

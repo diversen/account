@@ -5,6 +5,9 @@ view::includeOverrideFunctions('account', 'facebook/views.php');
 
 class account_facebook extends account {
 
+    public function __construct($options = array()) {
+        parent::__construct($options);
+    }
     /**
      * method for authorizing a user
      * @param   string  $facebook_url
@@ -210,17 +213,20 @@ class account_facebook extends account {
             return;
         }
         
+        // if we already have user - display logut
         if (session::isUser()) {   
             $this->displayLogout();
             return;
         }
 
+        
         $facebook = $this->getFBObject();
         $user = $facebook->getUser();
 
         if ($user) {
             try {
                 // Proceed knowing you have a logged in user who's authenticated.
+                // create a logout link
                 $user_profile = $facebook->api('/me');
                 $logoutUrl = $facebook->getLogoutUrl(
                     array ('next' => 
@@ -228,7 +234,7 @@ class account_facebook extends account {
                     )
                 );
             } catch (FacebookApiException $e) {
-                log::debug($e);
+                log::debug($e->getMessage());
             }
         } else {
             $user_profile = null;
@@ -351,13 +357,13 @@ class account_facebook extends account {
      * @return string 
      */
     public function getScope () {
-        $scope = 'email,';
-        $scope.= 'user_birthday,';
-        $scope.= 'user_location,';
-        $scope.= 'user_work_history,';
-        $scope.= 'user_about_me,';
-        $scope.= 'user_hometown,';
-        $scope.= 'user_website';
+        $scope = 'email';
+        //$scope.= 'user_birthday,';
+        //$scope.= 'user_location,';
+        //$scope.= 'user_work_history,';
+        //$scope.= 'user_about_me,';
+        //$scope.= 'user_hometown,';
+        //$scope.= 'user_website';
         return $scope;
     }
     
