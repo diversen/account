@@ -357,13 +357,11 @@ class account_facebook extends account {
      * @return string 
      */
     public function getScope () {
-        $scope = 'email';
-        //$scope.= 'user_birthday,';
-        //$scope.= 'user_location,';
-        //$scope.= 'user_work_history,';
-        //$scope.= 'user_about_me,';
-        //$scope.= 'user_hometown,';
-        //$scope.= 'user_website';
+        $scope = config::getModuleIni('account_facebook_scope');
+        if (!$scope) {
+        
+            $scope = 'email';
+        }
         return $scope;
     }
     

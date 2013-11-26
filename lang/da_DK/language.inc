@@ -33,11 +33,8 @@ $_COS_LANG_MODULE['OpenID login'] = 'open ID login';
 
 // Translation of file /modules/account/login/module.php
 
-$_COS_LANG_MODULE['Not a correct email or password'] = 'Enten forkert password eller email';
-
-// Translation of file /modules/account/login/index.php
-
 $_COS_LANG_MODULE['Log in or Log out'] = 'Log ind eller ud';
+$_COS_LANG_MODULE['Not a correct email or password'] = 'Enten forkert password eller email';
 
 // Translation of file /modules/account/login/views.php
 
