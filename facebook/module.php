@@ -353,13 +353,13 @@ class account_facebook extends account {
 
 
     /**
-     *method for getting scope for login
+     * method for getting scope for login. If there is not set a scope
+     * in account_facebook_scope then scope defaults to 'email'
      * @return string 
      */
     public function getScope () {
         $scope = config::getModuleIni('account_facebook_scope');
-        if (!$scope) {
-        
+        if (!$scope) {       
             $scope = 'email';
         }
         return $scope;
