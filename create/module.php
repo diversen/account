@@ -168,6 +168,39 @@ class account_create extends account {
     }
     
     /**
+     * var holding mailModule. set this with setSignupMail
+     * @var string $mailModule
+     */
+    public $mailModule = 'account';
+    
+    /**
+     * var holding mailViews. set this with setSignupMail
+     * @var type 
+     */
+    public $mailViews = array (
+        'txt' => 'mails/signup_message', 
+        'html' => 'mails/signup_message_html');
+    
+    /**
+     * 
+     * @param string $module e.g. 'account_ext'
+     * @param array  $views e.g. array (
+     *                              'html' => 'mails/signup_message_html',
+     *                              'txt' => 'mails/signup_message',
+     */
+    public function setSignupMail ($module, $views = array ()) {
+        $this->mailModule = $module;
+        
+        if (isset($views['txt'])) {
+            $this->mailViews['txt'] = $views['txt'];
+        }
+        
+        if (isset($views['html'])) {
+            $this->mailViews['html'] = $views['html'];
+        }
+    }
+    
+    /**
      * send a verify email
      * @param type $email
      * @param type $user_id
@@ -184,17 +217,34 @@ class account_create extends account {
         $vars['verify_key'] = "$vars[site_name]/account/create/verify/$user_id/$md5";
         $vars['user_id'] = $user_id;
 
-        // option for multi part message
-        $message = array ();        
-        
-        $txt_message = view::get('account', "mails/signup_message", $vars);
-        $html_message = view::get('account', "mails/signup_message_html", $vars);
-        
-        $message['txt'] = $txt_message;
-        $message['html'] = $html_message;
-        
+        $message = $this->getWelcomeMail($vars);
         $from = config::$vars['coscms_main']['site_email'];
         return cosMail::multipart($email, $subject, $message, $from);
+    }
+    
+    /**
+     * gets welcome message
+     * @param  array $vars e.g. array (
+     *                      'site_name' => 'http://example.com', 
+     *                      'user_id' => 123, 
+     *                      'verify_key' => 'http link to verify')
+     * @return array $message e.g. array (
+     *                      'txt' => 'text welcome etc', 
+     *                      'html' => 'html message');
+     */
+    public function getWelcomeMail ($vars) {
+        
+        // option for multi part message
+        $message = array (); 
+
+        // if a mail view == null then it is not added
+        if (isset($this->mailViews['txt']) && $this->mailViews['txt'] != null) {
+            $message['txt'] = view::get($this->mailModule, $this->mailViews['txt'], $vars);
+        }
+        if (isset($this->mailViews['html'])  && $this->mailViews['html'] != null) {
+            $message['html'] = view::get($this->mailModule, $this->mailViews['html'], $vars);
+        }
+        return $message;
     }
     
 
