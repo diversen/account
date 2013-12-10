@@ -50,6 +50,40 @@ class account_requestpw extends account {
             $this->errors['email'] = lang::translate('Email does not exists in our system');
         }
     }
+    
+        
+    /**
+     * var holding mailModule. set this with setSignupMail
+     * @var string $mailModule
+     */
+    public $mailModule = 'account';
+    
+    /**
+     * var holding mailViews. set this with setSignupMail
+     * @var type 
+     */
+    public $mailViews = array (
+        'txt' => 'mails/request_password', 
+        'html' => 'mails/request_password_html');
+    
+    /**
+     * 
+     * @param string $module e.g. 'account_ext'
+     * @param array  $views e.g. array (
+     *                              'html' => 'mails/signup_message_html',
+     *                              'txt' => 'mails/signup_message',
+     */
+    public function setRequestMail ($module, $views = array ()) {
+        $this->mailModule = $module;
+        
+        if (isset($views['txt'])) {
+            $this->mailViews['txt'] = $views['txt'];
+        }
+        
+        if (isset($views['html'])) {
+            $this->mailViews['html'] = $views['html'];
+        }
+    }
 
     /**
      * method for requesting password
@@ -84,11 +118,35 @@ class account_requestpw extends account {
             $vars['verify_key'].=$this->options['verify_path_prepend'];
         }
                
-        $message['txt'] = view::get('account', "mails/request_password", $vars);
-        $message['html'] = view::get('account', "mails/request_password_html", $vars);
+        $message = $this->getRequestMail($vars);
 
         $res = cosMail::multipart($row['email'], $subject, $message);
         return $res;
+    }
+    
+    /**
+     * gets request password mail message
+     * @param  array $vars e.g. array (
+     *                      'site_name' => 'http://example.com', 
+     *                      'user_id' => 123, 
+     *                      'verify_key' => 'http link to verify')
+     * @return array $message e.g. array (
+     *                      'txt' => 'text welcome etc', 
+     *                      'html' => 'html message');
+     */
+    public function getRequestMail ($vars) {
+        
+        // option for multi part message
+        $message = array (); 
+
+        // if a mail view == null then it is not added
+        if (isset($this->mailViews['txt']) && $this->mailViews['txt'] != null) {
+            $message['txt'] = view::get($this->mailModule, $this->mailViews['txt'], $vars);
+        }
+        if (isset($this->mailViews['html'])  && $this->mailViews['html'] != null) {
+            $message['html'] = view::get($this->mailModule, $this->mailViews['html'], $vars);
+        }
+        return $message;
     }
 
     /**
