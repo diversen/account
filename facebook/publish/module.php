@@ -1,5 +1,5 @@
 <?php
-include_module('account/facebook');
+moduleloader::includeModule('account/facebook');
 
 class account_facebook_publish extends account_facebook {
     // get token for publishing
