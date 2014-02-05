@@ -111,10 +111,19 @@ class account_admin extends account {
         if ( strlen($_POST['password']) != 0){
             $values['password'] = md5($_POST['password']);
         }
+        
+        if ($values['locked'] == 1) {
+            $this->lockUser($this->id);
+        }
 
         $db = new db();
         $res = $db->update('account', $values, $this->id);
         return $res;
+    }
+    
+    public function lockUser ($user_id) {
+        return db_q::delete('system_cookie')->filter('account_id =', $user_id)->exec();
+        
     }
     
     public function searchAccount () {
