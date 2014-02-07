@@ -141,6 +141,11 @@ class account_admin extends account {
         isset($_POST['super']) ? $values['super'] = 1 : $values['super'] = 0;
         isset($_POST['verified']) ? $values['verified'] = 1 : $values['verified'] = 0;
         isset($_POST['locked']) ? $values['locked'] = 1 : $values['locked'] = 0;
+        
+        if ($values['locked'] == 1) {
+            $this->lockUser($this->id);
+        }
+        
         $db = new db();
         $res = $db->update('account', $values, $this->id);
         return $res;
