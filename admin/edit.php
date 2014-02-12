@@ -31,7 +31,7 @@ if (isset($_POST['submit'])){
             session::setActionMessage(
                 lang::translate('Account has been updated')
             );
-            http::locationHeader('/account/admin/list');
+            http::locationHeader($_SERVER['REQUEST_URI']);
         }
     } else {
         html::errors($l->errors);
