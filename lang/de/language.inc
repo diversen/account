@@ -65,6 +65,8 @@ $_COS_LANG_MODULE['Login'] = 'Anmelden';
 $_COS_LANG_MODULE['Let me stay logged in'] = 'Lassen Sie mich eingeloggt bleiben';
 $_COS_LANG_MODULE['days'] = 'Tage';
 $_COS_LANG_MODULE['Not a correct email or password'] = 'Nicht eine korrekte E-Mail oder Passwort';
+$_COS_LANG_MODULE['User with ID <span class="notranslate">{ID}</span> has been locked!'] = 'Benutzer mit ID <span class="notranslate">{ID}</span> wurde gesperrt!';
+$_COS_LANG_MODULE['Not sufficient privileges. Super user is required'] = 'Nicht ausreichende Berechtigungen. Super-Benutzer benötigt wird';
 $_COS_LANG_MODULE['Account'] = 'Konto';
 $_COS_LANG_MODULE['Confirm account creation'] = 'Bestätigen Konto-Erstellung';
 $_COS_LANG_MODULE['Account needs to be verified before you may log in'] = 'Konto muss überprüft werden, bevor Sie sich anmelden können, in';

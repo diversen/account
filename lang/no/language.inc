@@ -65,6 +65,8 @@ $_COS_LANG_MODULE['Login'] = 'Logg inn';
 $_COS_LANG_MODULE['Let me stay logged in'] = 'Forbli innlogget';
 $_COS_LANG_MODULE['days'] = 'dager';
 $_COS_LANG_MODULE['Not a correct email or password'] = 'Enten feil passord eller e-post';
+$_COS_LANG_MODULE['User with ID <span class="notranslate">{ID}</span> has been locked!'] = 'Bruker med ID <span class="notranslate">{ID}</span> har blitt låst!';
+$_COS_LANG_MODULE['Not sufficient privileges. Super user is required'] = 'Ikke tilstrekkelige privilegier. Superbruker er nødvendig';
 $_COS_LANG_MODULE['Account'] = 'Konto';
 $_COS_LANG_MODULE['Confirm account creation'] = 'Bekreft Account Creation';
 $_COS_LANG_MODULE['Account needs to be verified before you may log in'] = 'Konto må verifiseres før du kan logge inn';

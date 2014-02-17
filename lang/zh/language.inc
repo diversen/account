@@ -65,6 +65,8 @@ $_COS_LANG_MODULE['Login'] = '注册';
 $_COS_LANG_MODULE['Let me stay logged in'] = '让我保持登录状态';
 $_COS_LANG_MODULE['days'] = '天';
 $_COS_LANG_MODULE['Not a correct email or password'] = '没有一个正确的电子邮件或密码';
+$_COS_LANG_MODULE['User with ID <span class="notranslate">{ID}</span> has been locked!'] = '用户ID为<span class="notranslate">{ID}</span>已被锁定！';
+$_COS_LANG_MODULE['Not sufficient privileges. Super user is required'] = '没有足够的权限。超级用户需要';
 $_COS_LANG_MODULE['Account'] = '帐户';
 $_COS_LANG_MODULE['Confirm account creation'] = '确认帐户创建';
 $_COS_LANG_MODULE['Account needs to be verified before you may log in'] = '账户需要验证之前，你可以登录';

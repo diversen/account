@@ -15,6 +15,9 @@ class account_api {
                 );
             }
             
+            
+            
+            
         } else {
             error_module::$message = lang::translate('Not sufficient privileges. Super user is required');
             moduleloader::setStatus(403);
@@ -28,8 +31,16 @@ class account_api {
      * @return boolean $res true on success else false
      */
     public function lock ($id) {
+        
         $values = array ('locked' => 1);
-        return db_q::update('account')->values($values)->filter('id =', $id)->exec();
+        $res = db_q::update('account')->values($values)->filter('id =', $id)->exec();
+        
+        // lock profile (delete in account_profile)
+        $a = new account_admin_module();
+        $a->lockProfile($id);
+        
+        return $res;
+        
     }
 }
 

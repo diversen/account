@@ -129,6 +129,11 @@ $_COS_LANG_MODULE['days'] = 'days';
 
 $_COS_LANG_MODULE['Not a correct email or password'] = 'Not a correct email or password';
 
+// Translation of file /modules/account/api/module.php
+
+$_COS_LANG_MODULE['User with ID <span class="notranslate">{ID}</span> has been locked!'] = 'User with ID <span class="notranslate">{ID}</span> has been locked!';
+$_COS_LANG_MODULE['Not sufficient privileges. Super user is required'] = 'Not sufficient privileges. Super user is required';
+
 // Translation of file /modules/account/index.php
 
 $_COS_LANG_MODULE['Account'] = 'Account';

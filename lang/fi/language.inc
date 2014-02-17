@@ -65,6 +65,8 @@ $_COS_LANG_MODULE['Login'] = 'Kirjaudu sisään';
 $_COS_LANG_MODULE['Let me stay logged in'] = 'Pysy kirjautuneena';
 $_COS_LANG_MODULE['days'] = 'päivää';
 $_COS_LANG_MODULE['Not a correct email or password'] = 'Joko väärä salasana tai sähköpostitse';
+$_COS_LANG_MODULE['User with ID <span class="notranslate">{ID}</span> has been locked!'] = 'Käyttäjälle ID <span class="notranslate">{ID}</span> on lukittu!';
+$_COS_LANG_MODULE['Not sufficient privileges. Super user is required'] = 'Ei riittäviä käyttöoikeuksia. Super Käyttäjä on velvollinen';
 $_COS_LANG_MODULE['Account'] = 'Tili';
 $_COS_LANG_MODULE['Confirm account creation'] = 'Vahvista tilin luominen';
 $_COS_LANG_MODULE['Account needs to be verified before you may log in'] = 'Tili on tarkistettava ennen kuin voit kirjautua sisään';

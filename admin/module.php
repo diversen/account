@@ -114,6 +114,7 @@ class account_admin extends account {
         
         if ($values['locked'] == 1) {
             $this->lockUser($this->id);
+            $this->lockProfile($this->id);
         }
 
         $db = new db();
@@ -121,9 +122,33 @@ class account_admin extends account {
         return $res;
     }
     
+    /**
+     * remove system cookie if any
+     * @param type $user_id
+     * @return type
+     */
     public function lockUser ($user_id) {
-        return db_q::delete('system_cookie')->filter('account_id =', $user_id)->exec();
-        
+        return db_q::delete('system_cookie')->filter('account_id =', $user_id)->exec();      
+    }
+    
+    /**
+     * locks (actually deletes the account profile if any profile system is in place
+     * @return type
+     */
+    public function lockProfile ($user_id) {
+        $profile_system = config::getMainIni('profile_module');
+        if (!$profile_system) {
+            return;
+        }
+            
+        // just delete profile info
+        $api_module = $profile_system . "/api";
+        moduleloader::includeModule($api_module);
+        $class = $profile_system . "_api_module";
+
+        if (method_exists($class, 'lock')) {
+            return $class::lock($user_id);
+        }
     }
     
     public function searchAccount () {
@@ -144,6 +169,7 @@ class account_admin extends account {
         
         if ($values['locked'] == 1) {
             $this->lockUser($this->id);
+            $this->lockProfile($this->id);
         }
         
         $db = new db();
