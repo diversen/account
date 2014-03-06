@@ -273,7 +273,7 @@ class account_requestpw extends account {
                     $location = config::getModuleIni('account_default_url');
                     http::locationHeader($location);
                 } else {
-                    html::errors(array ('Could not send email'));
+                    html::errors(array (lang::translate('We could not not send you an email. Please try again later')));
                     return;
                 }
             } else {
