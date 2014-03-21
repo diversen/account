@@ -63,6 +63,7 @@ $_COS_LANG_MODULE['Password has to be at least 7 chars'] = 'Password skal mindst
 $_COS_LANG_MODULE['No such combination between token and email. You can only use the token one time'] = 'Ingen sådan kombination mellem bruger id og validerings kode';
 $_COS_LANG_MODULE['Request new password'] = 'Opret nyt password';
 $_COS_LANG_MODULE['Visit your mailbox and follow instructions in order to get a new password'] = 'Check din email. Heri er der instruktioner til at skabe et nyt password.';
+$_COS_LANG_MODULE['We could not not send you an email. Please try again later'] = 'Vi kunne ikke ikke sende dig en email. Prøv venligst igen senere';
 $_COS_LANG_MODULE['Enter new password'] = 'Indtast nyt password';
 $_COS_LANG_MODULE['Repeat new password'] = 'Gentag password';
 $_COS_LANG_MODULE['Create new password'] = 'Nyt password';

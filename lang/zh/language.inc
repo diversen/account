@@ -61,6 +61,7 @@ $_COS_LANG_MODULE['Password has to be at least 7 chars'] = '密码必须至少�
 $_COS_LANG_MODULE['No such combination between token and email. You can only use the token one time'] = '令牌和电子邮件之间没有这样的组合。您只能使用令牌一次';
 $_COS_LANG_MODULE['Request new password'] = '重设密码';
 $_COS_LANG_MODULE['Visit your mailbox and follow instructions in order to get a new password'] = '登陆您的邮箱，并按照指示，以获得一个新的密码';
+$_COS_LANG_MODULE['We could not not send you an email. Please try again later'] = '我们无法不向您发送电子邮件。请稍后再试。';
 $_COS_LANG_MODULE['Enter new password'] = '输入新密码';
 $_COS_LANG_MODULE['Repeat new password'] = '重复新密码';
 $_COS_LANG_MODULE['Create new password'] = '创建新密码';

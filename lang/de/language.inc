@@ -61,6 +61,7 @@ $_COS_LANG_MODULE['Password has to be at least 7 chars'] = 'Passwort muss mindes
 $_COS_LANG_MODULE['No such combination between token and email. You can only use the token one time'] = 'Eine solche Kombination zwischen Token und E-Mail. Sie können nur das Token ein Mal';
 $_COS_LANG_MODULE['Request new password'] = 'Neues Passwort anfordern';
 $_COS_LANG_MODULE['Visit your mailbox and follow instructions in order to get a new password'] = 'Besuchen Sie Ihre Mailbox an und folgen Sie den Anweisungen, um ein neues Passwort zu erhalten';
+$_COS_LANG_MODULE['We could not not send you an email. Please try again later'] = 'Wir konnten keine E-Mail nicht senden. Bitte versuchen Sie es später noch einmal';
 $_COS_LANG_MODULE['Enter new password'] = 'Neues Passwort eingeben';
 $_COS_LANG_MODULE['Repeat new password'] = 'Neues Passwort wiederholen';
 $_COS_LANG_MODULE['Create new password'] = 'Neues Passwort';

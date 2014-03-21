@@ -61,6 +61,7 @@ $_COS_LANG_MODULE['Password has to be at least 7 chars'] = 'Salasanan on oltava 
 $_COS_LANG_MODULE['No such combination between token and email. You can only use the token one time'] = 'Ei tällainen yhdistelmä käyttäjätunnuksen ja validointi koodi';
 $_COS_LANG_MODULE['Request new password'] = 'Luo uusi salasana';
 $_COS_LANG_MODULE['Visit your mailbox and follow instructions in order to get a new password'] = 'Tarkista sähköpostisi. Nämä ovat ohjeet luoda uuden salasanan.';
+$_COS_LANG_MODULE['We could not not send you an email. Please try again later'] = 'Emme voineet ei lähetä sähköpostia. Yritä myöhemmin uudelleen';
 $_COS_LANG_MODULE['Enter new password'] = 'Anna uusi salasana';
 $_COS_LANG_MODULE['Repeat new password'] = 'Toista salasana';
 $_COS_LANG_MODULE['Create new password'] = 'Uusi salasana';

@@ -121,6 +121,7 @@ $_COS_LANG_MODULE['Password has to be at least 7 chars'] = 'Password has to be a
 $_COS_LANG_MODULE['No such combination between token and email. You can only use the token one time'] = 'No such combination between token and email. You can only use the token one time';
 $_COS_LANG_MODULE['Request new password'] = 'Request new password';
 $_COS_LANG_MODULE['Visit your mailbox and follow instructions in order to get a new password'] = 'Visit your mailbox and follow instructions in order to get a new password';
+$_COS_LANG_MODULE['We could not not send you an email. Please try again later'] = 'We could not not send you an email. Please try again later';
 
 // Translation of file /modules/account/requestpw/views.php
 
