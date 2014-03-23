@@ -7,7 +7,7 @@ if (isset($_GET['return_to'])) {
 }
 
 if (isset($_GET['message'])) {
-    session::setActionMessage(rawurldecode($_GET['message']));
+    session::setActionMessage(rawurldecode(html::specialEncode($_GET['message'])));
 }
 
 account_module::redirectDefault();
