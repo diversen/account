@@ -16,6 +16,7 @@ $_INSTALL['MAIN_MENU_ITEM'] = array (
     'section' => 'account'
 );
 
+
 if ($account_admin_only){
     $_INSTALL['MAIN_MENU_ITEM']['admin_only'] = 1;
 }

@@ -198,14 +198,27 @@ class account {
             if ($url){
                 $location = $url;
             } else {
-                $location = config::getModuleIni('account_default_url');
+                $location = self::getDefaultLoginRedirect();
+                
             }
             http::locationHeader($location);
          }
     }
     
+    /**
+     * if redirect_login is set we use this as default redirect. 
+     * if not we redirect to the default account url
+     * @return string $location
+     */
+    public static function getDefaultLoginRedirect() {
+        if (config::getModuleIni('account_redirect_login')) {
+            $location = config::getModuleIni('account_redirect_login');
+        } else {
+            $location = config::getModuleIni('account_default_url');
+        }
+        return $location;
+    }
 
-    
     /**
      * get account from id
      * @param int $id
