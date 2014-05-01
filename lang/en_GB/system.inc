@@ -13,6 +13,8 @@ $_COS_LANG_MODULE['Search for users'] = 'Search for users';
 // Translation of file /modules/account/install.inc
 
 $_COS_LANG_MODULE['account'] = 'Account';
+$_COS_LANG_MODULE['Users'] = 'Users';
+$_COS_LANG_MODULE['Logout'] = 'Logout';
 
 // Translation of file /modules/account/menu.inc
 

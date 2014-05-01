@@ -1,6 +1,7 @@
 <?php
 
-template::setInlineCss(config::getModulePath('account') . "/assets/account.css");
+// set css
+//template::setInlineCss(config::getModulePath('account') . "/assets/account.css");
 
 class account_admin_views {
 

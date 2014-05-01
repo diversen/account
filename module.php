@@ -5,12 +5,9 @@
  * methods between different login methods. 
  */
 
-if (!config::isCli()) {
-    template::setInlineCss(
-        config::getModulePath('account') .  '/assets/account.css', 1100);
-}
 
-view::includeOverrideFunctions('account', 'views.php');
+
+
 
 /**
  * class account 
