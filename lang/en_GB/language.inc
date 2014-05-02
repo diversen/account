@@ -76,8 +76,8 @@ $_COS_LANG_MODULE['Account has been updated'] = 'Account has been updated';
 // Translation of file /modules/account/admin/views.php
 
 $_COS_LANG_MODULE['Account is verified'] = 'Account is verified';
-$_COS_LANG_MODULE['Account is admin'] = 'Account is admin';
 $_COS_LANG_MODULE['Account is super'] = 'Account is super';
+$_COS_LANG_MODULE['Account is admin'] = 'Account is admin';
 $_COS_LANG_MODULE['Account is locked'] = 'Account is locked';
 $_COS_LANG_MODULE['Update account'] = 'Update account';
 $_COS_LANG_MODULE['ID'] = 'ID';
