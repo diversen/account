@@ -29,10 +29,15 @@ class account_admin_views {
         html::password('password2');
         html::label('verified', lang::translate('Account is verified') );
         html::checkbox ('verified');
+        
+        if (session::isSuper()) {
+            html::label('super', lang::translate('Account is super') );
+            html::checkbox ('super');
+        }
+        
         html::label('admin', lang::translate('Account is admin') );
         html::checkbox ('admin');
-        html::label('super', lang::translate('Account is super') );
-        html::checkbox ('super');
+        
         html::label('locked', lang::translate('Account is locked') );
         html::checkbox ('locked');
         html::submit('submit', lang::translate('Update account'));
@@ -49,10 +54,14 @@ class account_admin_views {
         html::legend(lang::translate('Edit account'));
         html::label('verified', lang::translate('Account is verified') );
         html::checkbox ('verified');
+        
+        if (session::isSuper()) {
+            html::label('super', lang::translate('Account is super') );
+            html::checkbox ('super');
+        }
+        
         html::label('admin', lang::translate('Account is admin') );
         html::checkbox ('admin');
-        html::label('super', lang::translate('Account is super') );
-        html::checkbox ('super');
         html::label('locked', lang::translate('Account is locked') );
         html::checkbox ('locked');
         html::submit('submit', lang::translate('Update account'));

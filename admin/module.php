@@ -104,7 +104,11 @@ class account_admin extends account {
         );
 
         isset($_POST['admin']) ? $values['admin'] = 1 : $values['admin'] = 0;
-        isset($_POST['super']) ? $values['super'] = 1 : $values['super'] = 0;
+        
+        if (session::isSuper()) {
+            isset($_POST['super']) ? $values['super'] = 1 : $values['super'] = 0;
+        }
+        
         isset($_POST['verified']) ? $values['verified'] = 1 : $values['verified'] = 0;
         isset($_POST['locked']) ? $values['locked'] = 1 : $values['locked'] = 0;
         
@@ -163,7 +167,10 @@ class account_admin extends account {
      */
     public function updateUrlUser (){      
         isset($_POST['admin']) ? $values['admin'] = 1 : $values['admin'] = 0;
-        isset($_POST['super']) ? $values['super'] = 1 : $values['super'] = 0;
+        
+        if (session::isSuper()) {
+            isset($_POST['super']) ? $values['super'] = 1 : $values['super'] = 0;
+        }
         isset($_POST['verified']) ? $values['verified'] = 1 : $values['verified'] = 0;
         isset($_POST['locked']) ? $values['locked'] = 1 : $values['locked'] = 0;
         
