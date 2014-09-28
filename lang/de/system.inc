@@ -1,8 +1,8 @@
 <?php
 
+$_COS_LANG_MODULE['Search for users'] = 'Suche nach Benutzern';
 $_COS_LANG_MODULE['Lost password'] = 'Passwort vergessen';
 $_COS_LANG_MODULE['Create account'] = 'Konto erstellen';
-$_COS_LANG_MODULE['Search for users'] = 'Suche nach Benutzern';
 $_COS_LANG_MODULE['account'] = 'Konto';
 $_COS_LANG_MODULE['Users'] = 'Benutzer';
 $_COS_LANG_MODULE['Logout'] = 'Logout';
