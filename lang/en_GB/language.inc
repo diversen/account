@@ -51,6 +51,13 @@ $_COS_LANG_MODULE['Facebook Login'] = 'Facebook Login';
 // Translation of file /modules/account/facebook/module.php
 
 
+// Translation of file /modules/account/google/module.php
+
+$_COS_LANG_MODULE['No google access token'] = 'No google access token';
+$_COS_LANG_MODULE['Your google email needs to be verified'] = 'Your google email needs to be verified';
+$_COS_LANG_MODULE['Google login'] = 'Google login';
+$_COS_LANG_MODULE['Something really weird happened. TRy again!'] = 'Something really weird happened. TRy again!';
+
 // Translation of file /modules/account/views/mails/request_password.inc
 
 $_COS_LANG_MODULE['Hi'] = 'Hi';

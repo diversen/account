@@ -10,4 +10,5 @@ $_COS_LANG_MODULE['Email'] = 'Email';
 $_COS_LANG_MODULE['OpenID'] = 'OpenID';
 $_COS_LANG_MODULE['Facebook'] = 'Facebook';
 $_COS_LANG_MODULE['Github'] = 'Github';
+$_COS_LANG_MODULE['Google'] = 'Google';
 $_COS_LANG_MODULE['Admin'] = 'Admin';

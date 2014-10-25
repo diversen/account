@@ -10,4 +10,5 @@ $_COS_LANG_MODULE['Email'] = '电子邮件';
 $_COS_LANG_MODULE['OpenID'] = 'OpenID的';
 $_COS_LANG_MODULE['Facebook'] = 'Facebook的';
 $_COS_LANG_MODULE['Github'] = 'Github上';
+$_COS_LANG_MODULE['Google'] = '谷歌';
 $_COS_LANG_MODULE['Admin'] = '管理员';
