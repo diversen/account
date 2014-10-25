@@ -36,6 +36,18 @@ All configuration is set in account/account.ini
     ; scope
     ;account_github_scope = 'user'
 
+### google
+
+scopes
+
+https://developers.google.com/+/api/oauth#login-scopes
+
+$this->client->setScopes(
+array(
+'https://www.googleapis.com/auth/analytics.readonly', 
+'https://www.googleapis.com/auth/userinfo.email', 
+'https://www.googleapis.com/auth/userinfo.profile')
+);
 
 ### Events
 

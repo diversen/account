@@ -47,6 +47,13 @@ $attach_menu = function ($type) {
             'url' => '/account/github/index'
         );
     }
+    
+    if ($type == 'google'){
+        return array(
+            'title' => lang::translate('Google'),
+            'url' => '/account/google/index'
+        );
+    }
 };
 
 foreach($account_logins as $login) {

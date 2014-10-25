@@ -171,7 +171,7 @@ class account_github extends account {
         } 
         
         // check main account
-        $search = array ('url' => $param['url'], 'type' => 'github');
+        $search = array ('url' => $params['url'], 'type' => 'github');
         $row = $db->selectOne('account', null, $search);
         $row = $this->checkAccountFlags($row);
         return $row;
@@ -189,7 +189,7 @@ class account_github extends account {
         $allow_merge = config::getModuleIni('account_auto_merge');
         $res = false;
         foreach($allow_merge as $host) {
-            if ($host == 'github.com') {
+            if ($host == 'github') {
                 $res = true;                
                 break;
             }

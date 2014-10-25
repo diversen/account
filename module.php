@@ -24,7 +24,9 @@ class account {
      * var holding options
      * @var type 
      */
-    public $options = array ();
+    public $options = array (
+        'unique_email' => 1
+    );
     
     /**
      * status to give on login
