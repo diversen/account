@@ -146,7 +146,7 @@ class account {
         $_SESSION['admin'] = $account['admin'];
         $_SESSION['super'] = $account['super'];
         $_SESSION['account_type'] = $type;
-
+        
         if (isset($this->options['keep_session'])){
             session::setSystemCookie($account['id']);
         }

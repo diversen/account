@@ -17,7 +17,11 @@ class account_google extends account {
      *              accept accounts not verified: 'verified' => false  
      */
     public function __construct($options = null) {
-        $this->options = $options;
+        $this->options = array (
+            'keep_session' => 1,
+            'unique_email' => 1
+            
+        );
     } 
     
     public function getGoogleClient () {
