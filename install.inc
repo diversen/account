@@ -53,6 +53,6 @@ if (config::getModuleIni('account_logout_link')) {
 
 
 
-$_INSTALL['VERSION'] = 2.41;
+$_INSTALL['VERSION'] = 3.01;
 $_INSTALL['PUBLIC_CLONE_URL'] = 'git://github.com/diversen/account.git';
 $_INSTALL['PRIVATE_CLONE_URL'] = 'git@github.com:diversen/account.git';
