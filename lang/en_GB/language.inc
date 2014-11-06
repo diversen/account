@@ -9,9 +9,11 @@ $_COS_LANG_MODULE['OpenID login'] = 'OpenID login';
 
 $_COS_LANG_MODULE['OpenID Login was cancelled'] = 'OpenID Login was cancelled';
 $_COS_LANG_MODULE['OpenID login accepted'] = 'OpenID login accepted';
+$_COS_LANG_MODULE['Could not dispense OpenID'] = 'Could not dispense OpenID';
 $_COS_LANG_MODULE['Invalid openID'] = 'Invalid openID';
 $_COS_LANG_MODULE['Logged ind with openID'] = 'Logged ind with openID';
 $_COS_LANG_MODULE['Invalid login. We need a valid OpenID email'] = 'Invalid login. We need a valid OpenID email';
+$_COS_LANG_MODULE['Could not merge your account with main account. This may be an email account.'] = 'Could not merge your account with main account. This may be an email account.';
 $_COS_LANG_MODULE['Email already exists in system'] = 'Email already exists in system';
 
 // Translation of file /modules/account/github/index.php

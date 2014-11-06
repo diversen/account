@@ -3,9 +3,11 @@
 $_COS_LANG_MODULE['OpenID login'] = 'OpenID-Anmeldung';
 $_COS_LANG_MODULE['OpenID Login was cancelled'] = 'OpenID Login wurde abgebrochen';
 $_COS_LANG_MODULE['OpenID login accepted'] = 'OpenID-Anmeldung akzeptiert';
+$_COS_LANG_MODULE['Could not dispense OpenID'] = 'OpenID konnte nicht verzichten';
 $_COS_LANG_MODULE['Invalid openID'] = 'Ungültige openID';
 $_COS_LANG_MODULE['Logged ind with openID'] = 'Gespeichert ind mit OpenID';
 $_COS_LANG_MODULE['Invalid login. We need a valid OpenID email'] = 'Ungültige Anmelde. Wir benötigen eine gültige E-Mail-OpenID';
+$_COS_LANG_MODULE['Could not merge your account with main account. This may be an email account.'] = 'Konnte nicht fusionieren Ihr Konto mit Hauptkonto. Dies kann ein E-Mail-Konto sein.';
 $_COS_LANG_MODULE['Email already exists in system'] = 'E-Mail im System bereits vorhanden';
 $_COS_LANG_MODULE['Log in or Log out'] = 'Anmelden oder Abmelden';
 $_COS_LANG_MODULE['Github login'] = 'Github Login';

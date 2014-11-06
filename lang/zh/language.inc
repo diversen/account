@@ -3,9 +3,11 @@
 $_COS_LANG_MODULE['OpenID login'] = 'OpenID登录';
 $_COS_LANG_MODULE['OpenID Login was cancelled'] = 'OpenID的登录被取消';
 $_COS_LANG_MODULE['OpenID login accepted'] = 'OpenID登录接纳';
+$_COS_LANG_MODULE['Could not dispense OpenID'] = '无法免除的OpenID';
 $_COS_LANG_MODULE['Invalid openID'] = '无效的OpenID';
 $_COS_LANG_MODULE['Logged ind with openID'] = '已记录IND使用OpenID';
 $_COS_LANG_MODULE['Invalid login. We need a valid OpenID email'] = '无效的登录。我们需要一个有效的电子邮件的OpenID';
+$_COS_LANG_MODULE['Could not merge your account with main account. This may be an email account.'] = '无法与主账户合并帐户。这可以是一个电子邮件帐户。';
 $_COS_LANG_MODULE['Email already exists in system'] = '电子邮件已经存在于系统';
 $_COS_LANG_MODULE['Log in or Log out'] = '登录或注销';
 $_COS_LANG_MODULE['Github login'] = 'Github上登录';

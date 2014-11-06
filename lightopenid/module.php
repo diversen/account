@@ -62,6 +62,7 @@ class account_lightopenid extends account {
                 if ($openid->validate()) {
                     $res = $this->dispenseOpenid($openid);
                     if (!$res) {
+                        $this->errors[] = lang::translate('Could not dispense OpenID');
                         return false;
                     }
                 } else {
@@ -285,7 +286,10 @@ class account_lightopenid extends account {
             if (!empty($account)) {
                 $auto_merge = config::getModuleIni('account_auto_merge');
                 if ($auto_merge) {
-                    return $this->autoMergeAccounts($openid, $account['id']);                    
+                    $res = $this->autoMergeAccounts($openid, $account['id']);
+                    if (!$res) {
+                        $this->errors[] = lang::translate('Could not merge your account with main account. This may be an email account.');
+                    }
                 }
                 
                 // if no auto merge we set an error

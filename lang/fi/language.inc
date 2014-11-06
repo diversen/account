@@ -3,9 +3,11 @@
 $_COS_LANG_MODULE['OpenID login'] = 'OpenID login';
 $_COS_LANG_MODULE['OpenID Login was cancelled'] = 'Kirjaudu keskeytyy';
 $_COS_LANG_MODULE['OpenID login accepted'] = 'Voimassa login';
+$_COS_LANG_MODULE['Could not dispense OpenID'] = 'Ei kuitenkaan vapauta OpenID';
 $_COS_LANG_MODULE['Invalid openID'] = 'Invalid login';
 $_COS_LANG_MODULE['Logged ind with openID'] = 'Kirjautunut sisään käyttämällä OpenID';
 $_COS_LANG_MODULE['Invalid login. We need a valid OpenID email'] = 'Ei voimassa oleva sähköpostiosoite';
+$_COS_LANG_MODULE['Could not merge your account with main account. This may be an email account.'] = 'Ei voinut yhdistää tilisi päätilillä. Tämä voi olla sähköpostitilin.';
 $_COS_LANG_MODULE['Email already exists in system'] = 'Sähköposti on jo olemassa';
 $_COS_LANG_MODULE['Log in or Log out'] = 'Kirjaudu sisään tai ulos';
 $_COS_LANG_MODULE['Github login'] = 'Github login';

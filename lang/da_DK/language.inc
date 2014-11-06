@@ -3,9 +3,11 @@
 $_COS_LANG_MODULE['OpenID login'] = 'open ID login';
 $_COS_LANG_MODULE['OpenID Login was cancelled'] = 'Login afbrudt';
 $_COS_LANG_MODULE['OpenID login accepted'] = 'Gyldigt login';
+$_COS_LANG_MODULE['Could not dispense OpenID'] = 'Kunne ikke dispensere OpenID';
 $_COS_LANG_MODULE['Invalid openID'] = 'Ugyldigt login';
 $_COS_LANG_MODULE['Logged ind with openID'] = 'Logget ind med openID';
 $_COS_LANG_MODULE['Invalid login. We need a valid OpenID email'] = 'Ikke en gyldig email';
+$_COS_LANG_MODULE['Could not merge your account with main account. This may be an email account.'] = 'Kunne ikke flette din konto med hovedkonto. Dette kan være en e-mail-konto.';
 $_COS_LANG_MODULE['Email already exists in system'] = 'Email eksisterer allerede';
 $_COS_LANG_MODULE['Log in or Log out'] = 'Log ind eller ud';
 $_COS_LANG_MODULE['Github login'] = 'Github login';
