@@ -6,7 +6,7 @@
  */
 
 
-
+use diversen\strings\mb as strings_mb;
 
 
 /**

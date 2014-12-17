@@ -4,6 +4,7 @@
  * contains class for changing users email
  * @package account
  */
+use diversen\strings\mb as strings_mb;
 include_once "coslib/date.php";
 
 /**

@@ -4,6 +4,8 @@
  * File containg method for creating an account using an email
  * @package account
  */
+
+use diverse\strings\mb as strings_mb;
 moduleloader::includeModule('account');
 view::includeOverrideFunctions('account', 'login/views.php');
 /**

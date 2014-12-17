@@ -4,6 +4,7 @@
  * File containing class for srequesting and etting a new user password
  * 
  */
+use diversen\strings\mb as strings_mb;
 view::includeOverrideFunctions('account', 'requestpw/views.php');
 moduleloader::includeModule('account');
 
