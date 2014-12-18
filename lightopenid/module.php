@@ -4,7 +4,7 @@ use diversen\strings\mb as strings_mb;
 use diversen\random;
 
 moduleloader::includeModule('account/login');
-include_once "lightopenid/openid.php";
+include_once "vendor/iignatov/lightopenid/openid.php";
 view::includeOverrideFunctions('account', 'lightopenid/views.php');
 /**
  * class for doing login with openid
