@@ -1,5 +1,6 @@
 <?php
 
+use diversen\strings;
 use diversen\strings\mb as strings_mb;
 moduleloader::includeModule('account/login');
 view::includeOverrideFunctions('account', 'facebook/views.php');
