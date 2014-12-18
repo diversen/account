@@ -6,6 +6,7 @@
  */
 use diversen\strings\mb as strings_mb;
 use diversen\random;
+use diversen\db\rb as db_rb;
 
 include_once "coslib/date.php";
 
