@@ -5,7 +5,9 @@
  * @package account
  */
 
-use diverse\strings\mb as strings_mb;
+use diversen\strings\mb as strings_mb;
+use diversen\valid as cosValidate;
+
 moduleloader::includeModule('account');
 view::includeOverrideFunctions('account', 'login/views.php');
 /**
