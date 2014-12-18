@@ -1,5 +1,6 @@
 <?php
 
+use diversen\pagination as pearPager;
 /**
  * @package    account
  */
