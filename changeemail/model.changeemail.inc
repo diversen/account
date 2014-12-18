@@ -5,6 +5,8 @@
  * @package account
  */
 use diversen\strings\mb as strings_mb;
+use diversen\random;
+
 include_once "coslib/date.php";
 
 /**

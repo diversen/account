@@ -1,6 +1,7 @@
 <?php
 
 use diversen\strings\mb as strings_mb;
+use diversen\random;
 moduleloader::includeModule('account');
 
 /**

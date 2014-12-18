@@ -7,6 +7,7 @@
 
 use diversen\strings\mb as strings_mb;
 use diversen\valid as cosValidate;
+use diversen\random;
 
 moduleloader::includeModule('account');
 view::includeOverrideFunctions('account', 'login/views.php');
