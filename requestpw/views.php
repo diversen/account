@@ -1,5 +1,7 @@
 <?php
 
+use diversen\captcha;
+
 class account_requestpw_views {
     public static function formVerify () {
         $field_size = array ('size' => '30');

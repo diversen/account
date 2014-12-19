@@ -9,6 +9,8 @@ use diversen\strings\mb as strings_mb;
 use diversen\valid as cosValidate;
 use diversen\random;
 use diversen\mailer;
+use diversen\moduleloader;
+use diversen\captcha;
 
 moduleloader::includeModule('account');
 view::includeOverrideFunctions('account', 'login/views.php');

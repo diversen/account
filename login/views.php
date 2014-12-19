@@ -1,5 +1,8 @@
 <?php
 
+use diversen\captcha;
+use diversen\html;
+
 class account_login_views {
     
     public static function formCreate () {
