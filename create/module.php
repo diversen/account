@@ -8,6 +8,7 @@
 use diversen\strings\mb as strings_mb;
 use diversen\valid as cosValidate;
 use diversen\random;
+use diversen\mailer;
 
 moduleloader::includeModule('account');
 view::includeOverrideFunctions('account', 'login/views.php');
@@ -224,7 +225,7 @@ class account_create extends account {
 
         $message = $this->getWelcomeMail($vars);
         $from = config::$vars['coscms_main']['site_email'];
-        return cosMail::multipart($email, $subject, $message, $from);
+        return mailer::multipart($email, $subject, $message, $from);
     }
     
     /**

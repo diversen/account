@@ -7,6 +7,7 @@
 use diversen\strings\mb as strings_mb;
 use diversen\valid as cosValidate;
 use diversen\random;
+use diverse\mailer;
 
 view::includeOverrideFunctions('account', 'requestpw/views.php');
 moduleloader::includeModule('account');
@@ -124,7 +125,7 @@ class account_requestpw extends account {
                
         $message = $this->getRequestMail($vars);
 
-        $res = cosMail::multipart($row['email'], $subject, $message);
+        $res = mailer::multipart($row['email'], $subject, $message);
         return $res;
     }
     

@@ -7,6 +7,7 @@
 use diversen\strings\mb as strings_mb;
 use diversen\random;
 use diversen\db\rb as db_rb;
+use diversen\mailer;
 
 include_once "coslib/date.php";
 
@@ -142,7 +143,7 @@ class accountChangeemail {
         $message['html'] = view::get('account', "mails/signup_message_html", $vars);
         
         $from = config::$vars['coscms_main']['site_email'];
-        return cosMail::multipart($email, $subject, $message, $from);
+        return mailer::multipart($email, $subject, $message, $from);
     }
     
     /**
