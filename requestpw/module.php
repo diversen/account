@@ -7,7 +7,7 @@
 use diversen\strings\mb as strings_mb;
 use diversen\valid as cosValidate;
 use diversen\random;
-use diverse\mailer;
+use diversen\mailer;
 use diversen\captcha;
 
 view::includeOverrideFunctions('account', 'requestpw/views.php');
