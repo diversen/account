@@ -30,7 +30,7 @@ class account_login extends account {
         if (isset($_POST['email']) && isset($_POST['password']) ){
             $account = $this->auth ($_POST['email'], $_POST['password']);
             if (!empty($account)){            
-                $this->setSessionAndCookie($account);               
+                $this->setSessionAndCookie($account); 
                 return $this->redirect();
             }
         }

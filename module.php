@@ -210,11 +210,17 @@ class account {
      * @return string $location
      */
     public static function getDefaultLoginRedirect() {
+        
         if (config::getModuleIni('account_redirect_login')) {
             $location = config::getModuleIni('account_redirect_login');
         } else {
             $location = config::getModuleIni('account_default_url');
         }
+        if (!$location) {
+            $location = '/account/login/index';
+            
+        }
+        
         return $location;
     }
 
