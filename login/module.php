@@ -74,6 +74,11 @@ class account_login extends account {
         $login = new account_login($options);
         $login->displayLogin();
     }
+    
+    public function requestpwAction () {
+        $rp = new account_requestpw();
+        $rp->requestpwAction();
+    }
 
     public function createAction() {
 

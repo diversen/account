@@ -272,7 +272,7 @@ class account_requestpw extends account {
      * method for displaying the request password form
      * in a single call. 
      */
-    public static function requestpwAction () {
+    public function requestpwAction () {
         template::setTitle(lang::translate('Request new password'));
 
         http::prg();
@@ -301,3 +301,5 @@ class account_requestpw extends account {
         account_requestpw_views::formSend();
     }
 }
+
+class account_requestpw_module extends account_requestpw {}
