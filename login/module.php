@@ -76,7 +76,7 @@ class account_login extends account {
     }
     
     public function requestpwAction () {
-        $rp = new account_requestpw();
+        $rp = new account_requestpw_module();
         $rp->requestpwAction();
     }
 
