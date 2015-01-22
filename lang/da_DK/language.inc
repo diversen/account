@@ -15,7 +15,7 @@ $_COS_LANG_MODULE['Verify Account'] = 'Verificer Konto';
 $_COS_LANG_MODULE['Account is already verified'] = 'Konto er allerede verificeret';
 $_COS_LANG_MODULE['Account has been verified'] = 'Konto er blevet verificeret. Du kan nu <a href="/account/login/index">logge ind</a>';
 $_COS_LANG_MODULE['Email already exists'] = 'Email eksisterer allerede';
-$_COS_LANG_MODULE['Email is connected to an account of this type: '] = 'Email er forbundet til en konto af denne type:';
+$_COS_LANG_MODULE['Email is connected to an account of this type: <span class="notranslate">{ACCOUNT_TYPE}</span>'] = 'Email er forbundet til en konto af denne type: <span class="notranslate">{ACCOUNT_TYPE}</span>';
 $_COS_LANG_MODULE['That is not a valid email'] = 'Ikke en gyldig email';
 $_COS_LANG_MODULE['Incorrect answer to captcha test'] = 'Ikke et korrekt svar til CAPTCHA testen';
 $_COS_LANG_MODULE['Password needs to be 7 chars'] = 'Password skal mindst være 7 karakterer langt';

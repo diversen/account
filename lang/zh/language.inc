@@ -15,7 +15,7 @@ $_COS_LANG_MODULE['Verify Account'] = '验证帐户';
 $_COS_LANG_MODULE['Account is already verified'] = '帐户已通过验证';
 $_COS_LANG_MODULE['Account has been verified'] = '帐户已被证实';
 $_COS_LANG_MODULE['Email already exists'] = '电子邮件已经存在';
-$_COS_LANG_MODULE['Email is connected to an account of this type: '] = '电子邮件被连接到这种类型的帐户：';
+$_COS_LANG_MODULE['Email is connected to an account of this type: <span class="notranslate">{ACCOUNT_TYPE}</span>'] = '电子邮件被连接到一个帐户这种类型的： <span class="notranslate">{ACCOUNT_TYPE}</span>';
 $_COS_LANG_MODULE['That is not a valid email'] = '这不是一个有效的电子邮件';
 $_COS_LANG_MODULE['Incorrect answer to captcha test'] = '不正确的答案Captcha测试';
 $_COS_LANG_MODULE['Password needs to be 7 chars'] = '密码必须是7个字符';

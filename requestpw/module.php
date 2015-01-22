@@ -63,8 +63,7 @@ class account_requestpw extends account {
         
         $account = user::getAccountFromEmail($_POST['email']);
         if ($account['type'] != 'email') {
-            $this->errors['type'] = lang::translate('Email is connected to an account of this type: ' .
-                            '<span class="notranslate">{FACEBOOK}</span>', array('ACCOUNT_TYPE' => $account['type']));
+            $this->errors['type'] = lang::translate('Email is connected to an account of this type: <span class="notranslate">{ACCOUNT_TYPE}</span>', array('ACCOUNT_TYPE' => $account['type']));
         }
     }
     

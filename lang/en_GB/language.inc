@@ -33,7 +33,7 @@ $_COS_LANG_MODULE['Account has been verified'] = 'Account has been verified';
 // Translation of file /modules/account/create/module.php
 
 $_COS_LANG_MODULE['Email already exists'] = 'Email already exists';
-$_COS_LANG_MODULE['Email is connected to an account of this type: '] = 'Email is connected to an account of this type: ';
+$_COS_LANG_MODULE['Email is connected to an account of this type: <span class="notranslate">{ACCOUNT_TYPE}</span>'] = 'Email is connected to an account of this type: <span class="notranslate">{ACCOUNT_TYPE}</span>';
 $_COS_LANG_MODULE['That is not a valid email'] = 'That is not a valid email';
 $_COS_LANG_MODULE['Incorrect answer to captcha test'] = 'Incorrect answer to captcha test';
 $_COS_LANG_MODULE['Password needs to be 7 chars'] = 'Password needs to be 7 chars';

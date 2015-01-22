@@ -15,7 +15,7 @@ $_COS_LANG_MODULE['Verify Account'] = 'Verifizieren';
 $_COS_LANG_MODULE['Account is already verified'] = 'Konto bereits überprüft wird';
 $_COS_LANG_MODULE['Account has been verified'] = 'Konto überprüft wurde';
 $_COS_LANG_MODULE['Email already exists'] = 'E-Mail ist bereits vorhanden';
-$_COS_LANG_MODULE['Email is connected to an account of this type: '] = 'E-Mail wird auf ein Konto für diese Art verbunden:';
+$_COS_LANG_MODULE['Email is connected to an account of this type: <span class="notranslate">{ACCOUNT_TYPE}</span>'] = ': E-Mail wird auf ein Konto des Typs angeschlossen <span class="notranslate">{ACCOUNT_TYPE}</span>';
 $_COS_LANG_MODULE['That is not a valid email'] = 'Das ist keine gültige E-Mail';
 $_COS_LANG_MODULE['Incorrect answer to captcha test'] = 'Falsche Antwort Captcha-Test';
 $_COS_LANG_MODULE['Password needs to be 7 chars'] = 'Kennwort muss 7 Zeichen sein';
