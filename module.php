@@ -308,7 +308,9 @@ class account {
      */
     public function emailExist($email){
         $row = $this->getUserFromEmail($email, null);
-        if (empty($row)) return false;
+        if (empty($row)) { 
+            return false;
+        }
         return $row;
     }
     

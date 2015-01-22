@@ -15,6 +15,7 @@ $_COS_LANG_MODULE['Verify Account'] = 'Verificer Konto';
 $_COS_LANG_MODULE['Account is already verified'] = 'Konto er allerede verificeret';
 $_COS_LANG_MODULE['Account has been verified'] = 'Konto er blevet verificeret. Du kan nu <a href="/account/login/index">logge ind</a>';
 $_COS_LANG_MODULE['Email already exists'] = 'Email eksisterer allerede';
+$_COS_LANG_MODULE['Email is connected to an account of the type: '] = 'Email er forbundet til en konto af typen:';
 $_COS_LANG_MODULE['That is not a valid email'] = 'Ikke en gyldig email';
 $_COS_LANG_MODULE['Incorrect answer to captcha test'] = 'Ikke et korrekt svar til CAPTCHA testen';
 $_COS_LANG_MODULE['Password needs to be 7 chars'] = 'Password skal mindst være 7 karakterer langt';
@@ -63,15 +64,15 @@ $_COS_LANG_MODULE['Search'] = 'Søg';
 $_COS_LANG_MODULE['Admin index'] = 'Konto oversigt';
 $_COS_LANG_MODULE['Account has been updated'] = 'Kontoen er blevet opdateret';
 $_COS_LANG_MODULE['By registering, you agree to the <a href="/account/terms/privacy">privacy policy</a> and <a href="/account/terms/service">terms of service</a>.'] = 'Ved at registrere, accepterer du <a href="/account/terms/privacy">fortrolighedspolitik</a> og <a href="/account/terms/service">servicevilkår</a> .';
-$_COS_LANG_MODULE['Create Account'] = 'Opret konto';
-$_COS_LANG_MODULE['Account: Create notice'] = 'Konto er blevet oprettet. 
-Du vil modtage en email i løbet af kort tid.     
-Tryk et link i denne mail og du er verificeret.';
 $_COS_LANG_MODULE['Create account'] = 'Opret konto';
 $_COS_LANG_MODULE['Send'] = 'Send';
 $_COS_LANG_MODULE['Login'] = 'Log ind';
 $_COS_LANG_MODULE['Let me stay logged in'] = 'Forbliv logget ind';
 $_COS_LANG_MODULE['days'] = 'dage';
+$_COS_LANG_MODULE['Create Account'] = 'Opret konto';
+$_COS_LANG_MODULE['Account: Create notice'] = 'Konto er blevet oprettet. 
+Du vil modtage en email i løbet af kort tid.     
+Tryk et link i denne mail og du er verificeret.';
 $_COS_LANG_MODULE['Not a correct email or password'] = 'Enten forkert password eller email';
 $_COS_LANG_MODULE['User with ID <span class="notranslate">{ID}</span> has been locked!'] = 'Bruger med ID <span class="notranslate">{ID}</span> er blevet låst!';
 $_COS_LANG_MODULE['Not sufficient privileges. Super user is required'] = 'Ikke tilstrækkelige rettigheder. Superbruger er nødvendig';

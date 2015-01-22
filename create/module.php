@@ -36,7 +36,13 @@ class account_create extends account {
 
         if (isset($_POST['submit'])) {
             if ($this->emailExist($_POST['email'])){
+                
                 $this->errors['email'] = lang::translate('Email already exists');
+                $account = user::getAccountFromEmail($_POST['email']);
+                if ($account['type'] != 'email') {
+                    $this->errors['type'] = lang::translate('Email is connected to an account of the type: ' .
+                            '<span class="notranslate">{FACEBOOK}</span>', array ('ACCOUNT_TYPE' => $account['type']));
+                }
             }
 
             if (!cosValidate::validateEmailAndDomain($_POST['email'])) {

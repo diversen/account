@@ -33,6 +33,7 @@ $_COS_LANG_MODULE['Account has been verified'] = 'Account has been verified';
 // Translation of file /modules/account/create/module.php
 
 $_COS_LANG_MODULE['Email already exists'] = 'Email already exists';
+$_COS_LANG_MODULE['Email is connected to an account of the type: '] = 'Email is connected to an account of the type: ';
 $_COS_LANG_MODULE['That is not a valid email'] = 'That is not a valid email';
 $_COS_LANG_MODULE['Incorrect answer to captcha test'] = 'Incorrect answer to captcha test';
 $_COS_LANG_MODULE['Password needs to be 7 chars'] = 'Password needs to be 7 chars';
@@ -121,11 +122,6 @@ $_COS_LANG_MODULE['Account has been updated'] = 'Account has been updated';
 
 $_COS_LANG_MODULE['By registering, you agree to the <a href="/account/terms/privacy">privacy policy</a> and <a href="/account/terms/service">terms of service</a>.'] = 'By registering, you agree to the <a href="/account/terms/privacy">privacy policy</a> and <a href="/account/terms/service">terms of service</a>.';
 
-// Translation of file /modules/account/login/create.php
-
-$_COS_LANG_MODULE['Create Account'] = 'Create Account';
-$_COS_LANG_MODULE['Account: Create notice'] = 'Account has been created. You will recieve an email in a short time. Press a link and you have verified your account!';
-
 // Translation of file /modules/account/login/views.php
 
 $_COS_LANG_MODULE['Create account'] = 'Create account';
@@ -136,6 +132,8 @@ $_COS_LANG_MODULE['days'] = 'days';
 
 // Translation of file /modules/account/login/module.php
 
+$_COS_LANG_MODULE['Create Account'] = 'Create Account';
+$_COS_LANG_MODULE['Account: Create notice'] = 'Account has been created. You will recieve an email in a short time. Press a link and you have verified your account!';
 $_COS_LANG_MODULE['Not a correct email or password'] = 'Not a correct email or password';
 
 // Translation of file /modules/account/api/module.php
