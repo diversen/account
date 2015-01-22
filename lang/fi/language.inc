@@ -15,7 +15,7 @@ $_COS_LANG_MODULE['Verify Account'] = 'Tilin vahvistaminen';
 $_COS_LANG_MODULE['Account is already verified'] = 'Tili on jo vahvistanut';
 $_COS_LANG_MODULE['Account has been verified'] = 'Tilisi on vahvistettu. Voit nyt <a href="/account/login/index">kirjautua</a>';
 $_COS_LANG_MODULE['Email already exists'] = 'Sähköposti on jo olemassa';
-$_COS_LANG_MODULE['Email is connected to an account of the type: '] = 'Sähköposti on liitetty huomioon tyyppi:';
+$_COS_LANG_MODULE['Email is connected to an account of this type: '] = 'Sähköposti on liitetty huomioon tämäntyyppisten:';
 $_COS_LANG_MODULE['That is not a valid email'] = 'Ei voimassa oleva sähköpostiosoite';
 $_COS_LANG_MODULE['Incorrect answer to captcha test'] = 'Ei oikea vastaus CAPTCHA testi';
 $_COS_LANG_MODULE['Password needs to be 7 chars'] = 'Salasanan on oltava vähintään yhdeksän merkkiä pitkä';
