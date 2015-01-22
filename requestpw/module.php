@@ -49,11 +49,22 @@ class account_requestpw extends account {
             $this->errors['captcha'] = lang::translate('Wrong answer to captcha test');
         }
 
+        $this->errors['email'] = lang::translate('Email already exists');
+                
+        
+        
         $db = new db();
-        $search = array ('email' => $_POST['email'], 'type' => 'email');
+        $search = array ('email' => $_POST['email']);
         $row = $db->selectOne('account', 'email', $search);
         if (empty($row)){
             $this->errors['email'] = lang::translate('Email does not exists in our system');
+            return;
+        }
+        
+        $account = user::getAccountFromEmail($_POST['email']);
+        if ($account['type'] != 'email') {
+            $this->errors['type'] = lang::translate('Email is connected to an account of this type: ' .
+                            '<span class="notranslate">{FACEBOOK}</span>', array('ACCOUNT_TYPE' => $account['type']));
         }
     }
     
@@ -261,7 +272,7 @@ class account_requestpw extends account {
      * method for displaying the request password form
      * in a single call. 
      */
-    public static function displayRequestPassword () {
+    public static function requestpwAction () {
         template::setTitle(lang::translate('Request new password'));
 
         http::prg();
