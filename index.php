@@ -11,3 +11,4 @@ if (isset($_GET['message'])) {
 }
 
 account_module::redirectDefault();
+

@@ -371,6 +371,5 @@ class account {
     public static function __events () {}
 }
 
-class account_module extends account {
-    
-}
+class account_module extends account {}
+
