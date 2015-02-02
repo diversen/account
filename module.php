@@ -353,9 +353,13 @@ class account {
      * @return array $row account row or empty row if user is not valid.
      */
     public function checkAccountFlags ($row) {
-        if (empty($row)) return $row;
+        if (empty($row)) { 
+            return $row;
+        }
         $row = $this->checkVerified($row);
-        if (empty($row)) return $row;
+        if (empty($row)) { 
+            return $row;
+        }
         $row = $this->checkLocked($row);
         return $row;
     }
