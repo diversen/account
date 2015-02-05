@@ -32,7 +32,7 @@ class account_create extends account {
      * method for validating creation of account
      * sets $errors if any error
      */
-    function validate(){
+    public function validate(){
 
         if (isset($_POST['submit'])) {
             if ($this->emailExist($_POST['email'])){

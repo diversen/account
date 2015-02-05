@@ -51,8 +51,6 @@ class account_requestpw extends account {
 
         $this->errors['email'] = lang::translate('Email already exists');
                 
-        
-        
         $db = new db();
         $search = array ('email' => $_POST['email']);
         $row = $db->selectOne('account', 'email', $search);

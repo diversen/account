@@ -101,6 +101,7 @@ class account_admin_views {
 
         echo "<div class=\"account_admin_user\">\n";
         echo user::getProfile($v, $date, array ('user_id'));
+
         
         echo lang::translate('ID') . MENU_SUB_SEPARATOR_SEC . $v['id'];
         echo "<br />";

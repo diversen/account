@@ -105,7 +105,9 @@ class account {
      * @param string $redirect e.g. '/mypage/test'
      */
     public function setRedirect ($redirect = null) {
-        if (!$redirect) return;
+        if (!$redirect) { 
+            return;
+        }
         $this->options['redirect'] = $redirect;
         
     }
