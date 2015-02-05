@@ -44,6 +44,7 @@ class account_admin extends account {
      * @return type
      */
     public function listAction() {
+        
         if (!session::checkAccess('super')) {
             return;
         }
@@ -62,7 +63,6 @@ class account_admin extends account {
                 echo lang::translate('I could not find any matching results');
             }
         }
-
 
         $num_rows = $this->getNumUsers();
         $p = new pearPager($num_rows);
