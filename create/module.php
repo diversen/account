@@ -29,6 +29,24 @@ class account_create extends account {
     }
 
     /**
+     * /account/create/verify action
+     */
+    public function verifyAction() {
+
+        template::setTitle(lang::translate('Verify Account'));
+        $a = new account_create();
+        $a->validate();
+        $res = $a->verifyAccount();
+        if (!$res) {
+            html::errors($a->errors);
+        } else if ($res === 2) {
+            account_create_views::verify(lang::translate('Account is already verified'));
+        } else {
+            account_create_views::verify(lang::translate('Account has been verified'));
+        }
+    }
+
+    /**
      * method for validating creation of account
      * sets $errors if any error
      */
@@ -38,7 +56,7 @@ class account_create extends account {
             if ($this->emailExist($_POST['email'])){
                 
                 $this->errors['email'] = lang::translate('Email already exists');
-                $account = user::getAccountFromEmail($_POST['email']);
+                $account = $this->getUserFromEmail($_POST['email']);
                 if ($account['type'] != 'email') {
                     $this->errors['type'] = lang::translate('Email is connected to an account of this type: <span class="notranslate">{ACCOUNT_TYPE}</span>', array ('ACCOUNT_TYPE' => $account['type']));
                 }

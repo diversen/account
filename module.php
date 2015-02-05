@@ -63,8 +63,8 @@ class account {
         $app_id = config::getModuleIni('account_facebook_api_appid'); 
         $server_name = config::getMainIni('server_name');
 
-        setcookie('fbm_'.$app_id, '', time()-100, '/', $server_name);
-        setcookie('fbsr_'.$app_id, '', time()-100, '/', $server_name); 
+        //setcookie('fbm_'.$app_id, '', time()-100, '/', $server_name);
+        //setcookie('fbsr_'.$app_id, '', time()-100, '/', $server_name); 
         
         session::killSession();
 
@@ -178,8 +178,11 @@ class account {
      * in the ini setting 'account_default_url'
      */
     public static function redirectDefault (){
-        $redirect = config::getModuleIni('account_default_url');
-        http::locationHeader ($redirect);
+        $default = config::getModuleIni('account_default_url');
+        if (!$default) {
+            $default = '/account/login/index';
+        }
+        http::locationHeader ($default);
     }
 
     /**
