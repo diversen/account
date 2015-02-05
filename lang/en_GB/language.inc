@@ -24,14 +24,11 @@ $_COS_LANG_MODULE['Log in or Log out'] = 'Log in or Log out';
 
 $_COS_LANG_MODULE['Github login'] = 'Github login';
 
-// Translation of file /modules/account/create/verify.php
+// Translation of file /modules/account/create/module.php
 
 $_COS_LANG_MODULE['Verify Account'] = 'Verify Account';
 $_COS_LANG_MODULE['Account is already verified'] = 'Account is already verified';
 $_COS_LANG_MODULE['Account has been verified'] = 'Account has been verified';
-
-// Translation of file /modules/account/create/module.php
-
 $_COS_LANG_MODULE['Email already exists'] = 'Email already exists';
 $_COS_LANG_MODULE['Email is connected to an account of this type: <span class="notranslate">{ACCOUNT_TYPE}</span>'] = 'Email is connected to an account of this type: <span class="notranslate">{ACCOUNT_TYPE}</span>';
 $_COS_LANG_MODULE['That is not a valid email'] = 'That is not a valid email';
@@ -74,17 +71,6 @@ $_COS_LANG_MODULE['Kind Regards'] = 'Kind Regards';
 $_COS_LANG_MODULE['You have connected with {SITE_NAME} and requested an account'] = 'You have connected with {SITE_NAME} and requested an account';
 $_COS_LANG_MODULE['In order to activate your account, you just have to press the following link or copy and paste into your browsers URL line'] = 'In order to activate your account, you just have to press the following link or copy and paste into your browsers URL line';
 
-// Translation of file /modules/account/admin/delete.php
-
-$_COS_LANG_MODULE['Delete account'] = 'Delete account';
-$_COS_LANG_MODULE['Account has been deleted'] = 'Account has been deleted';
-
-// Translation of file /modules/account/admin/list.php
-
-$_COS_LANG_MODULE['Found the following accounts'] = 'Found the following accounts';
-$_COS_LANG_MODULE['I could not find any matching results'] = 'I could not find any matching results';
-$_COS_LANG_MODULE['Search for users'] = 'Search for users';
-
 // Translation of file /modules/account/admin/views.php
 
 $_COS_LANG_MODULE['Edit account'] = 'Edit account';
@@ -96,6 +82,7 @@ $_COS_LANG_MODULE['Account is super'] = 'Account is super';
 $_COS_LANG_MODULE['Account is admin'] = 'Account is admin';
 $_COS_LANG_MODULE['Account is locked'] = 'Account is locked';
 $_COS_LANG_MODULE['Update account'] = 'Update account';
+$_COS_LANG_MODULE['Delete account'] = 'Delete account';
 $_COS_LANG_MODULE['ID'] = 'ID';
 $_COS_LANG_MODULE['Account is not admin'] = 'Account is not admin';
 $_COS_LANG_MODULE['Account is super user'] = 'Account is super user';
@@ -107,16 +94,13 @@ $_COS_LANG_MODULE['Search accounts'] = 'Search accounts';
 $_COS_LANG_MODULE['Search account ID'] = 'Search account ID';
 $_COS_LANG_MODULE['Search'] = 'Search';
 
-// Translation of file /modules/account/admin/index.php
-
-$_COS_LANG_MODULE['Admin index'] = 'Admin index';
-
-// Translation of file /modules/account/admin/edit.php
-
-$_COS_LANG_MODULE['Account has been updated'] = 'Account has been updated';
-
 // Translation of file /modules/account/admin/module.php
 
+$_COS_LANG_MODULE['Account has been deleted'] = 'Account has been deleted';
+$_COS_LANG_MODULE['Found the following accounts'] = 'Found the following accounts';
+$_COS_LANG_MODULE['I could not find any matching results'] = 'I could not find any matching results';
+$_COS_LANG_MODULE['Search for users'] = 'Search for users';
+$_COS_LANG_MODULE['Account has been updated'] = 'Account has been updated';
 
 // Translation of file /modules/account/views.php
 
@@ -145,7 +129,7 @@ $_COS_LANG_MODULE['Not sufficient privileges. Super user is required'] = 'Not su
 
 $_COS_LANG_MODULE['Account'] = 'Account';
 
-// Translation of file /modules/account/changeemail/model.changeemail.inc
+// Translation of file /modules/account/changeemail/module.php
 
 $_COS_LANG_MODULE['Confirm account creation'] = 'Confirm account creation';
 
@@ -160,11 +144,6 @@ $_COS_LANG_MODULE['Enter new password'] = 'Enter new password';
 $_COS_LANG_MODULE['Repeat new password'] = 'Repeat new password';
 $_COS_LANG_MODULE['Request new password'] = 'Request new password';
 
-// Translation of file /modules/account/requestpw/verify.php
-
-$_COS_LANG_MODULE['Create new password'] = 'Create new password';
-$_COS_LANG_MODULE['New password has been saved'] = 'New password has been saved';
-
 // Translation of file /modules/account/requestpw/module.php
 
 $_COS_LANG_MODULE['Wrong answer to captcha test'] = 'Wrong answer to captcha test';
@@ -172,5 +151,7 @@ $_COS_LANG_MODULE['Email does not exists in our system'] = 'Email does not exist
 $_COS_LANG_MODULE['Create new password for site'] = 'Create new password for site';
 $_COS_LANG_MODULE['Password has to be at least 7 chars'] = 'Password has to be at least 7 chars';
 $_COS_LANG_MODULE['No such combination between token and email. You can only use the token one time'] = 'No such combination between token and email. You can only use the token one time';
+$_COS_LANG_MODULE['Create new password'] = 'Create new password';
+$_COS_LANG_MODULE['New password has been saved'] = 'New password has been saved';
 $_COS_LANG_MODULE['Visit your mailbox and follow instructions in order to get a new password'] = 'Visit your mailbox and follow instructions in order to get a new password';
 $_COS_LANG_MODULE['We could not not send you an email. Please try again later'] = 'We could not not send you an email. Please try again later';
