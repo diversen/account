@@ -94,46 +94,48 @@ class account_admin_views {
     
     /**
      * list single user
-     * @param array $v
+     * @param array $user
      */
-    public static function listUser ($v) {
+    public static function listUser ($user) {
 
-        $date = time::getDateString($v['created']);
+        $date = time::getDateString($user['created']);
 
         echo "<div class=\"account_admin_user\">\n";
-        echo user::getProfileLink($v, $date, array ('user_id'));
         
-        echo lang::translate('ID') . MENU_SUB_SEPARATOR_SEC . $v['id'];
+        
+        echo lang::translate('ID') . MENU_SUB_SEPARATOR_SEC . $user['id'];
+        echo "<br />";
+        echo user::getProfileLink($user, $date, array ('user_id'));
         echo "<br />";
             
-        echo lang::translate('Email') . MENU_SUB_SEPARATOR_SEC . $v['email'];
+        echo lang::translate('Email') . MENU_SUB_SEPARATOR_SEC . $user['email'];
         echo "<br />";
 
 
-        if ($v['admin']) {
+        if ($user['admin']) {
             echo lang::translate('Account is admin');
         } else {
             echo lang::translate('Account is not admin');
         }
         echo "<br />\n";
 
-        if ($v['super']) {
+        if ($user['super']) {
             echo lang::translate('Account is super user');
         } else {
             echo lang::translate('Account is not super user');
         }
         echo "<br />\n";
 
-        if ($v['verified']) {
+        if ($user['verified']) {
             echo lang::translate('Account is verified');
         } else {
             echo lang::translate('Account is not verified');
         }
         echo "<br />\n";
 
-        echo html::createLink("/account/admin/edit/$v[id]", lang::translate('Edit'));
+        echo html::createLink("/account/admin/edit/$user[id]", lang::translate('Edit'));
         echo MENU_SUB_SEPARATOR;
-        echo html::createLink("/account/admin/delete/$v[id]", lang::translate('Delete'));
+        echo html::createLink("/account/admin/delete/$user[id]", lang::translate('Delete'));
         echo "<br />\n";
         echo "<br />\n";
         echo "</div>\n";

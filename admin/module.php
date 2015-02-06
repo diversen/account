@@ -52,9 +52,12 @@ class account_admin extends account {
         $_GET = html::specialEncode($_GET);
 
         $this->searchAccount();
+       
         if (isset($_GET['submit'])) {
+            
             $acc = new account();
             $res = $acc->searchIdOrEmail($_GET['id']);
+            
             if (!empty($res)) {
                 echo lang::translate('Found the following accounts');
                 account_admin_views::listUsers($res);
@@ -66,9 +69,12 @@ class account_admin extends account {
 
         $num_rows = $this->getNumUsers();
         $p = new pearPager($num_rows);
+        
         $users = $this->getUsers($p->from);
         template::setTitle(lang::translate('Search for users'));
+
         account_admin_views::listUsers($users);
+        
         echo $p->getPagerHTML();
     }
 
