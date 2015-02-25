@@ -134,8 +134,8 @@ class account_admin_views {
         echo "<br />\n";
 
         echo html::createLink("/account/admin/edit/$user[id]", lang::translate('Edit'));
-        echo MENU_SUB_SEPARATOR;
-        echo html::createLink("/account/admin/delete/$user[id]", lang::translate('Delete'));
+        //echo MENU_SUB_SEPARATOR;
+        //echo html::createLink("/account/admin/delete/$user[id]", lang::translate('Delete'));
         echo "<br />\n";
         echo "<br />\n";
         echo "</div>\n";

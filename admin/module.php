@@ -20,6 +20,7 @@ class account_admin extends account {
      * /account/admin/delete
      * @return type
      */
+    /*
     public function deleteAction() {
 
         if (!session::checkAccess('super')) {
@@ -36,7 +37,7 @@ class account_admin extends account {
         } else {
             account_admin_views::delete($user);
         }
-    }
+    }*/
 
     /**
      * list action
