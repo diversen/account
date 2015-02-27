@@ -62,7 +62,13 @@ class account_facebook extends account {
          
         $db = new db();
 
-        $account = $this->getUserFromEmail($user['email'], null);
+        $account = $this->getUserFromEmail($user['email']);
+        $this->checkAccountFlags($account);
+        if (!empty($this->errors)) {
+            echo html::getErrors($this->errors);
+            return;
+        }
+        
         if (!empty($account)) {
             return $this->autoMergeAccounts($user, $account['id']);                    
         }
