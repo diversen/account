@@ -142,6 +142,9 @@ class account_google extends account {
     public function auth($search) {
 
         $account = $this->googleAccountExist($search);
+        print_r($account);
+        print_r($this->errors);
+        die;
         if (!empty($this->errors)) {
             echo html::getErrors($this->errors);
             return;
