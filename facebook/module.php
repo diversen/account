@@ -234,6 +234,10 @@ class account_facebook extends account {
         if ($user_profile) {        
             $row = $this->auth($user_profile['link']);
             
+            if (!empty($this->errors)) {
+                echo html::getErrors($this->errors);
+                return;
+            }
             
             // new user - create row
             if (empty($row)){       
