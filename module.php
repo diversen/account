@@ -327,7 +327,6 @@ class account {
      */
     public function checkVerified($row) {
         if ($row['verified'] == 1) {
-            die('argh');
             return $row;
         } else {
             
