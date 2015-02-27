@@ -141,6 +141,11 @@ class account_google extends account {
         if (!empty($account)) {
             $this->doLogin($account);
         }
+        
+        if (!empty($this->errors)) {
+            echo html::getErrors($this->errors);
+            return;
+        }
 
         // does any account wth this email exist - check main accounts
         $account = $this->getUserFromEmail($search['email'], null);
