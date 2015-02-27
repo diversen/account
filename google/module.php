@@ -139,7 +139,7 @@ class account_google extends account {
     public function auth($search) {
 
         $account = $this->googleAccountExist($search);
-        
+        echo "ok";
         print_r($search); 
         print_r($account); 
         
