@@ -54,7 +54,8 @@ class account_google extends account {
         if (isset($_GET['code'])) {
             $client->authenticate($_GET['code']);
             $_SESSION['access_token'] = $client->getAccessToken();
-            header('Location: /account/google/redirect');
+            //header('Location: /account/google/redirect');
+            http::locationHeader('/account/google/redirect');
         } 
 
 
