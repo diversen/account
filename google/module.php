@@ -168,7 +168,7 @@ class account_google extends account {
             if ($res) {
                 $this->doLogin($account);
             } else {
-                html::getError(lang::translate('Something really weird happened. TRy again!'));
+                echo html::getError(lang::translate('Something really weird happened. TRy again!'));
             }
             return;
         }

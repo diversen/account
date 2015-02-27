@@ -61,12 +61,12 @@ class account_facebook extends account {
     public function createDbUser ($user){
          
         $db = new db();
-        if (isset($this->options['unique_email'])) {
+        //if (isset($this->options['unique_email'])) {
             $account = $this->getUserFromEmail($user['email'], null);
             if (!empty($account)) {
                 return $this->autoMergeAccounts($user, $account['id']);                    
             }
-        }
+        //}
         
         $md5_key = random::md5();   
         $values = array(
