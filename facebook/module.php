@@ -48,14 +48,7 @@ class account_facebook extends account {
         if (isset($this->options['unique_email'])) {
             $account = $this->getUserFromEmail($user['email'], null);
             if (!empty($account)) {
-                $auto_merge = config::getModuleIni('account_auto_merge');
-                if ($auto_merge) {
-                    return $this->autoMergeAccounts($user, $account['id']);                    
-                }
-                
-                // if no auto merge we set an error
-                $this->errors['facebook_email_exists'] = lang::translate('Email already exists in system');
-                return false;
+                return $this->autoMergeAccounts($user, $account['id']);                    
             }
         }
         
@@ -98,44 +91,29 @@ class account_facebook extends account {
      * @param int $user_id
      * @return int|false $parent_id main account id
      */
-    public function autoMergeAccounts ($user, $user_id) {
-        
-        // examine if we are allowed to merge this URL
-        $allow_merge = config::getModuleIni('account_auto_merge');
-        $url = $user['link'];
-        $parts = parse_url($url);
-        $host = $parts['host'];
-        $res = false;
-        foreach($allow_merge as $host) {
-            if (in_array($host, $allow_merge)) {
-                $res = true;
-                break;
-            }
-        }
-        
-        if ($res) {
-            $res_create = $this->createUserSub($user, $user_id);
-            if ($res_create) {
-                
-                // run account_connect events
-                $args = array (
-                    'action' => 'account_connect',
-                    'type' => 'facebook',
-                    'user_id' => $user_id,
-                );
+    public function autoMergeAccounts($user, $user_id) {
 
-                event::getTriggerEvent(
-                    config::getModuleIni('account_events'), 
-                    $args
-                );
-                     
-                return $user_id; 
-            }
+        $res_create = $this->createUserSub($user, $user_id);
+        if ($res_create) {
+
+            // run account_connect events
+            $args = array(
+                'action' => 'account_connect',
+                'type' => 'facebook',
+                'user_id' => $user_id,
+            );
+
+            event::getTriggerEvent(
+                    config::getModuleIni('account_events'), $args
+            );
+
+            return $user_id;
         }
-        return false;      
+
+        return false;
     }
-    
-        /**
+
+    /**
      * creates a facebook user from facebook profile array
      * 
      * account_events::account_create
@@ -183,15 +161,7 @@ class account_facebook extends account {
             'type' => 'facebook',
             'verified' => 1,
             'parent' => $user_id);
-        
-        // If not isset options verified - we allow non verified account to log in
-        if (isset($this->options['verified']) && !$this->options['verified']) {
-            unset($values['verified']);
-        }
-        
-        if (isset($user['name'])) {
-            $values['username'] = strings::toUTF8($user['name']);
-        }
+
         
         $res = $db->insert('account_sub', $values);
         if ($res) {
@@ -281,53 +251,6 @@ class account_facebook extends account {
         }
     }
     
-    public function loginService () {
-        // check to see if user is allowed to use faccebook login
-        $account_logins = config::getModuleIni('account_logins');
-        if (!in_array('facebook', $account_logins)){
-            moduleloader::setStatus(403);
-            return;
-        }
-        
-        if (session::isUser()) {   
-            return 1;
-        }
-
-        $facebook = $this->getFBObject();
-        $user = $facebook->getUser();
-
-        if ($user) {
-            try {
-                // Proceed knowing you have a logged in user who's authenticated.
-                $user_profile = $facebook->api('/me');
-            } catch (FacebookApiException $e) {
-                log::debug($e);
-            }
-        } else {
-            $user_profile = null;
-        }
-
-        $res = 0;
-        // login or logout url will be needed depending on current user state.
-        if ($user_profile) {
-            
-            if (empty($this->errors)) {
-                $this->setAcceptUniqueOnlyEmail();
-                $this->setAcceptNonVerifiedAccount();
-                $row = $this->auth($user_profile['link']);
-            
-                // new user - create row
-                if (empty($row)){
-                    $id = $this->createUser($user_profile);
-                    $row = user::getAccount($id);
-                    $res = 1;
-                }
-                $this->setSessionAndCookie($row);
-            }
-
-        } 
-        return $res;
-    }
     
     /**
      * create a facebook object

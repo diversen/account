@@ -89,8 +89,7 @@ class account_google extends account {
     }
     
     public function indexAction() {
-        
-        
+
         template::setTitle(lang::translate('Log in or Log out'));
         usleep(100000);
 
@@ -214,45 +213,34 @@ class account_google extends account {
         return $row;
     }
     
-            /**
+    /**
      * auto merge two accounts
      * @param objct $ary array with google email and profile link 
      * @param int $user_id
      * @return int|false $parent_id main account id
      */
-    public function autoMergeAccounts ($search, $user_id) {
-        
-        // examine if we are allowed to merge this URL
-        $allow_merge = config::getModuleIni('account_auto_merge');
-        $res = false;
-        foreach($allow_merge as $host) {
-            if ($host == 'google') {
-                $res = true;                
-                break;
-            }
-        }
-        
-        if ($res) {
-            $res_create = $this->createUserSub($search, $user_id);
-            if ($res_create) {
-                
-                // run account_connect events
-                $args = array (
-                    'action' => 'account_connect',
-                    'user_id' => $user_id,
-                );
+    public function autoMergeAccounts($search, $user_id) {
 
-                event::getTriggerEvent(
-                    config::getModuleIni('account_events'), 
-                    $args
-                );
-                
-                return $user_id;   
-            }
+
+        $res_create = $this->createUserSub($search, $user_id);
+        if ($res_create) {
+
+            // run account_connect events
+            $args = array(
+                'action' => 'account_connect',
+                'user_id' => $user_id,
+            );
+
+            event::getTriggerEvent(
+                    config::getModuleIni('account_events'), $args
+            );
+
+            return $user_id;
         }
-        return false;      
+
+        return false;
     }
-    
+
     /**
      * method for creating a sub user
      *
@@ -261,7 +249,6 @@ class account_google extends account {
     public function createUserSub ($search, $user_id){
         
         $db = new db();
-
         $values = array(
             'url'=> $search['url'], 
             'email' => $search['email'],
@@ -269,10 +256,6 @@ class account_google extends account {
             'verified' => 1,
             'parent' => $user_id);
         
-        // If not isset options verified - we allow non verified account to log in
-        if (isset($this->options['verified']) && !$this->options['verified']) {
-            unset($values['verified']);
-        }
         
         $res = $db->insert('account_sub', $values);
         if ($res) {

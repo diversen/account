@@ -107,18 +107,11 @@ class account_github extends account {
             if (isset($this->options['unique_email'])) {
                 $account = $this->getUserFromEmail($search['email'], null);
 
-
                 if (!empty($account)) {
-                    
-                    $auto_merge = config::getModuleIni('account_auto_merge');
-                    if ($auto_merge) {
-                        $res = $this->autoMergeAccounts($search, $account['id']);
-                        $this->doLogin ($account);   
-                    }
 
-                    // if no auto merge we set an error
-                    $this->errors['github_email_exists'] = lang::translate('Email already exists in system');
-                    return false;
+                    $res = $this->autoMergeAccounts($search, $account['id']);
+                    $this->doLogin ($account);   
+                    
                 }
             } else {
             
@@ -142,15 +135,7 @@ class account_github extends account {
      */
     public function doLogin ($account) {
         $this->setSessionAndCookie($account);               
-        if ($this->options['redirect'] === false) {
-            return true;
-        }
-
-        if (isset($this->options['redirect'])) {
-            $this->redirectOnLogin($this->options['redirect']);
-        } else {
-            $this->redirectOnLogin();
-        } 
+        $this->redirectOnLogin();
     }
     
         /**
@@ -179,46 +164,33 @@ class account_github extends account {
         return $row;
     }
     
-            /**
+    /**
      * auto merge two accounts
      * @param objct $openid lightopenid object
      * @param int $user_id
      * @return int|false $parent_id main account id
      */
-    public function autoMergeAccounts ($search, $user_id) {
-        
-        // examine if we are allowed to merge this URL
-        $allow_merge = config::getModuleIni('account_auto_merge');
-        $res = false;
-        foreach($allow_merge as $host) {
-            if ($host == 'github') {
-                $res = true;                
-                break;
-            }
-        }
-        
-        if ($res) {
-            $res_create = $this->createUserSub($search, $user_id);
+    public function autoMergeAccounts($search, $user_id) {
 
-            if ($res_create) {
-                
-                // run account_connect events
-                $args = array (
-                    'action' => 'account_connect',
-                    'user_id' => $user_id,
-                );
+        $res_create = $this->createUserSub($search, $user_id);
+        if ($res_create) {
 
-                event::getTriggerEvent(
-                    config::getModuleIni('account_events'), 
-                    $args
-                );
-                
-                return $user_id;   
-            }
+            // run account_connect events
+            $args = array(
+                'action' => 'account_connect',
+                'user_id' => $user_id,
+            );
+
+            event::getTriggerEvent(
+                    config::getModuleIni('account_events'), $args
+            );
+
+            return $user_id;
         }
-        return false;      
+
+        return false;
     }
-    
+
     /**
      * method for creating a sub user
      *
@@ -227,19 +199,13 @@ class account_github extends account {
     public function createUserSub ($search, $user_id){
         
         $db = new db();
-
         $values = array(
             'url'=> $search['url'], 
             'email' => strings_mb::tolower($search['email']),
             'type' => 'github',
             'verified' => 1,
             'parent' => $user_id);
-        
-        // If not isset options verified - we allow non verified account to log in
-        if (isset($this->options['verified']) && !$this->options['verified']) {
-            unset($values['verified']);
-        }
-        
+                
         $res = $db->insert('account_sub', $values);
         if ($res) {
             return $db->lastInsertId();
