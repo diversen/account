@@ -86,6 +86,9 @@ class account_google extends account {
             );
             
             $this->auth($values);
+        } else {
+            echo lang::translate('Could not get google client access token. Try again later.');
+            return;
         }
         return;        
     }
@@ -139,11 +142,11 @@ class account_google extends account {
     public function auth($search) {
 
         $account = $this->googleAccountExist($search);
-        echo "ok";
-        print_r($search); 
-        print_r($account); 
+        if (!empty($this->errors)) {
+            echo html::getErrors($this->errors);
+            return;
+        }
         
-        die;
         if (!empty($account)) {
             $this->doLogin($account);
         }
