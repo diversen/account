@@ -319,26 +319,21 @@ class account {
         return $row;
     }
     
-        /**
+    /**
      * method for checking if auth row is verified. 
      * @param array $row
      * @return array $row original row or empty array if we don't allow non 
      *                    verified accounts
      */
-    public function checkVerified ($row) {
-        // If not verified == false. Thren we allow non verified account to log in
-        if (isset($this->options['verified']) && !$this->options['verified']) {
+    public function checkVerified($row) {
+        if ($row['verified'] == 1) {
             return $row;
         } else {
-            if ($row['verified'] == 1) {
-                return $row;
-            } else {
-                $this->errors['not_verified'] = lang::translate('Account needs to be verified before you may log in'); 
-                return array ();
-            }
+            $this->errors['not_verified'] = lang::translate('Account needs to be verified before you may log in');
+            return array();
         }
     }
-    
+
     /**
      * 
      * @param row $row
