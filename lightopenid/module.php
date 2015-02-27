@@ -274,14 +274,10 @@ class account_lightopenid extends account {
         $ary = $openid->getAttributes();
         $db = new db();
         
-        if (config::getModuleIni('account_needs_email')) {
-            if (!isset($ary['contact/email']) || empty($ary['contact/email'])) {
-                $this->errors['openid_email'] = lang::translate('Invalid login. We need a valid OpenID email');
-                return false;
-            }
-        } 
-       
-        
+        if (!isset($ary['contact/email']) || empty($ary['contact/email'])) {
+            $this->errors['openid_email'] = lang::translate('Invalid login. We need a valid OpenID email');
+            return false;
+        }
 
         if (isset($this->options['unique_email'])) {
             $account = $this->getUserFromEmail($ary['contact/email'], null);
