@@ -149,7 +149,12 @@ class account_google extends account {
 
         // does any account wth this email exist - check main accounts
         $account = $this->getUserFromEmail($search['email']);
-        print_r($account); die;
+        $this->checkAccountFlags($account);
+        if (!empty($this->errors)) {
+            echo html::getErrors($this->errors);
+            return;
+        }
+        
         // if account exists we auto merge because we trust
         // a verified google email
         // create a sub account
