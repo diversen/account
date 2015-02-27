@@ -150,15 +150,10 @@ class account_google extends account {
         if (!empty($account)) {
             $this->doLogin($account);
         }
-        
-        
-        if (!empty($this->errors)) {
-            echo html::getErrors($this->errors);
-            return;
-        }
+
 
         // does any account wth this email exist - check main accounts
-        $account = $this->getUserFromEmail($search['email'], null);
+        $account = $this->getUserFromEmail($search['email']);
         
         // if account exists we auto merge because we trust
         // a verified google email
@@ -167,10 +162,12 @@ class account_google extends account {
             $res = $this->autoMergeAccounts($search, $account['id']);
             if ($res) {
                 $this->doLogin($account);
+                return;
             } else {
                 echo html::getError(lang::translate('Something really weird happened. TRy again!'));
+                return;
             }
-            return;
+            
         }
 
         $search['md5_key'] =random::md5();
