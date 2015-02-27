@@ -57,7 +57,6 @@ class account_create extends account {
                 
                 $this->errors['email'] = lang::translate('Email already exists');
                 $account = $this->getUserFromEmail($_POST['email'], null);
-                print_r($account);
                 if ($account['type'] != 'email') {
                     $this->errors['type'] = lang::translate('Email is connected to an account of this type: <span class="notranslate">{ACCOUNT_TYPE}</span>', array ('ACCOUNT_TYPE' => $account['type']));
                 }

@@ -52,6 +52,7 @@ $_COS_LANG_MODULE['Facebook Login'] = 'Facebook Login';
 
 $_COS_LANG_MODULE['No google access token'] = 'No google access token';
 $_COS_LANG_MODULE['Your google email needs to be verified'] = 'Your google email needs to be verified';
+$_COS_LANG_MODULE['Could not get google client access token. Try again later.'] = 'Could not get google client access token. Try again later.';
 $_COS_LANG_MODULE['Google login'] = 'Google login';
 $_COS_LANG_MODULE['Something really weird happened. TRy again!'] = 'Something really weird happened. TRy again!';
 
