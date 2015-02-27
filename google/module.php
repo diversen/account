@@ -73,7 +73,8 @@ class account_google extends account {
             $_SESSION['access_token'] = $client->getAccessToken();
             
             if (!isset($info->verifiedEmail) || $info->verifiedEmail != 1) {
-                echo html::getError(lang::translate('Your google email needs to be verified'));
+                $this->errors[]= lang::translate('Your google email needs to be verified');
+                echo html::getErrors($this->errors);
                 return;
             }
             
@@ -138,11 +139,12 @@ class account_google extends account {
     public function auth($search) {
 
         $account = $this->googleAccountExist($search);
-        print_r($account); die;
+        //print_r($account); die
         if (!empty($account)) {
             $this->doLogin($account);
         }
         
+        print_r($this->errors); die;
         if (!empty($this->errors)) {
             echo html::getErrors($this->errors);
             return;
@@ -183,15 +185,7 @@ class account_google extends account {
      */
     public function doLogin ($account) {
         $this->setSessionAndCookie($account, 'google');               
-        if ($this->options['redirect'] === false) {
-            return true;
-        }
-
-        if (isset($this->options['redirect'])) {
-            $this->redirectOnLogin($this->options['redirect']);
-        } else {
-            $this->redirectOnLogin();
-        } 
+        $this->redirectOnLogin();
     }
     
         /**
