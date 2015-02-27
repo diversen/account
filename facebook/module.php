@@ -13,21 +13,21 @@ class account_facebook extends account {
         parent::__construct($options);
     }
     
-    public function indexAction () {
+    public function indexAction() {
         /**
- * controller for logging in with facebook
- */
-usleep(100000);
-template::setTitle(lang::translate('Facebook Login'));
-$options = array ('keep_session' => 1);
-$fb = new account_facebook($options);
-$fb->setAcceptUniqueOnlyEmail();
-$fb->login();
+         * controller for logging in with facebook
+         */
+        usleep(100000);
+        template::setTitle(lang::translate('Facebook Login'));
+        $options = array('keep_session' => 1);
+        $fb = new account_facebook($options);
+        $fb->login();
 
-if (!empty($fb->errors)) {
-    html::errors($fb->errors);
-}
+        if (!empty($fb->errors)) {
+            html::errors($fb->errors);
+        }
     }
+
     /**
      * method for authorizing a user
      * @param   string  $facebook_url
