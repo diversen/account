@@ -44,12 +44,9 @@ $_COS_LANG_MODULE['Wrong validation key on account creation'] = 'Wrong validatio
 $_COS_LANG_MODULE['Login using facebook'] = 'Login using facebook';
 $_COS_LANG_MODULE['Logout'] = 'Logout';
 
-// Translation of file /modules/account/facebook/index.php
-
-$_COS_LANG_MODULE['Facebook Login'] = 'Facebook Login';
-
 // Translation of file /modules/account/facebook/module.php
 
+$_COS_LANG_MODULE['Facebook Login'] = 'Facebook Login';
 
 // Translation of file /modules/account/google/module.php
 
