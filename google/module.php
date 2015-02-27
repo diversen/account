@@ -78,13 +78,13 @@ class account_google extends account {
             }
             
             // auth
-            $res = array (
+            $values = array (
                 'email' => strings_mb::tolower($info->email),
                 'url' => $info->link,  
                 'type' => 'google'
             );
             
-            $this->auth($res);
+            $this->auth($values);
         }
         return;        
     }
@@ -138,6 +138,7 @@ class account_google extends account {
     public function auth($search) {
 
         $account = $this->googleAccountExist($search);
+        print_r($account); die;
         if (!empty($account)) {
             $this->doLogin($account);
         }
