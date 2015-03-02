@@ -208,6 +208,7 @@ class account_facebook extends account {
 
     public function login ($scope = null) {
 
+        print_r($options);
         // check to see if user is allowed to use faccebook login
         $account_logins = config::getModuleIni('account_logins');
         if (!in_array('facebook', $account_logins)){
