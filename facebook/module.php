@@ -217,9 +217,9 @@ class account_facebook extends account {
 
         
         $facebook = $this->getFBObject();
+        
+        // get user id 
         $user = $facebook->getUser();
-
-        print_r($user);
         if ($user) {
             try {
                 // Proceed knowing you have a logged in user who's authenticated.
@@ -239,6 +239,9 @@ class account_facebook extends account {
 
         // login or logout url will be needed depending on current user state.
         if ($user_profile) {        
+            print_r($user_profile);
+            
+            
             $row = $this->auth($user_profile['link']);
             
             print_r($row);
