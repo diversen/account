@@ -23,9 +23,9 @@ class account_facebook extends account {
         usleep(100000);
         template::setTitle(lang::translate('Facebook Login'));
         
-        $options = array('keep_session' => 1);
+        //$options = array('keep_session' => 1);
         //$fb = new account_facebook($options);
-        $this->options = $options;
+        $this->options['keep_session'] = 1;// = $options;
         $this->login();
 
         /*
@@ -208,7 +208,6 @@ class account_facebook extends account {
 
     public function login ($scope = null) {
 
-        print_r($this->options);
         // check to see if user is allowed to use faccebook login
         $account_logins = config::getModuleIni('account_logins');
         if (!in_array('facebook', $account_logins)){
