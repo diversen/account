@@ -226,7 +226,7 @@ class account_facebook extends account {
                 $user_profile = $facebook->api('/me');
                 $logoutUrl = $facebook->getLogoutUrl(
                     array ('next' => 
-                        account_facebook::getLogoutNext()
+                        self::getLogoutNext()
                     )
                 );
             } catch (FacebookApiException $e) {
