@@ -244,7 +244,7 @@ class account_facebook extends account {
             print_r($row);
             print_r($this->errors);
             if (!empty($this->errors)) {
-                echo "argh";
+
                 return false;
             }
             
