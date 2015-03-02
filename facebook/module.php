@@ -247,15 +247,9 @@ class account_facebook extends account {
 
         // login or logout url will be needed depending on current user state.
         if ($user_profile) {        
-            
-            
-            
+  
             $row = $this->auth($user_profile);
-            
-            print_r($row);
-            print_r($this->errors);
             if (!empty($this->errors)) {
-
                 return false;
             }
             
