@@ -240,6 +240,7 @@ class account_facebook extends account {
         if ($user_profile) {        
             $row = $this->auth($user_profile['link']);
             
+            print_r($row);
             if (!empty($this->errors)) {
                 return false;
             }
