@@ -34,11 +34,19 @@ class account_facebook extends account {
      * @return  array   $row with user creds on success, empty if no user
      */
 
-    public function auth ($facebook_url){
+    public function auth ($profile){
      
+        // check if email is set and if user can log in
+        $row = $this->getUserFromEmail($profile['email']);
+        $row = $this->checkAccountFlags($row);
+        if (empty($row)) {
+            return $row;
+        }
+        
+        
         // first check for a sub account and return parent account
         $db = new db();
-        $search = array ('url' => $facebook_url, 'type' => 'facebook');
+        $search = array ('url' => $profile['link'], 'type' => 'facebook');
         $row = $db->selectOne('account_sub', null, $search);
         if (!empty($row)) { 
             $row = $db->selectOne('account', null, array ('id' => $row['parent']));
@@ -239,10 +247,10 @@ class account_facebook extends account {
 
         // login or logout url will be needed depending on current user state.
         if ($user_profile) {        
-            print_r($user_profile);
             
             
-            $row = $this->auth($user_profile['link']);
+            
+            $row = $this->auth($user_profile);
             
             print_r($row);
             print_r($this->errors);
