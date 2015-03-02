@@ -23,15 +23,9 @@ class account_facebook extends account {
         usleep(100000);
         template::setTitle(lang::translate('Facebook Login'));
         
-        //$options = array('keep_session' => 1);
-        //$fb = new account_facebook($options);
         $this->options['keep_session'] = 1;// = $options;
         $this->login();
 
-        /*
-        if (!empty($this->errors)) {
-            echo html::getErrors($this->errors);
-        }*/
     }
 
     /**
@@ -54,7 +48,9 @@ class account_facebook extends account {
         
         // check main account
         $row = $db->selectOne('account', null, $search);      
-        $row = $this->checkAccountFlags($row);        
+        print_r($row);
+        $row = $this->checkAccountFlags($row);
+        
         return $row;
         
     }
