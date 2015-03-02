@@ -16,7 +16,6 @@ moduleloader::includeModule('account');
  */
 class account_github extends account {
 
-    
     /**
      * constructs accountLogin object.
      * set options 
@@ -26,44 +25,100 @@ class account_github extends account {
      */
     public function __construct($options = null) {
         $this->options = $options;
-    } 
+    }
+
+    /**
+     * acccount/github/callback ation
+     */
+    public function callbackAction() {
+        $redirect_uri = config::getSchemeWithServerName() . "/account/github/callback";
+        $post = array(
+            'redirect_uri' => $redirect_uri,
+            'client_id' => config::getModuleIni('account_github_id'),
+            'client_secret' => config::getModuleIni('account_github_secret'),
+        );
+
+
+        $api = new githubApi();
+        $res = $api->setAccessToken($post);
+
+        if ($res) {
+            http::locationHeader('/account/github/api');
+        } else {
+            echo "Could not get access token. Errors: <br />";
+            echo html::getErrors($api->errors);
+        }
+    }
     
+    /**
+     * account/github/api action
+     */
+    public function apiAction() {
+        /**
+         * controller for making api calls
+         */
+        //$git = new account_github();
+        $this->setAcceptUniqueOnlyEmail(true);
+        $this->auth();
+
+        if (!empty($this->errors)) {
+            echo html::getErrors($this->errors);
+        }
+    }
+
+    public function indexAction() {
+        template::setTitle(lang::translate('Log in or Log out'));
+
+        usleep(100000);
+
+        // check to see if user is allowed to use github login
+        if (!in_array('github', config::getModuleIni('account_logins'))) {
+            moduleloader::setStatus(403);
+            return;
+        }
+
+        //$login = new account_github();
+        $this->setAcceptUniqueOnlyEmail(true);
+        $this->controlLogin();
+    }
+
     /**
      * static method for doing a login
      */
-    public function login (){
-        
-        $callback = config::getSchemeWithServerName() . "/account/github/callback";  
-        $access_config = array (
+    public function login() {
+
+        $callback = config::getSchemeWithServerName() . "/account/github/callback";
+        $access_config = array(
             'redirect_uri' => $callback,
             'client_id' => config::getModuleIni('account_github_id'),
-            'state' =>  random::md5(),
+            'state' => random::md5(),
         );
-        
+
         $scope = config::getModuleIni('account_github_scope');
-        if ($scope) $access_config['scope'] = $scope;
+        if ($scope) {
+            $access_config['scope'] = $scope;
+        }
 
         // login
         $api = new githubApi();
         $url = $api->getAccessUrl($access_config);
         echo html::createLink($url, lang::translate('Github login'));
     }
-    
 
     /**
      * method for controlling email login 
      * 
      */
-    public function controlLogin (){
-        if (session::isUser()){
-            $this->displayLogout();  
-        // submission has taking place but no redirect.     
+    public function controlLogin() {
+        if (session::isUser()) {
+            $this->displayLogout();
+            // submission has taking place but no redirect.     
         } else {
             $this->login();
             echo "<br /><br />" . account_views::getTermsLink();
         }
     }
-    
+
     /**
      * method for authorizing a user
      *
@@ -74,96 +129,93 @@ class account_github extends account {
      *                  the login creds to be verified. 
      * @return  array|0 row with user creds on success, 0 if not
      */
-    public function auth (){
+    public function auth() {
         $api = new githubApi();
         $res = $api->apiCall('/user');
-        
+
         // user id is unique - we use this as 'url' which is unique
-        $res['id'] = (int)$res['id'];
-        
+        $res['id'] = (int) $res['id'];
+
         // check if user exists in db
         if (isset($res['id']) && !empty($res['id'])) {
-            
+
             // generate user we search for
             $db = new db();
-            $search = array (
+            $search = array(
                 'type' => 'github',
                 'url' => $res['id'],
                 'email' => strings_mb::tolower($res['email'])
             );
-            
-            
-            $account = $this->githubAccountExist($search);
-           
-            
-            // account exists - login
-            if (!empty($account)) {  
-                $this->doLogin ($account);                
-            }
-            
 
+
+            $account = $this->githubAccountExist($search);
+
+
+            // account exists - login
+            if (!empty($account)) {
+                $this->doLogin($account);
+            }
+
+            
             // New account
             // Check if we use unique email only - one account per user
             if (isset($this->options['unique_email'])) {
                 $account = $this->getUserFromEmail($search['email'], null);
 
                 if (!empty($account)) {
-
                     $res = $this->autoMergeAccounts($search, $account['id']);
-                    $this->doLogin ($account);   
-                    
+                    $this->doLogin($account);
                 }
             } else {
-            
+
                 // we allow more accounts per user
                 $res = $db->insert('account', $search);
-                if (!$res) { 
+                if (!$res) {
                     die('Could not create account');
                 }
                 $last_insert_id = $db->lastInsertId();
                 $account = user::getAccount($last_insert_id);
                 return $this->doLogin($account);
             }
-            
         }
     }
-    
+
     /**
      * sets session and cookie
      * @param array $account
      * @return boolean $res
      */
-    public function doLogin ($account) {
-        $this->setSessionAndCookie($account);               
+    public function doLogin($account) {
+        $this->setSessionAndCookie($account);
         $this->redirectOnLogin();
     }
-    
-        /**
+
+    /**
      * method for authorizing a user
      *
      * @param   string  username
      * @param   string  password
      * @return  array|0 row with user creds on success, 0 if not
      */
-    public function githubAccountExist ($params){
-        
+    public function githubAccountExist($params) {
+
         // first check for a sub account and return parent account
         $db = new db();
-        $search = array ('url' => $params['url'], 'type' => 'github');
+        $search = array('url' => $params['url'], 'type' => 'github');
         $row = $db->selectOne('account_sub', null, $search);
         if (!empty($row)) {
-            $row = $db->selectOne('account', null, array ('id' => $row['parent']));
+            $row = $db->selectOne('account', null, array('id' => $row['parent']));
             $row = $this->checkAccountFlags($row);
             return $row;
-        } 
-        
+        }
+
         // check main account
-        $search = array ('url' => $params['url'], 'type' => 'github');
+        $search = array('url' => $params['url'], 'type' => 'github');
         $row = $db->selectOne('account', null, $search);
         $row = $this->checkAccountFlags($row);
         return $row;
     }
-    
+
     /**
      * auto merge two accounts
      * @param objct $openid lightopenid object
@@ -196,16 +248,16 @@ class account_github extends account {
      *
      * @return int|false $res last_isnert_id on success or false on failure
      */
-    public function createUserSub ($search, $user_id){
-        
+    public function createUserSub($search, $user_id) {
+
         $db = new db();
         $values = array(
-            'url'=> $search['url'], 
+            'url' => $search['url'],
             'email' => strings_mb::tolower($search['email']),
             'type' => 'github',
             'verified' => 1,
             'parent' => $user_id);
-                
+
         $res = $db->insert('account_sub', $values);
         if ($res) {
             return $db->lastInsertId();
