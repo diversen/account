@@ -330,7 +330,7 @@ class account {
             return $row;
         } else {
             echo $this->errors['not_verified'] = lang::translate('Account needs to be verified before you may log in');
-            echo $this->errors['type'] = lang::Translate('Main account is of this type: ') . $row['type'];
+            $this->errors['type'] = lang::Translate('Main account is of this type: ') . $row['type'];
             return array();
         }
     }

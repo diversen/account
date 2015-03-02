@@ -9,9 +9,12 @@ view::includeOverrideFunctions('account', 'facebook/views.php');
 
 class account_facebook extends account {
 
+    /**
     public function __construct($options = array()) {
         parent::__construct($options);
     }
+     * 
+     */
     
     /**
      * index action
@@ -19,8 +22,10 @@ class account_facebook extends account {
     public function indexAction() {
         usleep(100000);
         template::setTitle(lang::translate('Facebook Login'));
+        
         $options = array('keep_session' => 1);
         //$fb = new account_facebook($options);
+        $this->options = $options;
         $this->login();
 
         /*
