@@ -134,6 +134,7 @@ $_COS_LANG_MODULE['Confirm account creation'] = 'Confirm account creation';
 // Translation of file /modules/account/module.php
 
 $_COS_LANG_MODULE['Account needs to be verified before you may log in'] = 'Account needs to be verified before you may log in';
+$_COS_LANG_MODULE['Main account is of this type: '] = 'Main account is of this type: ';
 $_COS_LANG_MODULE['This account has been locked'] = 'This account has been locked';
 
 // Translation of file /modules/account/requestpw/views.php
