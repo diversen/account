@@ -70,12 +70,14 @@ class account_facebook extends account {
          
         $db = new db();
 
-        $account = $this->getUserFromEmail($user['email']);
+        $account = $this->getUserFromEmail($user['email'], 'email');
         $this->checkAccountFlags($account);
         if (!empty($this->errors)) {
             echo html::getErrors($this->errors);
             return;
         }
+        
+        print_r($account); die;
         
         if (!empty($account)) {
             return $this->autoMergeAccounts($user, $account['id']);                    
@@ -254,7 +256,8 @@ class account_facebook extends account {
                 return false;
             }
             
-            print_r($row); die;
+            
+            
             // new user - create row
             if (empty($row)){       
                 $id = $this->createUser($user_profile);
