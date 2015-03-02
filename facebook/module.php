@@ -48,9 +48,7 @@ class account_facebook extends account {
         
         // check main account
         $row = $db->selectOne('account', null, $search);      
-        print_r($row);
-        $row = $this->checkAccountFlags($row);
-        
+        $row = $this->checkAccountFlags($row);        
         return $row;
         
     }
@@ -221,6 +219,7 @@ class account_facebook extends account {
         $facebook = $this->getFBObject();
         $user = $facebook->getUser();
 
+        print_r($user);
         if ($user) {
             try {
                 // Proceed knowing you have a logged in user who's authenticated.
