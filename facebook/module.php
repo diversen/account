@@ -250,10 +250,11 @@ class account_facebook extends account {
   
             $row = $this->auth($user_profile);
             if (!empty($this->errors)) {
-                echo html::getErrors($this->errors);
+                echo html::getError($this->errors);
                 return false;
             }
             
+            print_r($row); die;
             // new user - create row
             if (empty($row)){       
                 $id = $this->createUser($user_profile);
