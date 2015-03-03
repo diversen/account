@@ -260,7 +260,9 @@ class account_github extends account {
             'verified' => 1,
             'parent' => $user_id);
 
-        $res = $db->insert('account_sub', $values);
+        $db->begin();
+        $db->insert('account_sub', $values);
+        $res = $db->commit();
         if ($res) {
             return $db->lastInsertId();
         }
