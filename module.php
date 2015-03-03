@@ -357,10 +357,6 @@ class account {
         if (empty($row)) { 
             return $row;
         }
-        $row = $this->checkVerified($row);
-        if (empty($row)) { 
-            return $row;
-        }
         $row = $this->checkLocked($row);
         return $row;
     }

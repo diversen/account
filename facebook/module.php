@@ -9,14 +9,18 @@ view::includeOverrideFunctions('account', 'facebook/views.php');
 
 class account_facebook extends account {
 
-    public function __construct($options = array()) {
-        parent::__construct($options);
-    }
-    
+    /**
+     * index action
+     */
     public function indexAction() {
-        /**
-         * controller for logging in with facebook
-         */
+
+        // check to see if user is allowed to use faccebook login
+        $account_logins = config::getModuleIni('account_logins');
+        if (!in_array('facebook', $account_logins)){
+            moduleloader::setStatus(403);
+            return;
+        }
+        
         usleep(100000);
         template::setTitle(lang::translate('Facebook Login'));
         $this->options['keep_session'] = 1;
@@ -42,13 +46,13 @@ class account_facebook extends account {
         $row = $db->selectOne('account_sub', null, $search);
         if (!empty($row)) { 
             $row = $db->selectOne('account', null, array ('id' => $row['parent']));
-            $row = $this->checkAccountFlags($row);
+            $row = $this->checkLocked($row);
             return $row;
         } 
         
         // check main account
         $row = $db->selectOne('account', null, $search);      
-        $row = $this->checkAccountFlags($row);        
+        $row = $this->checkLocked($row);        
         return $row;
         
     }
@@ -63,7 +67,7 @@ class account_facebook extends account {
         $db = new db();
 
         $account = $this->getUserFromEmail($user['email']);
-        $this->checkAccountFlags($account);
+        $this->checkLocked($account);
         if (!empty($this->errors)) {
             echo html::getErrors($this->errors);
             return;
@@ -201,13 +205,6 @@ class account_facebook extends account {
      */
 
     public function login ($scope = null) {
-
-        // check to see if user is allowed to use faccebook login
-        $account_logins = config::getModuleIni('account_logins');
-        if (!in_array('facebook', $account_logins)){
-            moduleloader::setStatus(403);
-            return;
-        }
         
         // if we already have user - display logut
         if (session::isUser()) {   
@@ -230,7 +227,9 @@ class account_facebook extends account {
                     )
                 );
             } catch (FacebookApiException $e) {
-                log::debug($e->getMessage());
+                echo($e->getMessage());
+                log::error($e->getMessage());
+                return;
             }
         } else {
             $user_profile = null;

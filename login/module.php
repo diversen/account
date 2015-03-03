@@ -142,7 +142,9 @@ class account_login extends account {
      */
     public function auth($email, $password = null) {
         $row = $this->authGetAccount($email, $password);
-        return $this->checkAccountFlags($row);
+        $row = $this->checkVerified($row);
+        $row = $this->checkLocked($row);
+        return $row;
     }
 
     /**
