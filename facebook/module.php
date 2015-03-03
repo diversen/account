@@ -259,6 +259,7 @@ class account_facebook extends account {
                 return false;
             }
             
+            print_r($row);
             
             
             // new user - create row
