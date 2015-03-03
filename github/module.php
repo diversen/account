@@ -143,43 +143,43 @@ class account_github extends account {
             $search = array(
                 'type' => 'github',
                 'url' => $res['id'],
-                'email' => strings_mb::tolower($res['email'])
+                'email' => strings_mb::tolower($res['email']),
             );
 
             $account = $this->githubAccountExist($search);
 
-            print_r($this->options);
-            die;
-            
-            
             // account exists - login and redirect
             if (!empty($account)) {
                 $this->doLogin($account);
             }
 
-            
-            
             // New account
             // Check if we use unique email only - one account per user
-            if (isset($this->options['unique_email'])) {
-                $account = $this->getUserFromEmail($search['email'], null);
-
-                if (!empty($account)) {
-                    $res = $this->autoMergeAccounts($search, $account['id']);
-                    $this->doLogin($account);
-                }
+            $account = $this->getUserFromEmail($search['email'], null);
+            if (!empty($account)) {
+                $res = $this->autoMergeAccounts($search, $account['id']);
+                $this->doLogin($account);
             } else {
-
-                // we allow more accounts per user
-                $res = $db->insert('account', $search);
-                if (!$res) {
-                    die('Could not create account');
-                }
-                $last_insert_id = $db->lastInsertId();
-                $account = user::getAccount($last_insert_id);
-                return $this->doLogin($account);
+                return $this->createAccount($search);
             }
         }
+    }
+    
+    /**
+     * create account and redirect
+     * @param array $search basic 
+     * @return type
+     */
+    public function createAccount($search) {
+        
+        $db = new db();
+        $search['verified'] = 1;
+        $db->begin();
+        $db->insert('account', $search);
+        $db->commit();
+        $last_insert_id = $db->lastInsertId();
+        $account = user::getAccount($last_insert_id);
+        return $this->doLogin($account);
     }
 
     /**
@@ -207,14 +207,14 @@ class account_github extends account {
         $row = $db->selectOne('account_sub', null, $search);
         if (!empty($row)) {
             $row = $db->selectOne('account', null, array('id' => $row['parent']));
-            $row = $this->checkAccountFlags($row);
+            $row = $this->checkLocked($row);
             return $row;
         }
 
         // check main account
         $search = array('url' => $params['url'], 'type' => 'github');
         $row = $db->selectOne('account', null, $search);
-        $row = $this->checkAccountFlags($row);
+        $row = $this->checkLocked($row);
         return $row;
     }
 
