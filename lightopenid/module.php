@@ -40,14 +40,14 @@ class account_lightopenid extends account {
         }
 
         $options['unique_email'] = true;
-        $l = new account_lightopenid($options);
+        $this->options = $options;
         if (!session::isUser()) {
-            $l->login();
+            $this->login();
             if (!empty($l->status)) {
                 echo $l->status;
             }
             if (!empty($l->errors)) {
-                html::errors($l->errors);
+                echo html::getErrors($l->errors);
             }
             account_lightopenid_views::loginForm();
             echo account_views::getTermsLink();
