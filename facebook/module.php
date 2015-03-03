@@ -23,8 +23,8 @@ class account_facebook extends account {
         //$fb = new account_facebook($options);
         $this->login();
 
-        if (!empty($fb->errors)) {
-            html::errors($fb->errors);
+        if (!empty($this->errors)) {
+            html::errors($this->errors);
         }
     }
 
