@@ -1,12 +1,9 @@
 <?php
 
 
-// Translation of file /modules/account/lightopenid/index.php
-
-$_COS_LANG_MODULE['OpenID login'] = 'OpenID login';
-
 // Translation of file /modules/account/lightopenid/module.php
 
+$_COS_LANG_MODULE['OpenID login'] = 'OpenID login';
 $_COS_LANG_MODULE['OpenID Login was cancelled'] = 'OpenID Login was cancelled';
 $_COS_LANG_MODULE['OpenID login accepted'] = 'OpenID login accepted';
 $_COS_LANG_MODULE['Could not dispense OpenID'] = 'Could not dispense OpenID';
@@ -16,12 +13,9 @@ $_COS_LANG_MODULE['Invalid login. We need a valid OpenID email'] = 'Invalid logi
 $_COS_LANG_MODULE['Could not merge your account with main account. This may be an email account.'] = 'Could not merge your account with main account. This may be an email account.';
 $_COS_LANG_MODULE['Email already exists in system'] = 'Email already exists in system';
 
-// Translation of file /modules/account/github/index.php
-
-$_COS_LANG_MODULE['Log in or Log out'] = 'Log in or Log out';
-
 // Translation of file /modules/account/github/module.php
 
+$_COS_LANG_MODULE['Log in or Log out'] = 'Log in or Log out';
 $_COS_LANG_MODULE['Github login'] = 'Github login';
 
 // Translation of file /modules/account/create/module.php
@@ -122,10 +116,6 @@ $_COS_LANG_MODULE['Not a correct email or password'] = 'Not a correct email or p
 
 $_COS_LANG_MODULE['User with ID <span class="notranslate">{ID}</span> has been locked!'] = 'User with ID <span class="notranslate">{ID}</span> has been locked!';
 $_COS_LANG_MODULE['Not sufficient privileges. Super user is required'] = 'Not sufficient privileges. Super user is required';
-
-// Translation of file /modules/account/index.php
-
-$_COS_LANG_MODULE['Account'] = 'Account';
 
 // Translation of file /modules/account/changeemail/module.php
 

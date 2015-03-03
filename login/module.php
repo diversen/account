@@ -68,7 +68,7 @@ class account_login extends account {
 
         // check if we want to keep session
         if (isset($_POST['keep_session']) && $_POST['keep_session'] == 1) {
-            $options['keep_session'] = 1;
+            $this->options['keep_session'] = 1;
         }
 
         //$login = new account_login($options);
