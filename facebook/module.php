@@ -9,23 +9,23 @@ view::includeOverrideFunctions('account', 'facebook/views.php');
 
 class account_facebook extends account {
 
-    /**
     public function __construct($options = array()) {
         parent::__construct($options);
     }
-     * 
-     */
     
-    /**
-     * index action
-     */
     public function indexAction() {
+        /**
+         * controller for logging in with facebook
+         */
         usleep(100000);
         template::setTitle(lang::translate('Facebook Login'));
-        
-        $this->options['keep_session'] = 1;// = $options;
-        $this->login();
+        $options = array('keep_session' => 1);
+        $fb = new account_facebook($options);
+        $fb->login();
 
+        if (!empty($fb->errors)) {
+            html::errors($fb->errors);
+        }
     }
 
     /**
@@ -34,14 +34,11 @@ class account_facebook extends account {
      * @return  array   $row with user creds on success, empty if no user
      */
 
-    public function auth ($profile){
+    public function auth ($facebook_url){
      
-        
-        
-        
         // first check for a sub account and return parent account
         $db = new db();
-        $search = array ('url' => $profile['link'], 'type' => 'facebook');
+        $search = array ('url' => $facebook_url, 'type' => 'facebook');
         $row = $db->selectOne('account_sub', null, $search);
         if (!empty($row)) { 
             $row = $db->selectOne('account', null, array ('id' => $row['parent']));
@@ -65,16 +62,12 @@ class account_facebook extends account {
          
         $db = new db();
 
-        
-        $account = $this->getUserFromEmail($user['email'], 'email');
-        print_r($account);
+        $account = $this->getUserFromEmail($user['email']);
         $this->checkAccountFlags($account);
         if (!empty($this->errors)) {
             echo html::getErrors($this->errors);
             return;
         }
-        
-        print_r($account); die;
         
         if (!empty($account)) {
             return $this->autoMergeAccounts($user, $account['id']);                    
@@ -224,9 +217,8 @@ class account_facebook extends account {
 
         
         $facebook = $this->getFBObject();
-        
-        // get user id 
         $user = $facebook->getUser();
+
         if ($user) {
             try {
                 // Proceed knowing you have a logged in user who's authenticated.
@@ -234,7 +226,7 @@ class account_facebook extends account {
                 $user_profile = $facebook->api('/me');
                 $logoutUrl = $facebook->getLogoutUrl(
                     array ('next' => 
-                        self::getLogoutNext()
+                        account_facebook::getLogoutNext()
                     )
                 );
             } catch (FacebookApiException $e) {
@@ -246,28 +238,11 @@ class account_facebook extends account {
 
         // login or logout url will be needed depending on current user state.
         if ($user_profile) {        
-  
-            print_r($user_profile);
-            // check if email is set and if user can log in
-            $row = $this->getUserFromEmail($user_profile['email'], 'email');
-            $row = $this->checkAccountFlags($row);
+            $row = $this->auth($user_profile['link']);
             
-            if (empty($row)) {
-                return $row;
-            }
-            
-            
-            print_r($user_profile);
-            $row = $this->auth($user_profile);
-            print_r($row);
-            die;
             if (!empty($this->errors)) {
-                echo html::getError($this->errors);
                 return false;
             }
-            
-            
-            
             
             // new user - create row
             if (empty($row)){       
