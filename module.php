@@ -51,43 +51,18 @@ class account {
      */
     
     public function logoutAction () {
-        $this->doLogout();
-    }
-    
-    /** 
-     * 1) If $_GET['redirect'] is set we will redirect to this URL
-     * 2) If not set: We redirect to default login URL 
-     * 3) In __construct we can specify array ('redirect_logout' => /url/after/logout');
-     */
-    public function doLogout () {
-        $app_id = config::getModuleIni('account_facebook_api_appid'); 
-        $server_name = config::getMainIni('server_name');
-
-        //setcookie('fbm_'.$app_id, '', time()-100, '/', $server_name);
-        //setcookie('fbsr_'.$app_id, '', time()-100, '/', $server_name); 
         
         session::killSession();
-
         session_regenerate_id(true);
 
         $_SESSION=array();
-
         if (isset($_GET['redirect']) && !empty($_GET['redirect'])) {
             $redirect = $_GET['redirect'];
         } else {
-            $redirect = config::getModuleIni('account_default_url');
-            if (!$redirect) {
-                $redirect = '/';
-            }
-        }
-        
-        // redirect set in options override anything
-        if (isset($this->options['redirect_logout'])) {
-            $redirect = $this->options['redirect_logout'];
+            $redirect = $this->getDefaultLoginRedirect();
         }
         http::locationHeader($redirect);
     }
-
     
     /**
      * set value of $this->options['keep_session']
@@ -174,6 +149,23 @@ class account {
     }
 
     /**
+     * 
+     * account/index action 
+     */
+    public function indexAction () {
+        
+        if (isset($_GET['return_to'])) {
+            $_SESSION['return_to'] = rawurldecode($_GET['return_to']);
+        }
+
+        if (isset($_GET['message'])) {
+            session::setActionMessage(rawurldecode(html::specialEncode($_GET['message'])));
+        }
+
+        $this->redirectDefault();
+    }
+    
+    /**
      * Method for redireting to default login url. The default URL is set 
      * in the ini setting 'account_default_url'
      */
@@ -225,7 +217,6 @@ class account {
             $location = '/account/login/index';
             
         }
-        
         return $location;
     }
 
