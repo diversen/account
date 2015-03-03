@@ -248,7 +248,7 @@ class account_facebook extends account {
         if ($user_profile) {        
   
             // check if email is set and if user can log in
-            $row = $this->getUserFromEmail($profile['email'], 'email');
+            $row = $this->getUserFromEmail($user_profile['email'], 'email');
             $row = $this->checkAccountFlags($row);
             
             if (empty($row)) {
