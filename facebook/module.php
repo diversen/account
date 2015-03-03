@@ -19,9 +19,9 @@ class account_facebook extends account {
          */
         usleep(100000);
         template::setTitle(lang::translate('Facebook Login'));
-        $options = array('keep_session' => 1);
-        $fb = new account_facebook($options);
-        $fb->login();
+        $this->options['keep_session'] = 1;
+        //$fb = new account_facebook($options);
+        $this->login();
 
         if (!empty($fb->errors)) {
             html::errors($fb->errors);
