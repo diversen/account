@@ -254,6 +254,7 @@ class account_facebook extends account {
   
             print_r($user_profile);
             $row = $this->auth($user_profile);
+            print_r($row);
             die;
             if (!empty($this->errors)) {
                 echo html::getError($this->errors);
