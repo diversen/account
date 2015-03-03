@@ -39,6 +39,7 @@ class account_facebook extends account {
         // check if email is set and if user can log in
         $row = $this->getUserFromEmail($profile['email']);
         $row = $this->checkAccountFlags($row);
+        print_r($row);
         if (empty($row)) {
             return $row;
         }
@@ -252,14 +253,14 @@ class account_facebook extends account {
         // login or logout url will be needed depending on current user state.
         if ($user_profile) {        
   
-            print_r($user_profile);
+            
             $row = $this->auth($user_profile);
             if (!empty($this->errors)) {
                 echo html::getError($this->errors);
                 return false;
             }
             
-            print_r($row);
+            
             
             
             // new user - create row
