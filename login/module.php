@@ -71,8 +71,8 @@ class account_login extends account {
             $options['keep_session'] = 1;
         }
 
-        $login = new account_login($options);
-        $login->displayLogin();
+        //$login = new account_login($options);
+        $this->displayLogin();
     }
     
     public function requestpwAction () {
@@ -142,6 +142,9 @@ class account_login extends account {
      */
     public function auth($email, $password = null) {
         $row = $this->authGetAccount($email, $password);
+        if (empty($row)) {
+            return $row;
+        }
         $row = $this->checkVerified($row);
         $row = $this->checkLocked($row);
         return $row;
