@@ -148,13 +148,17 @@ class account_github extends account {
 
             $account = $this->githubAccountExist($search);
 
+            print_r($this->options);
+            die;
+            
+            
             // account exists - login and redirect
             if (!empty($account)) {
                 $this->doLogin($account);
             }
 
             
-            print_r($this->options);
+            
             // New account
             // Check if we use unique email only - one account per user
             if (isset($this->options['unique_email'])) {
