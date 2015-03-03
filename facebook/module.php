@@ -36,12 +36,7 @@ class account_facebook extends account {
 
     public function auth ($profile){
      
-        // check if email is set and if user can log in
-        $row = $this->getUserFromEmail($profile['email']);
-        $row = $this->checkAccountFlags($row);
-        if (empty($row)) {
-            return $row;
-        }
+        
         
         
         // first check for a sub account and return parent account
@@ -252,6 +247,15 @@ class account_facebook extends account {
         // login or logout url will be needed depending on current user state.
         if ($user_profile) {        
   
+            // check if email is set and if user can log in
+            $row = $this->getUserFromEmail($profile['email'], 'email');
+            $row = $this->checkAccountFlags($row);
+            
+            if (empty($row)) {
+                return $row;
+            }
+            
+            
             print_r($user_profile);
             $row = $this->auth($user_profile);
             print_r($row);
