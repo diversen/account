@@ -247,6 +247,7 @@ class account_facebook extends account {
         // login or logout url will be needed depending on current user state.
         if ($user_profile) {        
   
+            print_r($user_profile);
             // check if email is set and if user can log in
             $row = $this->getUserFromEmail($user_profile['email'], 'email');
             $row = $this->checkAccountFlags($row);
