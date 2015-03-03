@@ -131,8 +131,6 @@ class account_github extends account {
     public function auth() {
         $api = new githubapi();
         $res = $api->apiCall('/user');
-
-        print_r($res); die;
         
         // user id is unique - we use this as 'url' which is unique
         $res['id'] = (int) $res['id'];
@@ -156,6 +154,7 @@ class account_github extends account {
             }
 
             
+            print_r($this->options);
             // New account
             // Check if we use unique email only - one account per user
             if (isset($this->options['unique_email'])) {
