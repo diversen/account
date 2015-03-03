@@ -70,8 +70,9 @@ class account_facebook extends account {
          
         $db = new db();
 
-        print_r($user);
+        
         $account = $this->getUserFromEmail($user['email'], 'email');
+        print_r($account);
         $this->checkAccountFlags($account);
         if (!empty($this->errors)) {
             echo html::getErrors($this->errors);
