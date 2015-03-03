@@ -4,7 +4,7 @@
  * contains class for logging in with github api
  * @package account
  */
-use diversen\githubapi as githubApi;
+use diversen\githubapi;
 use diversen\strings\mb as strings_mb;
 use diversen\random;
 
@@ -39,7 +39,7 @@ class account_github extends account {
         );
 
 
-        $api = new githubApi();
+        $api = new githubapi();
         $res = $api->setAccessToken($post);
 
         if ($res) {
@@ -54,10 +54,7 @@ class account_github extends account {
      * account/github/api action
      */
     public function apiAction() {
-        /**
-         * controller for making api calls
-         */
-        //$git = new account_github();
+
         $this->setAcceptUniqueOnlyEmail(true);
         $this->auth();
 
@@ -66,6 +63,10 @@ class account_github extends account {
         }
     }
 
+    /**
+     * /account/github/index action
+     * @return void
+     */
     public function indexAction() {
         template::setTitle(lang::translate('Log in or Log out'));
 
@@ -83,7 +84,7 @@ class account_github extends account {
     }
 
     /**
-     * static method for doing a login
+     * display github access (login link with required scope
      */
     public function login() {
 
@@ -100,19 +101,17 @@ class account_github extends account {
         }
 
         // login
-        $api = new githubApi();
+        $api = new githubapi();
         $url = $api->getAccessUrl($access_config);
         echo html::createLink($url, lang::translate('Github login'));
     }
 
     /**
-     * method for controlling email login 
-     * 
+     * display login og logout 
      */
     public function controlLogin() {
         if (session::isUser()) {
-            $this->displayLogout();
-            // submission has taking place but no redirect.     
+            $this->displayLogout();   
         } else {
             $this->login();
             echo "<br /><br />" . account_views::getTermsLink();
@@ -130,9 +129,11 @@ class account_github extends account {
      * @return  array|0 row with user creds on success, 0 if not
      */
     public function auth() {
-        $api = new githubApi();
+        $api = new githubapi();
         $res = $api->apiCall('/user');
 
+        print_r($res); die;
+        
         // user id is unique - we use this as 'url' which is unique
         $res['id'] = (int) $res['id'];
 
@@ -147,11 +148,9 @@ class account_github extends account {
                 'email' => strings_mb::tolower($res['email'])
             );
 
-
             $account = $this->githubAccountExist($search);
 
-
-            // account exists - login
+            // account exists - login and redirect
             if (!empty($account)) {
                 $this->doLogin($account);
             }
