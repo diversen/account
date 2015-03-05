@@ -26,6 +26,8 @@ $_COS_LANG_MODULE['Wrong validation key on account creation'] = '在帐户创建
 $_COS_LANG_MODULE['Login using facebook'] = '登录使用Facebook';
 $_COS_LANG_MODULE['Logout'] = '注销';
 $_COS_LANG_MODULE['Facebook Login'] = 'Facebook登录';
+$_COS_LANG_MODULE['We will need your email. No login without email'] = '我们需要您的电子邮件。没有电子邮件没有登录';
+$_COS_LANG_MODULE['In order to use facebook. Delete this sites app under settings on your facebook account and try again'] = '为了使用Facebook。删除在设置这个网站的应用程序在你的Facebook帐户，然后再试一次';
 $_COS_LANG_MODULE['No google access token'] = '没有谷歌的访问令牌';
 $_COS_LANG_MODULE['Your google email needs to be verified'] = '你的谷歌电子邮件需要验证';
 $_COS_LANG_MODULE['Could not get google client access token. Try again later.'] = '无法获得谷歌的客户端访问令牌。请稍后再试。';
@@ -74,7 +76,6 @@ $_COS_LANG_MODULE['Account: Create notice'] = '帐户已创建。你会在短时
 $_COS_LANG_MODULE['Not a correct email or password'] = '没有一个正确的电子邮件或密码';
 $_COS_LANG_MODULE['User with ID <span class="notranslate">{ID}</span> has been locked!'] = '用户ID为<span class="notranslate">{ID}</span>已被锁定！';
 $_COS_LANG_MODULE['Not sufficient privileges. Super user is required'] = '没有足够的权限。超级用户需要';
-$_COS_LANG_MODULE['Account'] = '帐户';
 $_COS_LANG_MODULE['Confirm account creation'] = '确认帐户创建';
 $_COS_LANG_MODULE['Account needs to be verified before you may log in'] = '账户需要验证之前，你可以登录';
 $_COS_LANG_MODULE['Main account is of this type: '] = '主帐号是这种类型的：';

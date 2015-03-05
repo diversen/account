@@ -26,6 +26,8 @@ $_COS_LANG_MODULE['Wrong validation key on account creation'] = 'Forkert valider
 $_COS_LANG_MODULE['Login using facebook'] = 'Log ind';
 $_COS_LANG_MODULE['Logout'] = 'Log ud';
 $_COS_LANG_MODULE['Facebook Login'] = 'Facebook login';
+$_COS_LANG_MODULE['We will need your email. No login without email'] = 'Vi får brug for din e-mail. Ingen login uden email';
+$_COS_LANG_MODULE['In order to use facebook. Delete this sites app under settings on your facebook account and try again'] = 'For at kunne bruge facebook. Slet dette sites app under Indstillinger på din Facebook-konto, og prøv igen';
 $_COS_LANG_MODULE['No google access token'] = 'Ingen google adgangstoken';
 $_COS_LANG_MODULE['Your google email needs to be verified'] = 'Din Google-email skal verificeres';
 $_COS_LANG_MODULE['Could not get google client access token. Try again later.'] = 'Kunne ikke få google klient adgang token. Prøv igen senere.';
@@ -76,7 +78,6 @@ Tryk et link i denne mail og du er verificeret.';
 $_COS_LANG_MODULE['Not a correct email or password'] = 'Enten forkert password eller email';
 $_COS_LANG_MODULE['User with ID <span class="notranslate">{ID}</span> has been locked!'] = 'Bruger med ID <span class="notranslate">{ID}</span> er blevet låst!';
 $_COS_LANG_MODULE['Not sufficient privileges. Super user is required'] = 'Ikke tilstrækkelige rettigheder. Superbruger er nødvendig';
-$_COS_LANG_MODULE['Account'] = 'Konto';
 $_COS_LANG_MODULE['Confirm account creation'] = 'Bekræft oprettelse af konto';
 $_COS_LANG_MODULE['Account needs to be verified before you may log in'] = 'Konto skal verificeres før du kan logge ind';
 $_COS_LANG_MODULE['Main account is of this type: '] = 'Hovedkonto er af denne type:';

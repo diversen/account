@@ -26,6 +26,8 @@ $_COS_LANG_MODULE['Wrong validation key on account creation'] = 'Feil validering
 $_COS_LANG_MODULE['Login using facebook'] = 'Logg inn';
 $_COS_LANG_MODULE['Logout'] = 'Logg ut';
 $_COS_LANG_MODULE['Facebook Login'] = 'Facebook login';
+$_COS_LANG_MODULE['We will need your email. No login without email'] = 'Vi trenger din e-post. Ingen logikk uten e-post';
+$_COS_LANG_MODULE['In order to use facebook. Delete this sites app under settings on your facebook account and try again'] = 'For å kunne bruke facebook. Slett nettsider app under Innstillinger på din facebook konto og prøv igjen';
 $_COS_LANG_MODULE['No google access token'] = 'Ingen google tilgangstoken';
 $_COS_LANG_MODULE['Your google email needs to be verified'] = 'Din google e-post må være bekreftet';
 $_COS_LANG_MODULE['Could not get google client access token. Try again later.'] = 'Kunne ikke få google klient tilgang token. Prøv igjen senere.';
@@ -74,7 +76,6 @@ $_COS_LANG_MODULE['Account: Create notice'] = 'Kontoen er opprettet. Du vil mott
 $_COS_LANG_MODULE['Not a correct email or password'] = 'Enten feil passord eller e-post';
 $_COS_LANG_MODULE['User with ID <span class="notranslate">{ID}</span> has been locked!'] = 'Bruker med ID <span class="notranslate">{ID}</span> har blitt låst!';
 $_COS_LANG_MODULE['Not sufficient privileges. Super user is required'] = 'Ikke tilstrekkelige privilegier. Superbruker er nødvendig';
-$_COS_LANG_MODULE['Account'] = 'Konto';
 $_COS_LANG_MODULE['Confirm account creation'] = 'Bekreft Account Creation';
 $_COS_LANG_MODULE['Account needs to be verified before you may log in'] = 'Konto må verifiseres før du kan logge inn';
 $_COS_LANG_MODULE['Main account is of this type: '] = 'Hovedkonto er av denne typen:';

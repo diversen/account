@@ -26,6 +26,8 @@ $_COS_LANG_MODULE['Wrong validation key on account creation'] = 'Fel validerings
 $_COS_LANG_MODULE['Login using facebook'] = 'Logga in med Facebook';
 $_COS_LANG_MODULE['Logout'] = 'Logga ut';
 $_COS_LANG_MODULE['Facebook Login'] = 'Facebook Login';
+$_COS_LANG_MODULE['We will need your email. No login without email'] = 'Vi behöver din e-postadress. Ingen inloggning utan e-post';
+$_COS_LANG_MODULE['In order to use facebook. Delete this sites app under settings on your facebook account and try again'] = 'För att kunna använda facebook. Ta bort den här platserna appen i inställningarna på ditt Facebook-konto och försök igen';
 $_COS_LANG_MODULE['No google access token'] = 'Ingen google åtkomsttoken';
 $_COS_LANG_MODULE['Your google email needs to be verified'] = 'Din google mail måste verifieras';
 $_COS_LANG_MODULE['Could not get google client access token. Try again later.'] = 'Kunde inte hämta google klientåtkomsttoken. Försök igen senare.';
@@ -74,7 +76,6 @@ $_COS_LANG_MODULE['Account: Create notice'] = 'Konto har skapats. Du kommer att 
 $_COS_LANG_MODULE['Not a correct email or password'] = 'Inte en korrekt e-postadress eller lösenord';
 $_COS_LANG_MODULE['User with ID <span class="notranslate">{ID}</span> has been locked!'] = 'Användare med ID <span class="notranslate">{ID}</span> har låst!';
 $_COS_LANG_MODULE['Not sufficient privileges. Super user is required'] = 'Inte tillräcklig behörighet. Superanvändare krävs';
-$_COS_LANG_MODULE['Account'] = 'Account';
 $_COS_LANG_MODULE['Confirm account creation'] = 'Bekräfta att skapa konto';
 $_COS_LANG_MODULE['Account needs to be verified before you may log in'] = 'Hänsyn måste verifieras innan du kan logga in';
 $_COS_LANG_MODULE['Main account is of this type: '] = 'Huvud konto är av denna typ:';

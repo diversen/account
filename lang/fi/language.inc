@@ -26,6 +26,8 @@ $_COS_LANG_MODULE['Wrong validation key on account creation'] = 'Väärä vahvis
 $_COS_LANG_MODULE['Login using facebook'] = 'Kirjaudu sisään';
 $_COS_LANG_MODULE['Logout'] = 'Kirjaudu ulos';
 $_COS_LANG_MODULE['Facebook Login'] = 'Facebook login';
+$_COS_LANG_MODULE['We will need your email. No login without email'] = 'Tarvitsemme sähköpostiosoitteesi. Ei kirjautuminen ilman sähköpostia';
+$_COS_LANG_MODULE['In order to use facebook. Delete this sites app under settings on your facebook account and try again'] = 'Jotta voit käyttää facebookissa. Poista tämä sivustot sovelluksen asetuksissa Facebook-tilin ja yritä uudelleen';
 $_COS_LANG_MODULE['No google access token'] = 'Ei google käyttöoikeustunnukseksi';
 $_COS_LANG_MODULE['Your google email needs to be verified'] = 'Googlen sähköpostin on tarkistettava';
 $_COS_LANG_MODULE['Could not get google client access token. Try again later.'] = 'Ei voitu hakea google asiakas käyttöoikeustunnukseksi. Yritä myöhemmin uudelleen.';
@@ -74,7 +76,6 @@ $_COS_LANG_MODULE['Account: Create notice'] = 'Tili on luotu. Saat sähköpostia
 $_COS_LANG_MODULE['Not a correct email or password'] = 'Joko väärä salasana tai sähköpostitse';
 $_COS_LANG_MODULE['User with ID <span class="notranslate">{ID}</span> has been locked!'] = 'Käyttäjälle ID <span class="notranslate">{ID}</span> on lukittu!';
 $_COS_LANG_MODULE['Not sufficient privileges. Super user is required'] = 'Ei riittäviä käyttöoikeuksia. Super Käyttäjä on velvollinen';
-$_COS_LANG_MODULE['Account'] = 'Tili';
 $_COS_LANG_MODULE['Confirm account creation'] = 'Vahvista tilin luominen';
 $_COS_LANG_MODULE['Account needs to be verified before you may log in'] = 'Tili on tarkistettava ennen kuin voit kirjautua sisään';
 $_COS_LANG_MODULE['Main account is of this type: '] = 'Tärkeimmät huomioon on tämän tyyppinen:';

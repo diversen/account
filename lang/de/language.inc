@@ -26,6 +26,8 @@ $_COS_LANG_MODULE['Wrong validation key on account creation'] = 'Falsche Bestät
 $_COS_LANG_MODULE['Login using facebook'] = 'Login mit Facebook';
 $_COS_LANG_MODULE['Logout'] = 'Abmelden';
 $_COS_LANG_MODULE['Facebook Login'] = 'Facebook Login';
+$_COS_LANG_MODULE['We will need your email. No login without email'] = 'Wir müssen Ihre E-Mail. Bisher nicht eingeloggt, ohne E-Mail-';
+$_COS_LANG_MODULE['In order to use facebook. Delete this sites app under settings on your facebook account and try again'] = 'Um Facebook verwenden. Löschen Sie diese Sites App unter Einstellungen auf Ihrem Facebook-Konto und versuchen Sie es erneut';
 $_COS_LANG_MODULE['No google access token'] = 'Kein google Zugriffstoken';
 $_COS_LANG_MODULE['Your google email needs to be verified'] = 'Ihre Google Email überprüft werden muss';
 $_COS_LANG_MODULE['Could not get google client access token. Try again later.'] = 'Konnte nicht abgerufen google Client-Zugriffstoken. Versuchen Sie es später noch einmal.';
@@ -74,7 +76,6 @@ $_COS_LANG_MODULE['Account: Create notice'] = 'Konto wurde erstellt. Sie erhalte
 $_COS_LANG_MODULE['Not a correct email or password'] = 'Nicht eine korrekte E-Mail oder Passwort';
 $_COS_LANG_MODULE['User with ID <span class="notranslate">{ID}</span> has been locked!'] = 'Benutzer mit ID <span class="notranslate">{ID}</span> wurde gesperrt!';
 $_COS_LANG_MODULE['Not sufficient privileges. Super user is required'] = 'Nicht ausreichende Berechtigungen. Super-Benutzer benötigt wird';
-$_COS_LANG_MODULE['Account'] = 'Konto';
 $_COS_LANG_MODULE['Confirm account creation'] = 'Bestätigen Konto-Erstellung';
 $_COS_LANG_MODULE['Account needs to be verified before you may log in'] = 'Konto muss überprüft werden, bevor Sie sich anmelden können, in';
 $_COS_LANG_MODULE['Main account is of this type: '] = 'Hauptkonto ist dieser Art:';
