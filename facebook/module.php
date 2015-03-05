@@ -4,6 +4,17 @@ use diversen\strings;
 use diversen\strings\mb as strings_mb;
 use diversen\random;
 
+use Facebook\FacebookSession;
+use Facebook\FacebookRequest;
+use Facebook\GraphUser;
+use Facebook\FacebookRequestException;
+use Facebook\FacebookRedirectLoginHelper;
+
+//define('FACEBOOK_SDK_V4_SRC_DIR', _COS_PATH . 'vendor/facebook/php-sdk-v4/src/');
+//require_once _COS_PATH . "/vendor/facebook/php-sdk-v4/autoload.php";
+
+
+
 moduleloader::includeModule('account/login');
 view::includeOverrideFunctions('account', 'facebook/views.php');
 
@@ -24,11 +35,9 @@ class account_facebook extends account {
         usleep(100000);
         template::setTitle(lang::translate('Facebook Login'));
         $this->options['keep_session'] = 1;
-        //$fb = new account_facebook($options);
         $this->login();
-
         if (!empty($this->errors)) {
-            html::errors($this->errors);
+            echo html::getErrors($this->errors);
         }
     }
 
@@ -62,11 +71,10 @@ class account_facebook extends account {
      * @param array $ary facebook user array
      * @return int|false $res last insert id or false if failure
      */
-    public function createDbUser ($user){
+    public function createDbUser ($user_profile){
          
         $db = new db();
-
-        $account = $this->getUserFromEmail($user['email']);
+        $account = $this->getUserFromEmail($user_profile->getEmail());
         $this->checkLocked($account);
         if (!empty($this->errors)) {
             echo html::getErrors($this->errors);
@@ -74,15 +82,15 @@ class account_facebook extends account {
         }
         
         if (!empty($account)) {
-            return $this->autoMergeAccounts($user, $account['id']);                    
+            return $this->autoMergeAccounts($user_profile, $account['id']);                    
         }
 
         
         $md5_key = random::md5();   
         $values = array(
-            'url'=> $user['link'], 
-            'username' => strings::toUTF8($user['name']),
-            'email' => strings_mb::tolower($user['email']),
+            'url'=> $user_profile->getLink(), 
+            'username' => strings::toUTF8($user_profile->getName()),
+            'email' => strings_mb::tolower($user_profile->getEmail()),
             'type' => 'facebook',
             'verified' => 1,
             'md5_key' => $md5_key
@@ -176,14 +184,14 @@ class account_facebook extends account {
     public function createUserSub ($user, $user_id){
         
         $db = new db();
-        $row = $db->selectOne('account_sub', 'url', $user['link']);
+        $row = $db->selectOne('account_sub', 'url', $user->getLink());
         if (!empty($row)) {
             return array ();
         }
         
         $values = array(
-            'url'=> $user['link'],
-            'email' => strings_mb::tolower($user['email']),
+            'url'=> $user->getLink(),
+            'email' => strings_mb::tolower($user->getEmail()),
             'type' => 'facebook',
             'verified' => 1,
             'parent' => $user_id);
@@ -204,19 +212,147 @@ class account_facebook extends account {
      * as users are authenticated. 
      */
 
-    public function login ($scope = null) {
-        
+    public function login($scope = null) {
+
         // if we already have user - display logut
-        if (session::isUser()) {   
+        if (session::isUser()) {
             $this->displayLogout();
             return;
         }
 
-        
-        $facebook = $this->getFBObject();
-        $user = $facebook->getUser();
+        //$facebook = $this->getFBObject();
+        //$user = $facebook->getUser();
+        //try to get current user session
 
-        if ($user) {
+        // $helper = $this->getFBObject();
+        $redirect_url = config::getSchemeWithServerName() . "/account/facebook/index";
+        $app_id = config::getModuleIni('account_facebook_api_appid');
+        $app_secret = config::getModuleIni('account_facebook_api_secret');
+        FacebookSession::setDefaultApplication($app_id , $app_secret);
+        $helper = new FacebookRedirectLoginHelper($redirect_url);
+        
+        
+        
+        try {
+            $session = $helper->getSessionFromRedirect();
+        } catch (FacebookRequestException $ex) {
+            die(" Error : " . $ex->getMessage());
+        } catch (\Exception $ex) {
+            die(" Error : " . $ex->getMessage());
+        }
+
+        $user_profile = null;
+        if ($session) { //if we have the FB session
+            try {
+                // get user profile
+                $user_profile = (
+                        new FacebookRequest($session, 'GET', '/me'))->
+                        execute()->
+                        getGraphObject(GraphUser::className()
+                );
+            } catch (\Exception $e) {
+                echo($e->getMessage());
+                log::error($e->getMessage());
+                return false;
+            }
+
+            // we need email
+            if (empty($user_profile->getEmail())) {
+                $this->errors[] = lang::translate('We will need your email. No login without email');
+                return false;
+            }
+            
+            // auth if user exists
+            $row = $this->auth($user_profile->getLink());
+            if (!empty($this->errors)) {
+                return false;
+            }
+            
+            // new user - create row
+            if (empty($row)){       
+                $id = $this->createUser($user_profile);
+                $row = user::getAccount($id);
+            }
+
+            // set session and cookie
+            $this->setSessionAndCookie($row);
+            if (empty($this->errors)) {
+                $this->redirectOnLogin ();
+            } else {
+                return false;
+            }
+        } else {
+            //display login url
+            $scope =$this->getScope();
+            $login_url = $helper->getLoginUrl(array('scope' => $scope));
+            //echo '<a href="' . $login_url . '">Login with Facebook</a>';
+            account_facebook_views::loginLink ($login_url);
+            echo "<br /><br />" . account_views::getTermsLink();
+        }
+
+        return;
+        
+        //$logout_next = $helper->getLogoutNext();
+        // display login or logout -  you can override this in any template
+        if ($user_profile) {
+            $logout_next = self::getLogoutNext();
+            $logout_url = $helper->getLogoutUrl($session, $logout_next);
+            account_facebook_views::logoutLink ($logout_url);
+        } else {
+            $scope =$this->getScope();
+            $login_url = $helper->getLoginUrl(array('scope' => $scope));
+            account_facebook_views::loginLink ($login_url);
+            echo "<br /><br />" . account_views::getTermsLink();
+        }
+
+        //return;
+        //die();
+        if ($session) {
+            try {
+                $user_profile = (
+                    new FacebookRequest($session, 'GET', '/me'))->
+                    execute()->
+                    getGraphObject(GraphUser::className()
+            );
+            } catch (Exception $e) {
+                echo($e->getMessage());
+                log::error($e->getMessage());
+                return;
+            }
+            
+            if (empty($user_profile['email'])) {
+                $this->errors[] = lang::translate('We will need your email. No login without email');
+                return false;
+            }
+            
+            $row = $this->auth($user_profile['link']);
+            if (!empty($this->errors)) {
+                return false;
+            }
+            
+            // new user - create row
+            if (empty($row)){       
+                $id = $this->createUser($user_profile);
+                $row = user::getAccount($id);
+            }
+
+            $this->setSessionAndCookie($row);
+            if (empty($this->errors)) {
+                $this->redirectOnLogin ();
+            } else {
+                return false;
+            }
+            
+            
+            
+            
+            //do stuff below, save user info to database etc.
+            
+            //echo '<pre>';
+            //print_r($user_profile); //Or just print all user details
+            //echo '</pre>';
+            
+            /*
             try {
                 // Proceed knowing you have a logged in user who's authenticated.
                 // create a logout link
@@ -230,13 +366,18 @@ class account_facebook extends account {
                 echo($e->getMessage());
                 log::error($e->getMessage());
                 return;
-            }
+            }*/
         } else {
             $user_profile = null;
         }
 
         // login or logout url will be needed depending on current user state.
         if ($user_profile) {        
+            if (empty($user_profile['email'])) {
+                $this->errors[] = lang::translate('We will need your email. No login without email');
+                return false;
+            }
+            
             $row = $this->auth($user_profile['link']);
             
             if (!empty($this->errors)) {
@@ -274,22 +415,6 @@ class account_facebook extends account {
             account_facebook_views::loginLink ($loginUrl);
             echo "<br /><br />" . account_views::getTermsLink();
         }
-    }
-    
-    
-    /**
-     * create a facebook object
-     * @return object $obj facebook object
-     */
-    function getFBObject () {
-        static $facebook = null;
-        if (!$facebook)
-            $facebook = new Facebook(array(
-                'appId'  => config::getModuleIni('account_facebook_api_appid'),
-                'secret' => config::getModuleIni('account_facebook_api_secret'),
-                'cookie' => true,  
-            ));
-        return $facebook;
     }
 
     /**
@@ -334,80 +459,4 @@ class account_facebook extends account {
      * 
      */
     public static function __events () {}
-}
-
-
-
-/**
- * method for logging in a user. Used as a display function. 
- * means that it will draw login and logout links at the same time
- * as users are authenticated. 
- */
-
-/**
- * create a facebook object
- * @return object $obj facebook object
- */
-function facebook_get_object () {
-    static $facebook = null;
-    if (!$facebook)
-        $facebook = new Facebook(array(
-            'appId'  => config::getModuleIni('account_facebook_api_appid'),
-            'secret' => config::getModuleIni('account_facebook_api_secret'),
-            'cookie' => true,
-        ));
-    return $facebook;
-}
-
-/**
- * method for getting a user profile
- * @return array $ary user profile
- */
-function facebook_get_user_profile () {
-    
-    $facebook = facebook_get_object();
-    $user = $facebook->getUser();
-    if ($user) {
-        try {
-            // Proceed knowing you have a logged in user who's authenticated.
-            $user_profile = $facebook->api('/me');
-        } catch (FacebookApiException $e) {
-            log::debug($e);
-        }
-    } else {
-        $user_profile = null;
-    }
-    return $user_profile;
-}
-
-/**
- * method for getting login url
- * @param type $options
- * @return string $str login url as html
- */
-function facebook_get_login_url ($options = array ()) {
-
-    $facebook = facebook_get_object();
-    $scope = facebook_get_scope();
-    $ary = 
-        array(
-            'scope' => $scope,
-        );
-    $ary+=$options;    
-    return $loginUrl = $facebook->getLoginUrl($ary);
-}
-
-/**
- *method for getting scope for login
- * @return string 
- */
-function facebook_get_scope () {
-    $scope = 'email,';
-    $scope.= 'user_birthday,';
-    $scope.= 'user_location,';
-    $scope.= 'user_work_history,';
-    $scope.= 'user_about_me,';
-    $scope.= 'user_hometown,';
-    $scope.= 'user_website';
-    return $scope;
 }
