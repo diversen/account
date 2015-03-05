@@ -220,19 +220,12 @@ class account_facebook extends account {
             return;
         }
 
-        //$facebook = $this->getFBObject();
-        //$user = $facebook->getUser();
-        //try to get current user session
-
-        // $helper = $this->getFBObject();
         $redirect_url = config::getSchemeWithServerName() . "/account/facebook/index";
         $app_id = config::getModuleIni('account_facebook_api_appid');
         $app_secret = config::getModuleIni('account_facebook_api_secret');
         FacebookSession::setDefaultApplication($app_id , $app_secret);
         $helper = new FacebookRedirectLoginHelper($redirect_url);
-        
-        
-        
+                
         try {
             $session = $helper->getSessionFromRedirect();
         } catch (FacebookRequestException $ex) {
@@ -257,10 +250,11 @@ class account_facebook extends account {
             }
 
             // we need email
+            /*
             if (empty($user_profile->getEmail())) {
                 $this->errors[] = lang::translate('We will need your email. No login without email');
                 return false;
-            }
+            }*/
             
             // auth if user exists
             $row = $this->auth($user_profile->getLink());
@@ -285,136 +279,12 @@ class account_facebook extends account {
             //display login url
             $scope =$this->getScope();
             $login_url = $helper->getLoginUrl(array('scope' => $scope));
-            //echo '<a href="' . $login_url . '">Login with Facebook</a>';
             account_facebook_views::loginLink ($login_url);
             echo "<br /><br />" . account_views::getTermsLink();
         }
 
         return;
         
-        //$logout_next = $helper->getLogoutNext();
-        // display login or logout -  you can override this in any template
-        if ($user_profile) {
-            $logout_next = self::getLogoutNext();
-            $logout_url = $helper->getLogoutUrl($session, $logout_next);
-            account_facebook_views::logoutLink ($logout_url);
-        } else {
-            $scope =$this->getScope();
-            $login_url = $helper->getLoginUrl(array('scope' => $scope));
-            account_facebook_views::loginLink ($login_url);
-            echo "<br /><br />" . account_views::getTermsLink();
-        }
-
-        //return;
-        //die();
-        if ($session) {
-            try {
-                $user_profile = (
-                    new FacebookRequest($session, 'GET', '/me'))->
-                    execute()->
-                    getGraphObject(GraphUser::className()
-            );
-            } catch (Exception $e) {
-                echo($e->getMessage());
-                log::error($e->getMessage());
-                return;
-            }
-            
-            if (empty($user_profile['email'])) {
-                $this->errors[] = lang::translate('We will need your email. No login without email');
-                return false;
-            }
-            
-            $row = $this->auth($user_profile['link']);
-            if (!empty($this->errors)) {
-                return false;
-            }
-            
-            // new user - create row
-            if (empty($row)){       
-                $id = $this->createUser($user_profile);
-                $row = user::getAccount($id);
-            }
-
-            $this->setSessionAndCookie($row);
-            if (empty($this->errors)) {
-                $this->redirectOnLogin ();
-            } else {
-                return false;
-            }
-            
-            
-            
-            
-            //do stuff below, save user info to database etc.
-            
-            //echo '<pre>';
-            //print_r($user_profile); //Or just print all user details
-            //echo '</pre>';
-            
-            /*
-            try {
-                // Proceed knowing you have a logged in user who's authenticated.
-                // create a logout link
-                $user_profile = $facebook->api('/me');
-                $logoutUrl = $facebook->getLogoutUrl(
-                    array ('next' => 
-                        account_facebook::getLogoutNext()
-                    )
-                );
-            } catch (FacebookApiException $e) {
-                echo($e->getMessage());
-                log::error($e->getMessage());
-                return;
-            }*/
-        } else {
-            $user_profile = null;
-        }
-
-        // login or logout url will be needed depending on current user state.
-        if ($user_profile) {        
-            if (empty($user_profile['email'])) {
-                $this->errors[] = lang::translate('We will need your email. No login without email');
-                return false;
-            }
-            
-            $row = $this->auth($user_profile['link']);
-            
-            if (!empty($this->errors)) {
-                return false;
-            }
-            
-            // new user - create row
-            if (empty($row)){       
-                $id = $this->createUser($user_profile);
-                $row = user::getAccount($id);
-            }
-
-            $this->setSessionAndCookie($row);
-            if (empty($this->errors)) {
-                $this->redirectOnLogin ();
-            } else {
-                return false;
-            }
-
-        } else {
-            if (!$scope) {
-                $scope = $this->getScope();
-            }
-            $loginUrl = $facebook->getLoginUrl(
-                array(
-                    'scope' => $scope,
-                )
-            );
-        }
-
-        // display login or logout -  you can override this in any template
-        if ($user_profile) {
-            account_facebook_views::logoutLink ($logoutUrl);
-        } else {
-            account_facebook_views::loginLink ($loginUrl);
-            echo "<br /><br />" . account_views::getTermsLink();
-        }
     }
 
     /**
