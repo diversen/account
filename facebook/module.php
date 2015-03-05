@@ -72,20 +72,35 @@ class account_facebook extends account {
      * @return int|false $res last insert id or false if failure
      */
     public function createDbUser ($user_profile){
-         
-        $db = new db();
-        $account = $this->getUserFromEmail($user_profile->getEmail());
-        $this->checkLocked($account);
-        if (!empty($this->errors)) {
-            echo html::getErrors($this->errors);
-            return;
-        }
         
+        $db = new db();
+       
+        // check if we allow to merge an account based on email match
+        // if we did not get facebook account email - we always create
+        // a new account
+        $email = $user_profile->getEmail();
+        
+        // empty account array
+        $account = array ();
+        if (!empty($email)) {
+            
+            // check if an account exists with this email
+            $account = $this->getUserFromEmail($email);
+            
+            // check if account based on email is locked
+            $this->checkLocked($account);
+            if (!empty($this->errors)) {
+                echo html::getErrors($this->errors);
+                return false;
+            }
+        } 
+        
+        // not locked and an account exists - we merge accounts
         if (!empty($account)) {
             return $this->autoMergeAccounts($user_profile, $account['id']);                    
         }
 
-        
+        // new account
         $md5_key = random::md5();   
         $values = array(
             'url'=> $user_profile->getLink(), 
@@ -121,7 +136,7 @@ class account_facebook extends account {
     
     /**
      * auto merge two accounts
-     * @param objct $openid lightopenid object
+     * @param 
      * @param int $user_id
      * @return int|false $parent_id main account id
      */
@@ -234,6 +249,8 @@ class account_facebook extends account {
             die(" Error : " . $ex->getMessage());
         }
 
+        // $test = new FacebookSession();
+       
         $user_profile = null;
         if ($session) { //if we have the FB session
             try {
@@ -249,20 +266,20 @@ class account_facebook extends account {
                 return false;
             }
 
-            // we need email
-            /*
-            if (empty($user_profile->getEmail())) {
+            // check config to see if we require an email
+            $require_email = config::getModuleIni('account_require_email');
+            if ($require_email && empty($user_profile->getEmail())) {
                 $this->errors[] = lang::translate('We will need your email. No login without email');
                 return false;
-            }*/
-            
-            // auth if user exists
+            }
+
+            // does user exists and is he already registered
             $row = $this->auth($user_profile->getLink());
             if (!empty($this->errors)) {
                 return false;
             }
-            
-            // new user - create row
+
+            // noew errors - new user - create 
             if (empty($row)){       
                 $id = $this->createUser($user_profile);
                 $row = user::getAccount($id);
@@ -282,9 +299,7 @@ class account_facebook extends account {
             account_facebook_views::loginLink ($login_url);
             echo "<br /><br />" . account_views::getTermsLink();
         }
-
         return;
-        
     }
 
     /**
