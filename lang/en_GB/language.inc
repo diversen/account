@@ -41,8 +41,7 @@ $_COS_LANG_MODULE['Logout'] = 'Logout';
 // Translation of file /modules/account/facebook/module.php
 
 $_COS_LANG_MODULE['Facebook Login'] = 'Facebook Login';
-$_COS_LANG_MODULE['We will need your email. No login without email'] = 'We will need your email. No login without email';
-$_COS_LANG_MODULE['In order to use facebook. Delete this sites app under settings on your facebook account and try again'] = 'In order to use facebook. Delete this sites app under settings on your facebook account and try again';
+$_COS_LANG_MODULE['We will need your email. No login without email. Please try again!'] = 'We will need your email. No login without email. Please try again!';
 
 // Translation of file /modules/account/google/module.php
 
