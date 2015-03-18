@@ -267,6 +267,7 @@ class account_facebook extends account {
             }
 
             // check config to see if we require an email
+            // set account_no_email = true if you will facebook logins without email
             $account_no_email = config::getModuleIni('account_no_email');
             if (!$account_no_email && empty($user_profile->getEmail())) {
                 $this->errors[] = lang::translate('We will need your email. No login without email. Please try again!');
