@@ -269,8 +269,7 @@ class account_facebook extends account {
             // check config to see if we require an email
             $account_no_email = config::getModuleIni('account_no_email');
             if (!$account_no_email && empty($user_profile->getEmail())) {
-                $this->errors[] = lang::translate('We will need your email. No login without email');
-                $this->errors[] = lang::translate('In order to use facebook. Delete this sites app under settings on your facebook account and try again');
+                $this->errors[] = lang::translate('We will need your email. No login without email. Please try again!');
                 $request = new FacebookRequest(
                     $session,
                     'DELETE',
