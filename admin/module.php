@@ -185,14 +185,14 @@ class account_admin extends account {
      * @return  array   $rows containing all users
      */
     public function getUsers($from = 0, $limit = 10) {
-        $q = new db_q();
+        $q = new q();
         $q->setSelect('account')->limit($from, $limit);
         $rows = $q->fetch();
         return $rows;
     }
 
     public function getNumUsers() {
-        $db = new db_q();
+        $db = new q();
         return $db->setSelectNumRows('account')->fetch();
     }
 
@@ -235,7 +235,7 @@ class account_admin extends account {
      * @return type
      */
     public function lockUser($user_id) {
-        return db_q::delete('system_cookie')->filter('account_id =', $user_id)->exec();
+        return q::delete('system_cookie')->filter('account_id =', $user_id)->exec();
     }
 
     /**

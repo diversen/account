@@ -33,7 +33,7 @@ class account_api {
     public function lock ($id) {
         
         $values = array ('locked' => 1);
-        $res = db_q::update('account')->values($values)->filter('id =', $id)->exec();
+        $res = q::update('account')->values($values)->filter('id =', $id)->exec();
         
         // lock profile (delete in account_profile)
         $a = new account_admin_module();

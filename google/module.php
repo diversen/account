@@ -174,10 +174,10 @@ class account_google extends account {
         $search['verified'] = 1;
         $search['type'] = 'google';
 
-        db_q::begin();
-        db_q::insert('account')->values($search)->exec();
-        $last_id = db_q::lastInsertId();
-        db_q::commit();
+        q::begin();
+        q::insert('account')->values($search)->exec();
+        $last_id = q::lastInsertId();
+        q::commit();
         return $this->doLogin(user::getAccount($last_id));
 
     }

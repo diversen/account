@@ -67,7 +67,7 @@ class accountChangeemail {
         }
        
         $values = array ('email' => $email, 'verified' => 0);     
-        $res = db_q::update('account')->
+        $res = q::update('account')->
                 values($values)->
                 filter('id =', $user_id)->
                 exec();
@@ -153,7 +153,7 @@ class accountChangeemail {
      * @return boolean $res true or false
      */
     public function updateUser ($user_id, $values) {
-        $res = db_q::update('account')->
+        $res = q::update('account')->
                 values($values)->
                 filter('id =', $user_id)->
                 exec();
