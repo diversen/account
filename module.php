@@ -170,10 +170,7 @@ class account {
      * in the ini setting 'account_default_url'
      */
     public static function redirectDefault (){
-        $default = config::getModuleIni('account_default_url');
-        if (!$default) {
-            $default = '/account/login/index';
-        }
+        $default = self::getDefaultLoginRedirect();
         http::locationHeader ($default);
     }
 
@@ -214,7 +211,7 @@ class account {
             $location = config::getModuleIni('account_default_url');
         }
         if (!$location) {
-            $location = '/account/login/index';
+            $location = '/';
             
         }
         return $location;
