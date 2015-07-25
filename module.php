@@ -4,58 +4,53 @@
  * File containing main account class with a few shared 
  * methods between different login methods. 
  */
-
-
 use diversen\strings\mb as strings_mb;
-
 
 /**
  * class account 
  */
 class account {
-    
+
     /**
      * var holding errors
      * @var array $errors 
      */
-    public $errors = array ();
-    
+    public $errors = array();
+
     /**
      * var holding options
      * @var type 
      */
-    public $options = array (
+    public $options = array(
         'unique_email' => 1
     );
-    
+
     /**
      * status to give on login
      * @var string $str
      */
     public $status = '';
-    
+
     /**
      * 
      * @param array $options
      */
-    public function __construct($options = array ()) {
+    public function __construct($options = array()) {
         $this->options = $options;
     }
-        
-    
+
     /**
      * Logout action 
      * Logout when going to URL  /account/logout
      *
      * this calls $this->doLogout();
      */
-    
-    public function logoutAction () {
-        
+    public function logoutAction() {
+
         session::killSession();
         session_regenerate_id(true);
 
-        $_SESSION=array();
+        $_SESSION = array();
         if (isset($_GET['redirect']) && !empty($_GET['redirect'])) {
             $redirect = $_GET['redirect'];
         } else {
@@ -63,7 +58,7 @@ class account {
         }
         http::locationHeader($redirect);
     }
-    
+
     /**
      * set value of $this->options['keep_session']
      * needs to be set before login.
@@ -74,20 +69,18 @@ class account {
             $this->options['keep_session'] = true;
         }
     }
-    
+
     /**
      * set a redirect on login
      * @param string $redirect e.g. '/mypage/test'
      */
-    public function setRedirect ($redirect = null) {
-        if (!$redirect) { 
+    public function setRedirect($redirect = null) {
+        if (!$redirect) {
             return;
         }
         $this->options['redirect'] = $redirect;
-        
     }
-    
-     
+
     /**
      * Allow non verified accounts. Direct login with an email without
      * a verified account
@@ -95,22 +88,22 @@ class account {
      *                      If set to true
      *                
      */
-    public function setAcceptNonVerifiedAccount ($bool = true) {
+    public function setAcceptNonVerifiedAccount($bool = true) {
         if ($bool) {
             $this->options['verified'] = false;
         } else {
             $this->options['verified'] = true;
         }
     }
-    
+
     /**
      * flag to indicate if we only allow one account per email
      * @param boolean $bool true if we only allow one account per email else false
      */
-    public function setAcceptUniqueOnlyEmail ($bool = true) {
+    public function setAcceptUniqueOnlyEmail($bool = true) {
         $this->options['unique_email'] = $bool;
     }
-    
+
     /**
      * sets session and system cookie on login
      * we know user is authenticated and all we need is to set
@@ -118,33 +111,32 @@ class account {
      * 
      * @param array $account
      */
-    public function setSessionAndCookie ($account, $type = 'email') {
+    public function setSessionAndCookie($account, $type = 'email') {
         $_SESSION['id'] = $account['id'];
         $_SESSION['admin'] = $account['admin'];
         $_SESSION['super'] = $account['super'];
         $_SESSION['account_type'] = $type;
-        
-        if (isset($this->options['keep_session'])){
+
+        if (isset($this->options['keep_session'])) {
             session::setSystemCookie($account['id']);
         }
-                
-        $args = array (
+
+        $args = array(
             'action' => 'account_login',
             'user_id' => $account['id'],
         );
-                
+
         event::getTriggerEvent(
-            config::getModuleIni('account_events'), 
-            $args
-        );        
+                config::getModuleIni('account_events'), $args
+        );
     }
 
-   /**
-    * method for creating a logout link. Fetch info from
-    * a profile to show how to display logut
-    */
-    public static function displayLogout(){
-        $row = user::getAccount(session::getUserId()); 
+    /**
+     * method for creating a logout link. Fetch info from
+     * a profile to show how to display logut
+     */
+    public static function displayLogout() {
+        $row = user::getAccount(session::getUserId());
         echo user::getLogoutHTML($row);
     }
 
@@ -152,8 +144,8 @@ class account {
      * 
      * account/index action 
      */
-    public function indexAction () {
-        
+    public function indexAction() {
+
         if (isset($_GET['return_to'])) {
             $_SESSION['return_to'] = rawurldecode($_GET['return_to']);
         }
@@ -164,14 +156,14 @@ class account {
 
         $this->redirectDefault();
     }
-    
+
     /**
      * Method for redireting to default login url. The default URL is set 
      * in the ini setting 'account_default_url'
      */
-    public static function redirectDefault (){
+    public static function redirectDefault() {
         $default = self::getDefaultLoginRedirect();
-        http::locationHeader ($default);
+        http::locationHeader($default);
     }
 
     /**
@@ -179,32 +171,31 @@ class account {
      * examines latest $_SESSION['redirect_on_login']
      * @param string $url 
      */
-    public static function redirectOnLogin ($url = null){
-        
+    public static function redirectOnLogin($url = null) {
+
         // if session return_to has been set we will use this as redirect 
         // else redirect to URL given or if null redirect to default account url
-        if (isset($_SESSION['return_to'])){
+        if (isset($_SESSION['return_to'])) {
             $redirect = $_SESSION['return_to'];
             unset($_SESSION['return_to']);
-            http::locationHeader ($redirect);
+            http::locationHeader($redirect);
         } else {
-            if ($url){
+            if ($url) {
                 $location = $url;
             } else {
                 $location = self::getDefaultLoginRedirect();
-                
             }
             http::locationHeader($location);
-         }
+        }
     }
-    
+
     /**
      * if redirect_login is set we use this as default redirect. 
      * if not we redirect to the default account url
      * @return string $location
      */
     public static function getDefaultLoginRedirect() {
-        
+
         if (config::getModuleIni('account_redirect_login')) {
             $location = config::getModuleIni('account_redirect_login');
         } else {
@@ -212,7 +203,6 @@ class account {
         }
         if (!$location) {
             $location = '/';
-            
         }
         return $location;
     }
@@ -222,45 +212,43 @@ class account {
      * @param int $id
      * @return array $row
      */
-    public function searchIdOrEmail ($id)  {        
+    public function searchIdOrEmail($id) {
         return q::setSelect('account')->
-                filter('id = ', $id)->
-                condition('OR')->
-                filter('email =', $id)->
-                fetch();   
+                        filter('id = ', $id)->
+                        condition('OR')->
+                        filter('email =', $id)->
+                        fetch();
     }
-    
+
     /**
      * auth from md5 key
      * @param string $md5
      * @return boolean true on success and false on failure 
      */
-    public function authFromMd5 ($md5) {
+    public function authFromMd5($md5) {
         $db = new db();
-        $search = array ('md5_key' => $md5);
-        
+        $search = array('md5_key' => $md5);
+
         $row = $db->selectOne('account', null, $search);
         $row = $this->checkAccountFlags($row);
         if (!empty($row)) {
-             $this->setSessionAndCookie($row);
-             return true;
+            $this->setSessionAndCookie($row);
+            return true;
         }
         return false;
     }
-    
+
     /**
      * returns parent account
      * used when auto merging sub accounts
      * @param int $id usub accounts user_id
      * @return array $row parent account row
      */
-    
-    public function getParentAccount ($id) {
+    public function getParentAccount($id) {
         $db = new db();
         return $db->selectOne('account_sub', 'id', $id);
     }
-    
-    
+
     /**
      * gets a user row from emaill where account type is email
      * type defaults to 'email' in order to search for any type of
@@ -272,15 +260,15 @@ class account {
      * @return array $row the user's account row if empty there is no user
      *                    with requested email
      */
-    public function getUserFromEmail ($email, $type= 'email', $check_sub = null) {
+    public function getUserFromEmail($email, $type = 'email', $check_sub = null) {
         $db = new db();
-        
-        $search = array ();
+
+        $search = array();
         $search['email'] = strings_mb::tolower($email);
         if ($type) {
             $search['type'] = $type;
         }
-        
+
         if ($check_sub) {
             $row = $db->selectOne('account_sub', null, $search);
             if (!empty($row)) {
@@ -292,21 +280,21 @@ class account {
         $row = $db->selectOne('account', null, $search);
         return $row;
     }
-    
+
     /**
      * method for checking if a email exists in `account` table
      *
      * @param   string  $email the email to be checked for existens
      * @return  array|false  $row user row or false
      */
-    public function emailExist($email){
+    public function emailExist($email) {
         $row = $this->getUserFromEmail($email, null);
-        if (empty($row)) { 
+        if (empty($row)) {
             return false;
         }
         return $row;
     }
-    
+
     /**
      * method for checking if auth row is verified. 
      * @param array $row
@@ -328,28 +316,27 @@ class account {
      * @param row $row
      * @return row $row
      */
-    public function checkLocked ($row) {
+    public function checkLocked($row) {
         if ($row['locked'] == 1) {
-            $this->errors['locked'] = lang::translate('This account has been locked'); 
-            return array ();
+            $this->errors['locked'] = lang::translate('This account has been locked');
+            return array();
         }
         return $row;
     }
-    
+
     /**
      * compines check of locked account and check of verified account
      * @param array $row
      * @return array $row account row or empty row if user is not valid.
      */
-    public function checkAccountFlags ($row) {
-        if (empty($row)) { 
+    public function checkAccountFlags($row) {
+        if (empty($row)) {
             return $row;
         }
         $row = $this->checkLocked($row);
         return $row;
     }
 
-    
     /**
      * method setSessionAndCookie fires account_evetns
      * on method setSessionAndCookie
@@ -357,8 +344,12 @@ class account {
      * with arguments: account_login, user_id
      * 
      */
-    public static function __events () {}
+    public static function __events() {
+        
+    }
+
 }
 
-class account_module extends account {}
-
+class account_module extends account {
+    
+}
