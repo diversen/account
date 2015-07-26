@@ -1,9 +1,9 @@
 <?php
 
-$account_default_url = config::getModuleIni('account_default_url');
-$account_admin_only = config::getModuleIni('account_admin_only');
-$account_link_auth = config::getModuleIni('account_link_auth');
-$account_allow_edit = config::GetModuleIni('account_allow_edit');
+$account_default_url = conf::getModuleIni('account_default_url');
+$account_admin_only = conf::getModuleIni('account_admin_only');
+$account_link_auth = conf::getModuleIni('account_link_auth');
+$account_allow_edit = conf::GetModuleIni('account_allow_edit');
 
 if (!$account_default_url){
     $account_default_url = "/account/login/index";
@@ -39,7 +39,7 @@ $_INSTALL['MAIN_MENU_ITEMS'][1] = array (
 
 
 
-if (config::getModuleIni('account_logout_link')) {
+if (conf::getModuleIni('account_logout_link')) {
     $_INSTALL['MAIN_MENU_ITEMS'][] = array(
         'title' => lang::translate('Logout', null, array('no_translate' => true)),
         'url' => '/account/logout',

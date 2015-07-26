@@ -96,7 +96,7 @@ class accountChangeemail {
         
         $this->sendVerifyMail($email, $user_id);
         
-        $events = config::getModuleIni('account_events');
+        $events = conf::getModuleIni('account_events');
         
         if ($res) {
            $params = array (
@@ -130,7 +130,7 @@ class accountChangeemail {
         
         $subject = lang::translate('Confirm account creation');
         
-        $scheme = config::getHttpScheme();
+        $scheme = conf::getHttpScheme();
         $vars['site_name'] = "$scheme://$_SERVER[HTTP_HOST]";
         $subject.= " " . $vars['site_name'];
         $vars['verify_key'] = "$vars[site_name]/account/create/verify/$user_id/$md5";
@@ -142,7 +142,7 @@ class accountChangeemail {
         $message['txt'] = view::get('account', "mails/signup_message", $vars);
         $message['html'] = view::get('account', "mails/signup_message_html", $vars);
         
-        $from = config::$vars['coscms_main']['site_email'];
+        $from = conf::$vars['coscms_main']['site_email'];
         return mailer::multipart($email, $subject, $message, $from);
     }
     

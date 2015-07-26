@@ -31,11 +31,11 @@ class account_github extends account {
      * acccount/github/callback ation
      */
     public function callbackAction() {
-        $redirect_uri = config::getSchemeWithServerName() . "/account/github/callback";
+        $redirect_uri = conf::getSchemeWithServerName() . "/account/github/callback";
         $post = array(
             'redirect_uri' => $redirect_uri,
-            'client_id' => config::getModuleIni('account_github_id'),
-            'client_secret' => config::getModuleIni('account_github_secret'),
+            'client_id' => conf::getModuleIni('account_github_id'),
+            'client_secret' => conf::getModuleIni('account_github_secret'),
         );
 
 
@@ -73,7 +73,7 @@ class account_github extends account {
         usleep(100000);
 
         // check to see if user is allowed to use github login
-        if (!in_array('github', config::getModuleIni('account_logins'))) {
+        if (!in_array('github', conf::getModuleIni('account_logins'))) {
             moduleloader::setStatus(403);
             return;
         }
@@ -88,14 +88,14 @@ class account_github extends account {
      */
     public function login() {
 
-        $callback = config::getSchemeWithServerName() . "/account/github/callback";
+        $callback = conf::getSchemeWithServerName() . "/account/github/callback";
         $access_config = array(
             'redirect_uri' => $callback,
-            'client_id' => config::getModuleIni('account_github_id'),
+            'client_id' => conf::getModuleIni('account_github_id'),
             'state' => random::md5(),
         );
 
-        $scope = config::getModuleIni('account_github_scope');
+        $scope = conf::getModuleIni('account_github_scope');
         if ($scope) {
             $access_config['scope'] = $scope;
         }
@@ -236,7 +236,7 @@ class account_github extends account {
             );
 
             event::getTriggerEvent(
-                    config::getModuleIni('account_events'), $args
+                    conf::getModuleIni('account_events'), $args
             );
 
             return $user_id;

@@ -127,7 +127,7 @@ class account {
         );
 
         event::getTriggerEvent(
-                config::getModuleIni('account_events'), $args
+                conf::getModuleIni('account_events'), $args
         );
     }
 
@@ -196,10 +196,10 @@ class account {
      */
     public static function getDefaultLoginRedirect() {
 
-        if (config::getModuleIni('account_redirect_login')) {
-            $location = config::getModuleIni('account_redirect_login');
+        if (conf::getModuleIni('account_redirect_login')) {
+            $location = conf::getModuleIni('account_redirect_login');
         } else {
-            $location = config::getModuleIni('account_default_url');
+            $location = conf::getModuleIni('account_default_url');
         }
         if (!$location) {
             $location = '/';

@@ -163,7 +163,7 @@ class account_create extends account {
         );
                 
         event::getTriggerEvent(
-            config::getModuleIni('account_events'), 
+            conf::getModuleIni('account_events'), 
         $args);
         
         return $last_insert_id;
@@ -242,14 +242,14 @@ class account_create extends account {
 
         $subject = lang::translate('Account created');
         
-        $scheme = config::getHttpScheme();
+        $scheme = conf::getHttpScheme();
         $vars['site_name'] = "$scheme://$_SERVER[HTTP_HOST]";
         $subject.= " " . $vars['site_name'];
         $vars['verify_key'] = "$vars[site_name]/account/create/verify/$user_id/$md5";
         $vars['user_id'] = $user_id;
 
         $message = $this->getWelcomeMail($vars);
-        $from = config::$vars['coscms_main']['site_email'];
+        $from = conf::$vars['coscms_main']['site_email'];
         return mailer::multipart($email, $subject, $message, $from);
     }
     
@@ -318,7 +318,7 @@ class account_create extends account {
         
         $res = $this->verifyUpdateDb ($row['id']);
         if ($res) {            
-            $redirect = config::getModuleIni('account_verify_login'); 
+            $redirect = conf::getModuleIni('account_verify_login'); 
             if ($redirect) {
                 $row = user::getAccount($row['id']);
                 $a = new account();
@@ -348,7 +348,7 @@ class account_create extends account {
         );
                 
         event::getTriggerEvent(
-            config::getModuleIni('account_events'), 
+            conf::getModuleIni('account_events'), 
         $args);
         
         return $res;

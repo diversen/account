@@ -18,7 +18,7 @@ class account_login_views {
         html::label('password2', lang::translate('Repeat password'), array('required' => 1));
         html::password('password2', null, $options);
 
-        event::triggerEvent(config::getModuleIni('account_events'),
+        event::triggerEvent(conf::getModuleIni('account_events'),
             array ('action' => 'form'));
 
         html::label('captcha', captcha::createCaptcha());
@@ -61,7 +61,7 @@ class account_login_views {
     public static function keepSession () {
 
         $keep_session_label = lang::translate('Let me stay logged in');
-        $days = config::getMainIni('cookie_time'); 
+        $days = conf::getMainIni('cookie_time'); 
 
         if ($days > 0 ) {
             $keep_session_label.= ' ' .  $days . ' ' . lang::translate('days'); 

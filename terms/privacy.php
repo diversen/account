@@ -1,12 +1,12 @@
 <?php
 
-if (config::getModuleIni('account_hide_terms')) {
+if (conf::getModuleIni('account_hide_terms')) {
     return;
 }
 
-$lang = config::getMainIni('language');
-$privacy = config::getModulePath('account') .  "/views/terms/$lang/privacy.inc";
-$privacy_default = config::getModulePath('account') .  "/views/terms/en_GB/privacy.inc";
+$lang = conf::getMainIni('language');
+$privacy = conf::getModulePath('account') .  "/views/terms/$lang/privacy.inc";
+$privacy_default = conf::getModulePath('account') .  "/views/terms/en_GB/privacy.inc";
 
 
 if (file_exists($privacy)) {

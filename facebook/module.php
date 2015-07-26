@@ -26,7 +26,7 @@ class account_facebook extends account {
     public function indexAction() {
 
         // check to see if user is allowed to use faccebook login
-        $account_logins = config::getModuleIni('account_logins');
+        $account_logins = conf::getModuleIni('account_logins');
         if (!in_array('facebook', $account_logins)){
             moduleloader::setStatus(403);
             return;
@@ -124,7 +124,7 @@ class account_facebook extends account {
             );
 
             event::getTriggerEvent(
-                config::getModuleIni('account_events'), 
+                conf::getModuleIni('account_events'), 
                 $args
             );
             
@@ -153,7 +153,7 @@ class account_facebook extends account {
             );
 
             event::getTriggerEvent(
-                    config::getModuleIni('account_events'), $args
+                    conf::getModuleIni('account_events'), $args
             );
 
             return $user_id;
@@ -184,7 +184,7 @@ class account_facebook extends account {
         );
 
         event::getTriggerEvent(
-            config::getModuleIni('account_events'), 
+            conf::getModuleIni('account_events'), 
             $login_args
         );
         
@@ -235,9 +235,9 @@ class account_facebook extends account {
             return;
         }
 
-        $redirect_url = config::getSchemeWithServerName() . "/account/facebook/index";
-        $app_id = config::getModuleIni('account_facebook_api_appid');
-        $app_secret = config::getModuleIni('account_facebook_api_secret');
+        $redirect_url = conf::getSchemeWithServerName() . "/account/facebook/index";
+        $app_id = conf::getModuleIni('account_facebook_api_appid');
+        $app_secret = conf::getModuleIni('account_facebook_api_secret');
         FacebookSession::setDefaultApplication($app_id , $app_secret);
         $helper = new FacebookRedirectLoginHelper($redirect_url);
                 
@@ -270,7 +270,7 @@ class account_facebook extends account {
 
             // check config to see if we require an email
             // set account_no_email = true if you will facebook logins without email
-            $account_no_email = config::getModuleIni('account_no_email');
+            $account_no_email = conf::getModuleIni('account_no_email');
             if (!$account_no_email && empty($user_profile->getEmail())) {
                 $this->errors[] = lang::translate('We will need your email. No login without email. Please try again!');
                 $request = new FacebookRequest(
@@ -319,7 +319,7 @@ class account_facebook extends account {
      * @return string $str the logout url
      */
     public static function getLogoutNext () {
-        $server = config::getMainIni('server_name');
+        $server = conf::getMainIni('server_name');
         return "http://$server/account/facebook/logout";
     }
     
@@ -331,7 +331,7 @@ class account_facebook extends account {
      * @return string 
      */
     public function getScope () {
-        $scope = config::getModuleIni('account_facebook_scope');
+        $scope = conf::getModuleIni('account_facebook_scope');
         if (!$scope) {       
             $scope = 'email';
         }

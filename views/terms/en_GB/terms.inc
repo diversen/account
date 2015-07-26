@@ -1,15 +1,15 @@
 <?php
 
-$site_url = config::getSchemeWithServerName();
-$site_name = config::getMainIni('server_name');
+$site_url = conf::getSchemeWithServerName();
+$site_name = conf::getMainIni('server_name');
 $site_name_bold = strtoupper($site_name);
-$site_country = config::getMainIni('site_country');
+$site_country = conf::getMainIni('site_country');
 
 if (!$site_country){
     $site_country = 'USA'; 
 } 
 
-$site_state = config::getMainIni('site_state');
+$site_state = conf::getMainIni('site_state');
 if (!$site_state) {
     $site_state = 'Texas'; 
 } 

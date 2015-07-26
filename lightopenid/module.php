@@ -25,7 +25,7 @@ class account_lightopenid extends account {
         template::setTitle(lang::translate('OpenID login'));
 
 // check to see if user is allowed to use lightopenid
-        if (!in_array('lightopenid', config::getModuleIni('account_logins'))) {
+        if (!in_array('lightopenid', conf::getModuleIni('account_logins'))) {
             moduleloader::setStatus(403);
             return;
         }
@@ -74,7 +74,7 @@ class account_lightopenid extends account {
         }
 
         try {
-            $domain = config::getMainIni('server_name');
+            $domain = conf::getMainIni('server_name');
             $openid = new LightOpenID($domain);
             
             
@@ -168,7 +168,7 @@ class account_lightopenid extends account {
     public function connect () {
 
         try {
-            $domain = config::getMainIni('server_name');
+            $domain = conf::getMainIni('server_name');
             $openid = new LightOpenID($domain);
             $user_id = session::getUserId();
             if (empty($user_id)) {
@@ -230,7 +230,7 @@ class account_lightopenid extends account {
                 );
                 
                 event::getTriggerEvent(
-                    config::getModuleIni('account_events'), 
+                    conf::getModuleIni('account_events'), 
                     $args);
     
                 
@@ -319,7 +319,7 @@ class account_lightopenid extends account {
         if (isset($this->options['unique_email'])) {
             $account = $this->getUserFromEmail($ary['contact/email'], null);
             if (!empty($account)) {
-                $auto_merge = config::getModuleIni('account_auto_merge');
+                $auto_merge = conf::getModuleIni('account_auto_merge');
                 if ($auto_merge) {
                     $res = $this->autoMergeAccounts($openid, $account['id']);
                     if (!$res) {
@@ -357,7 +357,7 @@ class account_lightopenid extends account {
             );
                 
             event::getTriggerEvent(
-                config::getModuleIni('account_events'), 
+                conf::getModuleIni('account_events'), 
                 $args);
             
             return $id;
@@ -376,7 +376,7 @@ class account_lightopenid extends account {
     public function autoMergeAccounts ($openid, $user_id) {
         
         // examine if we are allowed to merge this URL
-        $allow_merge = config::getModuleIni('account_auto_merge');
+        $allow_merge = conf::getModuleIni('account_auto_merge');
         $url = $openid->identity;
         $parts = parse_url($url);
         $host = $parts['host'];
@@ -399,7 +399,7 @@ class account_lightopenid extends account {
                 );
 
                 event::getTriggerEvent(
-                    config::getModuleIni('account_events'), 
+                    conf::getModuleIni('account_events'), 
                     $args
                 );
                 

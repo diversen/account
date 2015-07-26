@@ -2,10 +2,10 @@
 
 
 // get types of logins
-$account_logins = config::getModuleIni('account_logins');
+$account_logins = conf::getModuleIni('account_logins');
 
 // do we show admin link
-$account_show_admin_link = config::getModuleIni('account_show_admin_link');
+$account_show_admin_link = conf::getModuleIni('account_show_admin_link');
 
 $_MODULE_MENU = array();
 
@@ -60,7 +60,7 @@ foreach($account_logins as $login) {
     $_MODULE_MENU[] = $attach_menu($login);
 }
 
-if (!config::getModuleIni('account_disable_admin_interface')) {
+if (!conf::getModuleIni('account_disable_admin_interface')) {
     $_MODULE_MENU[] = array(
     'title' => lang::translate('Admin'),
     'url' => '/account/admin/list',

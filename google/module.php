@@ -32,9 +32,9 @@ class account_google extends account {
         
         
         
-        $client->setClientId(config::getModuleIni('account_google_id'));
-        $client->setClientSecret(config::getModuleIni('account_google_secret'));
-        $client->setRedirectUri(config::getModuleIni('account_google_redirect'));
+        $client->setClientId(conf::getModuleIni('account_google_id'));
+        $client->setClientSecret(conf::getModuleIni('account_google_secret'));
+        $client->setRedirectUri(conf::getModuleIni('account_google_redirect'));
         //https://www.googleapis.com/auth/plus.login
         //$scope = "https://www.googleapis.com/auth/plus.me";
         $scope = 'https://www.googleapis.com/auth/userinfo.email';
@@ -99,7 +99,7 @@ class account_google extends account {
         usleep(100000);
 
         // check to see if user is allowed to use google login
-        if (!in_array('google', config::getModuleIni('account_logins'))) {
+        if (!in_array('google', conf::getModuleIni('account_logins'))) {
             moduleloader::setStatus(403);
             return;
         }
@@ -237,7 +237,7 @@ class account_google extends account {
             );
 
             event::getTriggerEvent(
-                    config::getModuleIni('account_events'), $args
+                    conf::getModuleIni('account_events'), $args
             );
 
             return $user_id;

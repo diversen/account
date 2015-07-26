@@ -243,7 +243,7 @@ class account_admin extends account {
      * @return type
      */
     public function lockProfile($user_id) {
-        $profile_system = config::getMainIni('profile_module');
+        $profile_system = conf::getMainIni('profile_module');
         if (!$profile_system) {
             return;
         }

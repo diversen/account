@@ -7,7 +7,7 @@ if (!session::isUser()) {
     );
 }
 
-$allow_create = config::getModuleIni('account_allow_create');
+$allow_create = conf::getModuleIni('account_allow_create');
 if (!$allow_create) {
     $allow_create = 'anon';
 }

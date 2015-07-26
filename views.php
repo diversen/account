@@ -8,7 +8,7 @@
 class account_views {
     
     public static function getTermsLink () {
-        if (!config::getModuleIni('account_hide_terms')) {
+        if (!conf::getModuleIni('account_hide_terms')) {
             return lang::translate('By registering, you agree to the <a href="/account/terms/privacy">privacy policy</a> and <a href="/account/terms/service">terms of service</a>.');
         }
     }
