@@ -6,7 +6,7 @@
  */
 
 use diversen\strings\mb as strings_mb;
-use diversen\valid as cosValidate;
+use diversen\valid as valid;
 use diversen\random;
 use diversen\mailer;
 use diversen\moduleloader;
@@ -62,7 +62,7 @@ class account_create extends account {
                 }
             }
 
-            if (!cosValidate::validateEmailAndDomain($_POST['email'])) {
+            if (!valid::validateEmailAndDomain($_POST['email'])) {
                 $this->errors['email'] = lang::translate('That is not a valid email');
             }
 
@@ -80,12 +80,12 @@ class account_create extends account {
      */
     public function validatePasswords () {
         
-        $l = cosValidate::passwordLength($_POST['password'], 7);
+        $l = valid::passwordLength($_POST['password'], 7);
         if (!$l) {
             $this->errors['password'] = lang::translate('Password needs to be 7 chars');
         }
         
-        $m = cosValidate::passwordMatch($_POST['password'], $_POST['password2']);
+        $m = valid::passwordMatch($_POST['password'], $_POST['password2']);
         if (!$m){
             $this->errors['password'] = lang::translate('Passwords does not match');
         }        
@@ -108,7 +108,7 @@ class account_create extends account {
     public function validateEmails () {
 
                 
-        if (!cosValidate::validateEmailAndDomain($_POST['email'])) {
+        if (!valid::validateEmailAndDomain($_POST['email'])) {
             $this->errors['email'] = lang::translate('That is not a valid email');
         }
         

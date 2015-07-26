@@ -243,10 +243,12 @@ class account_facebook extends account {
                 
         try {
             $session = $helper->getSessionFromRedirect();
-        } catch (FacebookRequestException $ex) {
-            die(" Error : " . $ex->getMessage());
-        } catch (\Exception $ex) {
-            die(" Error : " . $ex->getMessage());
+        } catch (FacebookRequestException $e) {
+            log::error($e->getMessage());
+            return false;
+        } catch (\Exception $e) {
+            log::error($e->getMessage());
+            return false;
         }
 
         // $test = new FacebookSession();
@@ -288,7 +290,7 @@ class account_facebook extends account {
                 return false;
             }
 
-            // noew errors - new user - create 
+            // no errors - new user - create 
             if (empty($row)){       
                 $id = $this->createUser($user_profile);
                 $row = user::getAccount($id);

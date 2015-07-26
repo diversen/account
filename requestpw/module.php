@@ -5,7 +5,7 @@
  * 
  */
 use diversen\strings\mb as strings_mb;
-use diversen\valid as cosValidate;
+use diversen\valid as valid;
 use diversen\random;
 use diversen\mailer;
 use diversen\captcha;
@@ -212,12 +212,12 @@ class account_requestpw extends account {
      * @param string $password2
      */
     public function validatePasswords($password1, $password2) {
-        $len = cosValidate::passwordLength($password1, 7);
+        $len = valid::passwordLength($password1, 7);
         if (!$len) {
             $this->errors['password_length'] = lang::translate('Password has to be at least 7 chars');
         }
 
-        $match = cosValidate::passwordMatch($password1, $password2);
+        $match = valid::passwordMatch($password1, $password2);
         if (!$match) {
             $this->errors['password_match'] = lang::translate('Passwords does not match');
         }
