@@ -1,7 +1,11 @@
 <?php
 
-// set css
-//template::setInlineCss(config::getModulePath('account') . "/assets/account.css");
+use diversen\html;
+use diversen\lang;
+use diversen\session;
+use diversen\time;
+use diversen\user;
+
 
 class account_admin_views {
 

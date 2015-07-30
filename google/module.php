@@ -1,6 +1,6 @@
 <?php
 
-use diversen\strings\mb as strings_mb;
+use diversen\strings\mb as mb;
 use diversen\random;
 moduleloader::includeModule('account');
 
@@ -80,7 +80,7 @@ class account_google extends account {
             
             // auth
             $values = array (
-                'email' => strings_mb::tolower($info->email),
+                'email' => mb::tolower($info->email),
                 'url' => $info->link,  
                 'type' => 'google'
             );

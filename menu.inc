@@ -1,6 +1,7 @@
 <?php
 
-
+use diversen\conf;
+use diversen\lang;
 // get types of logins
 $account_logins = conf::getModuleIni('account_logins');
 

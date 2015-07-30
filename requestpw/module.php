@@ -4,7 +4,7 @@
  * File containing class for srequesting and etting a new user password
  * 
  */
-use diversen\strings\mb as strings_mb;
+use diversen\strings\mb as mb;
 use diversen\valid as valid;
 use diversen\random;
 use diversen\mailer;
@@ -98,7 +98,7 @@ class account_requestpw extends account {
      */
     public function requestPassword($email = null, $options = array()) {
 
-        $email = strings_mb::tolower($email);
+        $email = mb::tolower($email);
         $md5_key = random::md5();
 
         $db = new db();

@@ -4,7 +4,7 @@
  * File containing main account class with a few shared 
  * methods between different login methods. 
  */
-use diversen\strings\mb as strings_mb;
+use diversen\strings\mb as mb;
 
 /**
  * class account 
@@ -264,7 +264,7 @@ class account {
         $db = new db();
 
         $search = array();
-        $search['email'] = strings_mb::tolower($email);
+        $search['email'] = mb::tolower($email);
         if ($type) {
             $search['type'] = $type;
         }

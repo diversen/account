@@ -1,7 +1,7 @@
 <?php
 
 use diversen\strings;
-use diversen\strings\mb as strings_mb;
+use diversen\strings\mb as mb;
 use diversen\random;
 
 use Facebook\FacebookSession;
@@ -9,10 +9,6 @@ use Facebook\FacebookRequest;
 use Facebook\GraphUser;
 use Facebook\FacebookRequestException;
 use Facebook\FacebookRedirectLoginHelper;
-
-//define('FACEBOOK_SDK_V4_SRC_DIR', _COS_PATH . 'vendor/facebook/php-sdk-v4/src/');
-//require_once _COS_PATH . "/vendor/facebook/php-sdk-v4/autoload.php";
-
 
 
 moduleloader::includeModule('account/login');
@@ -105,7 +101,7 @@ class account_facebook extends account {
         $values = array(
             'url'=> $user_profile->getLink(), 
             'username' => strings::toUTF8($user_profile->getName()),
-            'email' => strings_mb::tolower($user_profile->getEmail()),
+            'email' => mb::tolower($user_profile->getEmail()),
             'type' => 'facebook',
             'verified' => 1,
             'md5_key' => $md5_key
@@ -206,7 +202,7 @@ class account_facebook extends account {
         
         $values = array(
             'url'=> $user->getLink(),
-            'email' => strings_mb::tolower($user->getEmail()),
+            'email' => mb::tolower($user->getEmail()),
             'type' => 'facebook',
             'verified' => 1,
             'parent' => $user_id);

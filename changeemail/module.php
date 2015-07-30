@@ -4,9 +4,9 @@
  * contains class for changing users email
  * @package account
  */
-use diversen\strings\mb as strings_mb;
+use diversen\strings\mb as mb;
 use diversen\random;
-use diversen\db\rb as db_rb;
+use diversen\db\rb as rb;
 use diversen\mailer;
 
 include_once "coslib/date.php";
@@ -31,7 +31,7 @@ class accountChangeemail {
      *                   1 Ok to shift email
      */
     public function changeEmailPossible ($user_id, $email) {
-        $email = strings_mb::tolower($email);
+        $email = mb::tolower($email);
         $row = user::getAccount($user_id);
         
         
@@ -75,7 +75,7 @@ class accountChangeemail {
         $mysql_date = date::getDateNow();
         
         // only allow 2 changes per day
-        $bean = db_rb::getBean('account_email_changes', 'user_id', $user_id);
+        $bean = rb::getBean('account_email_changes', 'user_id', $user_id);
         
         $email_max_changes = 1000;
         if ($bean->id) {
@@ -88,7 +88,7 @@ class accountChangeemail {
             }            
         }
         
-        $bean = db_rb::getBean('account_email_changes', 'user_id', $user_id);
+        $bean = rb::getBean('account_email_changes', 'user_id', $user_id);
         $bean->user_id = $user_id;
         $bean->tries++;
         $bean->date_try = $mysql_date;

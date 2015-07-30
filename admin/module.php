@@ -1,6 +1,16 @@
 <?php
 
-use diversen\pagination as pearPager;
+use diversen\pagination;
+use diversen\view;
+use diversen\session;
+use diversen\moduleloader;
+use diversen\uri;
+use diversen\template;
+use diversen\lang;
+use diversen\db;
+use diversen\http;
+use diversen\html;
+use diversen\db\q;
 
 /**
  * File contains account_admin class which extends account create. 
@@ -69,7 +79,7 @@ class account_admin extends account {
         }
 
         $num_rows = $this->getNumUsers();
-        $p = new pearPager($num_rows);
+        $p = new pagination($num_rows);
         
         $users = $this->getUsers($p->from);
         template::setTitle(lang::translate('Search for users'));

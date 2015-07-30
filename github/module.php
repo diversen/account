@@ -5,7 +5,7 @@
  * @package account
  */
 use diversen\githubapi;
-use diversen\strings\mb as strings_mb;
+use diversen\strings\mb as mb;
 use diversen\random;
 
 moduleloader::includeModule('account');
@@ -143,7 +143,7 @@ class account_github extends account {
             $search = array(
                 'type' => 'github',
                 'url' => $res['id'],
-                'email' => strings_mb::tolower($res['email']),
+                'email' => mb::tolower($res['email']),
             );
 
             $account = $this->githubAccountExist($search);
@@ -255,7 +255,7 @@ class account_github extends account {
         $db = new db();
         $values = array(
             'url' => $search['url'],
-            'email' => strings_mb::tolower($search['email']),
+            'email' => mb::tolower($search['email']),
             'type' => 'github',
             'verified' => 1,
             'parent' => $user_id);

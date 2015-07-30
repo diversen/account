@@ -5,12 +5,14 @@
  * @package account
  */
 
-use diversen\strings\mb as strings_mb;
+use diversen\strings\mb;
 use diversen\valid as valid;
 use diversen\random;
 use diversen\mailer;
 use diversen\moduleloader;
 use diversen\captcha;
+use diversen\view;
+use diversen\conf;
 
 moduleloader::includeModule('account');
 view::includeOverrideFunctions('account', 'login/views.php');
@@ -146,9 +148,9 @@ class account_create extends account {
     public function createDbUser ($email, $password, $md5_key) {
 
         $values = 
-            array('username'=> strings_mb::tolower($email),
+            array('username'=> mb::tolower($email),
                   'password' => md5($password),
-                  'email' => strings_mb::tolower($email),
+                  'email' => mb::tolower($email),
                   'md5_key' => $md5_key,
                   'type' => 'email');
         
@@ -177,7 +179,7 @@ class account_create extends account {
      */
     public function createUser (){
                 
-        $_POST['email'] = strings_mb::tolower($_POST['email']);
+        $_POST['email'] = mb::tolower($_POST['email']);
         
         // enter decoded values
         $_POST = html::specialDecode($_POST);

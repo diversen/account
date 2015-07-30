@@ -1,5 +1,8 @@
 <?php
 
+use diversen\conf;
+use diversen\lang;
+
 $account_allow_edit = conf::getModuleIni('account_allow_edit');
 $_SUB_MODULE_MENU = array (
     1 => array(

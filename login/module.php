@@ -1,6 +1,6 @@
 <?php
 
-use diversen\strings\mb as strings_mb;
+use diversen\strings\mb as mb;
 
 moduleloader::includeModule('account');
 view::includeOverrideFunctions('account', 'login/views.php');
@@ -160,7 +160,7 @@ class account_login extends account {
         $db = new db();
 
         $search = array(
-            'email' => strings_mb::tolower($email),
+            'email' => mb::tolower($email),
             'password' => md5($password),
             'type' => 'email',
         );

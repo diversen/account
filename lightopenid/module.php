@@ -1,6 +1,6 @@
 <?php
 
-use diversen\strings\mb as strings_mb;
+use diversen\strings\mb as mb;
 use diversen\random;
 
 moduleloader::includeModule('account/login');
@@ -336,7 +336,7 @@ class account_lightopenid extends account {
         $md5_key = random::md5();
         $values = array(
             'url'=> $openid->identity, 
-            'email' => strings_mb::tolower($ary['contact/email']),
+            'email' => mb::tolower($ary['contact/email']),
             'type' => 'openid',
             'verified' => 1, // open id accounts are always verified
             'md5_key' => $md5_key);
@@ -426,7 +426,7 @@ class account_lightopenid extends account {
         
         $values = array(
             'url'=> $openid->identity, 
-            'email' => strings_mb::tolower($ary['contact/email']),
+            'email' => mb::tolower($ary['contact/email']),
             'type' => 'openid',
             'verified' => 1,
             'parent' => $user_id);
