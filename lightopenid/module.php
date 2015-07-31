@@ -7,10 +7,10 @@ use diversen\moduleloader;
 
 moduleloader::includeModule('account/login');
 if (in_array('lightopenid', conf::getModuleIni('account_logins'))) {
-
-        include_once "vendor/iignatov/lightopenid/openid.php";
-        view::includeOverrideFunctions('account', 'lightopenid/views.php');
+    include_once "vendor/iignatov/lightopenid/openid.php";
+    view::includeOverrideFunctions('account', 'lightopenid/views.php');
 }
+
 /**
  * class for doing login with openid
  */

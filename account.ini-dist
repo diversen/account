@@ -4,6 +4,10 @@ account_allow_edit = "super"
 account_show_admin_link = "super"
 ; who can create a user: anon, admin, super, user
 account_allow_create = "super"
+; default account module url
+account_default_url = "/account/login/index"
+;default redirect when logging in. Empty to stay on logged in account
+account_redirect_login ='/content/index'
 ; disable editing of accounts
 account_disable_admin_interface = 0
 ; menu item is only in admin items
