@@ -1,11 +1,16 @@
 <?php
 
-use diversen\strings\mb as mb;
+use diversen\strings\mb;
 use diversen\random;
+use diversen\conf;
+use diversen\moduleloader;
 
 moduleloader::includeModule('account/login');
-include_once "vendor/iignatov/lightopenid/openid.php";
-view::includeOverrideFunctions('account', 'lightopenid/views.php');
+if (in_array('lightopenid', conf::getModuleIni('account_logins'))) {
+
+        include_once "vendor/iignatov/lightopenid/openid.php";
+        view::includeOverrideFunctions('account', 'lightopenid/views.php');
+}
 /**
  * class for doing login with openid
  */
@@ -17,6 +22,7 @@ class account_lightopenid extends account {
      */
 
     function __construct($options = array ()) {
+        
         $this->options = $options;
     }
     
