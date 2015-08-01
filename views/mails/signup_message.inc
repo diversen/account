@@ -1,3 +1,8 @@
+<?php
+
+use diversen\lang;
+
+?>
 <?=lang::translate('Hi')?>!
 
 <?=lang::translate('You have connected with {SITE_NAME} and requested an account', array ('SITE_NAME' => $vars['site_name']))?>. 

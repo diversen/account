@@ -1,7 +1,16 @@
 <?php
 
-use diversen\strings\mb as mb;
+use diversen\strings\mb;
 use diversen\random;
+use diversen\html;
+use diversen\conf;
+use diversen\moduleloader;
+
+
+use diversen\template;
+use diversen\lang;
+use diversen\session;
+
 moduleloader::includeModule('account');
 
 /**

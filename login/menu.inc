@@ -1,5 +1,9 @@
 <?php
 
+use diversen\session;
+use diversen\conf;
+use diversen\lang;
+
 if (!session::isUser()) {
     $_SUB_MODULE_MENU[] = array(
         'title' => lang::translate('Lost password'),

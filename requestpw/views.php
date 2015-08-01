@@ -1,6 +1,8 @@
 <?php
 
 use diversen\captcha;
+use diversen\html;
+use diversen\lang;
 
 class account_requestpw_views {
     public static function formVerify () {

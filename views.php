@@ -1,5 +1,7 @@
 <?php
 
+use diversen\lang;
+use diversen\conf;
 /**
  * these can be overridden by template functions
  * place your own account_views in /templates/template/account/views.php
