@@ -78,8 +78,8 @@ class account_github extends account {
             return;
         }
 
-        //$login = new account_github();
         $this->setAcceptUniqueOnlyEmail(true);
+        $this->setPersistentCookie(true);
         $this->controlLogin();
     }
 
