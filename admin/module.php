@@ -11,6 +11,7 @@ use diversen\db;
 use diversen\http;
 use diversen\html;
 use diversen\db\q;
+use diversen\conf;
 
 /**
  * File contains account_admin class which extends account create. 

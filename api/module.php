@@ -1,5 +1,9 @@
 <?php
 
+use diversen\db\q;
+use diversen\session;
+use diversen\moduleloader;
+
 class account_api {
     
     /**
