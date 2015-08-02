@@ -1,5 +1,7 @@
 <?php
 
+use diversen\moduleloader;
+
 class account_lightopenid_views {
     
     /**

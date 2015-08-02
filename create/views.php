@@ -1,5 +1,7 @@
 <?php
 
+use diversen\http;
+
 class account_create_views {
     
     public static function verify ($message = null) {

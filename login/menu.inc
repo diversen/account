@@ -1,8 +1,8 @@
 <?php
 
-use diversen\session;
 use diversen\conf;
 use diversen\lang;
+use diversen\session;
 
 if (!session::isUser()) {
     $_SUB_MODULE_MENU[] = array(

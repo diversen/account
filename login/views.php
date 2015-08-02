@@ -1,9 +1,10 @@
 <?php
 
 use diversen\captcha;
+use diversen\conf;
+use diversen\event;
 use diversen\html;
 use diversen\lang;
-use diversen\conf;
 
 class account_login_views {
     

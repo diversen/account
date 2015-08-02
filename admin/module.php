@@ -1,17 +1,18 @@
 <?php
 
-use diversen\pagination;
-use diversen\view;
-use diversen\session;
-use diversen\moduleloader;
-use diversen\uri;
-use diversen\template;
-use diversen\lang;
-use diversen\db;
-use diversen\http;
-use diversen\html;
-use diversen\db\q;
 use diversen\conf;
+use diversen\db;
+use diversen\db\q;
+use diversen\html;
+use diversen\http;
+use diversen\lang;
+use diversen\moduleloader;
+use diversen\pagination;
+use diversen\session;
+use diversen\template;
+use diversen\uri;
+use diversen\view;
+
 
 /**
  * File contains account_admin class which extends account create. 

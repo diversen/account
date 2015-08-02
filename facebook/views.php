@@ -1,5 +1,8 @@
 <?php
 
+use diversen\html;
+use diversen\lang;
+
 class account_facebook_views {
     /**
      * echo a facebook login url

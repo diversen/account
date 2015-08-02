@@ -4,18 +4,24 @@
  * contains class for changing users email
  * @package account
  */
-use diversen\strings\mb as mb;
-use diversen\random;
-use diversen\db\rb as rb;
-use diversen\mailer;
 
-include_once "coslib/date.php";
+use diversen\conf;
+use diversen\date;
+use diversen\db\q;
+use diversen\db\rb;
+use diversen\event;
+use diversen\lang;
+use diversen\mailer;
+use diversen\random;
+use diversen\strings\mb;
+use diversen\user;
+use diversen\view;
 
 /**
  * contians class for changing users email
  * @package account
  */
-class accountChangeemail {
+class account_changeemail {
     
     public $errors = array ();
     

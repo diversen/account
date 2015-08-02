@@ -5,14 +5,23 @@
  * @package account
  */
 
-use diversen\strings\mb;
-use diversen\valid as valid;
-use diversen\random;
+use diversen\captcha;
+use diversen\conf;
+use diversen\event;
+use diversen\html;
+use diversen\html\table\db;
+use diversen\http;
+use diversen\lang;
 use diversen\mailer;
 use diversen\moduleloader;
-use diversen\captcha;
+use diversen\random;
+use diversen\strings\mb;
+use diversen\template;
+use diversen\uri;
+use diversen\user;
+use diversen\valid;
 use diversen\view;
-use diversen\conf;
+
 
 moduleloader::includeModule('account');
 view::includeOverrideFunctions('account', 'login/views.php');

@@ -1,7 +1,7 @@
 <?php
 
-use diversen\lang;
 use diversen\conf;
+use diversen\lang;
 
 $account_default_url = conf::getModuleIni('account_default_url');
 $account_admin_only = conf::getModuleIni('account_admin_only');

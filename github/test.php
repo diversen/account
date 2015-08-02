@@ -1,7 +1,11 @@
 <?php
 
+use diversen\githubapi;
+
+
+
 die('test');
-$api = new githubApi();
+$api = new githubapi();
 //$command = '/gists/3188233';
 //$res = $api->apiCall($command);
 

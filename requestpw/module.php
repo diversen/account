@@ -4,19 +4,20 @@
  * File containing class for srequesting and etting a new user password
  * 
  */
-use diversen\strings\mb;
-use diversen\valid;
-use diversen\random;
-use diversen\mailer;
+
 use diversen\captcha;
-use diversen\view;
-use diversen\moduleloader;
-use diversen\template;
-use diversen\lang;
-use diversen\http;
-use diversen\html;
 use diversen\db;
+use diversen\html;
+use diversen\http;
+use diversen\lang;
+use diversen\mailer;
+use diversen\moduleloader;
+use diversen\random;
 use diversen\session;
+use diversen\strings\mb;
+use diversen\template;
+use diversen\valid;
+use diversen\view;
 
 
 view::includeOverrideFunctions('account', 'requestpw/views.php');

@@ -4,14 +4,17 @@
  * File containing main account class with a few shared 
  * methods between different login methods. 
  */
+
+use diversen\conf;
+use diversen\db;
+use diversen\db\q;
+use diversen\event;
+use diversen\html;
+use diversen\http;
+use diversen\lang;
+use diversen\session;
 use diversen\strings\mb;
 use diversen\user;
-use diversen\session;
-use diversen\conf;
-use diversen\http;
-use diversen\db;
-use diversen\event;
-use diversen\lang;
 
 /**
  * class account 

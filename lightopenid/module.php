@@ -1,9 +1,20 @@
 <?php
 
-use diversen\strings\mb;
-use diversen\random;
 use diversen\conf;
+use diversen\db;
+use diversen\event;
+use diversen\html;
+use diversen\http;
+use diversen\lang;
+use diversen\log;
 use diversen\moduleloader;
+use diversen\random;
+use diversen\session;
+use diversen\strings\mb;
+use diversen\template;
+use diversen\user;
+use diversen\view;
+
 
 moduleloader::includeModule('account/login');
 if (in_array('lightopenid', conf::getModuleIni('account_logins'))) {

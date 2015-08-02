@@ -1,20 +1,24 @@
 <?php
 
+use diversen\conf;
+use diversen\db;
+use diversen\event;
+use diversen\html;
+use diversen\lang;
+use diversen\log;
+use diversen\moduleloader;
+use diversen\random;
+use diversen\session;
 use diversen\strings;
 use diversen\strings\mb;
-use diversen\random;
-use diversen\moduleloader;
-use diversen\view;
-use diversen\conf;
 use diversen\template;
-use diversen\lang;
-use diversen\session;
-use Facebook\FacebookSession;
-use Facebook\FacebookRequest;
-use Facebook\GraphUser;
-use Facebook\FacebookRequestException;
+use diversen\user;
+use diversen\view;
 use Facebook\FacebookRedirectLoginHelper;
-
+use Facebook\FacebookRequest;
+use Facebook\FacebookRequestException;
+use Facebook\FacebookSession;
+use Facebook\GraphUser;
 
 moduleloader::includeModule('account/login');
 view::includeOverrideFunctions('account', 'facebook/views.php');
