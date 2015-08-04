@@ -49,6 +49,52 @@ array(
 'https://www.googleapis.com/auth/userinfo.profile')
 );
 
+### Facebook login
+
+You will need an facebook app in order to use the facebook login 
+
+Here is a nice tutorial about the process: 
+
+https://developers.facebook.com/docs/beta/opengraph/tutorial/
+
+Create an your app on this page. 
+
+https://developers.facebook.com/apps
+
+Press link on top right corner: 'Create New'
+
+Create settings: 
+
+In settings 'application domain': e.g. example.com
+In settings 'Homepage' set e.g: example.com/account/facebook/index. 
+
+Those two has to correspond.  
+
+### Github
+
+Using github as login: 
+
+Create a github app.
+
+Homepage URL:
+
+    http://yoursite.com/account/github/index
+
+Authorization callback URL:
+
+    http://yoursite/account/github/callback
+
+in account.ini. Use:
+
+    account_github_secret = "secret"
+    account_github_id = "app_id"
+
+You can now login with github. 
+
+You can also set scope for your app. 
+
+    account_github_scope = ""
+
 ### Events
 
 You can set events in the account.ini file. The following will call the 
@@ -79,24 +125,3 @@ The following params are sent to the classes implementing the event:
         'action' => 'create',
         'user_id' => $new_account_id,
     );
-
-### Creating a facebook app 
-
-You will need an facebook app in order to use the facebook login 
-
-Here is a nice tutorial about the process: 
-
-https://developers.facebook.com/docs/beta/opengraph/tutorial/
-
-Create an your app on this page. 
-
-https://developers.facebook.com/apps
-
-Press link on top right corner: 'Create New'
-
-Create settings: 
-
-In settings 'application domain': e.g. example.com
-In settings 'Homepage' set e.g: example.com/account/facebook/index. 
-
-Those two has to correspond.  
