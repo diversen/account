@@ -11,7 +11,7 @@ $_COS_LANG_MODULE['This account has been locked'] = 'This account has been locke
 
 $_COS_LANG_MODULE['Log in or Log out'] = 'Log in or Log out';
 $_COS_LANG_MODULE['Create Account'] = 'Create Account';
-$_COS_LANG_MODULE['Account: Create notice'] = 'Account has been created. You will recieve an email in a short time. Press a link and you have verified your account!';
+$_COS_LANG_MODULE['Account: Create notice'] = 'Account: Create notice';
 $_COS_LANG_MODULE['Not a correct email or password'] = 'Not a correct email or password';
 
 // Translation of file /modules/account/login/views.php
