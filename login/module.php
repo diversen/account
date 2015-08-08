@@ -108,7 +108,7 @@ class account_login extends account {
             if (empty($l->errors)) {
                 $l->createUser();
                 http::locationHeader(
-                        '/account/login/index', lang::translate('Account: Create notice'));
+                        '/account/login/index', lang::translate('Account has been created. Visit your email box and press the verification link.'));
             } else {
                 html::errors($l->errors);
             }

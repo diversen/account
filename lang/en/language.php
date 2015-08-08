@@ -11,7 +11,7 @@ $LANG['This account has been locked'] = 'This account has been locked';
 
 $LANG['Log in or Log out'] = 'Log in or Log out';
 $LANG['Create Account'] = 'Create Account';
-$LANG['Account: Create notice'] = 'Account: Create notice';
+$LANG['Account has been created. Visit your email box and press the verification link.'] = 'Account has been created. Visit your email box and press the verification link.';
 $LANG['Not a correct email or password'] = 'Not a correct email or password';
 // Translation of file modules/account/login/views.php
 
