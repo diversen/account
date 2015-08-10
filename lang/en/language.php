@@ -94,7 +94,7 @@ $LANG['Log in or Log out'] = 'Log in or Log out';
 $LANG['Github login'] = 'Github login';
 // Translation of file modules/account/install.inc
 
-$LANG['account'] = 'account';
+$LANG['Account'] = 'Account';
 $LANG['Users'] = 'Users';
 $LANG['Logout'] = 'Logout';
 // Translation of file modules/account/views.php

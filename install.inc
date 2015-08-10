@@ -14,7 +14,7 @@ if (!$account_default_url){
 
 $_INSTALL['MAIN_MENU_ITEMS'] = array ();
 $_INSTALL['MAIN_MENU_ITEMS'][0] = array (
-    'title' => lang::translate('account', null, array ('no_translate' => true)),
+    'title' => lang::translate('Account', null, array ('no_translate' => true)),
     'url' => $account_default_url,
     'module_name' => 'account',
     'parent' => 0,

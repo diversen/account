@@ -56,7 +56,7 @@ $LANG['Search accounts'] = 'Søg konti';
 $LANG['Search account ID'] = 'Søg konto ID';
 $LANG['Search'] = 'Søg';
 $LANG['Github login'] = 'Github login';
-$LANG['account'] = 'account';
+$LANG['Account'] = 'Konto';
 $LANG['Users'] = 'Users';
 $LANG['By registering, you agree to the <a href="/account/terms/privacy">privacy policy</a> and <a href="/account/terms/service">terms of service</a>.'] = 'Ved at registrere, accepterer du <a href="/account/terms/privacy">fortrolighedspolitik</a> og <a href="/account/terms/service">servicevilkår</a> .';
 $LANG['Wrong answer to captcha test'] = 'Ikke et korrekt svar til captcha';

@@ -21,13 +21,6 @@ $attach_menu = function ($type) {
         );
     }
     
-    if ($type == 'openid'){
-        return array(
-            'title' => lang::translate('OpenID'),
-            'url' => '/account/openid/index'
-        );
-    }
-    
     if ($type == 'lightopenid') {
         return array(
             'title' => lang::translate('OpenID'),
