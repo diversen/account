@@ -1,5 +1,6 @@
 <?php
 
+namespace modules\account\requestpw;
 /**
  * File containing class for srequesting and etting a new user password
  * 
@@ -11,7 +12,6 @@ use diversen\html;
 use diversen\http;
 use diversen\lang;
 use diversen\mailer;
-use diversen\moduleloader;
 use diversen\random;
 use diversen\session;
 use diversen\strings\mb;
@@ -19,14 +19,16 @@ use diversen\template;
 use diversen\valid;
 use diversen\view;
 
+use modules\account\module as account;
+
 
 view::includeOverrideFunctions('account', 'requestpw/views.php');
-moduleloader::includeModule('account');
+
 
 /**
  * class requestpw 
  */
-class account_requestpw extends account {
+class module extends account {
 
     /**
      * options
@@ -256,7 +258,7 @@ class account_requestpw extends account {
     public function verifyAction() {
         template::setTitle(lang::translate('Create new password'));
 
-        $request = new account_requestpw();
+        $request = new self;
         $res = $request->verifyAccount();
         if ($res) {
             $request->sanitize();
@@ -273,7 +275,7 @@ class account_requestpw extends account {
                     html::errors($request->errors);
                 }
             }
-            account_requestpw_views::formVerify();
+            views::formVerify();
         } else {
             html::errors($request->errors);
         }
@@ -301,7 +303,7 @@ class account_requestpw extends account {
         template::setTitle(lang::translate('Request new password'));
 
         http::prg();
-        $request = new account_requestpw();
+        $request = new self();
         if (isset($_POST['submit'])) {
             $request->sanitize();
             $request->validate();
@@ -324,11 +326,6 @@ class account_requestpw extends account {
             }
         }
 
-        account_requestpw_views::formSend();
+        views::formSend();
     }
-
-}
-
-class account_requestpw_module extends account_requestpw {
-    
 }

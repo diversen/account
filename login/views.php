@@ -1,12 +1,14 @@
 <?php
 
+namespace modules\account\login;
+
 use diversen\captcha;
 use diversen\conf;
 use diversen\event;
 use diversen\html;
 use diversen\lang;
 
-class account_login_views {
+class views {
     
     public static function formCreate () {
         $options = array ();

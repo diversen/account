@@ -1,13 +1,14 @@
 <?php
 
+namespace modules\account\admin;
+
 use diversen\html;
 use diversen\lang;
 use diversen\session;
 use diversen\time;
 use diversen\user;
 
-
-class account_admin_views {
+class views {
 
    /**
     * function for updating a user
@@ -15,7 +16,7 @@ class account_admin_views {
     * @param array row to use when updating a user
     */
     public static function updateEmailUser ($values){
-
+        echo "ARGH";
         if (!isset($_POST['submit'])){
             $values['password'] = '';
             $values['password2'] = '';

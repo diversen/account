@@ -1,10 +1,11 @@
 <?php
 
+namespace modules\account\requestpw;
 use diversen\captcha;
 use diversen\html;
 use diversen\lang;
 
-class account_requestpw_views {
+class views {
     public static function formVerify () {
         $field_size = array ('size' => '30');
         html::$autoLoadTrigger = 'submit';

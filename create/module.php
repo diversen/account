@@ -1,5 +1,6 @@
 <?php
 
+namespace modules\account\create;
 /**
  * File containg method for creating an account using an email
  * @package account
@@ -13,7 +14,6 @@ use diversen\html\table\db;
 use diversen\http;
 use diversen\lang;
 use diversen\mailer;
-use diversen\moduleloader;
 use diversen\random;
 use diversen\strings\mb;
 use diversen\template;
@@ -22,14 +22,14 @@ use diversen\user;
 use diversen\valid;
 use diversen\view;
 
+use modules\account\module as account;
 
-moduleloader::includeModule('account');
 view::includeOverrideFunctions('account', 'login/views.php');
 /**
  * class for creating an account using an email. 
  * @package account
  */
-class account_create extends account {
+class module extends account {
 
     /**
      * constructor
@@ -51,9 +51,9 @@ class account_create extends account {
         if (!$res) {
             html::errors($a->errors);
         } else if ($res === 2) {
-            account_create_views::verify(lang::translate('Account is already verified'));
+            views::verify(lang::translate('Account is already verified'));
         } else {
-            account_create_views::verify(lang::translate('Account has been verified'));
+            views::verify(lang::translate('Account has been verified'));
         }
     }
 

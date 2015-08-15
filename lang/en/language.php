@@ -27,10 +27,6 @@ $LANG['days'] = 'days';
 
 $LANG['Lost password'] = 'Lost password';
 $LANG['Create account'] = 'Create account';
-// Translation of file modules/account/api/module.php
-
-$LANG['User with ID <span class="notranslate">{ID}</span> has been locked!'] = 'User with ID <span class="notranslate">{ID}</span> has been locked!';
-$LANG['Not sufficient privileges. Super user is required'] = 'Not sufficient privileges. Super user is required';
 // Translation of file modules/account/views/mails/signup_message.inc
 
 $LANG['Hi'] = 'Hi';
@@ -94,6 +90,7 @@ $LANG['Log in or Log out'] = 'Log in or Log out';
 $LANG['Github login'] = 'Github login';
 // Translation of file modules/account/install.inc
 
+$LANG['account'] = 'account';
 $LANG['Account'] = 'Account';
 $LANG['Users'] = 'Users';
 $LANG['Logout'] = 'Logout';

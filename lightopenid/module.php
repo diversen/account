@@ -69,7 +69,7 @@ class account_lightopenid extends account {
             account_lightopenid_views::loginForm();
             echo account_views::getTermsLink();
         } else {
-            $a = new account_login();
+            $a = new module();
             $a->displayLogout();
         }
     }

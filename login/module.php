@@ -1,5 +1,7 @@
 <?php
 
+namespace modules\account\login;
+
 use diversen\db;
 use diversen\html;
 use diversen\http;
@@ -10,10 +12,17 @@ use diversen\strings\mb;
 use diversen\template;
 use diversen\view;
 
-moduleloader::includeModule('account');
+use modules\account\views as account_views;
+use modules\account\module as account;
+use modules\account\login\views as account_login_views;
+use modules\account\create\module as account_create;
+
+use modules\account\requestpw\module as requestpw;
+
+//moduleloader::includeModule('account');
 view::includeOverrideFunctions('account', 'login/views.php');
 
-class account_login extends account {
+class module extends account {
 
     /**
      * constructs accountLogin object.
@@ -84,7 +93,7 @@ class account_login extends account {
     }
     
     public function requestpwAction () {
-        $rp = new account_requestpw_module();
+        $rp = new requestpw();
         $rp->indexAction();
     }
 

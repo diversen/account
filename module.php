@@ -1,5 +1,6 @@
 <?php
 
+namespace modules\account;
 /**
  * File containing main account class with a few shared 
  * methods between different login methods. 
@@ -19,7 +20,7 @@ use diversen\user;
 /**
  * class account 
  */
-class account {
+class module {
 
     /**
      * var holding errors
@@ -358,8 +359,4 @@ class account {
         
     }
 
-}
-
-class account_module extends account {
-    
 }

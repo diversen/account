@@ -1,30 +1,32 @@
 <?php
 
-use diversen\conf;
+namespace modules\account\admin;
+
 use diversen\db;
 use diversen\db\q;
 use diversen\html;
 use diversen\http;
 use diversen\lang;
-use diversen\moduleloader;
 use diversen\pagination;
 use diversen\session;
 use diversen\template;
 use diversen\uri;
 use diversen\view;
 
+use modules\account\module as account;
+use modules\account\admin\views as account_admin_views;
 
 /**
  * File contains account_admin class which extends account create. 
  */
-moduleloader::includeModule('account');
-moduleloader::includeModule('account/create');
+//moduleloader::includeModule('account');
+//moduleloader::includeModule('account/create');
 view::includeOverrideFunctions('account', 'admin/views.php');
 
 /**
  * Class account_admin
  */
-class account_admin extends account {
+class module extends account {
 
 
     /**
@@ -209,7 +211,7 @@ class account_admin extends account {
     }
 
     /**
-     * method for updaing a user
+     * Updates a user from POST request
      * @return boolean $res true on success else false
      */
     public function updateEmailUser() {
@@ -233,7 +235,7 @@ class account_admin extends account {
 
         if ($values['locked'] == 1) {
             $this->lockUser($this->id);
-            $this->lockProfile($this->id);
+
         }
 
         $db = new db();
@@ -247,28 +249,11 @@ class account_admin extends account {
      * @return type
      */
     public function lockUser($user_id) {
-        return q::delete('system_cookie')->filter('account_id =', $user_id)->exec();
+        $values = array ('locked' => 1);
+        q::update('account')->values($values)->filter('id =', $user_id)->exec();
+        q::delete('system_cookie')->filter('account_id =', $user_id)->exec();
     }
 
-    /**
-     * locks (actually deletes the account profile if any profile system is in place
-     * @return type
-     */
-    public function lockProfile($user_id) {
-        $profile_system = conf::getMainIni('profile_module');
-        if (!$profile_system) {
-            return;
-        }
-
-        // just delete profile info
-        $api_module = $profile_system . "/api";
-        moduleloader::includeModule($api_module);
-        $class = $profile_system . "_api_module";
-
-        if (method_exists($class, 'lock')) {
-            return $class::lock($user_id);
-        }
-    }
 
     public function searchAccount() {
         $v = new account_admin_views();
@@ -278,7 +263,7 @@ class account_admin extends account {
     /**
      * method for updaing a user
      *
-     * @return int affected rows
+     * @return int $res
      */
     public function updateUrlUser() {
         isset($_POST['admin']) ? $values['admin'] = 1 : $values['admin'] = 0;
@@ -302,15 +287,10 @@ class account_admin extends account {
     /**
      * method for deleting a user
      *
-     * @return int  affected rows
+     * @return int $res
      */
     public function deleteUser() {
         $db = new db();
         return $db->delete('account', 'id', $this->id);
     }
-
-}
-
-class account_admin_module extends account_admin {
-    
 }

@@ -1,8 +1,10 @@
 <?php
 
+namespace modules\account\create;
 use diversen\http;
 
-class account_create_views {
+
+class views {
     
     public static function verify ($message = null) {
         http::locationHeader('/account/login/index', $message);
