@@ -1,5 +1,7 @@
 <?php
 
+namespace modules\account\google;
+
 use diversen\conf;
 use diversen\db;
 use diversen\db\q;
@@ -14,13 +16,18 @@ use diversen\strings\mb;
 use diversen\template;
 use diversen\user;
 
+use Google_Client;
+
 moduleloader::includeModule('account');
+
+use modules\account\module as account;
+use modules\account\views as account_views;
 
 /**
  * contains class for logging in with google api api
  * @package account
  */
-class account_google extends account {
+class module extends account {
 
     
     /**
@@ -41,8 +48,6 @@ class account_google extends account {
     public function getGoogleClient () {
         
         $client = new Google_Client();
-        
-        
         
         $client->setClientId(conf::getModuleIni('account_google_id'));
         $client->setClientSecret(conf::getModuleIni('account_google_secret'));
@@ -116,7 +121,7 @@ class account_google extends account {
             return;
         }
 
-        $login = new account_google();
+        $login = new self();
         $login->setAcceptUniqueOnlyEmail(true);
         
         
