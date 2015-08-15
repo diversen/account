@@ -1,5 +1,7 @@
 <?php
 
+namespace modules\account\facebook;
+
 use diversen\conf;
 use diversen\db;
 use diversen\event;
@@ -23,7 +25,9 @@ use Facebook\GraphUser;
 moduleloader::includeModule('account/login');
 view::includeOverrideFunctions('account', 'facebook/views.php');
 
-class account_facebook extends account {
+use modules\account\module as account;
+
+class module extends account {
 
     /**
      * index action
