@@ -17,6 +17,7 @@ use diversen\template;
 use diversen\user;
 
 use Google_Client;
+use Google_Service_Oauth2;
 
 moduleloader::includeModule('account');
 
