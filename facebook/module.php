@@ -26,6 +26,7 @@ moduleloader::includeModule('account/login');
 view::includeOverrideFunctions('account', 'facebook/views.php');
 
 use modules\account\module as account;
+use modules\account\facebook\views as account_facebook_views;
 
 class module extends account {
 
