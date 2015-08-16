@@ -157,6 +157,7 @@ class module {
      */
     public function indexAction() {
 
+        // set a session var 
         if (isset($_GET['return_to'])) {
             $_SESSION['return_to'] = rawurldecode($_GET['return_to']);
         }
@@ -164,8 +165,14 @@ class module {
         if (isset($_GET['message'])) {
             session::setActionMessage(rawurldecode(html::specialEncode($_GET['message'])));
         }
-
-        $this->redirectDefault();
+        
+        $account_default = conf::getMainIni('account_default_url');
+        if (!isset($account_default)) {
+            $account_default = '/account/login/index';
+        }
+        http::locationHeader($account_default);
+        
+        
     }
 
     /**
