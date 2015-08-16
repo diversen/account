@@ -72,10 +72,8 @@ class module extends account {
         if (isset($_GET['code'])) {
             $client->authenticate($_GET['code']);
             $_SESSION['access_token'] = $client->getAccessToken();
-            //header('Location: /account/google/redirect');
             http::locationHeader('/account/google/redirect');
         } 
-
 
         if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
             $client->setAccessToken($_SESSION['access_token']);
@@ -127,18 +125,12 @@ class module extends account {
         
         
         if (session::isUser()){
-            $this->displayLogout();  
-        // submission has taking place but no redirect.     
+            $this->displayLogout();    
         } else {
             
-            $client = $this->getGoogleClient();
-           // $client = $this->getGoogleClient();
-            
-            
+            $client = $this->getGoogleClient();            
             $authUrl = $client->createAuthUrl();
 
-            
-            //$this->login();
             echo html::createLink($authUrl, lang::translate('Google login'));
             echo "<br /><br />" . account_views::getTermsLink();
             
@@ -243,7 +235,6 @@ class module extends account {
      * @return int|false $parent_id main account id
      */
     public function autoMergeAccounts($search, $user_id) {
-
 
         $res_create = $this->createUserSub($search, $user_id);
         if ($res_create) {
