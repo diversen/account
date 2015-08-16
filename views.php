@@ -1,6 +1,7 @@
 <?php
 
 namespace modules\account;
+
 use diversen\conf;
 use diversen\lang;
 

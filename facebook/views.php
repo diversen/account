@@ -1,9 +1,10 @@
 <?php
+namespace modules\account\facebook;
 
 use diversen\html;
 use diversen\lang;
 
-class account_facebook_views {
+class views {
     /**
      * echo a facebook login url
      * @param string $loginUrl facebook login url.

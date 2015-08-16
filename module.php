@@ -1,10 +1,6 @@
 <?php
 
 namespace modules\account;
-/**
- * File containing main account class with a few shared 
- * methods between different login methods. 
- */
 
 use diversen\conf;
 use diversen\db;

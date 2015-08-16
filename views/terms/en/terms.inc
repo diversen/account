@@ -1,5 +1,8 @@
 <?php
 
+use diversen\conf;
+use diversen\html;
+
 $site_url = conf::getSchemeWithServerName();
 $site_name = conf::getMainIni('server_name');
 $site_name_bold = strtoupper($site_name);

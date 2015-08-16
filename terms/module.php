@@ -1,9 +1,11 @@
 <?php
 
+namespace modules\account\terms;
+
 use diversen\conf;
 use diversen\view;
 
-class account_terms {
+class module {
 
     public function privacyAction() {
 
