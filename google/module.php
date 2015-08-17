@@ -5,7 +5,6 @@ namespace modules\account\google;
 use diversen\conf;
 use diversen\db;
 use diversen\db\q;
-use diversen\event;
 use diversen\html;
 use diversen\http;
 use diversen\lang;
@@ -22,7 +21,8 @@ use Google_Service_Oauth2;
 moduleloader::includeModule('account');
 
 use modules\account\module as account;
-use modules\account\views as account_views;
+use modules\account\views as accountViews;
+use modules\account\events;
 
 /**
  * contains class for logging in with google api api
@@ -132,7 +132,7 @@ class module extends account {
             $authUrl = $client->createAuthUrl();
 
             echo html::createLink($authUrl, lang::translate('Google login'));
-            echo "<br /><br />" . account_views::getTermsLink();
+            echo "<br /><br />" . accountViews::getTermsLink();
             
         }
         return;
@@ -188,9 +188,14 @@ class module extends account {
         q::insert('account')->values($search)->exec();
         $last_id = q::lastInsertId();
         q::commit();
+        
+        // events
+        events::createDbUser($last_id);
+       
         return $this->doLogin(user::getAccount($last_id));
 
     }
+
 
     /**
      * sets session and cookie
@@ -238,17 +243,6 @@ class module extends account {
 
         $res_create = $this->createUserSub($search, $user_id);
         if ($res_create) {
-
-            // run account_connect events
-            $args = array(
-                'action' => 'account_connect',
-                'user_id' => $user_id,
-            );
-
-            event::getTriggerEvent(
-                    conf::getModuleIni('account_events'), $args
-            );
-
             return $user_id;
         }
 

@@ -28,7 +28,8 @@ view::includeOverrideFunctions('account', 'facebook/views.php');
 
 use modules\account\module as account;
 use modules\account\facebook\views as account_facebook_views;
-use modules\account\views as account_views;
+use modules\account\views as accountViews;
+use modules\account\events;
 
 class module extends account {
 
@@ -128,18 +129,8 @@ class module extends account {
         if ($res) {           
             $id = $db->lastInsertId();
             
-            // run account_create events
-            $args = array (
-                'action' => 'account_create',
-                'type' => 'facebook',
-                'user_id' => $id,
-            );
-
-            event::getTriggerEvent(
-                conf::getModuleIni('account_events'), 
-                $args
-            );
-            
+            // run events
+            events::createDbUser($id);
             return $id;
             
         }
@@ -156,18 +147,6 @@ class module extends account {
 
         $res_create = $this->createUserSub($user, $user_id);
         if ($res_create) {
-
-            // run account_connect events
-            $args = array(
-                'action' => 'account_connect',
-                'type' => 'facebook',
-                'user_id' => $user_id,
-            );
-
-            event::getTriggerEvent(
-                    conf::getModuleIni('account_events'), $args
-            );
-
             return $user_id;
         }
 
@@ -188,18 +167,6 @@ class module extends account {
         if (!$id) {
             return false;
         }
-        
-        // run account_login events
-        $login_args = array (
-            'action' => 'account_login',
-            'user_id' => $id,
-        );
-
-        event::getTriggerEvent(
-            conf::getModuleIni('account_events'), 
-            $login_args
-        );
-        
         return $id;
     }
     
@@ -320,7 +287,7 @@ class module extends account {
             $scope =$this->getScope();
             $login_url = $helper->getLoginUrl(array('scope' => $scope));
             account_facebook_views::loginLink ($login_url);
-            echo "<br /><br />" . account_views::getTermsLink();
+            echo "<br /><br />" . accountViews::getTermsLink();
         }
         return;
     }

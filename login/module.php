@@ -12,7 +12,7 @@ use diversen\strings\mb;
 use diversen\template;
 use diversen\view;
 
-use modules\account\views as account_views;
+use modules\account\views as accountViews;
 use modules\account\module as account;
 use modules\account\login\views as account_login_views;
 use modules\account\create\module as account_create;
@@ -124,7 +124,7 @@ class module extends account {
         }
 
         account_login_views::formCreate();
-        echo account_views::getTermsLink();
+        echo accountViews::getTermsLink();
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+namespace modules\account\github;
 /**
  * contains class for logging in with github api
  * @package account
@@ -7,7 +8,6 @@
 
 use diversen\conf;
 use diversen\db;
-use diversen\event;
 use diversen\githubapi;
 use diversen\html;
 use diversen\http;
@@ -19,15 +19,14 @@ use diversen\strings\mb;
 use diversen\template;
 use diversen\user;
 
-
-
-moduleloader::includeModule('account');
+use modules\account\events;
+use modules\account\module as account;
 
 /**
  * contains class for logging in with github api
  * @package account
  */
-class account_github extends account {
+class module extends account {
 
     /**
      * constructs accountLogin object.
@@ -191,6 +190,9 @@ class account_github extends account {
         $db->insert('account', $search);
         $db->commit();
         $last_insert_id = $db->lastInsertId();
+        
+        events::createDbUser($last_insert_id);
+        
         $account = user::getAccount($last_insert_id);
         return $this->doLogin($account);
     }
@@ -241,17 +243,6 @@ class account_github extends account {
 
         $res_create = $this->createUserSub($search, $user_id);
         if ($res_create) {
-
-            // run account_connect events
-            $args = array(
-                'action' => 'account_connect',
-                'user_id' => $user_id,
-            );
-
-            event::getTriggerEvent(
-                    conf::getModuleIni('account_events'), $args
-            );
-
             return $user_id;
         }
 

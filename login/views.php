@@ -4,7 +4,6 @@ namespace modules\account\login;
 
 use diversen\captcha;
 use diversen\conf;
-use diversen\event;
 use diversen\html;
 use diversen\lang;
 
@@ -22,10 +21,6 @@ class views {
         html::password('password', null, $options);
         html::label('password2', lang::translate('Repeat password'), array('required' => 1));
         html::password('password2', null, $options);
-
-        event::triggerEvent(conf::getModuleIni('account_events'),
-            array ('action' => 'form'));
-
         html::label('captcha', captcha::createCaptcha());
         html::text('captcha');
         html::label('submit', '');

@@ -5,13 +5,14 @@ namespace modules\account;
 use diversen\conf;
 use diversen\db;
 use diversen\db\q;
-use diversen\event;
 use diversen\html;
 use diversen\http;
 use diversen\lang;
 use diversen\session;
 use diversen\strings\mb;
 use diversen\user;
+
+use modules\account\events;
 
 /**
  * class account 
@@ -128,14 +129,7 @@ class module {
             session::setSystemCookie($account['id']);
         }
 
-        $args = array(
-            'action' => 'account_login',
-            'user_id' => $account['id'],
-        );
-
-        event::getTriggerEvent(
-                conf::getModuleIni('account_events'), $args
-        );
+        events::setSessionAndCookie($account['id']);
     }
 
     /**
@@ -350,16 +344,4 @@ class module {
         $row = $this->checkLocked($row);
         return $row;
     }
-
-    /**
-     * method setSessionAndCookie fires account_evetns
-     * on method setSessionAndCookie
-     * action 'account_login'
-     * with arguments: account_login, user_id
-     * 
-     */
-    public static function __events() {
-        
-    }
-
 }
