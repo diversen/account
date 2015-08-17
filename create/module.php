@@ -8,9 +8,8 @@ namespace modules\account\create;
 
 use diversen\captcha;
 use diversen\conf;
-use diversen\event;
 use diversen\html;
-use diversen\html\table\db;
+use diversen\db;
 use diversen\http;
 use diversen\lang;
 use diversen\mailer;
@@ -23,6 +22,7 @@ use diversen\valid;
 use diversen\view;
 
 use modules\account\module as account;
+use modules\account\events;
 
 view::includeOverrideFunctions('account', 'login/views.php');
 /**
@@ -49,7 +49,7 @@ class module extends account {
         $a->validate();
         $res = $a->verifyAccount();
         if (!$res) {
-            html::errors($a->errors);
+            echo html::getErrors($a->errors);
         } else if ($res === 2) {
             views::verify(lang::translate('Account is already verified'));
         } else {
@@ -64,6 +64,8 @@ class module extends account {
     public function validate(){
 
         if (isset($_POST['submit'])) {
+            
+            // exists in system
             if ($this->emailExist($_POST['email'])){
                 
                 $this->errors['email'] = lang::translate('Email already exists');
@@ -73,13 +75,15 @@ class module extends account {
                 }
             }
 
+            // validate email and email domain
             if (!valid::validateEmailAndDomain($_POST['email'])) {
                 $this->errors['email'] = lang::translate('That is not a valid email');
             }
 
-            // if we use two fields for password
+            // validate passeword
             $this->validatePasswords();
-
+            
+            // captcha
             if (!captcha::checkCaptcha(trim($_POST['captcha']))){
                 $this->errors['captcha'] = lang::translate('Incorrect answer to captcha test');
             }
@@ -167,16 +171,7 @@ class module extends account {
         $db->insert('account', $values);
         $last_insert_id = db::$dbh->lastInsertId();
         
-        // create events
-        $args = array (
-            'action' => 'account_create',
-            'user_id' => $last_insert_id,
-        );
-                
-        event::getTriggerEvent(
-            conf::getModuleIni('account_events'), 
-        $args);
-        
+        events::createDbUser($last_insert_id);
         return $last_insert_id;
     }
 
@@ -288,18 +283,6 @@ class module extends account {
         }
         return $message;
     }
-    
-
-    /**
-     * method for creating a user
-     * @param array $values the values of the new user. 
-     * @return int  $res   true on success and false on failure
-     */
-    public function createSystemUser ($values){
-        $db = new db();
-        $res = $db->insert('account', $values);
-        return $res;
-    }
 
     /**
      * method for verifing an account
@@ -342,8 +325,8 @@ class module extends account {
     }
     
     /**
-     * updates db on verify account
-     * triggers events with action account_verify and user_id as params
+     * Updates the 'account' table when an account is verified
+     * triggers events with user_id as param
      * @param int $id user_id
      * @return boolean $res true on success and false on failure 
      */
@@ -353,14 +336,8 @@ class module extends account {
         $values = array('verified' => 1, 'md5_key' => $md5_key);
         $res = $db->update('account', $values, $id);
         
-        $args = array (
-            'action' => 'account_verify',
-            'user_id' => $id,
-        );
-                
-        event::getTriggerEvent(
-            conf::getModuleIni('account_events'), 
-        $args);
+        // event after update
+        events::verifyUpdateDb($id);
         
         return $res;
     }

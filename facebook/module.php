@@ -4,7 +4,6 @@ namespace modules\account\facebook;
 
 use diversen\conf;
 use diversen\db;
-use diversen\event;
 use diversen\html;
 use diversen\lang;
 use diversen\log;
@@ -16,6 +15,8 @@ use diversen\strings\mb;
 use diversen\template;
 use diversen\user;
 use diversen\view;
+
+// Facebook
 use Facebook\FacebookRedirectLoginHelper;
 use Facebook\FacebookRequest;
 use Facebook\FacebookRequestException;
