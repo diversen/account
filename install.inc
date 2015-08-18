@@ -6,7 +6,6 @@ use diversen\lang;
 lang::translate('account'); // for main menu translation
 
 $account_default_url =  conf::getModuleIni('account_default_url');
-$account_admin_only =   conf::getModuleIni('account_admin_only');
 $account_link_auth =    conf::getModuleIni('account_link_auth');
 $account_allow_edit =   conf::GetModuleIni('account_allow_edit');
 

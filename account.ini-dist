@@ -1,36 +1,9 @@
-; who are allowed to edit: anon, admin, super, user
 account_allow_edit = "super"
-; who will see admin link: anon, admin, super, user
-account_show_admin_link = "super"
-; who can create a user: anon, admin, super, user
-account_allow_create = "super"
-; default account module url
 account_default_url = "/account/login/index"
-;default redirect when logging in. Empty to stay on logged in account
-account_redirect_login ='/content/index'
-; disable editing of accounts
+account_redirect_login = "/content/index"
+account_facebook_api_secret = ""
+account_facebook_api_appid = 269965633048607
+account_allow_create = "super"
 account_disable_admin_interface = 0
-; menu item is only in admin items
 account_admin_only = 0
-; login methods
 account_logins[0] = "email"
-; use lightopenid
-account_logins[1] = "lightopenid"
-; use facebook
-; facebook secret if using facebook as login method
-account_facebook_api_secret = "secret"
-; facebook appid if using facebook as login method
-account_facebook_api_appid = "appid"
-;account_logins[2] = 'facebook'
-; use github
-;account_logins[3] = 'github'
-; app id
-;account_github_id = 'id'
-; app secret
-;account_github_secret = 'secret'
-; scope
-;account_github_scope = 'user'
-; accounts were we trust email provided and merge them with a main account
-; merging is based on valid email
-; hide or show terms - we show as default
-

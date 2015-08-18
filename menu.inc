@@ -2,11 +2,12 @@
 
 use diversen\conf;
 use diversen\lang;
+
 // get types of logins
 $account_logins = conf::getModuleIni('account_logins');
 
 // do we show admin link
-$account_show_admin_link = conf::getModuleIni('account_show_admin_link');
+$account_allow_edit = conf::getModuleIni('account_allow_edit');
 
 $_MODULE_MENU = array();
 
@@ -54,10 +55,10 @@ foreach($account_logins as $login) {
     $_MODULE_MENU[] = $attach_menu($login);
 }
 
-if (!conf::getModuleIni('account_disable_admin_interface')) {
-    $_MODULE_MENU[] = array(
+
+$_MODULE_MENU[] = array(
     'title' => lang::translate('Admin'),
     'url' => '/account/admin/list',
-    'auth' => $account_show_admin_link);
-}
+    'auth' => $account_allow_edit);
+
 

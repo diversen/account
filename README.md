@@ -1,127 +1,46 @@
-account (default account module for CosCMS)
-===========================================
+# Account
 
-### Configuration
+Account module for CosCMS
 
-All configuration is set in account/account.ini
+# Base options
 
-    ; who are allowed to edit: anon, admin, super, user
+Base settings:
+    
+    ; Who can edit accounts
     account_allow_edit = "super"
-    ; who will see admin link: anon, admin, super, user
-    account_show_admin_link = "super"
-    ; default login url
+    ; Default login URL - email
     account_default_url = "/account/login/index"
-    ; who can create a user: anon, admin, super, user
+    ; Redirect on login
+    account_redirect_login = "/content/index"
+    ; Who can create other users
     account_allow_create = "super"
-    ; disable editing of accounts
-    account_disable_admin_interface = 0
-    ; menu item is only in admin items
-    account_admin_only = 0
-    ; login methods
+    ; Types of login - only email here
     account_logins[0] = "email"
-    ; use lightopenid
-    account_logins[1] = "lightopenid"
-    ; use facebook
-    ; facebook secret if using facebook as login method
-    account_facebook_api_secret = "secret"
-    ; facebook appid if using facebook as login method
-    account_facebook_api_appid = "appid"
-    ;account_logins[2] = 'facebook'
-    ; use github
-    ;account_logins[3] = 'github'
-    ; app id
-    ;account_github_id = 'id'
-    ; app secret
-    ;account_github_secret = 'secret'
-    ; scope
-    ;account_github_scope = 'user'
 
-### google
+# Other login methods
 
-scopes
+### Enable Google oAUTH login
 
-https://developers.google.com/+/api/oauth#login-scopes
-
-$this->client->setScopes(
-array(
-'https://www.googleapis.com/auth/analytics.readonly', 
-'https://www.googleapis.com/auth/userinfo.email', 
-'https://www.googleapis.com/auth/userinfo.profile')
-);
+    account_logins[1] = "google"
+    account_google_id = "google id"
+    account_google_secret = ""
+    account_google_scope = "email"
+    account_google_redirect = "http://ebookpublish.org/account/google/redirect"
 
 ### Facebook login
 
-You will need an facebook app in order to use the facebook login 
+    account_logins[2] = "facebook"
+    account_facebook_api_secret = ""
+    account_facebook_api_appid = "appid"
+    account_facebook_scope = 'email'
 
-Here is a nice tutorial about the process: 
+### Github login
 
-https://developers.facebook.com/docs/beta/opengraph/tutorial/
+    account_github_id = "app id"
+    account_github_secret = ""
+    account_github_scope = "user"
 
-Create an your app on this page. 
+# Events
 
-https://developers.facebook.com/apps
-
-Press link on top right corner: 'Create New'
-
-Create settings: 
-
-In settings 'application domain': e.g. example.com
-In settings 'Homepage' set e.g: example.com/account/facebook/index. 
-
-Those two has to correspond.  
-
-### Github
-
-Using github as login: 
-
-Create a github app.
-
-Homepage URL:
-
-    http://yoursite.com/account/github/index
-
-Authorization callback URL:
-
-    http://yoursite/account/github/callback
-
-in account.ini. Use:
-
-    account_github_secret = "secret"
-    account_github_id = "app_id"
-
-You can now login with github. 
-
-You can also set scope for your app. 
-
-    account_github_scope = ""
-
-### Events
-
-You can set events in the account.ini file. The following will call the 
-module points with the static method events when account events are triggered: 
-
-account_events[0] = "points::events"
-
-the following actions are possible so far: 
-
-    account_login
-
-This event is fired when a user logs in. 
-
-The following params are sent to the class implementing the event:
-
-    $args = array (
-        'action' => 'account_login',
-        'user_id' => $account_id,
-    );
- 
-   account_create
-
-this event is fired when an account is created
-
-The following params are sent to the classes implementing the event:
-
-    $args = array (
-        'action' => 'create',
-        'user_id' => $new_account_id,
-    );
+All events exists in `account/config.php`
+You can change this file and include your own methods. 
