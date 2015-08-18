@@ -45,7 +45,7 @@ class module extends account {
     public function verifyAction() {
 
         template::setTitle(lang::translate('Verify Account'));
-        $a = new account_create();
+        $a = new self();
         $a->validate();
         $res = $a->verifyAccount();
         if (!$res) {
