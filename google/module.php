@@ -22,7 +22,7 @@ moduleloader::includeModule('account');
 
 use modules\account\module as account;
 use modules\account\views as accountViews;
-use modules\account\events;
+use modules\account\config;
 
 /**
  * contains class for logging in with google api api
@@ -190,7 +190,7 @@ class module extends account {
         q::commit();
         
         // events
-        events::createDbUser($last_id);
+        config::onCreateUser($last_id);
        
         return $this->doLogin(user::getAccount($last_id));
 

@@ -29,7 +29,7 @@ view::includeOverrideFunctions('account', 'facebook/views.php');
 use modules\account\module as account;
 use modules\account\facebook\views as account_facebook_views;
 use modules\account\views as accountViews;
-use modules\account\events;
+use modules\account\config;
 
 class module extends account {
 
@@ -130,7 +130,7 @@ class module extends account {
             $id = $db->lastInsertId();
             
             // run events
-            events::createDbUser($id);
+            config::onCreateUser($id);
             return $id;
             
         }

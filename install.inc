@@ -5,10 +5,10 @@ use diversen\lang;
 
 lang::translate('account'); // for main menu translation
 
-$account_default_url = conf::getModuleIni('account_default_url');
-$account_admin_only = conf::getModuleIni('account_admin_only');
-$account_link_auth = conf::getModuleIni('account_link_auth');
-$account_allow_edit = conf::GetModuleIni('account_allow_edit');
+$account_default_url =  conf::getModuleIni('account_default_url');
+$account_admin_only =   conf::getModuleIni('account_admin_only');
+$account_link_auth =    conf::getModuleIni('account_link_auth');
+$account_allow_edit =   conf::GetModuleIni('account_allow_edit');
 
 if (!$account_default_url){
     $account_default_url = "/account/login/index";
@@ -54,9 +54,6 @@ if (conf::getModuleIni('account_logout_link')) {
 	'auth' => 'user'
     );
 }
-
-
-
 
 $_INSTALL['VERSION'] = 4.01;
 $_INSTALL['PUBLIC_CLONE_URL'] = 'git://github.com/diversen/account.git';

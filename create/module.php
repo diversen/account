@@ -22,7 +22,7 @@ use diversen\valid;
 use diversen\view;
 
 use modules\account\module as account;
-use modules\account\events;
+use modules\account\config;
 
 view::includeOverrideFunctions('account', 'login/views.php');
 /**
@@ -171,7 +171,7 @@ class module extends account {
         $db->insert('account', $values);
         $last_insert_id = db::$dbh->lastInsertId();
         
-        events::createDbUser($last_insert_id);
+        config::onCreateUser($last_insert_id);
         return $last_insert_id;
     }
 
@@ -337,7 +337,7 @@ class module extends account {
         $res = $db->update('account', $values, $id);
         
         // event after update
-        events::verifyUpdateDb($id);
+        config::onVerification($id);
         
         return $res;
     }

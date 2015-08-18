@@ -19,7 +19,7 @@ use diversen\strings\mb;
 use diversen\template;
 use diversen\user;
 
-use modules\account\events;
+use modules\account\config;
 use modules\account\module as account;
 
 /**
@@ -191,7 +191,7 @@ class module extends account {
         $db->commit();
         $last_insert_id = $db->lastInsertId();
         
-        events::createDbUser($last_insert_id);
+        config::onCreateUser($last_insert_id);
         
         $account = user::getAccount($last_insert_id);
         return $this->doLogin($account);

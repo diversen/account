@@ -12,7 +12,7 @@ use diversen\session;
 use diversen\strings\mb;
 use diversen\user;
 
-use modules\account\events;
+use modules\account\config;
 
 /**
  * class account 
@@ -129,7 +129,7 @@ class module {
             session::setSystemCookie($account['id']);
         }
 
-        events::setSessionAndCookie($account['id']);
+        config::onLogin($account['id']);
     }
 
     /**
