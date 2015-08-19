@@ -119,10 +119,6 @@ $LANG['Repeat new password'] = 'Repeat new password';
 $LANG['Send'] = 'Send';
 $LANG['Request new password'] = 'Request new password';
 $LANG['Email'] = 'Email';
-// Translation of file modules/account/changeemail/module.php
-
-$LANG['Email already exists'] = 'Email already exists';
-$LANG['Confirm account creation'] = 'Confirm account creation';
 // Translation of file modules/account/menu.inc
 
 $LANG['Email'] = 'Email';
@@ -139,17 +135,6 @@ $LANG['Could not get google client access token. Try again later.'] = 'Could not
 $LANG['Log in or Log out'] = 'Log in or Log out';
 $LANG['Google login'] = 'Google login';
 $LANG['Something really weird happened. TRy again!'] = 'Something really weird happened. TRy again!';
-// Translation of file modules/account/lightopenid/module.php
-
-$LANG['OpenID login'] = 'OpenID login';
-$LANG['OpenID Login was cancelled'] = 'OpenID Login was cancelled';
-$LANG['OpenID login accepted'] = 'OpenID login accepted';
-$LANG['Could not dispense OpenID'] = 'Could not dispense OpenID';
-$LANG['Invalid openID'] = 'Invalid openID';
-$LANG['Logged ind with openID'] = 'Logged ind with openID';
-$LANG['Invalid login. We need a valid OpenID email'] = 'Invalid login. We need a valid OpenID email';
-$LANG['Could not merge your account with main account. This may be an email account.'] = 'Could not merge your account with main account. This may be an email account.';
-$LANG['Email already exists in system'] = 'Email already exists in system';
 // Translation of file modules/account/create/module.php
 
 $LANG['Verify Account'] = 'Verify Account';
