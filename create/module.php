@@ -121,8 +121,7 @@ class module extends account {
      * validate emails from submission $_POST['email'] against $_POST['email2']
      */
     public function validateEmails () {
-
-                
+              
         if (!valid::validateEmailAndDomain($_POST['email'])) {
             $this->errors['email'] = lang::translate('That is not a valid email');
         }

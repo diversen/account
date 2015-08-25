@@ -204,6 +204,7 @@ class module extends account {
      * @return boolean $res
      */
     public function doLogin($account) {
+        $this->setPersistentCookie(true);
         $this->setSessionAndCookie($account);
         $this->redirectOnLogin();
     }

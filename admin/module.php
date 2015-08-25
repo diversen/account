@@ -14,44 +14,16 @@ use diversen\uri;
 use diversen\view;
 
 use modules\account\module as account;
-use modules\account\admin\views as account_admin_views;
+use modules\account\admin\views as adminViews;
 
-/**
- * File contains account_admin class which extends account create. 
- */
-//moduleloader::includeModule('account');
-//moduleloader::includeModule('account/create');
+
 view::includeOverrideFunctions('account', 'admin/views.php');
-
 /**
  * Class account_admin
  */
 class module extends account {
 
 
-    /**
-     * action
-     * /account/admin/delete
-     * @return type
-     */
-    /*
-    public function deleteAction() {
-
-        if (!session::checkAccess('super')) {
-            return;
-        }
-
-        template::setTitle(lang::translate('Delete account'));
-        $user = $this->getUser();
-
-        if (!empty($_POST['submit'])) {
-            $l->deleteUser();
-            http::locationHeader(
-                    '/account/admin/list', lang::translate('Account has been deleted'));
-        } else {
-            account_admin_views::delete($user);
-        }
-    }*/
 
     /**
      * list action
@@ -65,7 +37,6 @@ class module extends account {
         }
 
         $_GET = html::specialEncode($_GET);
-
         $this->searchAccount();
        
         if (isset($_GET['submit'])) {
@@ -75,7 +46,7 @@ class module extends account {
             
             if (!empty($res)) {
                 echo lang::translate('Found the following accounts');
-                account_admin_views::listUsers($res);
+                adminViews::listUsers($res);
                 echo "<hr />\n";
             } else {
                 echo lang::translate('I could not find any matching results');
@@ -88,7 +59,7 @@ class module extends account {
         $users = $this->getUsers($p->from);
         template::setTitle(lang::translate('Search for users'));
 
-        account_admin_views::listUsers($users);
+        adminViews::listUsers($users);
         
         echo $p->getPagerHTML();
     }
@@ -127,9 +98,9 @@ class module extends account {
         }
 
         if (!empty($user['url'])) {
-            account_admin_views::updateUrlUser($user);
+            adminViews::updateUrlUser($user);
         } else {
-            account_admin_views::updateEmailUser($user);
+            adminViews::updateEmailUser($user);
         }
     }
 
@@ -151,9 +122,6 @@ class module extends account {
         $this->id = (int) $this->uri->fragment(3);
     }
 
-    public static function test() {
-        echo "hello world";
-    }
 
     /**
      * get user id from URL
@@ -256,7 +224,7 @@ class module extends account {
 
 
     public function searchAccount() {
-        $v = new account_admin_views();
+        $v = new adminViews();
         $v->searchForm();
     }
 
@@ -282,15 +250,5 @@ class module extends account {
         $db = new db();
         $res = $db->update('account', $values, $this->id);
         return $res;
-    }
-
-    /**
-     * method for deleting a user
-     *
-     * @return int $res
-     */
-    public function deleteUser() {
-        $db = new db();
-        return $db->delete('account', 'id', $this->id);
     }
 }
