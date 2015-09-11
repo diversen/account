@@ -19,6 +19,7 @@ $LANG['Create account'] = 'Create account';
 $LANG['Email'] = 'Email';
 $LANG['Password'] = 'Password';
 $LANG['Repeat password'] = 'Repeat password';
+$LANG['Enter CAPTCHA string'] = 'Enter CAPTCHA string';
 $LANG['Send'] = 'Send';
 $LANG['Login'] = 'Login';
 $LANG['Let me stay logged in'] = 'Let me stay logged in';
@@ -50,8 +51,6 @@ $LANG['Login using facebook'] = 'Login using facebook';
 $LANG['Logout'] = 'Logout';
 // Translation of file modules/account/admin/module.php
 
-$LANG['Delete account'] = 'Delete account';
-$LANG['Account has been deleted'] = 'Account has been deleted';
 $LANG['Found the following accounts'] = 'Found the following accounts';
 $LANG['I could not find any matching results'] = 'I could not find any matching results';
 $LANG['Search for users'] = 'Search for users';
@@ -119,6 +118,7 @@ $LANG['Repeat new password'] = 'Repeat new password';
 $LANG['Send'] = 'Send';
 $LANG['Request new password'] = 'Request new password';
 $LANG['Email'] = 'Email';
+$LANG['Enter CAPTCHA string'] = 'Enter CAPTCHA string';
 // Translation of file modules/account/menu.inc
 
 $LANG['Email'] = 'Email';

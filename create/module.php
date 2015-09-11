@@ -84,7 +84,7 @@ class module extends account {
             $this->validatePasswords();
             
             // captcha
-            if (!captcha::checkCaptcha(trim($_POST['captcha']))){
+            if (!captcha::checkCaptcha()){
                 $this->errors['captcha'] = lang::translate('Incorrect answer to captcha test');
             }
         }

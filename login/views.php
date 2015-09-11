@@ -2,7 +2,6 @@
 
 namespace modules\account\login;
 
-use diversen\captcha;
 use diversen\conf;
 use diversen\html;
 use diversen\lang;
@@ -21,8 +20,8 @@ class views {
         html::password('password', null, $options);
         html::label('password2', lang::translate('Repeat password'), array('required' => 1));
         html::password('password2', null, $options);
-        html::label('captcha', captcha::createCaptcha());
-        html::text('captcha');
+        html::label('captcha', lang::translate('Enter CAPTCHA string'), array ('required' => true));
+        html::captcha();
         html::label('submit', '');
         html::submit('submit', lang::translate('Send'));
         html::formEnd();

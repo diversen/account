@@ -30,8 +30,8 @@ class views {
         html::legend( lang::translate('Request new password') );
         html::label('email', lang::translate('Email'), array('required' => 1));
         html::text('email');
-        html::label('captcha', captcha::createCaptcha());
-        html::text('captcha');
+        html::label('captcha', lang::translate('Enter CAPTCHA string'), array ('required' => true));
+        html::captcha();
         html::label('submit', '');
         html::submit('submit', lang::translate('Send'));
         html::formEnd();

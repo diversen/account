@@ -55,7 +55,7 @@ class module extends account {
      * method for validating input
      */
     public function validate() {
-        if (!captcha::checkCaptcha(trim($_POST['captcha']))) {
+        if (!captcha::checkCaptcha()) {
             $this->errors['captcha'] = lang::translate('Wrong answer to captcha test');
         }
 
