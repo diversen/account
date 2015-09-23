@@ -194,10 +194,12 @@ class module extends account {
                 $md5_key
         );
 
-        if ($this->sendVerifyMail($_POST['email'], $last_insert_id, $md5_key)){
+        $res = $this->sendVerifyMail($_POST['email'], $last_insert_id, $md5_key);
+        if ($res){
             db::$dbh->commit();
             return $last_insert_id;
         } else {
+            $this->errors[] = lang::translate('We could not send email. Try again later');
             db::$dbh->rollBack();
             return 0;
         }
@@ -255,7 +257,8 @@ class module extends account {
 
         $message = $this->getWelcomeMail($vars);
         $from = conf::$vars['coscms_main']['site_email'];
-        return mailer::multipart($email, $subject, $message, $from);
+        $res = mailer::multipart($email, $subject, $message, $from);
+        return $res;
     }
     
     /**

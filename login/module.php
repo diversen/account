@@ -115,9 +115,13 @@ class module extends account {
             $_POST = html::specialEncode($_POST);
             $l->validate();
             if (empty($l->errors)) {
-                $l->createUser();
+                $res = $l->createUser();
+                if ($res) {
                 http::locationHeader(
                         '/account/login/index', lang::translate('Account has been created. Visit your email box and press the verification link.'));
+                } else {
+                    html::errors($l->errors);
+                }
             } else {
                 html::errors($l->errors);
             }
