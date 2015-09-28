@@ -88,5 +88,6 @@ $LANG['Email already exists'] = 'Email eksisterer allerede';
 $LANG['That is not a valid email'] = 'Ikke en gyldig email';
 $LANG['Incorrect answer to captcha test'] = 'Ikke et korrekt svar til CAPTCHA testen';
 $LANG['Emails does not match'] = 'Email matcher ikke';
+$LANG['We could not send email. Try again later'] = 'Vi kunne ikke sende e-mail. Prøv igen senere';
 $LANG['Account created'] = 'Konto oprettet';
 $LANG['Wrong validation key on account creation'] = 'Forkert validerings nøgle';

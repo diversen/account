@@ -147,5 +147,6 @@ $LANG['Incorrect answer to captcha test'] = 'Incorrect answer to captcha test';
 $LANG['Password needs to be 7 chars'] = 'Password needs to be 7 chars';
 $LANG['Passwords does not match'] = 'Passwords does not match';
 $LANG['Emails does not match'] = 'Emails does not match';
+$LANG['We could not send email. Try again later'] = 'We could not send email. Try again later';
 $LANG['Account created'] = 'Account created';
 $LANG['Wrong validation key on account creation'] = 'Wrong validation key on account creation';
