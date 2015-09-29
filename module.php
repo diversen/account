@@ -193,7 +193,8 @@ class module {
             } else {
                 $location = self::getDefaultLoginRedirect();
             }
-            http::locationHeader($location);
+            $message = session::getActionMessage();
+            http::locationHeader($location, $message);
         }
     }
 
