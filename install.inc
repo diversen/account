@@ -7,7 +7,7 @@ lang::translate('account'); // for main menu translation
 
 $account_default_url =  conf::getModuleIni('account_default_url');
 $account_link_auth =    conf::getModuleIni('account_link_auth');
-$account_allow_edit =   conf::GetModuleIni('account_allow_edit');
+
 
 if (!$account_default_url){
     $account_default_url = "/account/login/index";
@@ -37,7 +37,7 @@ $_INSTALL['MAIN_MENU_ITEMS'][1] = array (
     'parent' => 0,
     'weight' => 1,
     'section' => 'account',
-    'auth' => $account_allow_edit,
+    'auth' => 'super',
     'admin_only' => 1
 );
 
