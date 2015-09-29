@@ -2,6 +2,7 @@
 
 $LANG = array();
 
+$LANG['You are logged in'] = 'Du er logget ind';
 $LANG['Account needs to be verified before you may log in'] = 'Konto skal verificeres før du kan logge ind';
 $LANG['Main account is of this type: '] = 'Hovedkonto er af denne type:';
 $LANG['This account has been locked'] = 'Konto er låst';

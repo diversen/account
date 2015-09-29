@@ -4,6 +4,7 @@ $LANG = array();
 
 // Translation of file modules/account/module.php
 
+$LANG['You are logged in'] = 'You are logged in';
 $LANG['Account needs to be verified before you may log in'] = 'Account needs to be verified before you may log in';
 $LANG['Main account is of this type: '] = 'Main account is of this type: ';
 $LANG['This account has been locked'] = 'This account has been locked';
