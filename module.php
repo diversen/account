@@ -179,7 +179,7 @@ class module {
      * examines latest $_SESSION['redirect_on_login']
      * @param string $url 
      */
-    public static function redirectOnLogin($url = null) {
+    public function redirectOnLogin($url = null) {
 
         // if session return_to has been set we will use this as redirect 
         // else redirect to URL given or if null redirect to default account url
@@ -193,7 +193,7 @@ class module {
             } else {
                 $location = self::getDefaultLoginRedirect();
             }
-            $message = session::getActionMessage();
+            $message = lang::translate('You are logged in');
             http::locationHeader($location, $message);
         }
     }
