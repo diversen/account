@@ -9,6 +9,6 @@ use diversen\lang;
         
 <?=lang::translate('In order to activate your account, you just have to press the following link or copy and paste into your browsers URL line')?>. 
 
-<?=$vars['verify_key']?>
+<?=$vars['verify_key']?> 
 
 <?=lang::translate('Kind Regards')?> <?=$vars['site_name']?>

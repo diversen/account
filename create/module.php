@@ -12,7 +12,7 @@ use diversen\html;
 use diversen\db;
 use diversen\http;
 use diversen\lang;
-use diversen\mailer;
+use diversen\mailsmtp;
 use diversen\random;
 use diversen\strings\mb;
 use diversen\template;
@@ -256,9 +256,14 @@ class module extends account {
         $vars['user_id'] = $user_id;
 
         $message = $this->getWelcomeMail($vars);
-        $from = conf::$vars['coscms_main']['site_email'];
-        $res = mailer::multipart($email, $subject, $message, $from);
-        return $res;
+        $text = $html = null;
+        if (isset($message['txt'])) {
+            $text = $message['txt'];
+        }
+        if (isset($message['html'])) {
+            $html = $message['html'];
+        } 
+        return mailsmtp::mail($email, $subject, $text, $html);
     }
     
     /**

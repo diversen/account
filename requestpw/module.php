@@ -11,13 +11,14 @@ use diversen\db;
 use diversen\html;
 use diversen\http;
 use diversen\lang;
-use diversen\mailer;
+use diversen\mailsmtp;
 use diversen\random;
 use diversen\session;
 use diversen\strings\mb;
 use diversen\template;
 use diversen\valid;
 use diversen\view;
+use diversen\conf;
 
 use modules\account\module as account;
 
@@ -121,7 +122,7 @@ class module extends account {
         $db->update('account', $values, $row['id']);
 
         $vars['user_id'] = $row['id'];
-        $vars['site_name'] = 'http://' . $_SERVER['HTTP_HOST'];
+        $vars['site_name'] = conf::getSchemeWithServerName();
         $subject = lang::translate('Create new password for site') . " " . $vars['site_name'];
 
         // allow class to be used in other setups
@@ -137,9 +138,13 @@ class module extends account {
         }
 
         $message = $this->getRequestMail($vars);
-
-        $res = mailer::multipart($row['email'], $subject, $message);
-        return $res;
+        if (isset($message['txt'])) {
+            $text = $message['txt'];
+        }
+        if (isset($message['html'])) {
+            $html = $message['html'];
+        }
+        return mailsmtp::mail($email, $subject, $text, $html);
     }
 
     /**
