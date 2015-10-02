@@ -16,7 +16,7 @@ class views {
     * @param array row to use when updating a user
     */
     public static function updateEmailUser ($values){
-        echo "ARGH";
+
         if (!isset($_POST['submit'])){
             $values['password'] = '';
             $values['password2'] = '';
