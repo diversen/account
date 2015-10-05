@@ -20,7 +20,6 @@ $_INSTALL['MAIN_MENU_ITEMS'][0] = array (
     'module_name' => 'account',
     'parent' => 0,
     'weight' => 1,
-    'section' => 'account',
     'auth' => 'anon'
 );
 
@@ -41,8 +40,6 @@ $_INSTALL['MAIN_MENU_ITEMS'][1] = array (
     'admin_only' => 1
 );
 
-
-
 if (conf::getModuleIni('account_logout_link')) {
     $_INSTALL['MAIN_MENU_ITEMS'][] = array(
         'title' => lang::translate('Logout', null, array('no_translate' => true)),
@@ -53,4 +50,3 @@ if (conf::getModuleIni('account_logout_link')) {
 	'auth' => 'user'
     );
 }
-
