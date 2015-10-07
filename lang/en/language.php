@@ -81,9 +81,6 @@ $LANG['Delete'] = 'Delete';
 $LANG['Search accounts'] = 'Search accounts';
 $LANG['Search account ID'] = 'Search account ID';
 $LANG['Search'] = 'Search';
-// Translation of file modules/account/admin/menu.inc
-
-$LANG['Search for users'] = 'Search for users';
 // Translation of file modules/account/github/module.php
 
 $LANG['Log in or Log out'] = 'Log in or Log out';
