@@ -167,7 +167,9 @@ class module extends account {
             return $row;
         }
         $row = $this->checkVerified($row);
-        $row = $this->checkLocked($row);
+        if (!empty($row)) {
+            $row = $this->checkLocked($row);
+        }
         return $row;
     }
 
