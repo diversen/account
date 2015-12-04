@@ -59,8 +59,12 @@ class module {
         session_regenerate_id(true);
 
         $_SESSION = array();
+        
+        // If is GET redirect. 
         if (isset($_GET['redirect']) && !empty($_GET['redirect'])) {
             $redirect = $_GET['redirect'];
+        } elseif (conf::getModuleIni('account_redirect_logout')) {
+            $redirect = conf::getModuleIni('account_redirect_logout');
         } else {
             $redirect = $this->getDefaultLoginRedirect();
         }
