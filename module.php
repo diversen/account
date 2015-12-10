@@ -160,7 +160,7 @@ class module {
             session::setActionMessage(rawurldecode(html::specialEncode($_GET['message'])));
         }
         
-        $account_default = conf::getMainIni('account_default_url');
+        $account_default = conf::getModuleIni('account_default_url'); 
         if (!isset($account_default)) {
             $account_default = '/account/login/index';
         }
