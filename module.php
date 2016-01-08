@@ -15,19 +15,19 @@ use diversen\user;
 use modules\account\config;
 
 /**
- * class account 
+ * class account
  */
 class module {
 
     /**
      * var holding errors
-     * @var array $errors 
+     * @var array $errors
      */
     public $errors = array();
 
     /**
      * var holding options
-     * @var type 
+     * @var type
      */
     public $options = array(
         'unique_email' => 1
@@ -40,7 +40,7 @@ class module {
     public $status = '';
 
     /**
-     * 
+     *
      * @param array $options
      */
     public function __construct($options = array()) {
@@ -48,19 +48,20 @@ class module {
     }
 
     /**
-     * Logout action 
+     * Logout action
      * Logout when going to URL  /account/logout
      *
      * this calls $this->doLogout();
      */
     public function logoutAction() {
 
+        
         session::killSession();
         session_regenerate_id(true);
 
         $_SESSION = array();
-        
-        // If is GET redirect. 
+
+        // If is GET redirect.
         if (isset($_GET['redirect']) && !empty($_GET['redirect'])) {
             $redirect = $_GET['redirect'];
         } elseif (conf::getModuleIni('account_redirect_logout')) {
@@ -74,7 +75,7 @@ class module {
     /**
      * set value of $this->options['keep_session']
      * needs to be set before login.
-     * @param boolean $bool true if we want to set persistent cookie. 
+     * @param boolean $bool true if we want to set persistent cookie.
      */
     public function setPersistentCookie($bool = true) {
         if ($bool) {
@@ -96,9 +97,9 @@ class module {
     /**
      * Allow non verified accounts. Direct login with an email without
      * a verified account
-     * @param boolean $bool if false we accept non verified accounts. 
+     * @param boolean $bool if false we accept non verified accounts.
      *                      If set to true
-     *                
+     *
      */
     public function setAcceptNonVerifiedAccount($bool = true) {
         if ($bool) {
@@ -120,7 +121,7 @@ class module {
      * sets session and system cookie on login
      * we know user is authenticated and all we need is to set
      * the SESSION and system cookies.
-     * 
+     *
      * @param array $account
      */
     public function setSessionAndCookie($account, $type = 'email') {
@@ -146,12 +147,12 @@ class module {
     }
 
     /**
-     * 
-     * account/index action 
+     *
+     * account/index action
      */
     public function indexAction() {
 
-        // set a session var 
+        // set a session var
         if (isset($_GET['return_to'])) {
             $_SESSION['return_to'] = rawurldecode($_GET['return_to']);
         }
@@ -159,18 +160,18 @@ class module {
         if (isset($_GET['message'])) {
             session::setActionMessage(rawurldecode(html::specialEncode($_GET['message'])));
         }
-        
-        $account_default = conf::getModuleIni('account_default_url'); 
+
+        $account_default = conf::getModuleIni('account_default_url');
         if (!isset($account_default)) {
             $account_default = '/account/login/index';
         }
         http::locationHeader($account_default);
-        
-        
+
+
     }
 
     /**
-     * Method for redireting to default login url. The default URL is set 
+     * Method for redireting to default login url. The default URL is set
      * in the ini setting 'account_default_url'
      */
     public static function redirectDefault() {
@@ -181,11 +182,11 @@ class module {
     /**
      * checks if we need to redirect to aspecified URL on login
      * examines latest $_SESSION['redirect_on_login']
-     * @param string $url 
+     * @param string $url
      */
     public function redirectOnLogin($url = null) {
 
-        // if session return_to has been set we will use this as redirect 
+        // if session return_to has been set we will use this as redirect
         // else redirect to URL given or if null redirect to default account url
         if (isset($_SESSION['return_to'])) {
             $redirect = $_SESSION['return_to'];
@@ -203,7 +204,7 @@ class module {
     }
 
     /**
-     * if redirect_login is set we use this as default redirect. 
+     * if redirect_login is set we use this as default redirect.
      * if not we redirect to the default account url
      * @return string $location
      */
@@ -236,7 +237,7 @@ class module {
     /**
      * auth from md5 key
      * @param string $md5
-     * @return boolean true on success and false on failure 
+     * @return boolean true on success and false on failure
      */
     public function authFromMd5($md5) {
         $db = new db();
@@ -309,9 +310,9 @@ class module {
     }
 
     /**
-     * method for checking if auth row is verified. 
+     * method for checking if auth row is verified.
      * @param array $row
-     * @return array $row original row or empty array if we don't allow non 
+     * @return array $row original row or empty array if we don't allow non
      *                    verified accounts
      */
     public function checkVerified($row) {
@@ -325,7 +326,7 @@ class module {
     }
 
     /**
-     * 
+     *
      * @param row $row
      * @return row $row
      */
