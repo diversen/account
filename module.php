@@ -55,12 +55,27 @@ class module {
      */
     public function logoutAction() {
 
+        $this->killSession();
+        $redirect = $this->getLogoutRedirect();
+        http::locationHeader($redirect);
+    }
+    
+    /**
+     * Kill session
+     */
+    public function killSession () {
         
         session::killSession();
         session_regenerate_id(true);
-
         $_SESSION = array();
 
+    } 
+    
+    /**
+     * Get logout redirect
+     * @return string $redirect
+     */
+    public function getLogoutRedirect () {
         // If is GET redirect.
         if (isset($_GET['redirect']) && !empty($_GET['redirect'])) {
             $redirect = $_GET['redirect'];
@@ -69,7 +84,7 @@ class module {
         } else {
             $redirect = $this->getDefaultLoginRedirect();
         }
-        http::locationHeader($redirect);
+        return $redirect;
     }
 
     /**

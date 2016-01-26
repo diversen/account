@@ -156,7 +156,6 @@ class module extends account {
             $this->doLogin($account);
         }
 
-
         // does any account wth this email exist - check main accounts
         $account = $this->getUserFromEmail($search['email']);
         $this->checkAccountFlags($account);
@@ -165,7 +164,7 @@ class module extends account {
             return;
         }
         
-        // if account exists we auto merge because we trust
+        // If account exists we auto merge because we trust
         // a verified google email
         // create a sub account
         if (!empty($account)) {
@@ -174,10 +173,9 @@ class module extends account {
                 $this->doLogin($account);
                 return;
             } else {
-                echo html::getError(lang::translate('Something really weird happened. TRy again!'));
+                echo html::getError(lang::translate('We could not merge accounts. Try again later.'));
                 return;
-            }
-            
+            } 
         }
 
         $search['md5_key'] =random::md5();
