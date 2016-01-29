@@ -89,7 +89,7 @@ $LANG['Your google email needs to be verified'] = 'Your google email needs to be
 $LANG['Could not get google client access token. Try again later.'] = 'Could not get google client access token. Try again later.';
 $LANG['Log in or Log out'] = 'Log in or Log out';
 $LANG['Google login'] = 'Google login';
-$LANG['Something really weird happened. TRy again!'] = 'Something really weird happened. TRy again!';
+$LANG['We could not merge accounts. Try again later.'] = 'We could not merge accounts. Try again later.';
 // Translation of file modules/account/menu.inc
 
 $LANG['Email'] = 'Email';
