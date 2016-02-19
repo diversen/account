@@ -144,6 +144,7 @@ class module extends account {
         if (isset($message['html'])) {
             $html = $message['html'];
         }
+
         return mailsmtp::mail($email, $subject, $text, $html);
     }
 
@@ -271,9 +272,7 @@ class module extends account {
                 $request->validatePasswordFromPost();
                 if (empty($request->errors)) {
                     if ($request->setNewPassword()) {
-                        session::setActionMessage(
-                                lang::translate('New password has been saved')
-                        );
+                        session::setActionMessage(lang::translate('New password has been saved'));
                         http::locationHeader('/account/login/index');
                     }
                 } else {
@@ -308,16 +307,17 @@ class module extends account {
         template::setTitle(lang::translate('Request new password'));
 
         http::prg();
-        $request = new self();
+        //$request = new self();
         if (isset($_POST['submit'])) {
-            $request->sanitize();
-            $request->validate();
+            $this->sanitize();
+            $this->validate();
 
-            if (empty($request->errors)) {
-                $mail_sent = $request->requestPassword($_POST['email']);
+            if (empty($this->errors)) {
+                $mail_sent = $this->requestPassword($_POST['email']);
                 if ($mail_sent) {
+
                     session::setActionMessage(
-                            lang::translate('Visit your mailbox and follow instructions in order to get a new password'), true
+                            lang::translate('Visit your mailbox and follow instructions in order to get a new password')
                     );
 
                     http::locationHeader('/account/login/index');
@@ -327,7 +327,7 @@ class module extends account {
                     return;
                 }
             } else {
-                echo html::getErrors($request->errors);
+                echo html::getErrors($this->errors);
             }
         }
 
