@@ -21,7 +21,7 @@ use diversen\user;
 
 use modules\account\config;
 use modules\account\module as account;
-use modules\account\views as accountViews;
+use modules\account\views as viewsAccount;
 
 /**
  * contains class for logging in with github api
@@ -127,7 +127,7 @@ class module extends account {
             $this->displayLogout();   
         } else {
             $this->login();
-            echo "<br /><br />" . accountViews::getTermsLink();
+            echo "<br /><br />" . viewsAccount::getTermsLink();
         }
     }
 

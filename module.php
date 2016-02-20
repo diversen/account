@@ -15,7 +15,7 @@ use diversen\user;
 use modules\account\config;
 
 /**
- * class account
+ * Account class
  */
 class module {
 
@@ -163,7 +163,7 @@ class module {
 
     /**
      *
-     * account/index action
+     * /account/index action
      */
     public function indexAction() {
 
@@ -182,20 +182,19 @@ class module {
         }
         http::locationHeader($account_default);
 
-
     }
 
     /**
      * Method for redireting to default login url. The default URL is set
      * in the ini setting 'account_default_url'
      */
-    public static function redirectDefault() {
-        $default = self::getDefaultLoginRedirect();
+    public function redirectDefault() {
+        $default = $this->getDefaultLoginRedirect();
         http::locationHeader($default);
     }
 
     /**
-     * checks if we need to redirect to aspecified URL on login
+     * Checks if we need to redirect to aspecified URL on login
      * examines latest $_SESSION['redirect_on_login']
      * @param string $url
      */
@@ -211,7 +210,7 @@ class module {
             if ($url) {
                 $location = $url;
             } else {
-                $location = self::getDefaultLoginRedirect();
+                $location = $this->getDefaultLoginRedirect();
             }
             $message = lang::translate('You are logged in');
             http::locationHeader($location, $message);
@@ -219,11 +218,11 @@ class module {
     }
 
     /**
-     * if redirect_login is set we use this as default redirect.
+     * If redirect_login is set we use this as default redirect.
      * if not we redirect to the default account url
      * @return string $location
      */
-    public static function getDefaultLoginRedirect() {
+    public function getDefaultLoginRedirect() {
 
         if (conf::getModuleIni('account_redirect_login')) {
             $location = conf::getModuleIni('account_redirect_login');
@@ -237,7 +236,7 @@ class module {
     }
 
     /**
-     * get account from id
+     * Get account from id
      * @param int $id
      * @return array $row
      */
@@ -336,12 +335,12 @@ class module {
         } else {
             $this->errors['not_verified'] = lang::translate('Account needs to be verified before you may log in');
             $this->errors['type'] = lang::translate('Main account is of this type: ') . $row['type'];
-            return array();
+            return [];
         }
     }
 
     /**
-     *
+     * Checks if account is logged
      * @param row $row
      * @return row $row
      */

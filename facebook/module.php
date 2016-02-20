@@ -28,7 +28,7 @@ view::includeOverrideFunctions('account', 'facebook/views.php');
 
 use modules\account\module as account;
 use modules\account\facebook\views as account_facebook_views;
-use modules\account\views as accountViews;
+use modules\account\views as viewsAccount;
 use modules\account\config;
 
 class module extends account {
@@ -287,7 +287,7 @@ class module extends account {
             $scope =$this->getScope();
             $login_url = $helper->getLoginUrl(array('scope' => $scope));
             account_facebook_views::loginLink ($login_url);
-            echo "<br /><br />" . accountViews::getTermsLink();
+            echo "<br /><br />" . viewsAccount::getTermsLink();
         }
         return;
     }

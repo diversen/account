@@ -8,6 +8,9 @@ use diversen\lang;
 
 class views {
     
+    /**
+     * Create form
+     */
     public static function formCreate () {
         $options = array ();
         html::$autoLoadTrigger = 'submit';
@@ -25,10 +28,14 @@ class views {
         html::label('submit', '');
         html::submit('submit', lang::translate('Send'));
         html::formEnd();
-        echo html::getStr();
+        return html::getStr();
     }
     
-    public static function formLogin ($vars = null) {
+    /**
+     * Form login
+     * @param array $errors
+     */
+    public static function formLogin ($errors = array()) {
 
         if (!isset($_POST['submit_account_login'])){
             $init = array ('keep_session' => 'on');
@@ -36,8 +43,8 @@ class views {
             $init = html::specialEncode($_POST);
         }
 
-        if (isset($vars['errors'])) {
-            html::errors($vars['errors']);
+        if (!empty($errors)) {
+            echo html::getErrors($errors);
         }
 
         html::$autoLoadTrigger = 'submit_account_login';
@@ -57,6 +64,9 @@ class views {
         echo html::getStr();
     }
     
+    /**
+     * Kepp session form part
+     */
     public static function keepSession () {
 
         $keep_session_label = lang::translate('Let me stay logged in');
@@ -68,6 +78,5 @@ class views {
         }            
         html::label('keep_session', $keep_session_label);
         html::checkbox('keep_session');
-
     }
 }

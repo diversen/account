@@ -21,7 +21,7 @@ use Google_Service_Oauth2;
 moduleloader::includeModule('account');
 
 use modules\account\module as account;
-use modules\account\views as accountViews;
+use modules\account\views as viewsAccount;
 use modules\account\config;
 
 /**
@@ -132,7 +132,7 @@ class module extends account {
             $authUrl = $client->createAuthUrl();
 
             echo html::createLink($authUrl, lang::translate('Google login'));
-            echo "<br /><br />" . accountViews::getTermsLink();
+            echo "<br /><br />" . viewsAccount::getTermsLink();
             
         }
         return;

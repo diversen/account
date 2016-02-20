@@ -6,31 +6,28 @@ use diversen\db;
 use diversen\html;
 use diversen\http;
 use diversen\lang;
-use diversen\moduleloader;
 use diversen\session;
 use diversen\strings\mb;
 use diversen\template;
-use diversen\view;
 
-use modules\account\views as accountViews;
+use modules\account\views as viewsAccount;
 use modules\account\module as account;
-use modules\account\login\views as account_login_views;
-use modules\account\create\module as account_create;
-
+use modules\account\login\views as viewsLogin;
+use modules\account\create\module as accountCreate;
 use modules\account\requestpw\module as requestpw;
 
-//moduleloader::includeModule('account');
-view::includeOverrideFunctions('account', 'login/views.php');
-
+/**
+ * Class for logging in users with email and password, and letting the request
+ * new password
+ */
 class module extends account {
 
     /**
-     * constructs accountLogin object.
-     * set options 
-     * @param array $options. Options can be:
-     *              redirect on login:            'redirect' => '/path/to/redirect'
-     *              accept accounts not verified: 'verified' => false
-     *              keep session in system cookie 'keep_session => true
+     * Constructor. Sets options
+     * @param array $options  array ('redirect' => '/path/to/redirect', 'verified' => false, 'keep_session' => true)
+     *              Set redirect after login
+     *              Accept accounts that are not verified: 
+     *              Keep session in system cookie, so that user statys logged in when browser is closed 
      *                          
      */
     public function __construct($options = null) {
@@ -38,41 +35,7 @@ class module extends account {
     }
 
     /**
-     * method for doing a login from default $_POST values
-     * what will be done depends on $this->options['redirect']
-     * @return void|boolean $res true if no redirect is performed
-     *                            void if redirect is set: will direct to set value
-     *                                 or: redirect to default login url 
-     */
-    public function login() {
-        if (isset($_POST['email']) && isset($_POST['password'])) {
-            $account = $this->auth($_POST['email'], $_POST['password']);
-            if (!empty($account)) {
-                $this->setSessionAndCookie($account);
-                return $this->redirect();
-            }
-        }
-    }
-
-    /**
-     * redirect after valid email login
-     * @return boolean|void $res true if we don't redirect
-     *                            void if we redirect
-     */
-    public function redirect() {
-        if (isset($this->options['redirect']) && ($this->options['redirect'] === false)) {
-            return true;
-        }
-
-        if (isset($this->options['redirect'])) {
-            $this->redirectOnLogin($this->options['redirect']);
-        } else {
-            $this->redirectOnLogin();
-        }
-    }
-
-    /**
-     * default page action to be performed on /account/login/index page
+     * Default page action to be performed on /account/login/index page
      * only verified users, check for keep session
      */
     public function indexAction() {
@@ -80,101 +43,100 @@ class module extends account {
 
         http::prg();
         template::setTitle(lang::translate('Log in or Log out'));
-
-        $options = array();
-
-        // check if we want to keep session
+        
+       
+        // Check if we want to keep session
         if (isset($_POST['keep_session']) && $_POST['keep_session'] == 1) {
             $this->options['keep_session'] = 1;
         }
 
-        //$login = new account_login($options);
-        $this->displayLogin();
+        // Is is logged in
+        if (session::isUser()) {         
+            $this->displayLogout();
+            return;
+        }
+        
+        // POST request sent
+        if (isset($_POST['email']) && isset($_POST['password'])) {     
+            $account = $this->auth($_POST['email'], $_POST['password']);
+            if (!empty($account)) {
+                $this->setSessionAndCookie($account);
+                $this->redirectOnLogin();
+                return;
+            }
+        }
+        
+        viewsLogin::formLogin($this->errors); 
     }
     
+    /**
+     * Request password option
+     */
     public function requestpwAction () {
         $rp = new requestpw();
         $rp->indexAction();
     }
 
+    /**
+     * /account/login/create action
+     * @return void
+     */
     public function createAction() {
 
-        /**
-         * controller file for creating a user
-         */
         http::prg();
 
-        moduleloader::includeModule('account/create');
         if (!session::checkAccessFromModuleIni('account_allow_create')) {
             return;
         }
 
         template::setTitle(lang::translate('Create Account'));
-        $l = new account_create();
+        $l = new accountCreate();
         if (!empty($_POST['submit'])) {
             $_POST = html::specialEncode($_POST);
             $l->validate();
             if (empty($l->errors)) {
                 $res = $l->createUser();
                 if ($res) {
-                http::locationHeader(
-                        '/account/login/index', lang::translate('Account has been created. Visit your email box and press the verification link.'));
+                    http::locationHeader(
+                        '/account/login/index', 
+                        lang::translate('Account has been created. Visit your email box and press the verification link.'));
                 } else {
-                    html::errors($l->errors);
+                    echo html::getErrors($l->errors);
                 }
             } else {
-                html::errors($l->errors);
+                echo html::getErrors($l->errors);
             }
         }
 
-        account_login_views::formCreate();
-        echo accountViews::getTermsLink();
+        echo viewsLogin::formCreate();
+        echo viewsAccount::getTermsLink();
     }
 
-    /**
-     * method for controlling email login 
-     * this uses default controller found at 
-     * 
-     */
-    public function displayLogin() {
-        $this->login();
-        if (session::isUser()) {
-
-            $this->displayLogout();
-            // submission has taking place but no redirect.     
-        } elseif (isset($_POST['submit_account_login'])) {
-
-            $this->errors[] = lang::translate('Not a correct email or password');
-            $vars['errors'] = $this->errors;
-            account_login_views::formLogin($vars);
-
-            // no submission
-        } else {
-            account_login_views::formLogin();
-        }
-    }
 
     /**
-     * method for authorizing a user
-     *
-     * @param   string  $email
-     * @param   string  $password 
-     * @return  array|0 row with user creds on success, 0 if not
+     * Method for authorizing a user, check if verified, and check if locked
+     * @param string $email
+     * @param string $password 
+     * @return array $row with user account, empty if error has been reported
      */
     public function auth($email, $password = null) {
         $row = $this->authGetAccount($email, $password);
         if (empty($row)) {
-            return $row;
+            $this->errors[] = lang::translate('Not a correct email or password');
+            return [];
         }
+
         $row = $this->checkVerified($row);
-        if (!empty($row)) {
-            $row = $this->checkLocked($row);
+        if (empty($row)) {
+            return [];
         }
-        return $row;
+
+        return $this->checkLocked($row);
+
     }
 
     /**
-     * get an account from password and email
+     * Get an account from password and email
      * @param string $email
      * @param string $password
      * @return array $row
@@ -191,5 +153,4 @@ class module extends account {
         $row = $db->selectOne('account', null, $search);
         return $row;
     }
-
 }
