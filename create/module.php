@@ -10,6 +10,7 @@ use diversen\captcha;
 use diversen\conf;
 use diversen\html;
 use diversen\db;
+use diversen\db\q;
 use diversen\http;
 use diversen\lang;
 use diversen\mailsmtp;
@@ -158,7 +159,7 @@ class module extends account {
      * @return int $last_insert_id
      */
     public function createDbUser ($email, $password, $md5_key) {
-
+        
         $values = 
             array('username'=> mb::tolower($email),
                   'password' => md5($password),
@@ -167,15 +168,12 @@ class module extends account {
                   'type' => 'email');
         
         $db = new db();
-        $db->insert('account', $values);
-        $last_insert_id = db::$dbh->lastInsertId();
+        return $db->insert('account', $values);
         
-        config::onCreateUser($last_insert_id);
-        return $last_insert_id;
     }
 
     /**
-     * method for creating an email user from POST
+     * Method for creating an email user from POST
      * we need a $_POST['email'] and a $_POST['password']
      * Calls $this->sendVerify email
      * @return int $res last insert id on success or 0 on failure
@@ -183,33 +181,40 @@ class module extends account {
     public function createUser (){
                 
         $_POST['email'] = mb::tolower($_POST['email']);
-        
-        // enter decoded values
         $_POST = html::specialDecode($_POST);
-        db::$dbh->beginTransaction();        
+               
         $md5_key = random::md5();
-        $last_insert_id = $this->createDbUser(
+        
+        q::begin();
+        $res = $this->createDbUser(
                 $_POST['email'], 
                 $_POST['password'], 
                 $md5_key
         );
-
-        $res = $this->sendVerifyMail($_POST['email'], $last_insert_id, $md5_key);
-        if ($res){
-            db::$dbh->commit();
-            return $last_insert_id;
+        
+        if ($res) {
+            $last_insert_id = q::lastInsertId();
         } else {
-            $this->errors[] = lang::translate('We could not send email. Try again later');
-            db::$dbh->rollBack();
-            return 0;
+            q::rollback();
+            $this->errors[] = lang::translate('We could not create user. Please try again later!');
+            return false;
         }
+        
+        $sent = $this->sendVerifyMail($_POST['email'], $last_insert_id, $md5_key);
+        if (!$sent) {
+            q::rollback();
+            $this->errors[] = lang::translate('We could not send an verification email. Try to create user later.');
+            return false;
+        } else {
+            if (!q::commit()) {
+                $this->errors[] = lang::translate('We could not create user. Please try again later!');
+                q::rollback();
+                return false;
+            }
+        }
+        return true;
     }
-    
-    /**
-     * var holding mailModule. set this with setSignupMail
-     * @var string $mailModule
-     */
-    public $mailModule = 'account';
+
     
     /**
      * var holding mailViews. set this with setSignupMail
@@ -218,26 +223,7 @@ class module extends account {
     public $mailViews = array (
         'txt' => 'mails/signup_message', 
         'html' => 'mails/signup_message_html');
-    
-    /**
-     * 
-     * @param string $module e.g. 'account_ext'
-     * @param array  $views e.g. array (
-     *                              'html' => 'mails/signup_message_html',
-     *                              'txt' => 'mails/signup_message',
-     */
-    public function setSignupMail ($module, $views = array ()) {
-        $this->mailModule = $module;
         
-        if (isset($views['txt'])) {
-            $this->mailViews['txt'] = $views['txt'];
-        }
-        
-        if (isset($views['html'])) {
-            $this->mailViews['html'] = $views['html'];
-        }
-    }
-    
     /**
      * send a verify email
      * @param type $email
@@ -248,22 +234,24 @@ class module extends account {
     public function sendVerifyMail ($email, $user_id, $md5) {
 
         $subject = lang::translate('Account created');
-        
-        $scheme = conf::getHttpScheme();
-        $vars['site_name'] = "$scheme://$_SERVER[HTTP_HOST]";
+
+        $vars['site_name'] = conf::getSchemeWithServerName();
         $subject.= " " . $vars['site_name'];
         $vars['verify_key'] = "$vars[site_name]/account/create/verify/$user_id/$md5";
         $vars['user_id'] = $user_id;
 
         $message = $this->getWelcomeMail($vars);
         $text = $html = null;
+        
         if (isset($message['txt'])) {
             $text = $message['txt'];
         }
         if (isset($message['html'])) {
             $html = $message['html'];
         } 
+        
         return mailsmtp::mail($email, $subject, $text, $html);
+
     }
     
     /**
@@ -283,10 +271,10 @@ class module extends account {
 
         // if a mail view == null then it is not added
         if (isset($this->mailViews['txt']) && $this->mailViews['txt'] != null) {
-            $message['txt'] = view::get($this->mailModule, $this->mailViews['txt'], $vars);
+            $message['txt'] = view::get('account', $this->mailViews['txt'], $vars);
         }
         if (isset($this->mailViews['html'])  && $this->mailViews['html'] != null) {
-            $message['html'] = view::get($this->mailModule, $this->mailViews['html'], $vars);
+            $message['html'] = view::get('account', $this->mailViews['html'], $vars);
         }
         return $message;
     }
