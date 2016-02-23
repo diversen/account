@@ -217,18 +217,18 @@ class module extends account {
 
     
     /**
-     * var holding mailViews. set this with setSignupMail
-     * @var type 
+     * var holding default mailViews
+     * @var array
      */
     public $mailViews = array (
         'txt' => 'mails/signup_message', 
         'html' => 'mails/signup_message_html');
         
     /**
-     * send a verify email
-     * @param type $email
-     * @param type $user_id
-     * @param type $md5
+     * Send a verify email
+     * @param string $email
+     * @param int $user_id
+     * @param string $md5
      * @return boolean $res 
      */
     public function sendVerifyMail ($email, $user_id, $md5) {
