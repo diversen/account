@@ -94,7 +94,7 @@ class module extends account {
                 return;
             }
             
-            // auth
+            // Auth
             $values = array (
                 'email' => mb::tolower($info->email),
                 'url' => $info->link,  
@@ -123,7 +123,6 @@ class module extends account {
         $login = new self();
         $login->setAcceptUniqueOnlyEmail(true);
         
-        
         if (session::isUser()){
             $this->displayLogout();    
         } else {
@@ -137,14 +136,11 @@ class module extends account {
         }
         return;
     }
-
-
-
     
     /**
      * method for authorizing a user
      *
-     * @param   string  $array ('email', 'verifiedEmail', 'link') 
+     * @param   string  $search ('email', 'verifiedEmail', 'link') 
      *                  array ('verified' => false', 'md5_password' => true) // if you don't require
      *                  the login creds to be verified. 
      * @return  array|0 row with user creds on success, 0 if not
@@ -154,6 +150,7 @@ class module extends account {
         $account = $this->googleAccountExist($search);        
         if (!empty($account)) {
             $this->doLogin($account);
+            return;
         }
 
         // does any account wth this email exist - check main accounts
