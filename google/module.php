@@ -121,6 +121,10 @@ class module extends account {
         return;        
     }
     
+    /**
+     * /account/google/index action
+     * @return void
+     */
     public function indexAction() {
 
         template::setTitle(lang::translate('Log in or Log out'));
@@ -158,14 +162,14 @@ class module extends account {
      */
     public function auth($search) {
 
-        // Account exists. Login
+        // Google ccount exists. Login
         $account = $this->googleAccountExist($search);        
         if (!empty($account)) {
             $this->doLogin($account);
             return;
         }
 
-        // does any account wth this email exist - check main accounts
+        // Does any account with this email exist - check main accounts
         $account = $this->getUserFromEmail($search['email']);
         $this->checkAccountFlags($account);
         if (!empty($this->errors)) {
@@ -186,6 +190,8 @@ class module extends account {
             } 
         }
 
+        // Account does not exists - but is authorized.
+        // Create account
         $search['md5_key'] =random::md5();
         $search['verified'] = 1;
         $search['type'] = 'google';
