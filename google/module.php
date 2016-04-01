@@ -46,6 +46,10 @@ class module extends account {
         );
     } 
     
+    /**
+     * Creates a new google client for auth
+     * @return Google_Client
+     */
     public function getGoogleClient () {
         
         $client = new Google_Client();
@@ -53,28 +57,35 @@ class module extends account {
         $client->setClientId(conf::getModuleIni('account_google_id'));
         $client->setClientSecret(conf::getModuleIni('account_google_secret'));
         $client->setRedirectUri(conf::getModuleIni('account_google_redirect'));
-        //https://www.googleapis.com/auth/plus.login
-        //$scope = "https://www.googleapis.com/auth/plus.me";
-        $scope = 'https://www.googleapis.com/auth/userinfo.email';
-        //$scope = 'email';
+
+        // Check for a scope in ini settings
+        $scope = conf::getModuleIni('account_google_scope');
+        if (!$scope) {
+            $scope = 'userinfo.email';
+        }
+        
+        $scope = "https://www.googleapis.com/auth/$scope";
         $client->setScopes($scope);
-        //$client->setScopes("https://www.googleapis.com/auth/plus.login");
         return $client;
     }
     
     
     /**
-     * set access token
+     * /account/google/redirect redirect action after return from google
      */
     public function redirectAction () {
        
         $client = $this->getGoogleClient();
+        
+        // If isset code - authenticate and set access token
+        // Redirect back
         if (isset($_GET['code'])) {
             $client->authenticate($_GET['code']);
             $_SESSION['access_token'] = $client->getAccessToken();
             http::locationHeader('/account/google/redirect');
         } 
 
+        // Set access token
         if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
             $client->setAccessToken($_SESSION['access_token']);
         } else {
@@ -82,12 +93,13 @@ class module extends account {
             http::locationHeader('/account/google/index');
         }
 
-        // get info
+        // Get info
         if ($client->getAccessToken()) {
             $plus = new Google_Service_Oauth2($client);
             $info = $plus->userinfo->get();
             $_SESSION['access_token'] = $client->getAccessToken();
             
+            // Check for email and verifiedEmail
             if (!isset($info->verifiedEmail) || $info->verifiedEmail != 1) {
                 $this->errors[]= lang::translate('Your google email needs to be verified');
                 echo html::getErrors($this->errors);
@@ -138,15 +150,15 @@ class module extends account {
     }
     
     /**
-     * method for authorizing a user
-     *
-     * @param   string  $search ('email', 'verifiedEmail', 'link') 
+     * Authorize user
+     * @param   array  $search ('email', 'verifiedEmail', 'link') 
      *                  array ('verified' => false', 'md5_password' => true) // if you don't require
      *                  the login creds to be verified. 
      * @return  array|0 row with user creds on success, 0 if not
      */
     public function auth($search) {
 
+        // Account exists. Login
         $account = $this->googleAccountExist($search);        
         if (!empty($account)) {
             $this->doLogin($account);
@@ -161,9 +173,8 @@ class module extends account {
             return;
         }
         
-        // If account exists we auto merge because we trust
-        // a verified google email
-        // create a sub account
+        // If account exists we auto merge because we trust a verified google email
+        // Create a sub account
         if (!empty($account)) {
             $res = $this->autoMergeAccounts($search, $account['id']);
             if ($res) {
@@ -213,7 +224,7 @@ class module extends account {
         
         // first check for a sub account and return parent account
         $db = new db();
-        $search = array ('url' => $params['url'], 'type' => 'google');
+        $search = array ('email' => $params['email'], 'type' => 'google');
         $row = $db->selectOne('account_sub', null, $search);
         if (!empty($row)) {
             $row = $db->selectOne('account', null, array ('id' => $row['parent']));
@@ -222,7 +233,7 @@ class module extends account {
         } 
         
         // check main account
-        $search = array ('url' => $params['url'], 'type' => 'google');
+        $search = array ('email' => $params['email'], 'type' => 'google');
         $row = $db->selectOne('account', null, $search);
         $row = $this->checkAccountFlags($row);
         return $row;
