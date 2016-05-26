@@ -93,8 +93,6 @@ class views {
      */
     public static function listUsers ($users) {
         
-        
-        
         $str = '<table class="uk-table">';
         $str.= '<thead><tr>';
         $str.= '<td>' . lang::translate('ID') . '</td>';
@@ -121,22 +119,18 @@ class views {
      */
     public static function listUser ($user) {
 
-        
-        
         $str = '<tr>';
-        
         $str.= '<td>';
 
         $str.= $user['id'];
 
-        $str.= '</td>';
-        
+        $str.= '</td>';        
         $str.= '<td>';
+        
         $date = time::getDateString($user['created']);
-
         $str.= user::getProfileLink($user, $date, array ('user_id'));
+        
         $str.= '</td>';
-
         $str.= '<td>';
         $str.= $user['email'];
         $str.= '</td>';
@@ -147,16 +141,16 @@ class views {
         } else {
             $str.= '';
         }
-        $str.= '</td>';
         
+        $str.= '</td>';
         $str.= '<td>';
+        
         if ($user['super']) {
             $str.= lang::translate('Super user');
         } else {
             $str.= '';
         }
         $str.= '</td>';
-        
         $str.= '<td>';
         if ($user['verified']) {
             $str.= lang::translate('Verified');
