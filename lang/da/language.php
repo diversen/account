@@ -3,8 +3,10 @@
 $LANG = array();
 
 $LANG['Found the following accounts'] = 'Der blev fundet følgende konti';
+$LANG['Search results'] = 'Søgeresultater';
 $LANG['I could not find any matching results'] = 'Der blev ikke fundet nogen reultater';
 $LANG['Search for users'] = 'Søg efter brugere';
+$LANG['All users'] = 'Alle brugere';
 $LANG['Edit account'] = 'Ret konto';
 $LANG['Account has been updated'] = 'Kontoen er blevet opdateret';
 $LANG['Password needs to be 7 chars'] = 'Password skal mindst være 7 karakterer langt';
