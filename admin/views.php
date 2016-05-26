@@ -95,13 +95,13 @@ class views {
         
         $str = '<table class="uk-table">';
         $str.= '<thead><tr>';
-        $str.= '<td>' . lang::translate('ID') . '</td>';
-        $str.= '<td>' . lang::translate('Profile link') . '</td>';
-        $str.= '<td>' . lang::translate('Email') . '</td>';
-        $str.= '<td>' . lang::translate('Admin') . '</td>';
-        $str.= '<td>' . lang::translate('Super') . '</td>';
-        $str.= '<td>' . lang::translate('Verified') . '</td>';
-        $str.= '<td>' . lang::translate('Edit') . '</td>';
+        $str.= '<th>' . lang::translate('ID') . '</th>';
+        $str.= '<th>' . lang::translate('Profile link') . '</th>';
+        $str.= '<th>' . lang::translate('Email') . '</th>';
+        $str.= '<th>' . lang::translate('Admin') . '</th>';
+        $str.= '<th>' . lang::translate('Super') . '</th>';
+        $str.= '<th>' . lang::translate('Verified') . '</th>';
+        $str.= '<th>' . lang::translate('Edit') . '</th>';
         $str.= '</tr></thead>';
         
         foreach ($users as $user) {
