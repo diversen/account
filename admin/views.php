@@ -92,9 +92,27 @@ class views {
      * @param array $users
      */
     public static function listUsers ($users) {
+        
+        
+        
+        $str = '<table class="uk-table">';
+        $str.= '<thead><tr>';
+        $str.= '<td>' . lang::translate('ID') . '</td>';
+        $str.= '<td>' . lang::translate('Profile link') . '</td>';
+        $str.= '<td>' . lang::translate('Email') . '</td>';
+        $str.= '<td>' . lang::translate('Admin') . '</td>';
+        $str.= '<td>' . lang::translate('Super') . '</td>';
+        $str.= '<td>' . lang::translate('Verified') . '</td>';
+        $str.= '<td>' . lang::translate('Edit') . '</td>';
+        $str.= '</tr></thead>';
+        
         foreach ($users as $user) {
-            echo self::listUser( $user);
+            $str.='<tbody>';
+            $str.= self::listUser( $user);
+            $str.='</tbody>';
         }
+        $str.='</table>';
+        echo $str;
     }
     
     /**
@@ -103,47 +121,58 @@ class views {
      */
     public static function listUser ($user) {
 
+        
+        
+        $str = '<tr>';
+        
+        $str.= '<td>';
+
+        $str.= $user['id'];
+
+        $str.= '</td>';
+        
+        $str.= '<td>';
         $date = time::getDateString($user['created']);
 
-        echo "<div class=\"account_admin_user\">\n";
-        
-        
-        echo lang::translate('ID') . MENU_SUB_SEPARATOR_SEC . $user['id'];
-        echo "<br />";
-        echo user::getProfileLink($user, $date, array ('user_id'));
-        echo "<br />";
-            
-        echo lang::translate('Email') . MENU_SUB_SEPARATOR_SEC . $user['email'];
-        echo "<br />";
+        $str.= user::getProfileLink($user, $date, array ('user_id'));
+        $str.= '</td>';
 
+        $str.= '<td>';
+        $str.= $user['email'];
+        $str.= '</td>';
 
+        $str.= '<td>';
         if ($user['admin']) {
-            echo lang::translate('Account is admin');
+            $str.= lang::translate('Admin user');
         } else {
-            echo lang::translate('Account is not admin');
+            $str.= '';
         }
-        echo "<br />\n";
-
+        $str.= '</td>';
+        
+        $str.= '<td>';
         if ($user['super']) {
-            echo lang::translate('Account is super user');
+            $str.= lang::translate('Super user');
         } else {
-            echo lang::translate('Account is not super user');
+            $str.= '';
         }
-        echo "<br />\n";
-
+        $str.= '</td>';
+        
+        $str.= '<td>';
         if ($user['verified']) {
-            echo lang::translate('Account is verified');
+            $str.= lang::translate('Verified');
         } else {
-            echo lang::translate('Account is not verified');
+            $str.= '';
         }
-        echo "<br />\n";
+        $str.='</td>';
 
-        echo html::createLink("/account/admin/edit/$user[id]", lang::translate('Edit'));
+        $str.='<td>';
+        $str.= html::createLink("/account/admin/edit/$user[id]", lang::translate('Edit'));
+        $str.='</td>';
+        $str.='</tr>';
+        return $str;
         //echo MENU_SUB_SEPARATOR;
-        //echo html::createLink("/account/admin/delete/$user[id]", lang::translate('Delete'));
-        echo "<br />\n";
-        echo "<br />\n";
-        echo "</div>\n";
+        //$str.= html::createLink("/account/admin/delete/$user[id]", lang::translate('Delete'));
+
     }
     
     /**

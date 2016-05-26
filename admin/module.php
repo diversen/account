@@ -46,8 +46,10 @@ class module extends account {
             
             if (!empty($res)) {
                 echo lang::translate('Found the following accounts');
+                
+                echo html::getHeadline(lang::translate('Search results'), 'h2');
                 adminViews::listUsers($res);
-                echo "<hr />\n";
+                //echo "<hr />\n";
             } else {
                 echo lang::translate('I could not find any matching results');
             }
@@ -59,6 +61,7 @@ class module extends account {
         $users = $this->getUsers($p->from);
         template::setTitle(lang::translate('Search for users'));
 
+        echo html::getHeadline(lang::translate('All users'), 'h2');
         adminViews::listUsers($users);
         
         echo $p->getPagerHTML();
