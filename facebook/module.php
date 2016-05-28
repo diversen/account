@@ -50,126 +50,6 @@ class module extends account {
         }
     }
 
-
-    /**
-     * method for creating a user in the database
-     * @param array $ary facebook user array
-     * @return int|false $res last insert id or false if failure
-     */
-    public function createDbUser ($user_profile){
-        
-        $db = new db();
-       
-        // check if we allow to merge an account based on email match
-        // if we did not get facebook account email - we always create
-        // a new account
-        $email = $user_profile->getEmail();
-        
-        // empty account array
-        $account = array ();
-        if (!empty($email)) {
-            
-            // check if an account exists with this email
-            $account = $this->getUserFromEmail($email);
-            
-            // check if account based on email is locked
-            $this->checkLocked($account);
-            if (!empty($this->errors)) {
-                echo html::getErrors($this->errors);
-                return false;
-            }
-        } 
-        
-        // not locked and an account exists - we merge accounts
-        if (!empty($account)) {
-            return $this->autoMergeAccounts($user_profile, $account['id']);                    
-        }
-
-        // new account
-        $md5_key = random::md5();   
-        $values = array(
-            'url'=> $user_profile->getLink(), 
-            'username' => strings::toUTF8($user_profile->getName()),
-            'email' => mb::tolower($user_profile->getEmail()),
-            'type' => 'facebook',
-            'verified' => 1,
-            'md5_key' => $md5_key
-        );
-        
-        
-        $res = $db->insert('account', $values);
-        if ($res) {           
-            $id = $db->lastInsertId();
-            
-            // run events
-            config::onCreateUser($id);
-            return $id;
-            
-        }
-        return $res;
-    }
-    
-    /**
-     * auto merge two accounts
-     * @param 
-     * @param int $user_id
-     * @return int|false $parent_id main account id
-     */
-    public function autoMergeAccounts($user, $user_id) {
-
-        $res_create = $this->createUserSub($user, $user_id);
-        if ($res_create) {
-            return $user_id;
-        }
-
-        return false;
-    }
-
-    /**
-     * creates a facebook user from facebook profile array
-     * 
-     * account_events::account_create
-     * 
-     * @param array $user_profile 
-     */
-    public function createUser ($user_profile) {
-        
-        // we have a facebook session but no user in database
-        $id = $this->createDbUser($user_profile);
-        if (!$id) {
-            return false;
-        }
-        return $id;
-    }
-    
-    /**
-     * method for creating a sub user
-     *
-     * @return int|false $res last_isnert_id on success or false on failure
-     */
-    public function createUserSub ($user, $user_id){
-        
-        $db = new db();
-        $row = $db->selectOne('account_sub', 'email', $user->getEmail());
-        if (!empty($row)) {
-            return array ();
-        }
-        
-        $values = array(
-            'email' => mb::tolower($user->getEmail()),
-            'type' => 'facebook',
-            'verified' => 1,
-            'parent' => $user_id);
-
-        
-        $res = $db->insert('account_sub', $values);
-        if ($res) {
-            return $db->lastInsertId();
-        }
-        return $res;
-    }
-    
-
     public function getFbObject ($token = null) {
         
         $app_id = conf::getModuleIni('account_facebook_api_appid');
@@ -275,27 +155,50 @@ class module extends account {
             return;
         }
 
-        $account = $this->accountTypeExistsFromEmail($me->getEmail(), 'facebook');
-        
-        if (empty($account)) {
-            $id = $this->createUser($me);
-            $row = user::getAccount($id);
-        } else {
+        // Check if sub account. Also check if locked
+        $account = $this->getAccountFromEmailAndType($me->getEmail(), 'facebook');
+        if (!empty($account)) {
             $this->doLogin($account);
             return;
         }
-
-        print_r($row); die;
-        // set session and cookie
-        $this->setSessionAndCookie($row);
-        if (empty($this->errors)) {
-            $this->redirectOnLogin();
-        } else {
+        
+        // Does any account with this email exist - check main accounts
+        $account = $this->getUserFromEmail($me->getEmail());
+        $account = $this->checkAccountFlags($account);
+        if (!empty($this->errors)) {
             echo html::getErrors($this->errors);
-            return false;
+            return;
+        }
+        
+        // If account exists we auto merge because we trust a verified google email
+        // Create a sub account
+        if (!empty($account)) {
+            $res = $this->autoMergeAccounts($me->getEmail(), $account['id'], 'facebook');
+            if ($res) {
+                $this->doLogin($account);
+                return;
+            } else {
+                echo html::getError(lang::translate('We could not merge accounts. Try again later.'));
+                return;
+            } 
         }
 
-        return;
+        // Account does not exists - but is authorized.
+        // Create account
+        $search['email'] = $me->getEmail();
+        $search['md5_key'] =random::md5();
+        $search['verified'] = 1;
+        $search['type'] = 'facebook';
+
+        q::begin();
+        q::insert('account')->values($search)->exec();
+        $last_id = q::lastInsertId();
+        q::commit();
+        
+        // events
+        config::onCreateUser($last_id);
+       
+        return $this->doLogin(user::getAccount($last_id));
     }
     
     /**

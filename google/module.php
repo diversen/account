@@ -162,8 +162,8 @@ class module extends account {
      */
     public function auth($search) {
 
-        // Google ccount exists. Login
-        $account = $this->accountTypeExistsFromEmail($search['email'], 'google');   
+        // Google account exists. Login
+        $account = $this->getAccountFromEmailAndType($search['email'], 'google');   
         if (!empty($account)) {
             $this->doLogin($account);
             return;
@@ -180,7 +180,7 @@ class module extends account {
         // If account exists we auto merge because we trust a verified google email
         // Create a sub account
         if (!empty($account)) {
-            $res = $this->autoMergeAccounts($search, $account['id']);
+            $res = $this->autoMergeAccounts($search['email'], $account['id'], 'google');
             if ($res) {
                 $this->doLogin($account);
                 return;
@@ -231,42 +231,5 @@ class module extends account {
         // $this->accountTypeExistsFromEmail($email, $type)
     }
     
-    /**
-     * auto merge two accounts
-     * @param objct $ary array with google email and profile link 
-     * @param int $user_id
-     * @return int|false $parent_id main account id
-     */
-    public function autoMergeAccounts($search, $user_id) {
 
-        $res_create = $this->createUserSub($search, $user_id);
-        if ($res_create) {
-            return $user_id;
-        }
-
-        return false;
-    }
-
-    /**
-     * method for creating a sub user
-     *
-     * @return int|false $res last_isnert_id on success or false on failure
-     */
-    public function createUserSub ($search, $user_id){
-        
-        $db = new db();
-        $values = array(
-            'url'=> $search['url'], 
-            'email' => $search['email'],
-            'type' => 'google',
-            'verified' => 1,
-            'parent' => $user_id);
-        
-        
-        $res = $db->insert('account_sub', $values);
-        if ($res) {
-            return $db->lastInsertId();
-        }
-        return $res;
-    }
 }

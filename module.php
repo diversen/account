@@ -309,7 +309,7 @@ class module {
         return $row;
     }
     
-    public function accountTypeExistsFromEmail ($email, $type = 'email') {
+    public function getAccountFromEmailAndType ($email, $type = 'email') {
         
         // first check for a sub account and return parent account
         $db = new db();
@@ -383,5 +383,43 @@ class module {
         }
         $row = $this->checkLocked($row);
         return $row;
+    }
+    
+    /**
+     * Merge accounts. Based on email
+     * @param objct $ary array with google email and profile link 
+     * @param int $user_id
+     * @return int|false $parent_id main account id
+     */
+    public function autoMergeAccounts($email, $user_id, $type) {
+
+        $res_create = $this->createUserSub($email, $user_id, $type);
+        if ($res_create) {
+            return $user_id;
+        }
+
+        return false;
+    }
+
+    /**
+     * method for creating a sub user
+     *
+     * @return int|false $res last_isnert_id on success or false on failure
+     */
+    public function createUserSub ($email, $user_id, $type){
+        
+        $db = new db();
+        $values = array(
+            'email' => mb::tolower($email),
+            'type' => $type,
+            'verified' => 1,
+            'parent' => $user_id);
+        
+        
+        $res = $db->insert('account_sub', $values);
+        if ($res) {
+            return $db->lastInsertId();
+        }
+        return $res;
     }
 }
