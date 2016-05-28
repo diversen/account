@@ -61,6 +61,7 @@ class module extends account {
         $db = new db();
         $search = array ('email' => $email, 'type' => 'facebook');
         $row = $db->selectOne('account_sub', null, $search);
+         print_r($row);
         if (!empty($row)) { 
             $row = $db->selectOne('account', null, array ('id' => $row['parent']));
             $row = $this->checkLocked($row);
@@ -68,7 +69,7 @@ class module extends account {
         } 
         
         // check main account
-        print_r($row);
+       
         $row = $db->selectOne('account', null, $search);
         if (!empty($row)) {
             return $this->checkLocked($row);        
