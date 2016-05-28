@@ -71,6 +71,7 @@ class module extends account {
         } 
         
         print_r(db::getDebug());
+        die;
         // check main account
        
         $row = $db->selectOne('account', null, $search);
