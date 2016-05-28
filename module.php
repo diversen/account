@@ -293,7 +293,7 @@ class module {
 
         $search = array();
         $search['email'] = mb::tolower($email);
-        if ($type) {
+        if ($type !== null) {
             $search['type'] = $type;
         }
 
