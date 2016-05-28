@@ -70,7 +70,7 @@ class module extends account {
             return $row;
         } 
         
-        echo db::getDebug();
+        print_r(db::getDebug());
         // check main account
        
         $row = $db->selectOne('account', null, $search);
