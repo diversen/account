@@ -68,6 +68,7 @@ class module extends account {
         } 
         
         // check main account
+        print_r($row);
         $row = $db->selectOne('account', null, $search);
         if (!empty($row)) {
             return $this->checkLocked($row);        
