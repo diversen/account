@@ -7,6 +7,7 @@ namespace modules\account\facebook;
 
 use diversen\conf;
 use diversen\db;
+use diversen\db\q;
 use diversen\html;
 use diversen\lang;
 use diversen\log;
@@ -58,16 +59,18 @@ class module extends account {
     public function auth ($email){
      
         // first check for a sub account and return parent account
-        $db = new db();
+        //$db = new db();
         $search = array ('email' => $email, 'type' => 'facebook');
+        
         $row = $db->selectOne('account_sub', null, $search);
-         print_r($row);
+
         if (!empty($row)) { 
             $row = $db->selectOne('account', null, array ('id' => $row['parent']));
             $row = $this->checkLocked($row);
             return $row;
         } 
         
+        echo db::getDebug();
         // check main account
        
         $row = $db->selectOne('account', null, $search);
