@@ -72,7 +72,7 @@ class module extends account {
         if (!empty($row)) {
             return $this->checkLocked($row);        
         }
-        return [];
+        return $row;
         
     }
 
