@@ -163,7 +163,7 @@ class module extends account {
         }
         
         // Does any account with this email exist - check main accounts
-        $account = $this->getUserFromEmail($me->getEmail());
+        $account = $this->getUserFromEmail($me->getEmail(), null);
         $account = $this->checkAccountFlags($account);
         if (!empty($this->errors)) {
             echo html::getErrors($this->errors);
