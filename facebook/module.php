@@ -50,6 +50,11 @@ class module extends account {
         }
     }
 
+    /**
+     * Get a version 5 Facebook object
+     * @param string $token
+     * @return \Facebook\Facebook
+     */
     public function getFbObject ($token = null) {
         
         $app_id = conf::getModuleIni('account_facebook_api_appid');
@@ -67,12 +72,12 @@ class module extends account {
         $fb = new \Facebook\Facebook($ary);        
         return $fb;
     }
+    
     /**
-     * method for logging in a user. Used as a display function. 
+     * Method for logging in a user. Used as a display function. 
      * means that it will draw login and logout links at the same time
      * as users are authenticated. 
      */
-
     public function login($scope = null) {
 
         // if we already have user - display logut
@@ -154,63 +159,11 @@ class module extends account {
             \diversen\http::locationHeader('/account/facebook/callback?revoke=1');
             return;
         }
-
-        // Check if sub account. Also check if locked
-        $account = $this->getAccountFromEmailAndType($me->getEmail(), 'facebook');
-        if (!empty($account)) {
-            $this->doLogin($account);
-            return;
-        }
         
-        // Does any account with this email exist - check main accounts
-        $account = $this->getUserFromEmail($me->getEmail(), null);
-        $account = $this->checkAccountFlags($account);
-        if (!empty($this->errors)) {
-            echo html::getErrors($this->errors);
-            return;
-        }
-        
-        // If account exists we auto merge because we trust a verified google email
-        // Create a sub account
-        if (!empty($account)) {
-            $res = $this->autoMergeAccounts($me->getEmail(), $account['id'], 'facebook');
-            if ($res) {
-                $this->doLogin($account);
-                return;
-            } else {
-                echo html::getError(lang::translate('We could not merge accounts. Try again later.'));
-                return;
-            } 
-        }
+        return $this->auth($me->getEmail(), 'facebook');
 
-        // Account does not exists - but is authorized.
-        // Create account
-        $search['email'] = $me->getEmail();
-        $search['md5_key'] =random::md5();
-        $search['verified'] = 1;
-        $search['type'] = 'facebook';
-
-        q::begin();
-        q::insert('account')->values($search)->exec();
-        $last_id = q::lastInsertId();
-        q::commit();
         
-        // events
-        config::onCreateUser($last_id);
-       
-        return $this->doLogin(user::getAccount($last_id));
     }
-    
-    /**
-     * sets session and cookie
-     * @param array $account
-     * @return boolean $res
-     */
-    public function doLogin ($account) {
-        $this->setSessionAndCookie($account, 'facebook');               
-        $this->redirectOnLogin();
-    }
-
 
     /**
      * method for getting the facebook 'next' param - the url to

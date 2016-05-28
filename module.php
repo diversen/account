@@ -160,6 +160,60 @@ class module {
         $row = user::getAccount(session::getUserId());
         echo user::getLogoutHTML($row);
     }
+    
+    /**
+     * Authenticate an user based on email and type e.g. 'google' or 'facebook'
+     * @param string $email
+     * @param string $type
+     * @return 
+     */
+    public function auth ($email, $type) {
+        // Check if 'type' and 'email' - in both account and account_sub
+        // We trust that a email from facebook is verified
+        $account = $this->getAccountFromEmailAndType($email, $type);
+        if (!empty($account)) {
+            $this->doLogin($account);
+            return;
+        }
+        
+        // Does any account with this email exist - check main accounts
+        $account = $this->getUserFromEmail($email, null);
+        $account = $this->checkAccountFlags($account);
+        if (!empty($this->errors)) {
+            echo html::getErrors($this->errors);
+            return;
+        }
+        
+        // If an account exists now then we auto merge because we trust a verified email
+        // Create a sub account
+        if (!empty($account)) {
+            $res = $this->autoMergeAccounts($email, $account['id'], $type);
+            if ($res) {
+                $this->doLogin($account);
+                return;
+            } else {
+                echo html::getError(lang::translate('We could not merge accounts. Try again later.'));
+                return;
+            } 
+        }
+
+        // Account does not exists - but is authorized.
+        // Create account
+        $search['email'] = $email;
+        $search['md5_key'] =random::md5();
+        $search['verified'] = 1;
+        $search['type'] = $type;
+
+        q::begin();
+        q::insert('account')->values($search)->exec();
+        $last_id = q::lastInsertId();
+        q::commit();
+        
+        // events
+        config::onCreateUser($last_id);
+       
+        return $this->doLogin(user::getAccount($last_id));
+    }
 
     /**
      *
@@ -278,14 +332,12 @@ class module {
     }
 
     /**
-     * gets a user row from emaill where account type is email
-     * type defaults to 'email' in order to search for any type of
-     * account use null
+     * Select an account row from  
      * @param string $email
-     * @param null|string $type defaults to email. Use NULL if you want to
+     * @param null|string $type defaults to email. Use 'null' if you want to
      *                    fetch from any type of account. Or set type to e.g.
-     *                    openid or facebook
-     * @return array $row the user's account row if empty there is no user
+     *                    google or facebook
+     * @return array $row the user's account row. Empty row if there is no user
      *                    with requested email
      */
     public function getUserFromEmail($email, $type = 'email', $check_sub = null) {
@@ -309,6 +361,12 @@ class module {
         return $row;
     }
     
+    /**
+     * Get a main account from email and type (e.g. 'google' or 'facebook')
+     * @param string $email
+     * @param string $type
+     * @return array $account
+     */
     public function getAccountFromEmailAndType ($email, $type = 'email') {
         
         // first check for a sub account and return parent account
@@ -402,8 +460,7 @@ class module {
     }
 
     /**
-     * method for creating a sub user
-     *
+     * Method for creating a sub user
      * @return int|false $res last_isnert_id on success or false on failure
      */
     public function createUserSub ($email, $user_id, $type){
@@ -421,5 +478,17 @@ class module {
             return $db->lastInsertId();
         }
         return $res;
+    }
+    
+    
+
+    /**
+     * sets session and cookie
+     * @param array $account
+     * @return boolean $res
+     */
+    public function doLogin ($account) {
+        $this->setSessionAndCookie($account, 'google');               
+        $this->redirectOnLogin();
     }
 }

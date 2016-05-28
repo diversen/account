@@ -105,15 +105,9 @@ class module extends account {
                 echo html::getErrors($this->errors);
                 return;
             }
+
             
-            // Auth
-            $values = array (
-                'email' => mb::tolower($info->email),
-                'url' => $info->link,  
-                'type' => 'google'
-            );
-            
-            $this->auth($values);
+            return $this->auth(mb::tolower($info->email), 'google');
         } else {
             echo lang::translate('Could not get google client access token. Try again later.');
             return;
@@ -152,84 +146,4 @@ class module extends account {
         }
         return;
     }
-    
-    /**
-     * Authorize user
-     * @param   array  $search ('email', 'verifiedEmail', 'link') 
-     *                  array ('verified' => false', 'md5_password' => true) // if you don't require
-     *                  the login creds to be verified. 
-     * @return  array|0 row with user creds on success, 0 if not
-     */
-    public function auth($search) {
-
-        // Google account exists. Login
-        $account = $this->getAccountFromEmailAndType($search['email'], 'google');   
-        if (!empty($account)) {
-            $this->doLogin($account);
-            return;
-        }
-
-        // Does any account with this email exist - check main accounts
-        $account = $this->getUserFromEmail($search['email'], null);
-        $account = $this->checkAccountFlags($account);
-        if (!empty($this->errors)) {
-            echo html::getErrors($this->errors);
-            return;
-        }
-        
-        // If account exists we auto merge because we trust a verified google email
-        // Create a sub account
-        if (!empty($account)) {
-            $res = $this->autoMergeAccounts($search['email'], $account['id'], 'google');
-            if ($res) {
-                $this->doLogin($account);
-                return;
-            } else {
-                echo html::getError(lang::translate('We could not merge accounts. Try again later.'));
-                return;
-            } 
-        }
-
-        // Account does not exists - but is authorized.
-        // Create account
-        $search['md5_key'] =random::md5();
-        $search['verified'] = 1;
-        $search['type'] = 'google';
-
-        q::begin();
-        q::insert('account')->values($search)->exec();
-        $last_id = q::lastInsertId();
-        q::commit();
-        
-        // events
-        config::onCreateUser($last_id);
-       
-        return $this->doLogin(user::getAccount($last_id));
-
-    }
-
-
-    /**
-     * sets session and cookie
-     * @param array $account
-     * @return boolean $res
-     */
-    public function doLogin ($account) {
-        $this->setSessionAndCookie($account, 'google');               
-        $this->redirectOnLogin();
-    }
-    
-        /**
-     * method for authorizing a user
-     *
-     * @param   string  username
-     * @param   string  password
-     * @return  array|0 row with user creds on success, 0 if not
-     */
-    public function googleAccountExist ($params){
-        
-        // $this->accountTypeExistsFromEmail($email, $type)
-    }
-    
-
 }
