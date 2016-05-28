@@ -270,16 +270,14 @@ class module extends account {
 
         
         $me = $response->getGraphUser();
-        if (!$me->getEmail()) {
-            // print_r($me); die;
-            
+        if (!$me->getEmail()) {            
             \diversen\http::locationHeader('/account/facebook/callback?revoke=1');
             return;
         }
 
         $account = $this->accountTypeExistsFromEmail($me->getEmail(), 'facebook');
         
-        if (empty($row)) {
+        if (empty($account)) {
             $id = $this->createUser($me);
             $row = user::getAccount($id);
         } else {
