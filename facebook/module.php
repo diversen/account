@@ -302,15 +302,17 @@ class module extends account {
             return;
         }
 
+        print_r($me);
         // does user exists and is he already registered
         $row = $this->auth($me->getEmail());
-
+        print_r($row);
         // no errors. 
         if (empty($row)) {
             $id = $this->createUser($me);
             $row = user::getAccount($id);
         }
 
+        print_r($row); die;
         // set session and cookie
         $this->setSessionAndCookie($row);
         if (empty($this->errors)) {
