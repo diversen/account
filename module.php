@@ -308,6 +308,26 @@ class module {
         $row = $db->selectOne('account', null, $search);
         return $row;
     }
+    
+    public function accountTypeExistsFromEmail ($email, $type = 'email') {
+        
+        // first check for a sub account and return parent account
+        $db = new db();
+        $search = array ('email' => $email, 'type' => $type);
+        $row = $db->selectOne('account_sub', null, $search);
+        if (!empty($row)) {
+            $row = $db->selectOne('account', null, array ('id' => $row['parent']));
+            $row = $this->checkAccountFlags($row);
+            return $row;
+        } 
+        
+        // check main account
+        $search = array ('email' => $email, 'type' => $type);
+        $row = $db->selectOne('account', null, $search);
+        $row = $this->checkAccountFlags($row);
+        return $row;
+        
+    }
 
     /**
      * method for checking if a email exists in `account` table

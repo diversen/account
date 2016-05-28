@@ -163,7 +163,7 @@ class module extends account {
     public function auth($search) {
 
         // Google ccount exists. Login
-        $account = $this->googleAccountExist($search);        
+        $account = $this->accountTypeExistsFromEmail($search['email'], 'google');   
         if (!empty($account)) {
             $this->doLogin($account);
             return;
@@ -171,7 +171,7 @@ class module extends account {
 
         // Does any account with this email exist - check main accounts
         $account = $this->getUserFromEmail($search['email']);
-        $this->checkAccountFlags($account);
+        $account = $this->checkAccountFlags($account);
         if (!empty($this->errors)) {
             echo html::getErrors($this->errors);
             return;
@@ -228,21 +228,7 @@ class module extends account {
      */
     public function googleAccountExist ($params){
         
-        // first check for a sub account and return parent account
-        $db = new db();
-        $search = array ('email' => $params['email'], 'type' => 'google');
-        $row = $db->selectOne('account_sub', null, $search);
-        if (!empty($row)) {
-            $row = $db->selectOne('account', null, array ('id' => $row['parent']));
-            $row = $this->checkAccountFlags($row);
-            return $row;
-        } 
-        
-        // check main account
-        $search = array ('email' => $params['email'], 'type' => 'google');
-        $row = $db->selectOne('account', null, $search);
-        $row = $this->checkAccountFlags($row);
-        return $row;
+        // $this->accountTypeExistsFromEmail($email, $type)
     }
     
     /**

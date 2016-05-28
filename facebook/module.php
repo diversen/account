@@ -50,37 +50,6 @@ class module extends account {
         }
     }
 
-    /**
-     * method for authorizing a user
-     * @param   string  $facebook_url
-     * @return  array   $row with user creds on success, empty if no user
-     */
-
-    public function auth ($email){
-     
-        // first check for a sub account and return parent account
-        //$db = new db();
-        $search = array ('email' => $email, 'type' => 'facebook');
-        
-        $row = $db->selectOne('account_sub', null, $search);
-
-        if (!empty($row)) { 
-            $row = $db->selectOne('account', null, array ('id' => $row['parent']));
-            $row = $this->checkLocked($row);
-            return $row;
-        } 
-        
-        print_r(db::getDebug());
-        die;
-        // check main account
-       
-        $row = $db->selectOne('account', null, $search);
-        if (!empty($row)) {
-            return $this->checkLocked($row);        
-        }
-        return $row;
-        
-    }
 
     /**
      * method for creating a user in the database
@@ -308,14 +277,14 @@ class module extends account {
             return;
         }
 
-        print_r($me);
-        // does user exists and is he already registered
-        $row = $this->auth($me->getEmail());
-        print_r($row);
-        // no errors. 
+        $account = $this->accountTypeExistsFromEmail($me->getEmail(), 'facebook');
+        
         if (empty($row)) {
             $id = $this->createUser($me);
             $row = user::getAccount($id);
+        } else {
+            $this->doLogin($account);
+            return;
         }
 
         print_r($row); die;
@@ -329,6 +298,16 @@ class module extends account {
         }
 
         return;
+    }
+    
+    /**
+     * sets session and cookie
+     * @param array $account
+     * @return boolean $res
+     */
+    public function doLogin ($account) {
+        $this->setSessionAndCookie($account, 'facebook');               
+        $this->redirectOnLogin();
     }
 
 
