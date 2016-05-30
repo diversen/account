@@ -174,7 +174,7 @@ class module {
         // We trust that a email from facebook is verified
         $account = $this->getAccountFromEmailAndType($email, $type);
         if (!empty($account)) {
-            $this->doLogin($account);
+            $this->doLogin($account, $type);
             return;
         }
         
@@ -191,7 +191,7 @@ class module {
         if (!empty($account)) {
             $res = $this->autoMergeAccounts($email, $account['id'], $type);
             if ($res) {
-                $this->doLogin($account);
+                $this->doLogin($account, $type);
                 return;
             } else {
                 echo html::getError(lang::translate('We could not merge accounts. Try again later.'));
@@ -214,7 +214,7 @@ class module {
         // events
         config::onCreateUser($last_id);
        
-        return $this->doLogin(user::getAccount($last_id));
+        $this->doLogin(user::getAccount($last_id));
     }
 
     /**
@@ -472,8 +472,7 @@ class module {
             'email' => mb::tolower($email),
             'type' => $type,
             'verified' => 1,
-            'parent' => $user_id);
-        
+            'parent' => $user_id);    
         
         $res = $db->insert('account_sub', $values);
         if ($res) {
@@ -489,8 +488,8 @@ class module {
      * @param array $account
      * @return boolean $res
      */
-    public function doLogin ($account) {
-        $this->setSessionAndCookie($account, 'google');               
+    public function doLogin ($account, $type) {
+        $this->setSessionAndCookie($account, $type);               
         $this->redirectOnLogin();
     }
 }
