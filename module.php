@@ -168,6 +168,8 @@ class module {
      * @return 
      */
     public function auth ($email, $type) {
+        
+        $email = mb::tolower($email);
         // Check if 'type' and 'email' - in both account and account_sub
         // We trust that a email from facebook is verified
         $account = $this->getAccountFromEmailAndType($email, $type);

@@ -69,10 +69,16 @@ class module extends account {
     public function apiAction() {
 
         $this->setAcceptUniqueOnlyEmail(true);
-        $this->auth();
-
-        if (!empty($this->errors)) {
-            echo html::getErrors($this->errors);
+        
+        $api = new githubapi();
+        $res = $api->apiCall('/user');
+        
+        // user id is unique - we use this as 'url' which is unique
+        $res['id'] = (int) $res['id'];
+        
+        // check if user exists in db
+        if (isset($res['id']) && !empty($res['id'])) {
+            $this->auth($res['email'], 'github');
         }
     }
 
@@ -128,53 +134,6 @@ class module extends account {
         } else {
             $this->login();
             echo "<br /><br />" . viewsAccount::getTermsLink();
-        }
-    }
-
-    /**
-     * method for authorizing a user
-     *
-     * @param   string  $email
-     * @param   string  $password
-     * @param   array   $params 
-     *                  array ('verified' => false', 'md5_password' => true) // if you don't require
-     *                  the login creds to be verified. 
-     * @return  array|0 row with user creds on success, 0 if not
-     */
-    public function auth() {
-        $api = new githubapi();
-        $res = $api->apiCall('/user');
-        
-        // user id is unique - we use this as 'url' which is unique
-        $res['id'] = (int) $res['id'];
-
-        // check if user exists in db
-        if (isset($res['id']) && !empty($res['id'])) {
-
-            // generate user we search for
-            $db = new db();
-            $search = array(
-                'type' => 'github',
-                'url' => $res['id'],
-                'email' => mb::tolower($res['email']),
-            );
-
-            $account = $this->githubAccountExist($search);
-
-            // account exists - login and redirect
-            if (!empty($account)) {
-                $this->doLogin($account);
-            }
-
-            // New account
-            // Check if we use unique email only - one account per user
-            $account = $this->getUserFromEmail($search['email'], null);
-            if (!empty($account)) {
-                $res = $this->autoMergeAccounts($search, $account['id']);
-                $this->doLogin($account);
-            } else {
-                return $this->createAccount($search);
-            }
         }
     }
     
@@ -233,45 +192,5 @@ class module extends account {
         $row = $db->selectOne('account', null, $search);
         $row = $this->checkLocked($row);
         return $row;
-    }
-
-    /**
-     * auto merge two accounts
-     * @param objct $openid lightopenid object
-     * @param int $user_id
-     * @return int|false $parent_id main account id
-     */
-    public function autoMergeAccounts($search, $user_id) {
-
-        $res_create = $this->createUserSub($search, $user_id);
-        if ($res_create) {
-            return $user_id;
-        }
-
-        return false;
-    }
-
-    /**
-     * method for creating a sub user
-     *
-     * @return int|false $res last_isnert_id on success or false on failure
-     */
-    public function createUserSub($search, $user_id) {
-
-        $db = new db();
-        $values = array(
-            'url' => $search['url'],
-            'email' => mb::tolower($search['email']),
-            'type' => 'github',
-            'verified' => 1,
-            'parent' => $user_id);
-
-        $db->begin();
-        $db->insert('account_sub', $values);
-        $res = $db->commit();
-        if ($res) {
-            return $db->lastInsertId();
-        }
-        return $res;
     }
 }
