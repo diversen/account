@@ -78,7 +78,6 @@ $LANG['Your google email needs to be verified'] = 'Your google email needs to be
 $LANG['Could not get google client access token. Try again later.'] = 'Could not get google client access token. Try again later.';
 $LANG['Log in or Log out'] = 'Log in or Log out';
 $LANG['Google login'] = 'Google login';
-$LANG['We could not merge accounts. Try again later.'] = 'We could not merge accounts. Try again later.';
 
 // Translation of file modules/account/install.inc
 
@@ -122,6 +121,7 @@ $LANG['Admin'] = 'Admin';
 
 // Translation of file modules/account/module.php
 
+$LANG['We could not merge accounts. Try again later.'] = 'We could not merge accounts. Try again later.';
 $LANG['You are logged in'] = 'You are logged in';
 $LANG['Account needs to be verified before you may log in'] = 'Account needs to be verified before you may log in';
 $LANG['Main account is of this type: '] = 'Main account is of this type: ';
