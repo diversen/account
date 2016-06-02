@@ -158,14 +158,15 @@ class module extends account {
      * @param string $md5_key
      * @return int $last_insert_id
      */
-    public function createDbUser ($email, $password, $md5_key) {
+    public function createDbUser ($email, $password, $md5_key, $invited = 0) {
         
         $values = 
             array('username'=> mb::tolower($email),
                   'password' => md5($password),
                   'email' => mb::tolower($email),
                   'md5_key' => $md5_key,
-                  'type' => 'email');
+                  'type' => 'email',
+                  'invited' => $invited);
         
         $db = new db();
         return $db->insert('account', $values);

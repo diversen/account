@@ -109,8 +109,27 @@ class module extends account {
      *
      * @return int  $res 1 on succes and 0 on failure
      */
-    public function requestPassword($email = null, $options = array()) {
+    public function sendRequestPasswordMail($email = null, $options = array()) {
 
+        $vars = $this->getMailVarsFromEmail($email);
+        $message = $this->getRequestMail($vars);
+        if (isset($message['txt'])) {
+            $text = $message['txt'];
+        }
+        if (isset($message['html'])) {
+            $html = $message['html'];
+        }
+
+        $subject = lang::translate('Create new password for site') . " " . $vars['site_name'];
+        return mailsmtp::mail($email, $subject, $text, $html);
+    }
+    
+    /**
+     * Get request vars from users email
+     * @param string $email
+     * @return array $vars the vars which is used for creating the mail
+     */
+    public function getMailVarsFromEmail ($email) {
         $email = mb::tolower($email);
         $md5_key = random::md5();
 
@@ -123,29 +142,10 @@ class module extends account {
 
         $vars['user_id'] = $row['id'];
         $vars['site_name'] = conf::getSchemeWithServerName();
-        $subject = lang::translate('Create new password for site') . " " . $vars['site_name'];
-
-        // allow class to be used in other setups
-        if (isset($this->options['verify_path'])) {
-            $path = $this->options['verify_path'];
-        } else {
-            $path = "/account/requestpw/verify";
-        }
-
+        
+        $path = "/account/requestpw/verify";
         $vars['verify_key'] = "$vars[site_name]$path?id=$row[id]&md5=$md5_key";
-        if (isset($this->options['verify_path_prepend'])) {
-            $vars['verify_key'].=$this->options['verify_path_prepend'];
-        }
-
-        $message = $this->getRequestMail($vars);
-        if (isset($message['txt'])) {
-            $text = $message['txt'];
-        }
-        if (isset($message['html'])) {
-            $html = $message['html'];
-        }
-
-        return mailsmtp::mail($email, $subject, $text, $html);
+        return $vars;
     }
 
     /**
@@ -307,13 +307,12 @@ class module extends account {
         template::setTitle(lang::translate('Request new password'));
 
         http::prg();
-        //$request = new self();
         if (isset($_POST['submit'])) {
             $this->sanitize();
             $this->validate();
 
             if (empty($this->errors)) {
-                $mail_sent = $this->requestPassword($_POST['email']);
+                $mail_sent = $this->sendRequestPasswordMail($_POST['email']);
                 if ($mail_sent) {
 
                     session::setActionMessage(
