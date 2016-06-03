@@ -45,6 +45,7 @@ $LANG['We could not send an verification email. Try to create user later.'] = 'V
 $LANG['Account created'] = 'Konto oprettet';
 $LANG['Wrong validation key on account creation'] = 'Forkert validerings nøgle';
 $LANG['Facebook Login'] = 'Facebook login';
+$LANG['We could not log you in. The reason is: '] = 'Vi kunne ikke logge dig ind. Årsagen er.:';
 $LANG['We will need your email. No login without email. Please try again!'] = 'Vi har brug for din e-mail. Ingen login uden e-mail. Prøv venligst igen!';
 $LANG['Login using facebook'] = 'Log ind';
 $LANG['Logout'] = 'Log ud';

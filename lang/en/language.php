@@ -59,6 +59,7 @@ $LANG['Wrong validation key on account creation'] = 'Wrong validation key on acc
 // Translation of file modules/account/facebook/module.php
 
 $LANG['Facebook Login'] = 'Facebook Login';
+$LANG['We could not log you in. The reason is: '] = 'We could not log you in. The reason is: ';
 $LANG['We will need your email. No login without email. Please try again!'] = 'We will need your email. No login without email. Please try again!';
 
 // Translation of file modules/account/facebook/views.php
