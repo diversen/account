@@ -6,20 +6,13 @@ namespace modules\account\facebook;
 
 
 use diversen\conf;
-use diversen\db;
-use diversen\db\q;
 use diversen\html;
 use diversen\lang;
 use diversen\log;
 use diversen\moduleloader;
-use diversen\random;
 use diversen\session;
-use diversen\strings;
-use diversen\strings\mb;
 use diversen\template;
-use diversen\user;
 use diversen\view;
-use modules\account\config;
 use modules\account\facebook\views as account_facebook_views;
 use modules\account\module as account;
 use modules\account\views as viewsAccount;
@@ -121,6 +114,11 @@ class module extends account {
 
         $fb = $this->getFbObject();
         $helper = $fb->getRedirectLoginHelper();
+        
+        if (isset($_GET['error'])) {
+            echo html::getError(lang::translate('We could not log you in. The reason is: ')) . html::specialEncode($_GET['error']);
+            return;
+        }
 
         // If no email has been supplied
         if (isset($_GET['revoke'])) {
