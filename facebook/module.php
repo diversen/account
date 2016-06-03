@@ -116,7 +116,7 @@ class module extends account {
         $helper = $fb->getRedirectLoginHelper();
         
         if (isset($_GET['error'])) {
-            echo html::getError(lang::translate('We could not log you in. The reason is: ')) . html::specialEncode($_GET['error']);
+            echo html::getError(lang::translate('We could not log you in. The reason is: ') . html::specialEncode($_GET['error']));
             return;
         }
 
