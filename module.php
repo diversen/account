@@ -481,8 +481,6 @@ class module {
         return $res;
     }
     
-    
-
     /**
      * sets session and cookie
      * @param array $account
