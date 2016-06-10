@@ -8,11 +8,12 @@ namespace modules\account\create;
 
 use diversen\captcha;
 use diversen\conf;
-use diversen\html;
 use diversen\db;
 use diversen\db\q;
+use diversen\html;
 use diversen\http;
 use diversen\lang;
+use diversen\mailer\markdown;
 use diversen\mailsmtp;
 use diversen\random;
 use diversen\strings\mb;
@@ -21,9 +22,8 @@ use diversen\uri;
 use diversen\user;
 use diversen\valid;
 use diversen\view;
-
-use modules\account\module as account;
 use modules\account\config;
+use modules\account\module as account;
 
 view::includeOverrideFunctions('account', 'login/views.php');
 /**
@@ -215,15 +215,6 @@ class module extends account {
         }
         return true;
     }
-
-    
-    /**
-     * var holding default mailViews
-     * @var array
-     */
-    public $mailViews = array (
-        'txt' => 'mails/signup_message', 
-        'html' => 'mails/signup_message_html');
         
     /**
      * Send a verify email
@@ -240,44 +231,13 @@ class module extends account {
         $subject.= " " . $vars['site_name'];
         $vars['verify_key'] = "$vars[site_name]/account/create/verify/$user_id/$md5";
         $vars['user_id'] = $user_id;
-
-        $message = $this->getWelcomeMail($vars);
-        $text = $html = null;
         
-        if (isset($message['txt'])) {
-            $text = $message['txt'];
-        }
-        if (isset($message['html'])) {
-            $html = $message['html'];
-        } 
-        
-        return mailsmtp::mail($email, $subject, $text, $html);
+        $txt = view::get('account', 'mails/signup_message', $vars);
+        $md = new markdown();
+        $html = $md->getEmailHtml($subject, $txt);
 
-    }
-    
-    /**
-     * gets welcome message
-     * @param  array $vars e.g. array (
-     *                      'site_name' => 'http://example.com', 
-     *                      'user_id' => 123, 
-     *                      'verify_key' => 'http link to verify')
-     * @return array $message e.g. array (
-     *                      'txt' => 'text welcome etc', 
-     *                      'html' => 'html message');
-     */
-    public function getWelcomeMail ($vars) {
-        
-        // option for multi part message
-        $message = array (); 
+        return mailsmtp::mail($email, $subject, $txt, $html);
 
-        // if a mail view == null then it is not added
-        if (isset($this->mailViews['txt']) && $this->mailViews['txt'] != null) {
-            $message['txt'] = view::get('account', $this->mailViews['txt'], $vars);
-        }
-        if (isset($this->mailViews['html'])  && $this->mailViews['html'] != null) {
-            $message['html'] = view::get('account', $this->mailViews['html'], $vars);
-        }
-        return $message;
     }
 
     /**
