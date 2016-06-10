@@ -6,15 +6,15 @@ Account module for CosCMS
 
 Base settings:
     
-    ; Who can edit accounts
-    account_allow_edit = "super"
-    ; Default login URL - email
+    ; Default URL
     account_default_url = "/account/login/index"
-    ; Redirect on login
+    ; Default redirect on login
     account_redirect_login = "/content/index"
-    ; Who can create other users
+    ; Who can edit and create users
     account_allow_create = "super"
-    ; Types of login - only email here
+    ; Can anon user create his own account
+    account_anon_create = 1
+    ; Types of logins
     account_logins[0] = "email"
 
 # Other login methods
@@ -36,6 +36,7 @@ Base settings:
 
 ### Github login
 
+    account_logins[3] = "github"
     account_github_id = "app id"
     account_github_secret = ""
     account_github_scope = "user"

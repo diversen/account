@@ -1,9 +1,10 @@
-account_allow_edit = "super"
+; Default URL
 account_default_url = "/account/login/index"
+; Default redirect on login
 account_redirect_login = "/content/index"
-account_facebook_api_secret = ""
-account_facebook_api_appid = 269965633048607
+; Who can edit and create users
 account_allow_create = "super"
-account_disable_admin_interface = 0
-account_admin_only = 0
+; Can anon user create his own account
+account_anon_create = 1
+; Types of logins
 account_logins[0] = "email"
