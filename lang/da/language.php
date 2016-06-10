@@ -6,7 +6,7 @@ $LANG['Users'] = 'Brugere';
 $LANG['Search'] = 'Søg';
 $LANG['Create user'] = 'Opret bruger';
 $LANG['Create Account'] = 'Opret konto';
-$LANG['Invitaion from the site '] = 'Invitaion fra web-stedet';
+$LANG['Invitaion from the site '] = 'Invitaion fra web-stedet ';
 $LANG['Account has been created. The created user will need to visit his mailbox'] = 'Konto er oprettet. Den oprettede Brugeren får besked om at oprette et password';
 $LANG['Email already exists'] = 'Email eksisterer allerede';
 $LANG['Email is connected to an account of this type: <span class="notranslate">{ACCOUNT_TYPE}</span>'] = 'Email er forbundet til en konto af denne type: <span class="notranslate">{ACCOUNT_TYPE}</span>';
