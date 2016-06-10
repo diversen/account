@@ -186,14 +186,6 @@ class module extends account {
                
         $md5_key = random::md5();
         
-        if(!isset($_POST['password'])) {
-            $_POST['password'] = random::md5();
-        }
-        
-        if(!isset($_POST['password2'])) {
-            $_POST['password2'] = random::md5();
-        }
-        
         q::begin();
         $res = $this->createDbUser(
                 $_POST['email'], 
@@ -229,6 +221,7 @@ class module extends account {
      * @var null 
      */
     public $setVerifyMailTemplate = null;
+    
         
     /**
      * Send a verify email
@@ -254,9 +247,9 @@ class module extends account {
         }
         $txt = view::get('account', $template, $vars);
         $md = new markdown();
-        $html = $md->getEmailHtml($subject, $txt);
-
-        echo $html; die;
+        echo $html = $md->getEmailHtml($subject, $txt);
+        die;
+        // echo $html; die;
         return mailsmtp::mail($email, $subject, $txt, $html);
 
     }

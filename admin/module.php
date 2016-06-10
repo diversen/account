@@ -43,24 +43,25 @@ class module extends account {
         
 
         template::setTitle(lang::translate('Create Account'));
-        $l = new \modules\account\create\module();
+        $u = new \modules\content\users\module();
         if (!empty($_POST['submit'])) {
             $_POST = html::specialEncode($_POST);
-            $this->validateInvite();
-            if (empty($l->errors)) {
+            $this->validateCreate();
+            if (empty($this->errors)) {
                 
                 // Set mail view
-                $l->setVerifyMailTemplate = 'mails/signup_invite';
-                $res = $l->createUser();
+                $u->subjectEmail = lang::translate('Invitaion from the site ') . conf::getSchemeWithServerName();
+                $u->verifyMailTemplate = conf::getModulePath('account') . "/views/mails/signup_invite.inc";
+                $res = $u->createUser($_POST['email'], true);
                 if ($res) {
                     http::locationHeader(
-                        '/account/login/index', 
-                        lang::translate('Account has been created. Visit your email box and press the verification link.'));
+                        '/account/admin/create', 
+                        lang::translate('Account has been created. The created user will need to visit his mailbox'));
                 } else {
-                    echo html::getErrors($l->errors);
+                    echo html::getErrors($this->errors);
                 }
             } else {
-                echo html::getErrors($l->errors);
+                echo html::getErrors($this->errors);
             }
         }
 
@@ -68,12 +69,16 @@ class module extends account {
         echo \modules\account\views::getTermsLink();
     }
     
-    public function validateInvite () {
+    public function validateCreate () {
+
         if (isset($_POST['submit'])) {
             
+            
             // exists in system
-            if ($this->emailExist($_POST['email'])){
-                
+            $row = q::select('account')->filter('email =', $_POST['email'])->fetchSingle();
+                    
+            if (!empty($row)){
+                // print_r($row); print_r($_POST); die;
                 $this->errors['email'] = lang::translate('Email already exists');
                 $account = $this->getUserFromEmail($_POST['email'], null);
                 if ($account['type'] != 'email') {

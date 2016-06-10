@@ -334,7 +334,7 @@ class module {
     }
 
     /**
-     * Select an account row from  
+     * Select an account row from. Don't need to be verified 
      * @param string $email
      * @param null|string $type defaults to email. Use 'null' if you want to
      *                    fetch from any type of account. Or set type to e.g.

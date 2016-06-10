@@ -11,7 +11,8 @@ $LANG['Create user'] = 'Create user';
 // Translation of file modules/account/admin/module.php
 
 $LANG['Create Account'] = 'Create Account';
-$LANG['Account has been created. Visit your email box and press the verification link.'] = 'Account has been created. Visit your email box and press the verification link.';
+$LANG['Invitaion from the site '] = 'Invitaion from the site ';
+$LANG['Account has been created. The created user will need to visit his mailbox'] = 'Account has been created. The created user will need to visit his mailbox';
 $LANG['Email already exists'] = 'Email already exists';
 $LANG['Email is connected to an account of this type: <span class="notranslate">{ACCOUNT_TYPE}</span>'] = 'Email is connected to an account of this type: <span class="notranslate">{ACCOUNT_TYPE}</span>';
 $LANG['That is not a valid email'] = 'That is not a valid email';
@@ -182,6 +183,7 @@ $LANG['Kind Regards'] = 'Kind Regards';
 // Translation of file modules/account/views/mails/signup_invite.inc
 
 $LANG['Hi'] = 'Hi';
+$LANG['In order to create a password on the site, press the following link or paste it into your browsers URL line'] = 'In order to create a password on the site, press the following link or paste it into your browsers URL line';
 $LANG['If you do not want to collaborate on the site, then you can just delete this message'] = 'If you do not want to collaborate on the site, then you can just delete this message';
 $LANG['Kind Regards'] = 'Kind Regards';
 $LANG['A colleague or friend has asked you to collaborate on the site on {SITE_NAME}.'] = 'A colleague or friend has asked you to collaborate on the site on {SITE_NAME}.';
