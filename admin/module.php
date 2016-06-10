@@ -50,7 +50,7 @@ class module extends account {
             if (empty($this->errors)) {
                 
                 // Set mail view
-                $u->subjectEmail = lang::translate('Invitaion from the site ') . conf::getSchemeWithServerName();
+                $u->subjectEmail = lang::translate('Invitaion from the site') . '&nbsp;' . conf::getSchemeWithServerName();
                 $u->verifyMailTemplate = conf::getModulePath('account') . "/views/mails/signup_invite.inc";
                 $res = $u->createUser($_POST['email'], true);
                 if ($res) {
