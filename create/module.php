@@ -186,6 +186,14 @@ class module extends account {
                
         $md5_key = random::md5();
         
+        if(!isset($_POST['password'])) {
+            $_POST['password'] = random::md5();
+        }
+        
+        if(!isset($_POST['password2'])) {
+            $_POST['password2'] = random::md5();
+        }
+        
         q::begin();
         $res = $this->createDbUser(
                 $_POST['email'], 
@@ -215,6 +223,12 @@ class module extends account {
         }
         return true;
     }
+    
+    /**
+     * Which view to use, e.g. ('mails', 'invite')
+     * @var null 
+     */
+    public $setVerifyMailTemplate = null;
         
     /**
      * Send a verify email
@@ -232,13 +246,21 @@ class module extends account {
         $vars['verify_key'] = "$vars[site_name]/account/create/verify/$user_id/$md5";
         $vars['user_id'] = $user_id;
         
-        $txt = view::get('account', 'mails/signup_message', $vars);
+        $template = null;
+        if (!$this->setVerifyMailTemplate) {
+            $template = 'mails/signup_message';
+        } else {
+            $template = $this->setVerifyMailTemplate;
+        }
+        $txt = view::get('account', $template, $vars);
         $md = new markdown();
         $html = $md->getEmailHtml($subject, $txt);
 
+        echo $html; die;
         return mailsmtp::mail($email, $subject, $txt, $html);
 
     }
+
 
     /**
      * method for verifing an account

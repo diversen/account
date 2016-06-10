@@ -2,20 +2,20 @@
 
 namespace modules\account\admin;
 
+use diversen\conf;
 use diversen\db;
 use diversen\db\q;
 use diversen\html;
 use diversen\http;
 use diversen\lang;
 use diversen\pagination;
+use diversen\random;
 use diversen\session;
 use diversen\template;
 use diversen\uri;
-use diversen\view;
-use diversen\conf;
-
-use modules\account\module as account;
+use diversen\valid;
 use modules\account\admin\views as adminViews;
+use modules\account\module as account;
 
 
 // view::includeOverrideFunctions('account', 'admin/views.php');
@@ -27,8 +27,9 @@ class module extends account {
 
     
 
-    /**
-     * /account/admin/create action
+     /**
+     * Action where admin ('can be changed in account.ini') creates account
+     * /account/login/create action
      * @return void
      */
     public function createAction() {
@@ -45,8 +46,11 @@ class module extends account {
         $l = new \modules\account\create\module();
         if (!empty($_POST['submit'])) {
             $_POST = html::specialEncode($_POST);
-            $l->validate();
+            $this->validateInvite();
             if (empty($l->errors)) {
+                
+                // Set mail view
+                $l->setVerifyMailTemplate = 'mails/signup_invite';
                 $res = $l->createUser();
                 if ($res) {
                     http::locationHeader(
@@ -60,8 +64,48 @@ class module extends account {
             }
         }
 
-        echo \modules\account\login\views::formCreate();
+        echo self::formCreate();
         echo \modules\account\views::getTermsLink();
+    }
+    
+    public function validateInvite () {
+        if (isset($_POST['submit'])) {
+            
+            // exists in system
+            if ($this->emailExist($_POST['email'])){
+                
+                $this->errors['email'] = lang::translate('Email already exists');
+                $account = $this->getUserFromEmail($_POST['email'], null);
+                if ($account['type'] != 'email') {
+                    $this->errors['type'] = lang::translate('Email is connected to an account of this type: <span class="notranslate">{ACCOUNT_TYPE}</span>', array ('ACCOUNT_TYPE' => $account['type']));
+                }
+            }
+
+            // validate email and email domain
+            if (!valid::validateEmailAndDomain($_POST['email'])) {
+                $this->errors['email'] = lang::translate('That is not a valid email');
+            }
+        }
+    }
+
+            /**
+     * Create form
+     */
+    public static function formCreate () {
+        $options = array ();
+        html::$autoLoadTrigger = 'submit';
+        html::init($_POST);
+        html::formStart('account_create_form');
+        html::legend(lang::translate('Create account'));
+        html::label('email', lang::translate('Email'), array('required' => 1));
+        html::text('email',  null, $options);
+        html::hidden('password', random::sha1());
+        html::hidden('password2', random::sha1());
+        html::hidden('captcha', random::sha1());
+        html::submit('submit', lang::translate('Send'));
+        html::formEnd();
+        return html::getStr();
+    
     }
     
     public function indexAction () {

@@ -12,6 +12,12 @@ $LANG['Create user'] = 'Create user';
 
 $LANG['Create Account'] = 'Create Account';
 $LANG['Account has been created. Visit your email box and press the verification link.'] = 'Account has been created. Visit your email box and press the verification link.';
+$LANG['Email already exists'] = 'Email already exists';
+$LANG['Email is connected to an account of this type: <span class="notranslate">{ACCOUNT_TYPE}</span>'] = 'Email is connected to an account of this type: <span class="notranslate">{ACCOUNT_TYPE}</span>';
+$LANG['That is not a valid email'] = 'That is not a valid email';
+$LANG['Create account'] = 'Create account';
+$LANG['Email'] = 'Email';
+$LANG['Send'] = 'Send';
 $LANG['Search for users'] = 'Search for users';
 $LANG['All users'] = 'All users';
 $LANG['Found the following accounts'] = 'Found the following accounts';
@@ -172,6 +178,13 @@ $LANG['You have connected with {SITE_NAME} because you have lost your password']
 $LANG['In order to create a new password just press the following link or paste it into your browsers URL line'] = 'In order to create a new password just press the following link or paste it into your browsers URL line';
 $LANG['If you have not requested a new password then you can just delete this message'] = 'If you have not requested a new password then you can just delete this message';
 $LANG['Kind Regards'] = 'Kind Regards';
+
+// Translation of file modules/account/views/mails/signup_invite.inc
+
+$LANG['Hi'] = 'Hi';
+$LANG['If you do not want to collaborate on the site, then you can just delete this message'] = 'If you do not want to collaborate on the site, then you can just delete this message';
+$LANG['Kind Regards'] = 'Kind Regards';
+$LANG['A colleague or friend has asked you to collaborate on the site on {SITE_NAME}.'] = 'A colleague or friend has asked you to collaborate on the site on {SITE_NAME}.';
 
 // Translation of file modules/account/views/mails/signup_message.inc
 

@@ -74,6 +74,7 @@ class module extends account {
     }
 
     /**
+     * Action where anon user creates account
      * /account/login/create action
      * @return void
      */

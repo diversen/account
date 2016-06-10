@@ -83,7 +83,7 @@ class module extends account {
      *
      * @return int  $res 1 on succes and 0 on failure
      */
-    public function sendRequestPasswordMail($email = null, $options = array()) {
+    public function sendRequestPasswordMail($email) {
 
         $vars = $this->getMailVarsFromEmail($email);
         
