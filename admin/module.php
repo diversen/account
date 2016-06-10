@@ -12,18 +12,61 @@ use diversen\session;
 use diversen\template;
 use diversen\uri;
 use diversen\view;
+use diversen\conf;
 
 use modules\account\module as account;
 use modules\account\admin\views as adminViews;
 
 
-view::includeOverrideFunctions('account', 'admin/views.php');
+// view::includeOverrideFunctions('account', 'admin/views.php');
 /**
  * Class account_admin
  */
 class module extends account {
 
 
+    
+
+    /**
+     * /account/admin/create action
+     * @return void
+     */
+    public function createAction() {
+
+        http::prg();
+
+        if (!conf::getModuleIni('account_anon_create')) {
+            \diversen\moduleloader::setStatus(403);
+            return;
+        }
+        
+
+        template::setTitle(lang::translate('Create Account'));
+        $l = new \modules\account\create\module();
+        if (!empty($_POST['submit'])) {
+            $_POST = html::specialEncode($_POST);
+            $l->validate();
+            if (empty($l->errors)) {
+                $res = $l->createUser();
+                if ($res) {
+                    http::locationHeader(
+                        '/account/login/index', 
+                        lang::translate('Account has been created. Visit your email box and press the verification link.'));
+                } else {
+                    echo html::getErrors($l->errors);
+                }
+            } else {
+                echo html::getErrors($l->errors);
+            }
+        }
+
+        echo \modules\account\login\views::formCreate();
+        echo \modules\account\views::getTermsLink();
+    }
+    
+    public function indexAction () {
+        $this->listAction();
+    }
 
     /**
      * list action
@@ -32,10 +75,25 @@ class module extends account {
      */
     public function listAction() {
         
-        if (!session::checkAccess('super')) {
+        $allow = conf::getModuleIni('account_allow_create');
+        if (!session::checkAccess($allow)) {
             return;
         }
 
+        $per_page = 50;
+        $num_rows = $this->getNumUsers();
+        $p = new pagination($num_rows, $per_page);
+        
+        $users = $this->getUsers($p->from, $per_page);
+        template::setTitle(lang::translate('Search for users'));
+
+        echo html::getHeadline(lang::translate('All users'), 'h2');
+        adminViews::listUsers($users);
+        
+        echo $p->getPagerHTML();
+    }
+    
+    public function searchAction () {
         $_GET = html::specialEncode($_GET);
         $this->searchAccount();
        
@@ -54,17 +112,6 @@ class module extends account {
                 echo lang::translate('I could not find any matching results');
             }
         }
-
-        $num_rows = $this->getNumUsers();
-        $p = new pagination($num_rows);
-        
-        $users = $this->getUsers($p->from);
-        template::setTitle(lang::translate('Search for users'));
-
-        echo html::getHeadline(lang::translate('All users'), 'h2');
-        adminViews::listUsers($users);
-        
-        echo $p->getPagerHTML();
     }
 
     /**
@@ -72,7 +119,8 @@ class module extends account {
      * @return /account/admin/edit
      */
     public function editAction() {
-        if (!session::checkAccess('super')) {
+        $allow = conf::getModuleIni('account_allow_create');
+        if (!session::checkAccess($allow)) {
             return;
         }
 

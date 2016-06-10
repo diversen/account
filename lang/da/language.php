@@ -2,6 +2,7 @@
 
 $LANG = array();
 
+$LANG['Create user'] = 'Opret bruger';
 $LANG['Found the following accounts'] = 'Der blev fundet følgende konti';
 $LANG['Search results'] = 'Søgeresultater';
 $LANG['I could not find any matching results'] = 'Der blev ikke fundet nogen reultater';

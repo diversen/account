@@ -2,6 +2,10 @@
 
 $LANG = array();
 
+// Translation of file modules/account/admin/menu.inc
+
+$LANG['Create user'] = 'Create user';
+
 // Translation of file modules/account/admin/module.php
 
 $LANG['Found the following accounts'] = 'Found the following accounts';
@@ -113,12 +117,12 @@ $LANG['days'] = 'days';
 
 // Translation of file modules/account/menu.inc
 
+$LANG['Admin'] = 'Admin';
 $LANG['Email'] = 'Email';
 $LANG['OpenID'] = 'OpenID';
 $LANG['Facebook'] = 'Facebook';
 $LANG['Github'] = 'Github';
 $LANG['Google'] = 'Google';
-$LANG['Admin'] = 'Admin';
 
 // Translation of file modules/account/module.php
 

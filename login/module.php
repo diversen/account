@@ -9,12 +9,9 @@ use diversen\lang;
 use diversen\session;
 use diversen\strings\mb;
 use diversen\template;
+use diversen\conf;
 
-use modules\account\views as viewsAccount;
 use modules\account\module as account;
-use modules\account\login\views as viewsLogin;
-use modules\account\create\module as accountCreate;
-use modules\account\requestpw\module as requestpw;
 
 /**
  * Class for logging in users with email and password, and letting the request
@@ -44,7 +41,6 @@ class module extends account {
         http::prg();
         template::setTitle(lang::translate('Log in or Log out'));
         
-       
         // Check if we want to keep session
         if (isset($_POST['keep_session']) && $_POST['keep_session'] == 1) {
             $this->options['keep_session'] = 1;
@@ -66,14 +62,14 @@ class module extends account {
             }
         }
         
-        viewsLogin::formLogin($this->errors); 
+        \modules\account\login\views::formLogin($this->errors); 
     }
     
     /**
      * Request password option
      */
     public function requestpwAction () {
-        $rp = new requestpw();
+        $rp = new \modules\account\requestpw\module();
         $rp->indexAction();
     }
 
@@ -85,12 +81,14 @@ class module extends account {
 
         http::prg();
 
-        if (!session::checkAccessFromModuleIni('account_allow_create')) {
+        if (!conf::getModuleIni('account_anon_create')) {
+            \diversen\moduleloader::setStatus(403);
             return;
         }
+        
 
         template::setTitle(lang::translate('Create Account'));
-        $l = new accountCreate();
+        $l = new \modules\account\create\module();
         if (!empty($_POST['submit'])) {
             $_POST = html::specialEncode($_POST);
             $l->validate();
@@ -108,8 +106,8 @@ class module extends account {
             }
         }
 
-        echo viewsLogin::formCreate();
-        echo viewsAccount::getTermsLink();
+        echo \modules\account\login\views::formCreate();
+        echo \modules\account\views::getTermsLink();
     }
 
 

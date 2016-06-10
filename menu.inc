@@ -13,7 +13,7 @@ $_MODULE_MENU = array();
 $_MODULE_MENU[] = array(
     'title' => lang::translate('Admin'),
     'url' => '/account/admin/list',
-    'auth' => 'super');
+    'auth' => 'admin');
 
 /**
  * anon function which return a menu item for each account type enabled

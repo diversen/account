@@ -11,15 +11,16 @@ if (!session::isUser()) {
     );
 }
 
-$allow_create = conf::getModuleIni('account_allow_create');
-if (!$allow_create) {
-    $allow_create = 'anon';
-}
+$anon_create = conf::getModuleIni('account_anon_create');
+/*
+if (!$anon_create) {
+    $anon_create = 'anon';
+}*/
 
-if (!session::isUser()) {
-    $_SUB_MODULE_MENU[1] = array(
+if (!session::isUser() && $anon_create) {
+    $_SUB_MODULE_MENU[] = array(
         'title' => lang::translate('Create account'),
         'url' => '/account/login/create',
-        'auth' => $allow_create
+        'auth' => 'anon'
     );
 }
