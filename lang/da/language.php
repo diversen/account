@@ -2,12 +2,16 @@
 
 $LANG = array();
 
+$LANG['Users'] = 'Brugere';
+$LANG['Search'] = 'Søg';
 $LANG['Create user'] = 'Opret bruger';
+$LANG['Create Account'] = 'Opret konto';
+$LANG['Account has been created. Visit your email box and press the verification link.'] = 'Vi har sendt en email til dig. Du skal trykke på et link i denne email for at verificere at emailen tilhører dig.';
+$LANG['Search for users'] = 'Søg efter brugere';
+$LANG['All users'] = 'Alle brugere';
 $LANG['Found the following accounts'] = 'Der blev fundet følgende konti';
 $LANG['Search results'] = 'Søgeresultater';
 $LANG['I could not find any matching results'] = 'Der blev ikke fundet nogen reultater';
-$LANG['Search for users'] = 'Søg efter brugere';
-$LANG['All users'] = 'Alle brugere';
 $LANG['Edit account'] = 'Ret konto';
 $LANG['Account has been updated'] = 'Kontoen er blevet opdateret';
 $LANG['Password needs to be 7 chars'] = 'Password skal mindst være 7 karakterer langt';
@@ -32,7 +36,6 @@ $LANG['Super user'] = 'Super bruger';
 $LANG['Delete'] = 'Slet';
 $LANG['Search accounts'] = 'Søg i konti';
 $LANG['Search account ID'] = 'Søg efter efter ID';
-$LANG['Search'] = 'Søg';
 $LANG['Verify Account'] = 'Verificer Konto';
 $LANG['Account is already verified'] = 'Konto er allerede verificeret';
 $LANG['Account has been verified'] = 'Konto er blevet verificeret. Du kan nu <a href="/account/login/index">logge ind</a>';
@@ -58,11 +61,8 @@ $LANG['Could not get google client access token. Try again later.'] = 'Kunne ikk
 $LANG['Google login'] = 'Login med google';
 $LANG['account'] = 'konto';
 $LANG['Account'] = 'Konto';
-$LANG['Users'] = 'Brugere';
 $LANG['Lost password'] = 'Mistet password';
 $LANG['Create account'] = 'Opret konto';
-$LANG['Create Account'] = 'Opret konto';
-$LANG['Account has been created. Visit your email box and press the verification link.'] = 'Vi har sendt en email til dig. Du skal trykke på et link i denne email for at verificere at emailen tilhører dig.';
 $LANG['Not a correct email or password'] = 'Enten forkert password eller email';
 $LANG['Enter CAPTCHA string'] = 'Indtast CAPTCHA tekst';
 $LANG['Send'] = 'Send';

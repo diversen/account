@@ -4,15 +4,19 @@ $LANG = array();
 
 // Translation of file modules/account/admin/menu.inc
 
+$LANG['Users'] = 'Users';
+$LANG['Search'] = 'Search';
 $LANG['Create user'] = 'Create user';
 
 // Translation of file modules/account/admin/module.php
 
+$LANG['Create Account'] = 'Create Account';
+$LANG['Account has been created. Visit your email box and press the verification link.'] = 'Account has been created. Visit your email box and press the verification link.';
+$LANG['Search for users'] = 'Search for users';
+$LANG['All users'] = 'All users';
 $LANG['Found the following accounts'] = 'Found the following accounts';
 $LANG['Search results'] = 'Search results';
 $LANG['I could not find any matching results'] = 'I could not find any matching results';
-$LANG['Search for users'] = 'Search for users';
-$LANG['All users'] = 'All users';
 $LANG['Edit account'] = 'Edit account';
 $LANG['Account has been updated'] = 'Account has been updated';
 $LANG['Password needs to be 7 chars'] = 'Password needs to be 7 chars';

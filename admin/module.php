@@ -35,8 +35,8 @@ class module extends account {
 
         http::prg();
 
-        if (!conf::getModuleIni('account_anon_create')) {
-            \diversen\moduleloader::setStatus(403);
+        $allow = conf::getModuleIni('account_allow_create');
+        if (!session::checkAccess($allow)) {
             return;
         }
         
