@@ -8,6 +8,13 @@ $account_logins = conf::getModuleIni('account_logins');
 
 $_MODULE_MENU = array();
 
+
+
+$_MODULE_MENU[] = array(
+    'title' => lang::translate('Admin'),
+    'url' => '/account/admin/list',
+    'auth' => 'super');
+
 /**
  * anon function which return a menu item for each account type enabled
  */
@@ -51,11 +58,3 @@ $attach_menu = function ($type) {
 foreach($account_logins as $login) {
     $_MODULE_MENU[] = $attach_menu($login);
 }
-
-
-$_MODULE_MENU[] = array(
-    'title' => lang::translate('Admin'),
-    'url' => '/account/admin/list',
-    'auth' => 'super');
-
-

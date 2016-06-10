@@ -138,7 +138,7 @@ class module extends account {
     }
     
     /**
-     * create account and redirect
+     * Create account and redirect
      * @param array $search basic 
      * @return type
      */
