@@ -27,11 +27,11 @@ class views {
         html::formStart('account_form');
         html::legend(lang::translate('Edit account'));
         html::label('email', lang::translate('Email') );
-        html::text('email');
-        html::label('password', lang::translate('Password') );
-        html::password('password');
-        html::label('password2', lang::translate('Repeat password') );
-        html::password('password2');
+        html::text('email', null, array ('disabled' => 1));
+        //html::label('password', lang::translate('Password') );
+        //html::password('password');
+        //html::label('password2', lang::translate('Repeat password') );
+        //html::password('password2');
         html::label('verified', lang::translate('Account is verified') );
         html::checkbox ('verified');
         

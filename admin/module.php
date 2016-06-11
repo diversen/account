@@ -44,7 +44,9 @@ class module extends account {
         }
 
         template::setTitle(lang::translate('Create Account'));
-        $this->getNumUserInfo();
+        if (!$this->getNumUserInfo()) {
+            return;
+        }
         
         $u = new \modules\content\users\module();
         if (!empty($_POST['submit'])) {
@@ -69,6 +71,11 @@ class module extends account {
         echo \modules\account\views::getTermsLink();
     }
     
+    /**
+     * If 'account_user_limit' is set in account.ini we check how 
+     * many user is allowed to be created
+     * @return boolean $res
+     */
     public function getNumUserInfo () {
         $num_limit = conf::getModuleIni('account_user_limit');
         
@@ -79,13 +86,22 @@ class module extends account {
         $num_verified = q::numRows('account')->filter('verified =', 1)->fetch();
         $num_users = q::numRows('account')->fetch();
         
-        echo lang::translate('Number of users') . ' ' . $num_users . "<br />";
-        echo lang::translate('Number of verified users') . ' ' . $num_verified . "<br />";
+        $str = lang::translate('Number of users') . ' ' . $num_users . "<br />";
+        $str.= lang::translate('Number of verified users') . ' ' . $num_verified . "<br />";
+        $str.=lang::translate('You are allow to create a total of {num}', array ('num' => $num_limit));
         
         
         
+        if ($num_users >= $num_limit) {
+            echo \mainTemplate::getWarning($str);
+            return false;
+        } 
         
+        echo \mainTemplate::getConfirm($str);
+        return true;
     }
+    
+    
     
     
     public function createUserSendEmail () {
@@ -247,14 +263,14 @@ class module extends account {
         template::setTitle(lang::translate('Search for users'));
 
         echo html::getHeadline(lang::translate('All users'), 'h2');
-        adminViews::listUsers($users);
+        \modules\account\admin\views::listUsers($users);
         
         echo $p->getPagerHTML();
     }
     
     public function searchAction () {
         $_GET = html::specialEncode($_GET);
-        $this->searchAccount();
+        \modules\account\admin\views::searchForm();
        
         if (isset($_GET['submit'])) {
             
@@ -265,8 +281,7 @@ class module extends account {
                 echo lang::translate('Found the following accounts');
                 
                 echo html::getHeadline(lang::translate('Search results'), 'h2');
-                adminViews::listUsers($res);
-                //echo "<hr />\n";
+                \modules\account\admin\views::listUsers($res);
             } else {
                 echo lang::translate('I could not find any matching results');
             }
@@ -284,18 +299,19 @@ class module extends account {
         }
 
         template::setTitle(lang::translate('Edit account'));
-        $user = $this->getUser();
+        $user = $this->getUser(uri::fragment(3));
+        
+        if (!session::isSuper() && $user['super'] == 1) {
+            echo \mainTemplate::getError(lang::translate('You can not edit a super account'));
+            return;     
+        }
 
         if (isset($_POST['submit'])) {
             if (empty($user['url'])) {
                 $this->validate();
             }
             if (empty($this->errors)) {
-                if (!empty($user['url'])) {
-                    $res = $this->updateUrlUser();
-                } else {
-                    $res = $this->updateEmailUser();
-                }
+                $res = $this->updateUser();
                 if ($res) {
                     session::setActionMessage(
                             lang::translate('Account has been updated')
@@ -307,40 +323,12 @@ class module extends account {
             }
         }
 
-        if (!empty($user['url'])) {
-            adminViews::updateUrlUser($user);
-        } else {
-            adminViews::updateEmailUser($user);
-        }
-    }
+        \modules\account\admin\views::updateEmailUser($user);
 
-    /**
-     * 
-     * @var type $errors 
-
-     * 
-     */
-    //public $errors = array();
-    public $uri;
-    public $id;
-
-    /**
-     *  set uri and if from fragement in uri
-     */
-    function __construct() {
-        $this->uri = uri::getInstance();
-        $this->id = (int) $this->uri->fragment(3);
     }
 
 
-    /**
-     * get user id from URL
-     * @return  int $user_id
-     */
-    public static function getUserId() {
-        $uri = uri::getInstance();
-        return (int) $uri->fragment(3);
-    }
+
 
     /**
      * Validate and sets $error
@@ -349,15 +337,7 @@ class module extends account {
         if (empty($_POST['submit'])) {
             return;
         }
-        if (strlen($_POST['password']) < 7) {
-            $this->errors['password'] = lang::translate('Password needs to be 7 chars');
-        }
-        if (strlen($_POST['password']) == 0) {
-            unset($this->errors['password']);
-        }
-        if ($_POST['password'] != $_POST['password2']) {
-            $this->errors['password'] = lang::translate('Passwords does not match');
-        }
+
     }
 
     /**
@@ -365,8 +345,7 @@ class module extends account {
      *
      * @return array $row
      */
-    public function getUser() {
-        $id = self::getUserId();
+    public function getUser($id) {     
         $db = new db();
         $row = $db->selectOne('account', 'id', $id);
         return $row;
@@ -395,33 +374,36 @@ class module extends account {
      * Updates a user from POST request
      * @return boolean $res true on success else false
      */
-    public function updateEmailUser() {
-
-        $values = array(
-            'email' => $_POST['email'],
-        );
-
+    public function updateUser() {
+        
+        $values = [];
+        
         isset($_POST['admin']) ? $values['admin'] = 1 : $values['admin'] = 0;
-
-        if (session::isSuper()) {
-            isset($_POST['super']) ? $values['super'] = 1 : $values['super'] = 0;
-        }
-
         isset($_POST['verified']) ? $values['verified'] = 1 : $values['verified'] = 0;
         isset($_POST['locked']) ? $values['locked'] = 1 : $values['locked'] = 0;
 
-        if (strlen($_POST['password']) != 0) {
-            $values['password'] = md5($_POST['password']);
-        }
+        $values = $this->setSuperValues($values);
 
         if ($values['locked'] == 1) {
-            $this->lockUser($this->id);
-
+            $this->lockUser(uri::fragment(3));
         }
 
+
         $db = new db();
-        $res = $db->update('account', $values, $this->id);
+        $res = $db->update('account', $values, uri::fragment(3));
         return $res;
+    }
+    
+    /**
+     * Set special values if logged in as super user
+     * @param type $values
+     */
+    public function setSuperValues ($values) {
+        
+        if (session::isSuper()) {
+            isset($_POST['super']) ? $values['super'] = 1 : $values['super'] = 0;
+        }
+        return $values;
     }
 
     /**
@@ -433,35 +415,5 @@ class module extends account {
         $values = array ('locked' => 1);
         q::update('account')->values($values)->filter('id =', $user_id)->exec();
         q::delete('system_cookie')->filter('account_id =', $user_id)->exec();
-    }
-
-
-    public function searchAccount() {
-        $v = new adminViews();
-        $v->searchForm();
-    }
-
-    /**
-     * method for updaing a user
-     *
-     * @return int $res
-     */
-    public function updateUrlUser() {
-        isset($_POST['admin']) ? $values['admin'] = 1 : $values['admin'] = 0;
-
-        if (session::isSuper()) {
-            isset($_POST['super']) ? $values['super'] = 1 : $values['super'] = 0;
-        }
-        isset($_POST['verified']) ? $values['verified'] = 1 : $values['verified'] = 0;
-        isset($_POST['locked']) ? $values['locked'] = 1 : $values['locked'] = 0;
-
-        if ($values['locked'] == 1) {
-            $this->lockUser($this->id);
-            $this->lockProfile($this->id);
-        }
-
-        $db = new db();
-        $res = $db->update('account', $values, $this->id);
-        return $res;
     }
 }

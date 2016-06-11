@@ -14,6 +14,7 @@ $LANG['Create Account'] = 'Create Account';
 $LANG['Account has been created. The created user will need to visit his mailbox'] = 'Account has been created. The created user will need to visit his mailbox';
 $LANG['Number of users'] = 'Number of users';
 $LANG['Number of verified users'] = 'Number of verified users';
+$LANG['You are allow to create a total of {num}'] = 'You are allow to create a total of {num}';
 $LANG['Could not create new user'] = 'Could not create new user';
 $LANG['Could not send email. Try again later'] = 'Could not send email. Try again later';
 $LANG['Invitaion from the site '] = 'Invitaion from the site ';
