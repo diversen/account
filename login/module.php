@@ -89,21 +89,21 @@ class module extends account {
         
 
         template::setTitle(lang::translate('Create Account'));
-        $l = new \modules\account\create\module();
+        $c = new \modules\account\create\module();
         if (!empty($_POST['submit'])) {
             $_POST = html::specialEncode($_POST);
-            $l->validate();
-            if (empty($l->errors)) {
-                $res = $l->createUser();
+            $c->validate();
+            if (empty($c->errors)) {
+                $res = $c->createUser();
                 if ($res) {
                     http::locationHeader(
                         '/account/login/index', 
                         lang::translate('Account has been created. Visit your email box and press the verification link.'));
                 } else {
-                    echo html::getErrors($l->errors);
+                    echo html::getErrors($c->errors);
                 }
             } else {
-                echo html::getErrors($l->errors);
+                echo html::getErrors($c->errors);
             }
         }
 
