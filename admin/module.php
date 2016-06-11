@@ -14,6 +14,11 @@ use diversen\session;
 use diversen\template;
 use diversen\uri;
 use diversen\valid;
+use diversen\user;
+use diversen\strings\mb;
+use diversen\view;
+use diversen\mailsmtp;
+
 use modules\account\admin\views as adminViews;
 use modules\account\module as account;
 
@@ -23,9 +28,6 @@ use modules\account\module as account;
  * Class account_admin
  */
 class module extends account {
-
-
-    
 
      /**
      * Action where admin ('can be changed in account.ini') creates account
@@ -40,7 +42,6 @@ class module extends account {
         if (!session::checkAccess($allow)) {
             return;
         }
-        
 
         template::setTitle(lang::translate('Create Account'));
         $u = new \modules\content\users\module();
@@ -49,10 +50,7 @@ class module extends account {
             $this->validateCreate();
             if (empty($this->errors)) {
                 
-                // Set mail view
-                $u->subjectEmail = lang::translate('Invitaion from the site ') . ' ' . conf::getSchemeWithServerName();
-                $u->verifyMailTemplate = conf::getModulePath('account') . "/views/mails/signup_invite.inc";
-                $res = $u->createUser($_POST['email'], true);
+                $res = $this->createUserSendEmail();
                 if ($res) {
                     http::locationHeader(
                         '/account/admin/create', 
@@ -67,6 +65,98 @@ class module extends account {
 
         echo self::formCreate();
         echo \modules\account\views::getTermsLink();
+    }
+    
+    
+    public function createUserSendEmail () {
+        // Set mail view
+        
+        $user_id = $this->createUserBegin($_POST['email']);
+        if (!$user_id) {
+            $this->errors[] = lang::translate('Could not create new user');
+            return false;
+        }
+        
+        $res = $this->createUserEmailCommit($user_id);
+        if (!$res) {
+            $this->errors[] = lang::translate('Could not send email. Try again later');
+            return false;
+        }
+        
+        return true;
+        
+        
+    }
+    
+    
+    /**
+     * Send email and commit to databases on success
+     * @param int $last_insert_id
+     * @return mixed $res false or user row from database
+     */
+    public function createUserEmailCommit ($last_insert_id) {
+        
+        $account = user::getAccount($last_insert_id);
+        $parts = $this->getMailParts($account['email']);
+        
+        $sent = mailsmtp::mail($account['email'], $parts['subject'], $parts['txt'], $parts['html']); 
+
+        if (!$sent) {
+            q::rollback();
+            return false;
+        } else {
+            if (!q::commit()) {
+                q::rollback();
+                return false;
+            }
+        }
+        return user::getAccount($last_insert_id);
+    } 
+
+    /**
+     * Get email parts for email with notification about account creation
+     * @param string $email
+     * @return array $parts array ('subject' => 'subject', 'txt' => 'txt message', 'html' => 'html message')
+     */
+    public function getMailParts ($email) {
+        $email = mb::tolower($email);
+        $r = new \modules\account\requestpw\module();
+        $vars = $r->getMailVarsFromEmail($email);
+        
+        $subject = lang::translate('Invitaion from the site ') . ' ' . conf::getSchemeWithServerName();
+        $view = conf::getModulePath('account') . "/views/mails/signup_invite.inc";
+        
+        //$view = conf::getModulePath('content') . "/mail/mail.php";
+        $txt = view::getFileView($view,  $vars);
+        
+        $helper = new \diversen\mailer\markdown();
+        $html = $helper->getEmailHtml($subject, $txt);
+
+        return array ('txt' => $txt, 'subject' => $subject, 'html' => $html);
+    }
+    
+
+    /**
+     * Create a new user in account table and sends an email
+     * @return type
+     */
+    public function createUserBegin ($email) {
+        
+
+        $md5_key = random::md5();
+        $c = new \modules\account\create\module();
+        
+        // Create invite user with no password
+        q::begin();
+        $res = $c->createDbUser($email, '', $md5_key, 1);
+        
+        if ($res) {
+            return q::lastInsertId();
+        } else {
+            q::rollback();
+            
+            return false;
+        }        
     }
     
     public function validateCreate () {
