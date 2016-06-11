@@ -68,7 +68,7 @@ class module extends account {
         }
 
         echo self::formCreate();
-        echo \modules\account\views::getTermsLink();
+        // echo \modules\account\views::getTermsLink();
     }
     
     /**
@@ -88,7 +88,7 @@ class module extends account {
         
         $str = lang::translate('Number of users') . ' ' . $num_users . "<br />";
         $str.= lang::translate('Number of verified users') . ' ' . $num_verified . "<br />";
-        $str.=lang::translate('You are allow to create a total of {num}', array ('num' => $num_limit));
+        $str.=lang::translate('You are allow to create a total of {num} users', array ('num' => $num_limit));
         
         
         

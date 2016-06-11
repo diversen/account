@@ -14,7 +14,7 @@ $LANG['Create Account'] = 'Create Account';
 $LANG['Account has been created. The created user will need to visit his mailbox'] = 'Account has been created. The created user will need to visit his mailbox';
 $LANG['Number of users'] = 'Number of users';
 $LANG['Number of verified users'] = 'Number of verified users';
-$LANG['You are allow to create a total of {num}'] = 'You are allow to create a total of {num}';
+$LANG['You are allow to create a total of {num} users'] = 'You are allow to create a total of {num} users';
 $LANG['Could not create new user'] = 'Could not create new user';
 $LANG['Could not send email. Try again later'] = 'Could not send email. Try again later';
 $LANG['Invitaion from the site '] = 'Invitaion from the site ';
@@ -30,9 +30,8 @@ $LANG['Found the following accounts'] = 'Found the following accounts';
 $LANG['Search results'] = 'Search results';
 $LANG['I could not find any matching results'] = 'I could not find any matching results';
 $LANG['Edit account'] = 'Edit account';
+$LANG['You can not edit a super account'] = 'You can not edit a super account';
 $LANG['Account has been updated'] = 'Account has been updated';
-$LANG['Password needs to be 7 chars'] = 'Password needs to be 7 chars';
-$LANG['Passwords does not match'] = 'Passwords does not match';
 
 // Translation of file modules/account/admin/views.php
 
