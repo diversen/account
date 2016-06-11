@@ -44,6 +44,8 @@ class module extends account {
         }
 
         template::setTitle(lang::translate('Create Account'));
+        $this->getNumUserInfo();
+        
         $u = new \modules\content\users\module();
         if (!empty($_POST['submit'])) {
             $_POST = html::specialEncode($_POST);
@@ -65,6 +67,24 @@ class module extends account {
 
         echo self::formCreate();
         echo \modules\account\views::getTermsLink();
+    }
+    
+    public function getNumUserInfo () {
+        $num_limit = conf::getModuleIni('account_user_limit');
+        
+        if (!$num_limit) {
+            return;
+        }
+        
+        $num_verified = q::numRows('account')->filter('verified =', 1)->fetch();
+        $num_users = q::numRows('account')->fetch();
+        
+        echo lang::translate('Number of users') . ' ' . $num_users . "<br />";
+        echo lang::translate('Number of verified users') . ' ' . $num_verified . "<br />";
+        
+        
+        
+        
     }
     
     
@@ -363,9 +383,12 @@ class module extends account {
         return $rows;
     }
 
+    /**
+     * Return total count of users
+     * @return int $res
+     */
     public function getNumUsers() {
-        $db = new q();
-        return $db->setSelectNumRows('account')->fetch();
+        return q::numRows('account')->fetch();
     }
 
     /**

@@ -11,8 +11,12 @@ $LANG['Create user'] = 'Create user';
 // Translation of file modules/account/admin/module.php
 
 $LANG['Create Account'] = 'Create Account';
-$LANG['Invitaion from the site '] = 'Invitaion from the site ';
 $LANG['Account has been created. The created user will need to visit his mailbox'] = 'Account has been created. The created user will need to visit his mailbox';
+$LANG['Number of users'] = 'Number of users';
+$LANG['Number of verified users'] = 'Number of verified users';
+$LANG['Could not create new user'] = 'Could not create new user';
+$LANG['Could not send email. Try again later'] = 'Could not send email. Try again later';
+$LANG['Invitaion from the site '] = 'Invitaion from the site ';
 $LANG['Email already exists'] = 'Email already exists';
 $LANG['Email is connected to an account of this type: <span class="notranslate">{ACCOUNT_TYPE}</span>'] = 'Email is connected to an account of this type: <span class="notranslate">{ACCOUNT_TYPE}</span>';
 $LANG['That is not a valid email'] = 'That is not a valid email';
