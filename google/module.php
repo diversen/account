@@ -3,17 +3,13 @@
 namespace modules\account\google;
 
 use diversen\conf;
-use diversen\db;
-use diversen\db\q;
 use diversen\html;
 use diversen\http;
 use diversen\lang;
 use diversen\moduleloader;
-use diversen\random;
 use diversen\session;
 use diversen\strings\mb;
 use diversen\template;
-use diversen\user;
 
 use Google_Client;
 use Google_Service_Oauth2;
@@ -22,7 +18,6 @@ moduleloader::includeModule('account');
 
 use modules\account\module as account;
 use modules\account\views as viewsAccount;
-use modules\account\config;
 
 /**
  * contains class for logging in with google api api
