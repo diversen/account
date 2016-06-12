@@ -13,13 +13,11 @@ use diversen\random;
 use diversen\session;
 use diversen\template;
 use diversen\uri;
-use diversen\valid;
 use diversen\user;
 use diversen\strings\mb;
 use diversen\view;
 use diversen\mailsmtp;
 
-use modules\account\admin\views as adminViews;
 use modules\account\module as account;
 
 
@@ -51,7 +49,7 @@ class module extends account {
         $u = new \modules\content\users\module();
         if (!empty($_POST['submit'])) {
             $_POST = html::specialEncode($_POST);
-            $this->validateCreate();
+            $this->validateCreate($_POST['email']);
             if (empty($this->errors)) {
                 
                 $res = $this->createUserSendEmail();
@@ -195,26 +193,13 @@ class module extends account {
         }        
     }
     
-    public function validateCreate () {
+    public function validateCreate ($email) {
 
         if (isset($_POST['submit'])) {
-            
-            
-            // exists in system
-            $row = q::select('account')->filter('email =', $_POST['email'])->fetchSingle();
-                    
-            if (!empty($row)){
-                // print_r($row); print_r($_POST); die;
-                $this->errors['email'] = lang::translate('Email already exists');
-                $account = $this->getUserFromEmail($_POST['email'], null);
-                if ($account['type'] != 'email') {
-                    $this->errors['type'] = lang::translate('Email is connected to an account of this type: <span class="notranslate">{ACCOUNT_TYPE}</span>', array ('ACCOUNT_TYPE' => $account['type']));
-                }
-            }
-
-            // validate email and email domain
-            if (!valid::validateEmailAndDomain($_POST['email'])) {
-                $this->errors['email'] = lang::translate('That is not a valid email');
+            $c = new \modules\account\create\module();
+            $c->validateEmail($email);
+            if (!empty($c->errors)) {
+                $this->errors = $c->errors;
             }
         }
     }

@@ -66,31 +66,45 @@ class module extends account {
 
         if (isset($_POST['submit'])) {
             
-            // exists in system
-            if ($this->emailExist($_POST['email'])){
-                
-                $this->errors['email'] = lang::translate('Email already exists');
-                $account = $this->getUserFromEmail($_POST['email'], null);
-                if ($account['type'] != 'email') {
-                    $this->errors['type'] = lang::translate('Email is connected to an account of this type: <span class="notranslate">{ACCOUNT_TYPE}</span>', array ('ACCOUNT_TYPE' => $account['type']));
-                }
-            }
-
-            // validate email and email domain
-            if (!valid::validateEmailAndDomain($_POST['email'])) {
-                $this->errors['email'] = lang::translate('That is not a valid email');
-            }
-
-            // validate passeword
+            $this->validateEmail($_POST['email']);
             $this->validatePasswords();
-            
-            // captcha
             if (!captcha::checkCaptcha()){
                 $this->errors['captcha'] = lang::translate('Incorrect answer to captcha test');
             }
         }
     }
-      
+    
+    /**
+     * Validate an email. Check email and check if email already exists
+     * Sets errors
+     * @param string $email
+     */
+    public function validateEmail($email) {
+
+        if ($this->emailExistInAccount($email)) {
+
+            $this->errors['email'] = lang::translate('Email already exists');
+            $account = $this->getUserFromEmail($email, null);
+            if ($account['type'] != 'email') {
+                $this->errors['type'] = lang::translate('Email is connected to an account of this type: <span class="notranslate">{ACCOUNT_TYPE}</span>', array('ACCOUNT_TYPE' => $account['type']));
+            }
+        }
+
+        // validate email and email domain
+        if (!valid::validateEmailAndDomain($email)) {
+            $this->errors['email'] = lang::translate('That is not a valid email');
+        }
+        
+        $allow = conf::getModuleIni('account_domain_allow');
+        if ($allow) {
+            $domains = explode(',', $allow);
+            if (!\diversen\mailer\helpers::isValidDomainEmail($email, $domains)) {
+                $this->errors['email'] = lang::translate('Emails from the entered domain is not allowed');
+            }
+
+        }
+    }
+
     /**
      * validate passwords 
      */
@@ -106,34 +120,7 @@ class module extends account {
             $this->errors['password'] = lang::translate('Passwords does not match');
         }        
     }
-    
-    /**
-     * set this to true if you want to ignore if a mail exist when signing up
-     * sets $this->options['ignore_email_exists']
-     * @param  boolean $bool
-     */
-    public function ignoreEmailExists ($bool) {
-        if ($bool) {
-            $this->options['ignore_email_exists'] = true;
-        }
-    }
-    
-    /**
-     * validate emails from submission $_POST['email'] against $_POST['email2']
-     */
-    public function validateEmails () {
-              
-        if (!valid::validateEmailAndDomain($_POST['email'])) {
-            $this->errors['email'] = lang::translate('That is not a valid email');
-        }
-        
-        if (!isset($this->options['ignore_email_exists'])) {
-            if ($this->emailExist($_POST['email'])){
-                $this->errors['email'] = lang::translate('Email already exists');
-                return false;
-            }
-        }
-    }
+
     
     /**
      * check for identical email from $_POST['email'] and $_POST['email2']
@@ -180,10 +167,10 @@ class module extends account {
      * @return int $res last insert id on success or 0 on failure
      */
     public function createUser (){
-                
-        $_POST['email'] = mb::tolower($_POST['email']);
+        
         $_POST = html::specialDecode($_POST);
-               
+        $_POST['email'] = mb::tolower($_POST['email']);
+        
         $md5_key = random::md5();
         
         q::begin();

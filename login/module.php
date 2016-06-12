@@ -90,8 +90,8 @@ class module extends account {
 
         template::setTitle(lang::translate('Create Account'));
         $c = new \modules\account\create\module();
+        
         if (!empty($_POST['submit'])) {
-            $_POST = html::specialEncode($_POST);
             $c->validate();
             if (empty($c->errors)) {
                 $res = $c->createUser();

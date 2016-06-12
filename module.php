@@ -390,12 +390,11 @@ class module {
     }
 
     /**
-     * method for checking if a email exists in `account` table
-     *
+     * Method for checking if a email exists in `account` table
      * @param   string  $email the email to be checked for existens
      * @return  array|false  $row user row or false
      */
-    public function emailExist($email) {
+    public function emailExistInAccount($email) {
         $row = $this->getUserFromEmail($email, null);
         if (empty($row)) {
             return false;

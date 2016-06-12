@@ -105,6 +105,16 @@ class module extends account {
                 echo html::getErrors($this->errors);
                 return;
             }
+            
+            // Check if email is valid
+            
+            $c = new \modules\account\create\module();
+            $c->validateEmail($info->email);
+        
+            if (!empty($c->errors)) {
+                echo html::getErrors($c->errors);
+                return;
+            }
 
             
             return $this->auth(mb::tolower($info->email), 'google');
