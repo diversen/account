@@ -95,10 +95,10 @@ class module extends account {
             $this->errors['email'] = lang::translate('That is not a valid email');
         }
         
-        $this->validateEmailDomains();
+        $this->validateEmailDomains($email);
     }
     
-    public function validateEmailDomains () {
+    public function validateEmailDomains ($email) {
                 
         $allow = conf::getModuleIni('account_domain_allow');
         if ($allow) {
