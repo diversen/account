@@ -158,6 +158,12 @@ class module extends account {
             return;
         }
         
+        $c = new \modules\account\create\module();
+        $c->validateEmailDomains();
+        if (!empty($c->errors)) {
+            echo html::getErrors($c->errors);
+            return;
+        }
         return $this->auth($me->getEmail(), 'facebook');
 
         
