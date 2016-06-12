@@ -95,13 +95,17 @@ class module extends account {
             $this->errors['email'] = lang::translate('That is not a valid email');
         }
         
+        $this->validateEmailDomains();
+    }
+    
+    public function validateEmailDomains () {
+                
         $allow = conf::getModuleIni('account_domain_allow');
         if ($allow) {
             $domains = explode(',', $allow);
             if (!\diversen\mailer\helpers::isValidDomainEmail($email, $domains)) {
                 $this->errors['email'] = lang::translate('Emails from the entered domain is not allowed');
             }
-
         }
     }
 

@@ -109,7 +109,7 @@ class module extends account {
             // Check if email is valid
             
             $c = new \modules\account\create\module();
-            $c->validateEmail($info->email);
+            $c->validateEmailDomains($info->email);
         
             if (!empty($c->errors)) {
                 echo html::getErrors($c->errors);
