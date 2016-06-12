@@ -159,7 +159,7 @@ class module extends account {
         }
         
         $c = new \modules\account\create\module();
-        $c->validateEmailDomains();
+        $c->validateEmailDomains($me->getEmail());
         if (!empty($c->errors)) {
             echo html::getErrors($c->errors);
             return;
