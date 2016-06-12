@@ -98,6 +98,11 @@ class module extends account {
         $this->validateEmailDomains($email);
     }
     
+    /**
+     * Validates email according to 'account_domain_allow' ini setting
+     * And sets error
+     * @param string $email
+     */
     public function validateEmailDomains ($email) {
                 
         $allow = conf::getModuleIni('account_domain_allow');
