@@ -8,10 +8,10 @@ use diversen\db\q;
 use diversen\html;
 use diversen\http;
 use diversen\lang;
+use diversen\random;
 use diversen\session;
 use diversen\strings\mb;
 use diversen\user;
-
 use modules\account\config;
 
 /**
