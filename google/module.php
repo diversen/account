@@ -35,9 +35,7 @@ class module extends account {
      */
     public function __construct($options = null) {
         $this->options = array (
-            'keep_session' => 1,
-            'unique_email' => 1
-            
+            'keep_session' => 1
         );
     } 
     
@@ -134,9 +132,6 @@ class module extends account {
             moduleloader::setStatus(403);
             return;
         }
-
-        $login = new self();
-        $login->setAcceptUniqueOnlyEmail(true);
         
         if (session::isUser()){
             $this->displayLogout();    

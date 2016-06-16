@@ -67,8 +67,6 @@ class module extends account {
      * account/github/api action
      */
     public function apiAction() {
-
-        $this->setAcceptUniqueOnlyEmail(true);
         
         $api = new githubapi();
         $res = $api->apiCall('/user');
@@ -97,7 +95,6 @@ class module extends account {
             return;
         }
 
-        $this->setAcceptUniqueOnlyEmail(true);
         $this->setPersistentCookie(true);
         $this->controlLogin();
     }

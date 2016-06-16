@@ -29,9 +29,7 @@ class module {
      * var holding options
      * @var type
      */
-    public $options = array(
-        'unique_email' => 1
-    );
+    public $options = array();
 
     /**
      * status to give on login
@@ -107,29 +105,6 @@ class module {
             return;
         }
         $this->options['redirect'] = $redirect;
-    }
-
-    /**
-     * Allow non verified accounts. Direct login with an email without
-     * a verified account
-     * @param boolean $bool if false we accept non verified accounts.
-     *                      If set to true
-     *
-     */
-    public function setAcceptNonVerifiedAccount($bool = true) {
-        if ($bool) {
-            $this->options['verified'] = false;
-        } else {
-            $this->options['verified'] = true;
-        }
-    }
-
-    /**
-     * flag to indicate if we only allow one account per email
-     * @param boolean $bool true if we only allow one account per email else false
-     */
-    public function setAcceptUniqueOnlyEmail($bool = true) {
-        $this->options['unique_email'] = $bool;
     }
 
     /**
