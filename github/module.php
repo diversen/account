@@ -135,26 +135,6 @@ class module extends account {
     }
     
     /**
-     * Create account and redirect
-     * @param array $search basic 
-     * @return type
-     */
-    public function createAccount($search) {
-        
-        $db = new db();
-        $search['verified'] = 1;
-        $db->begin();
-        $db->insert('account', $search);
-        $db->commit();
-        $last_insert_id = $db->lastInsertId();
-        
-        config::onCreateUser($last_insert_id);
-        
-        $account = user::getAccount($last_insert_id);
-        return $this->doLogin($account);
-    }
-
-    /**
      * sets session and cookie
      * @param array $account
      * @return boolean $res
@@ -163,31 +143,5 @@ class module extends account {
         $this->setPersistentCookie(true);
         $this->setSessionAndCookie($account);
         $this->redirectOnLogin();
-    }
-
-    /**
-     * method for authorizing a user
-     *
-     * @param   string  username
-     * @param   string  password
-     * @return  array|0 row with user creds on success, 0 if not
-     */
-    public function githubAccountExist($params) {
-
-        // first check for a sub account and return parent account
-        $db = new db();
-        $search = array('url' => $params['url'], 'type' => 'github');
-        $row = $db->selectOne('account_sub', null, $search);
-        if (!empty($row)) {
-            $row = $db->selectOne('account', null, array('id' => $row['parent']));
-            $row = $this->checkLocked($row);
-            return $row;
-        }
-
-        // check main account
-        $search = array('url' => $params['url'], 'type' => 'github');
-        $row = $db->selectOne('account', null, $search);
-        $row = $this->checkLocked($row);
-        return $row;
     }
 }

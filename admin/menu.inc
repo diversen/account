@@ -23,3 +23,11 @@ $_SUB_MODULE_MENU[] = array(
         'url' => '/account/admin/create',
         'auth' => $allow
 );
+
+if (conf::getModuleIni('account_domain_allow')) {
+    $_SUB_MODULE_MENU[] = array(
+        'title' => lang::translate('Domain'),
+        'url' => '/account/admin/domain',
+        'auth' => 'super'
+    );
+}

@@ -146,7 +146,8 @@ class module {
         
         $email = mb::tolower($email);
         // Check if 'type' and 'email' - in both account and account_sub
-        // We trust that a email from facebook is verified
+        // Sub modules like e.g. github, gmail, facebook needs to decide
+        // if the email is authorized
         $account = $this->getAccountFromEmailAndType($email, $type);
         if (!empty($account)) {
             $this->doLogin($account, $type);

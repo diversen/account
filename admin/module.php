@@ -17,6 +17,7 @@ use diversen\user;
 use diversen\strings\mb;
 use diversen\view;
 use diversen\mailsmtp;
+use modules\configdb\module as configdb;
 
 use modules\account\module as account;
 
@@ -66,7 +67,32 @@ class module extends account {
         }
 
         echo self::formCreate();
-        // echo \modules\account\views::getTermsLink();
+    }
+    
+    public function domainAction () {
+        
+        http::prg();
+        if (!session::checkAccess('super')) {
+            return;
+        }
+        
+        if (isset($_POST['submit'])) {
+            $c = new configdb();
+            $c->set('account_domain_allow', html::specialDecode($_POST['domain']));
+            http::locationHeader('/account/admin/domain', lang::translate('Allowed domain has been updated'));
+        }
+        
+        $f = new html();
+        $f->formStart();
+
+        echo $current = conf::getModuleIni('account_domain_allow');
+        $f->init(array('domain' => $current), 'submit', true);
+        $f->legend(lang::translate('Only allow emails from this domain'));
+        $f->label('domain', lang::translate('Enter domain, e.g. gmail.com'));
+        $f->text('domain');
+        $f->submit('submit', lang::translate('Update'));
+        $f->formEnd();
+        echo $f->get();
     }
     
     /**
