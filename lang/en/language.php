@@ -7,11 +7,19 @@ $LANG = array();
 $LANG['Users'] = 'Users';
 $LANG['Search'] = 'Search';
 $LANG['Create user'] = 'Create user';
+$LANG['Domain'] = 'Domain';
+$LANG['Number of users'] = 'Number of users';
 
 // Translation of file modules/account/admin/module.php
 
 $LANG['Create Account'] = 'Create Account';
 $LANG['Account has been created. The created user will need to visit his mailbox'] = 'Account has been created. The created user will need to visit his mailbox';
+$LANG['Allowed domain has been updated'] = 'Allowed domain has been updated';
+$LANG['Only allow emails from this domain'] = 'Only allow emails from this domain';
+$LANG['Enter domain, e.g. gmail.com'] = 'Enter domain, e.g. gmail.com';
+$LANG['Update'] = 'Update';
+$LANG['Allowed number of users has been updated'] = 'Allowed number of users has been updated';
+$LANG['Max amount of accounts'] = 'Max amount of accounts';
 $LANG['Number of users'] = 'Number of users';
 $LANG['Number of verified users'] = 'Number of verified users';
 $LANG['You are allow to create a total of {num} users'] = 'You are allow to create a total of {num} users';

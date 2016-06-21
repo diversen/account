@@ -31,3 +31,11 @@ if (conf::getModuleIni('account_domain_allow')) {
         'auth' => 'super'
     );
 }
+
+if (conf::getModuleIni('account_user_limit')) {
+    $_SUB_MODULE_MENU[] = array(
+        'title' => lang::translate('Number of users'),
+        'url' => '/account/admin/usernum',
+        'auth' => 'super'
+    );
+}

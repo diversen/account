@@ -69,6 +69,11 @@ class module extends account {
         echo self::formCreate();
     }
     
+    /**
+     * /account/admin/domain controller
+     * Overrides account_domain_Allow setting
+     * @return void
+     */
     public function domainAction () {
         
         http::prg();
@@ -85,7 +90,7 @@ class module extends account {
         $f = new html();
         $f->formStart();
 
-        echo $current = conf::getModuleIni('account_domain_allow');
+        $current = conf::getModuleIni('account_domain_allow');
         $f->init(array('domain' => $current), 'submit', true);
         $f->legend(lang::translate('Only allow emails from this domain'));
         $f->label('domain', lang::translate('Enter domain, e.g. gmail.com'));
@@ -94,6 +99,45 @@ class module extends account {
         $f->formEnd();
         echo $f->get();
     }
+    
+    /**
+     * /account/admin/domain controller
+     * Overrides account_domain_Allow setting
+     * @return void
+     */
+    public function usernumAction () {
+        
+        http::prg();
+        if (!session::checkAccess('super')) {
+            return;
+        }
+        
+        if (isset($_POST['submit'])) {
+            
+            $_POST['usernum'] = (int)$_POST['usernum'];
+            if (!$_POST['usernum']) {
+                $_POST['usernum'] = 1;
+            }
+            
+            $c = new configdb();
+            $c->set('account_user_limit', $_POST['usernum']);
+            http::locationHeader('/account/admin/usernum', lang::translate('Allowed number of users has been updated'));
+        }
+        
+        $f = new html();
+        $f->formStart();
+
+        $current = conf::getModuleIni('account_user_limit');
+        $f->init(array('usernum' => $current), 'submit', true);
+        $f->legend(lang::translate('Max amount of accounts'));
+        $f->label('usernum', lang::translate('Number of users'));
+        $f->text('usernum');
+        $f->submit('submit', lang::translate('Update'));
+        $f->formEnd();
+        echo $f->get();
+    }
+    
+    
     
     /**
      * If 'account_user_limit' is set in account.ini we check how 
