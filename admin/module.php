@@ -151,21 +151,25 @@ class module extends account {
             return;
         }
         
-        $num_verified = q::numRows('account')->filter('verified =', 1)->fetch();
-        $num_users = q::numRows('account')->fetch();
+        $num_verified = q::numRows('account')->
+                filter('verified =', 1)->
+                condition('AND')->
+                filter('locked =', 0)->
+                condition('AND')->
+                filter('super !=', 1)->
+                fetch();
         
-        $str = lang::translate('Number of users') . ' ' . $num_users . "<br />";
+        $str = lang::translate('Number of users') . ' ' . $num_verified . "<br />";
         $str.= lang::translate('Number of verified users') . ' ' . $num_verified . "<br />";
         $str.=lang::translate('You are allow to create a total of {num} users', array ('num' => $num_limit));
-        
-        
-        
-        if ($num_users >= $num_limit) {
-            echo \mainTemplate::getWarning($str);
+                
+        if ($num_verified >= $num_limit) {
+            echo html::getWarning($str);
             return false;
         } 
         
-        echo \mainTemplate::getConfirm($str);
+        
+        echo html::getConfirm($str);
         return true;
     }
     
@@ -357,7 +361,7 @@ class module extends account {
         $user = $this->getUser(uri::fragment(3));
         
         if (!session::isSuper() && $user['super'] == 1) {
-            echo \mainTemplate::getError(lang::translate('You can not edit a super account'));
+            echo html::getError(lang::translate('You can not edit a super account'));
             return;     
         }
 
