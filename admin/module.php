@@ -43,11 +43,10 @@ class module extends account {
         }
 
         template::setTitle(lang::translate('Create Account'));
-        if (!$this->getNumUserInfo()) {
+        if ($this->getNumUserInfo() === false) {
             return;
         }
-        
-        $u = new \modules\content\users\module();
+
         if (!empty($_POST['submit'])) {
             $_POST = html::specialEncode($_POST);
             $this->validateCreate($_POST['email']);
@@ -147,8 +146,9 @@ class module extends account {
     public function getNumUserInfo () {
         $num_limit = conf::getModuleIni('account_user_limit');
         
+        // No limit is set. Allow creation
         if (!$num_limit) {
-            return;
+            return true;
         }
         
         $num_verified = q::numRows('account')->
