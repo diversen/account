@@ -59,11 +59,29 @@ class module {
     }
     
     /**
-     * Kill session
+     * Logoutall action. Logs users out of all devices
+     * Logout when going to URL  /account/logoutall
+     *
+     * this calls $this->doLogout();
      */
-    public function killSession () {
+    public function logoutallAction() {
+
+        $this->killSession($all = true);
+        $redirect = $this->getLogoutRedirect();
+        http::locationHeader($redirect);
+    }
+    
+    /**
+     * Kills session
+     * @param boolean $all kill all sessions on all devices
+     */
+    public function killSession ($all = false) {
         
-        session::killSession();
+        if ($all) {
+            session::killAllSessions(session::getUserId());
+        } else {
+            session::killSession();
+        }
         session_regenerate_id(true);
         $_SESSION = array();
 
