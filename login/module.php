@@ -42,9 +42,9 @@ class module extends account {
         template::setTitle(lang::translate('Log in or Log out'));
         
         // Check if we want to keep session
-        if (isset($_POST['keep_session']) && $_POST['keep_session'] == 1) {
+        // if (isset($_POST['keep_session']) && $_POST['keep_session'] == 1) {
             $this->options['keep_session'] = 1;
-        }
+        // }
 
         // Is is logged in
         if (session::isUser()) {         

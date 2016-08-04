@@ -56,27 +56,10 @@ class views {
         html::label('password', lang::translate('Password'), array('required' => true));
         html::password('password');
 
-        self::keepSession();
-
         html::label('submit', '');
         html::submit('submit_account_login', lang::translate('Send'));
         html::formEnd();
         echo html::getStr();
     }
-    
-    /**
-     * Kepp session form part
-     */
-    public static function keepSession () {
 
-        $keep_session_label = lang::translate('Let me stay logged in');
-        $days = conf::getMainIni('cookie_time'); 
-
-        if ($days > 0 ) {
-            $keep_session_label.= ' ' .  $days . ' ' . lang::translate('days'); 
-
-        }            
-        html::label('keep_session', $keep_session_label);
-        html::checkbox('keep_session');
-    }
 }
