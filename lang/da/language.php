@@ -83,8 +83,6 @@ $LANG['Account has been created. Visit your email box and press the verification
 $LANG['Not a correct email or password'] = 'Enten forkert password eller email';
 $LANG['Enter CAPTCHA string'] = 'Indtast CAPTCHA tekst';
 $LANG['Login'] = 'Log ind';
-$LANG['Let me stay logged in'] = 'Forbliv logget ind';
-$LANG['days'] = 'dage';
 $LANG['OpenID'] = 'OpenID';
 $LANG['Facebook'] = 'Facebook';
 $LANG['Github'] = 'Github';
