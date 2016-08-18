@@ -133,8 +133,6 @@ $LANG['Repeat password'] = 'Repeat password';
 $LANG['Enter CAPTCHA string'] = 'Enter CAPTCHA string';
 $LANG['Send'] = 'Send';
 $LANG['Login'] = 'Login';
-$LANG['Let me stay logged in'] = 'Let me stay logged in';
-$LANG['days'] = 'days';
 
 // Translation of file modules/account/menu.inc
 
