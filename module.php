@@ -138,7 +138,9 @@ class module {
         $_SESSION['super'] = $account['super'];
         $_SESSION['account_type'] = $type;
 
-        session::setSystemCookie($account['id']);
+        //if (isset($this->options['keep_session'])) {
+            session::setSystemCookie($account['id']);
+        //}
 
         config::onLogin($account['id']);
     }
