@@ -423,7 +423,7 @@ class module {
     }
 
     /**
-     * compines check of locked account and check of verified account
+     * Combined check of locked account and check of verified account
      * @param array $row
      * @return array $row account row or empty row if user is not valid.
      */
