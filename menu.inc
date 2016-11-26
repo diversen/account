@@ -7,9 +7,6 @@ use diversen\lang;
 $account_logins = conf::getModuleIni('account_logins');
 
 $_MODULE_MENU = array();
-
-
-
 $_MODULE_MENU[] = array(
     'title' => lang::translate('Admin'),
     'url' => '/account/admin/list',
