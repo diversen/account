@@ -53,6 +53,10 @@ class module extends account {
         $app_id = conf::getModuleIni('account_facebook_api_appid');
         $app_secret = conf::getModuleIni('account_facebook_api_secret');
 
+        if (!$app_id || !$app_secret) {
+            die('You will need to set app_id and app_secret in your config file.');
+        }
+        
         // FacebookSession::setDefaultApplication($app_id , $app_secret);
         // $helper = new FacebookRedirectLoginHelper($redirect_url);
              

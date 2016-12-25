@@ -133,15 +133,4 @@ class module extends account {
             echo "<br /><br />" . viewsAccount::getTermsLink();
         }
     }
-    
-    /**
-     * sets session and cookie
-     * @param array $account
-     * @return boolean $res
-     */
-    public function doLogin($account) {
-        $this->setPersistentCookie(true);
-        $this->setSessionAndCookie($account);
-        $this->redirectOnLogin();
-    }
 }

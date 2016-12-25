@@ -76,14 +76,15 @@ class module {
      * @param boolean $all kill all sessions on all devices
      */
     public function killSession ($all = false) {
-        
+       
+ 	if (session_status() == PHP_SESSION_NONE) {
+   	    return;
+	}	 
         if ($all) {
             session::killAllSessions(session::getUserId());
         } else {
             session::killSession();
         }
-        session_regenerate_id(true);
-        $_SESSION = array();
 
     } 
     

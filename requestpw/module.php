@@ -237,7 +237,10 @@ class module extends account {
      * @return array $account
      */
     public function getAccountFromMd5() {
-        $id = $_GET['id'];
+        if ( !isset($_GET['id']) || !isset($_GET['md5']) ) {
+	    return [];
+        }
+	$id = $_GET['id'];
         $md5_key = $_GET['md5'];
         $search = array('id' => $id, 'md5_key' => $md5_key);
 
